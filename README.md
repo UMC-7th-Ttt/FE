@@ -24,22 +24,22 @@
 
 ## 📌 브랜치 전략
 
-  #### 1. 새로운 branch는 항상 main branch에서 생성
+  ### 1. 새로운 branch는 항상 main branch에서 생성
   - **feature/기능요약**: 각자 기능 개발하는 브랜치  
     - ex) `feature/home`
   
-  #### 2. branch 변경 사항을 commit으로 저장
+  ### 2. branch 변경 사항을 commit으로 저장
   - **commit message를 정확하게 작성**
   - 원격 저장소로 **수시로 push**하기
     - 다른 사람도 확인 가능
     - 코드 복구 쉬움
   
-  #### 3. PR(Pull Request) 생성
+  ### 3. PR(Pull Request) 생성
   - merge 준비가 되었을 때, 피드백이나 도움이 필요할 때 PR 생성
     - 코드 리뷰를 도와줌, 상세한 리뷰와 테스트 필요
     - merge 준비가 되었으면 main branch에 merge 요구
   
-  #### 4. GitHub에서 Pull
+  ### 4. GitHub에서 Pull
 
 ---
 
