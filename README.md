@@ -150,7 +150,7 @@ footer
 
 ---
 
-# 📌 프로젝트 환경 설정
+# 📌 Android Studio 환경 설정
 
 ### Android Studio 버전
 
