@@ -97,7 +97,7 @@ body
 footer
 ```
 
-- Type
+- **Type**
 
   * [Feature] : 새로운 기능 구현
   * [Mod] : 코드 수정 및 내부 파일 수정
@@ -128,13 +128,13 @@ footer
     > Added --> Add   
     > Modified --> Modify   
 
-#### - Body
+- **Body**
   
   * 72자이내로 작성한다.
   * 최대한 상세히 작성한다. (코드 변경의 이유를 명확히 작성할수록 좋다)
   * 어떻게 변경했는지보다 무엇을, 왜 변경했는지 작성한다.
 
-#### - Footer
+- **Footer**
   
   * issue tracker ID 명시하고 싶은 경우에 작성한다.
   * 유형: #이슈 번호 형식으로 작성한다.
