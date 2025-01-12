@@ -152,16 +152,16 @@ footer
 
 ## 📌 Android Studio 환경 설정
 
-#### Android Studio 버전
+#### ✅ Android Studio 버전
 
 - Koala (최신 버전)
 
-#### SDK 버전
+#### ✅ SDK 버전
 
 - targetSDK: 34
 - minSDK: 24
 
-#### 테스트 환경
+#### ✅ 테스트 환경
 
 - IDE 내 Emulator, 실제 디바이스
 
