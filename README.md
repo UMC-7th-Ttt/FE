@@ -1,6 +1,6 @@
-# 📌 기술 스택 및 사용 라이브러리
+## 📌 기술 스택 및 사용 라이브러리
 
-## 기술 스택
+### 기술 스택
 
 - 언어: Kotlin
 - 빌드 시스템: Gradle
@@ -8,7 +8,7 @@
 - 버전 관리 도구: Git, GitHub
 - 의존성 관리: Retrofit
 
-## 사용 라이브러리
+### 사용 라이브러리
 
 | 라이브러리            | 목적            |
 | ---------------- | ------------- |
@@ -22,30 +22,30 @@
 
 ---
 
-# 📌 브랜치 전략
+## 📌 브랜치 전략
 
-### 1. 새로운 branch는 항상 main branch에서 생성
+#### 1. 새로운 branch는 항상 main branch에서 생성
 - **feature/기능요약**: 각자 기능 개발하는 브랜치  
   - ex) `feature/home`
 
-### 2. branch 변경 사항을 commit으로 저장
+#### 2. branch 변경 사항을 commit으로 저장
 - **commit message를 정확하게 작성**
 - 원격 저장소로 **수시로 push**하기
   - 다른 사람도 확인 가능
   - 코드 복구 쉬움
 
-### 3. PR(Pull Request) 생성
+#### 3. PR(Pull Request) 생성
 - merge 준비가 되었을 때, 피드백이나 도움이 필요할 때 PR 생성
   - 코드 리뷰를 도와줌, 상세한 리뷰와 테스트 필요
   - merge 준비가 되었으면 main branch에 merge 요구
 
-### 4. GitHub에서 Pull
+#### 4. GitHub에서 Pull
 
 ---
 
-# 📌 Git convention
+## 📌 Git convention
 
-## ✅ Issue convention
+### ✅ Issue convention
 
 - Issue 제목 [title] / body
 - Issue 타입(하나 이상의 Issue 타입을 선택)
@@ -69,7 +69,7 @@
   - 긴급도: `High`, `Middle`, `Low`
 
 
-## ✅ PR convention
+### ✅ PR convention
 
 * PR 타입(하나 이상의 PR 타입을 선택)
   - [] 기능 추가
@@ -87,7 +87,7 @@
   > ex) 베이스 브랜치에 포함되기 위한 코드는 모두 정상적으로 동작해야 합니다. 결과물에 대한 스크린샷, GIF, 혹은 라이브 데모가 가능하도록 샘플API를 첨부할 수도 있습니다.
 
 
-## ✅ Commit convention
+### ✅ Commit convention
 
 ```bash
 type: Subject
@@ -97,7 +97,7 @@ body
 footer
 ```
 
-### - Type
+#### - Type
 
   * [Feature] : 새로운 기능 구현
   * [Mod] : 코드 수정 및 내부 파일 수정
@@ -113,7 +113,7 @@ footer
   * [Refactor] : 전면 수정
   * [Docs] : README나 WIKI 등의 문서 개정
 
-### - Subject
+#### - Subject
 
   * 제목은 최대 50글자까지 작성: ex) Feat: Add Key mapping  
   * 제목 첫 글자를 대문자로  
@@ -128,13 +128,13 @@ footer
     > Added --> Add   
     > Modified --> Modify   
 
-### - Body
+#### - Body
   
   * 72자이내로 작성한다.
   * 최대한 상세히 작성한다. (코드 변경의 이유를 명확히 작성할수록 좋다)
   * 어떻게 변경했는지보다 무엇을, 왜 변경했는지 작성한다.
 
-### - Footer
+#### - Footer
   
   * issue tracker ID 명시하고 싶은 경우에 작성한다.
   * 유형: #이슈 번호 형식으로 작성한다.
@@ -150,18 +150,18 @@ footer
 
 ---
 
-# 📌 Android Studio 환경 설정
+## 📌 Android Studio 환경 설정
 
-### Android Studio 버전
+#### Android Studio 버전
 
 - Koala (최신 버전)
 
-### SDK 버전
+#### SDK 버전
 
 - targetSDK: 34
 - minSDK: 24
 
-### 테스트 환경
+#### 테스트 환경
 
 - IDE 내 Emulator, 실제 디바이스
 
