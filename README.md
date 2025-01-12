@@ -97,7 +97,7 @@ body
 footer
 ```
 
-#### - Type
+- Type
 
   * [Feature] : 새로운 기능 구현
   * [Mod] : 코드 수정 및 내부 파일 수정
@@ -113,7 +113,7 @@ footer
   * [Refactor] : 전면 수정
   * [Docs] : README나 WIKI 등의 문서 개정
 
-#### - Subject
+- **Subject**
 
   * 제목은 최대 50글자까지 작성: ex) Feat: Add Key mapping  
   * 제목 첫 글자를 대문자로  
