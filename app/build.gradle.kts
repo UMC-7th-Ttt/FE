@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.fe"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.fe"
@@ -33,11 +33,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    implementation (libs.androidx.fragment)
+    implementation (libs.androidx.viewpager2)
+    implementation (libs.androidx.recyclerview)
 
-    implementation(libs.androidx.core.ktx)
+    implementation (libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
