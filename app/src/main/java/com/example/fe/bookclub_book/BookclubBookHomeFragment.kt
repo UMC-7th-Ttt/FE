@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.bookclub_book
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.bookclub_book.dataclass.BookclubByMonth
+import com.example.fe.bookclub_book.dataclass.BookclubMember
+import com.example.fe.R
+import com.example.fe.bookclub_book.adapter.BookclubByMonthRVAdapter
+import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
 
 
@@ -32,10 +37,10 @@ class BookclubBookHomeFragment: Fragment() {
         val bookclubByMonthRVAdapter = BookclubByMonthRVAdapter()
 
         val dummyMembers = listOf(
-            BookclubMember("주디",R.drawable.img_member1),
-            BookclubMember("파도",R.drawable.img_member2),
-            BookclubMember("민준",R.drawable.img_member3),
-            BookclubMember("현규",R.drawable.img_member4)
+            BookclubMember("주디", R.drawable.img_member1),
+            BookclubMember("파도", R.drawable.img_member2),
+            BookclubMember("민준", R.drawable.img_member3),
+            BookclubMember("현규", R.drawable.img_member4)
         )
 
         val dummyBookclubByMonth = listOf(

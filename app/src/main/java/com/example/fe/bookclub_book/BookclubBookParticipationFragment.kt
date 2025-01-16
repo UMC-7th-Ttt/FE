@@ -1,12 +1,13 @@
-package com.example.fe
+package com.example.fe.bookclub_book
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.fe.bookclub_book.dataclass.BookclubParticipation
+import com.example.fe.bookclub_book.adapter.BookclubParticipationRVAdapter
 import com.example.fe.databinding.FragmentBookclubBookParticipantBinding
 
 class BookclubBookParticipationFragment: Fragment() {

@@ -1,10 +1,10 @@
-package com.example.fe
+package com.example.fe.bookclub_book.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.databinding.ItemBookclubBookMonthsBinding
+import com.example.fe.bookclub_book.dataclass.BookclubParticipation
 import com.example.fe.databinding.ItemBookclubBookParticipationBinding
 
 class BookclubParticipationRVAdapter() : RecyclerView.Adapter<BookclubParticipationRVAdapter.ViewHolder>() {
@@ -20,7 +20,7 @@ class BookclubParticipationRVAdapter() : RecyclerView.Adapter<BookclubParticipat
 //        mItemClickListener = itemClickListener
 //    }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BookclubParticipationRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemBookclubBookParticipationBinding = ItemBookclubBookParticipationBinding.inflate(
             LayoutInflater.from(viewGroup.context), viewGroup, false)
 

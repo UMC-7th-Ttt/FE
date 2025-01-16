@@ -7,4 +7,7 @@
     <color name="colorMainBg">#0F0F10</color>
     <color name="colorLabelNormal">#F7F7F8</color>
     <color name="colorLabelAlternative">#AEB0B6</color>
+
+    <color name="characterStatusGrey">#BCBABA</color>
+    <color name="myPageScrapBg">#F6F6F6</color>
 </resources>

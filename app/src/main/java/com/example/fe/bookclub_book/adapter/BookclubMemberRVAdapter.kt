@@ -1,9 +1,10 @@
-package com.example.fe
+package com.example.fe.bookclub_book.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.bookclub_book.dataclass.BookclubMember
 import com.example.fe.databinding.ItemBookclubBookMembersBinding
 
 class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.ViewHolder>() {
@@ -20,7 +21,7 @@ class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.V
 //        mItemClickListener = itemClickListener
 //    }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BookclubMemberRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemBookclubBookMembersBinding = ItemBookclubBookMembersBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
         return ViewHolder(binding)
@@ -28,7 +29,7 @@ class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.V
 
     override fun getItemCount(): Int = members.size
 
-    override fun onBindViewHolder(holder: BookclubMemberRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(members[position])
     }
 
@@ -36,6 +37,7 @@ class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.V
 
         fun bind(bookclubMember: BookclubMember) {
             binding.itemBookclubBookMemberNameTv.text = bookclubMember.name
+            binding.itemBookclubBookMembersCoverImg.setImageResource(bookclubMember.coverImg!!)
         }
     }
 
