@@ -5,8 +5,15 @@
     <color name="transparent">#00FF0000</color>
 
     <color name="colorMainBg">#0F0F10</color>
+    
     <color name="colorLabelNormal">#F7F7F8</color>
     <color name="colorLabelAlternative">#AEB0B6</color>
+    <color name="colorLabelAssistive">#40AEB0B6</color>
+    <color name="colorLabelNeutral">#D9C2C4C8</color>
+    
+    <color name="colorPrimaryNormal">#CFF305</color>
+    <color name="colorPrimary10">#546203</color>
+    <color name="colorFill">#3370737C</color>
 
     <color name="characterStatusGrey">#BCBABA</color>
     <color name="myPageScrapBg">#F6F6F6</color>

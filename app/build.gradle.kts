@@ -40,7 +40,9 @@ android {
 }
 
 dependencies {
+    implementation (libs.androidx.core.splashscreen.v100alpha01)
     implementation (libs.androidx.fragment)
+    implementation (libs.androidx.fragment.ktx)
     implementation (libs.androidx.viewpager2)
     implementation (libs.androidx.recyclerview)
 

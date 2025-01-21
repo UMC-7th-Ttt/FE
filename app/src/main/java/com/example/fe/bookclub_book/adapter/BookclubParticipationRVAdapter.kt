@@ -2,23 +2,18 @@ package com.example.fe.bookclub_book.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.bookclub_book.dataclass.BookclubParticipation
 import com.example.fe.databinding.ItemBookclubBookParticipationBinding
 
-class BookclubParticipationRVAdapter() : RecyclerView.Adapter<BookclubParticipationRVAdapter.ViewHolder>() {
+class BookclubParticipationRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<BookclubParticipationRVAdapter.ViewHolder>() {
     private val participations = ArrayList<BookclubParticipation>()
 
-//    interface MyItemClickListener{
-//        fun onRemoveSong(songId: Int)
-//    }
-//
-//    private lateinit var mItemClickListener : MyItemClickListener
-//
-//    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
-//        mItemClickListener = itemClickListener
-//    }
+    interface MyItemClickListener {
+        fun onItemClick(participation: BookclubParticipation)
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemBookclubBookParticipationBinding = ItemBookclubBookParticipationBinding.inflate(
@@ -33,17 +28,21 @@ class BookclubParticipationRVAdapter() : RecyclerView.Adapter<BookclubParticipat
 
     override fun getItemCount(): Int = participations.size
 
-
-    inner class ViewHolder(val binding: ItemBookclubBookParticipationBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemBookclubBookParticipationBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(participation: BookclubParticipation) {
-            binding.itemParticipantBookTv.text = participation.book
+            binding.itemParticipantProgressBar.progress = participation.progress
+            binding.itemParticipationProgressTv.text = "${participation.progress}%"
+
+            // 아이템 클릭 리스너 설정
+            binding.root.setOnClickListener {
+                itemClickListener.onItemClick(participation)
+            }
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setParticipation(participation: List<BookclubParticipation>) {
-        this.participations.clear()  // 기존 데이터 제거
-        this.participations.addAll(participation)  // 새로운 데이터 추가
-        notifyDataSetChanged()  // 데이터 변경 알림
+        this.participations.clear()
+        this.participations.addAll(participation)
+        notifyDataSetChanged()
     }
 }

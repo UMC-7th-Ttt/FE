@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_bookclub_book_month_cardview"
-        android:layout_width="105dp"
-        android:layout_height="160dp"
+        android:layout_width="142dp"
+        android:layout_height="198dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         android:layout_marginEnd="12dp"
@@ -16,20 +16,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/item_bookclub_book_month"
+            android:id="@+id/item_bookclub_book_month_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:background="@color/colorLabelAlternative"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_review_book1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/item_bookclub_book_month_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text"
-            android:textColor="@color/black"/>
 
     </androidx.cardview.widget.CardView>
 

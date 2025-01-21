@@ -3,9 +3,11 @@ package com.example.fe.bookclub_book
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookVPAdapter
+import com.example.fe.bookclub_book.dataclass.BookclubParticipation
 import com.example.fe.databinding.ActivitiyBookclubBookBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,8 +17,6 @@ class BookclubBookActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivitiyBookclubBookBinding.inflate(layoutInflater)
         setContentView(R.layout.activitiy_bookclub_book)
 
         val tabLayout: TabLayout = findViewById(R.id.bookclub_book_content_tl)

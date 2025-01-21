@@ -1,7 +1,8 @@
 package com.example.fe.bookclub_book.dataclass
 
 data class BookclubByMonth(
-    val month:String = ""
+    val month:String = "",
+    val coverImg:Int? = null
 )
 
 data class BookclubMember(
@@ -10,5 +11,11 @@ data class BookclubMember(
 )
 
 data class BookclubParticipation(
-    val book:String = ""
+    val book:String = "",
+    val progress: Int
+)
+
+data class BookclubDetailMember(
+    val name:String = "",
+    val coverImg:Int? = null
 )

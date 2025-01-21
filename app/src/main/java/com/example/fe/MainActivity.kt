@@ -2,6 +2,7 @@ package com.example.fe
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.fe.databinding.ActivityMainBinding
 import com.example.fe.mypage.MyPageFragment
 
@@ -23,6 +24,4 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
     }
-
-
 }

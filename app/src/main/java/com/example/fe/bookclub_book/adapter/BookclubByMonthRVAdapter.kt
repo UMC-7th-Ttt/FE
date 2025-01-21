@@ -36,7 +36,8 @@ class BookclubByMonthRVAdapter():RecyclerView.Adapter<BookclubByMonthRVAdapter.V
 
     inner class ViewHolder(val binding: ItemBookclubBookMonthsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(bookclubByMonth: BookclubByMonth) {
-            binding.itemBookclubBookMonthTv.text = bookclubByMonth.month
+//            binding.itemBookclubBookMonthTv.text = bookclubByMonth.month
+            binding.itemBookclubBookMonthIv.setImageResource(bookclubByMonth.coverImg!!)
         }
     }
 

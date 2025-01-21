@@ -5,4 +5,8 @@
         <item name="lineHeight">22sp</item>
         <item name="android:textColor">@color/colorLabelAlternative</item>
     </style>
+
+    <style name="Theme.FE.Launcher" parent="Theme.FE">
+        <item name="android:windowBackground">@color/colorMainBg</item>
+    </style>
 </resources>

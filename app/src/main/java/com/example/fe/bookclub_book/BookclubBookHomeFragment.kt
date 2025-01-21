@@ -1,10 +1,12 @@
 package com.example.fe.bookclub_book
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.bookclub_book.dataclass.BookclubByMonth
 import com.example.fe.bookclub_book.dataclass.BookclubMember
@@ -14,12 +16,12 @@ import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
 
 
-class BookclubBookHomeFragment: Fragment() {
-    lateinit var binding: FragmentBookclubBookHomeBinding
+class BookclubBookHomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentBookclubBookHomeBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBookclubBookHomeBinding.inflate(inflater, container, false)
@@ -29,7 +31,7 @@ class BookclubBookHomeFragment: Fragment() {
         return binding.root
     }
 
-    private fun initBookclubMemberRecyclerview(){
+    private fun initBookclubMemberRecyclerview() {
         binding.bookclubBookHomeMembersRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.bookclubBookHomeMonthRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -37,17 +39,16 @@ class BookclubBookHomeFragment: Fragment() {
         val bookclubByMonthRVAdapter = BookclubByMonthRVAdapter()
 
         val dummyMembers = listOf(
-            BookclubMember("주디", R.drawable.img_member1),
-            BookclubMember("파도", R.drawable.img_member2),
-            BookclubMember("민준", R.drawable.img_member3),
-            BookclubMember("현규", R.drawable.img_member4)
+            BookclubMember("주디", R.drawable.img_bookclub_member),
+            BookclubMember("파도", R.drawable.img_bookclub_member),
+            BookclubMember("민준", R.drawable.img_bookclub_member),
+            BookclubMember("현규", R.drawable.img_bookclub_member)
         )
 
         val dummyBookclubByMonth = listOf(
-            BookclubByMonth("1월"),
-            BookclubByMonth("2월"),
-            BookclubByMonth("3월"),
-            BookclubByMonth("4월")
+            BookclubByMonth("", R.drawable.img_bookclub_book_1),
+            BookclubByMonth("", R.drawable.img_bookclub_book_2),
+            BookclubByMonth("", R.drawable.img_bookclub_book_3)
         )
 
         bookclubMemberRVAdapter.setMembers(dummyMembers)
@@ -55,8 +56,5 @@ class BookclubBookHomeFragment: Fragment() {
 
         binding.bookclubBookHomeMembersRv.adapter = bookclubMemberRVAdapter
         binding.bookclubBookHomeMonthRv.adapter = bookclubByMonthRVAdapter
-
     }
-
-
 }
