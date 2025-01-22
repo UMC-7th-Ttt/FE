@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendar_bg_layout"
+    android:layout_width="46dp"
+    android:layout_height="62dp"
+    android:background="@drawable/calendar_bg"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/calendar_day_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:paddingStart="2dp"
+        android:textColor="@color/colorLabelAlternative"
+        android:layout_gravity="start|top"
+        android:textAlignment="viewStart"
+        android:layout_margin="1dp"/>
+
+</LinearLayout>

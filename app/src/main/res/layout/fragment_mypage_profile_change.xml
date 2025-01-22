@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mypage_profile_back_iv"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_primary_back"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:scaleType="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/mypage_profile_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필 변경"
+        android:textSize="20sp"
+        android:textColor="@color/colorLabelNormal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/profile_image_iv"
+        android:layout_width="123dp"
+        android:layout_height="120dp"
+        android:src="@drawable/img_review_book1"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/round_bg"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toBottomOf="@id/mypage_profile_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/change_image_btn"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginStart="84dp"
+        android:src="@color/colorLabelAlternative"
+        android:background="@drawable/white_border"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toTopOf="@id/profile_image_iv"
+        app:layout_constraintStart_toStartOf="@id/profile_image_iv"/>
+
+    <TextView
+        android:id="@+id/profile_nickname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_iv"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/nickname_et_fl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_nickname_tv"
+        app:layout_constraintStart_toStartOf="@id/profile_nickname_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/nickname_et"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/round_edit_text_bg"
+            android:hint="닉네임 입력"
+            android:textColor="@color/colorLabelAssistive"
+            android:layout_marginEnd="20dp"
+            android:paddingStart="16dp"/>
+
+        <Button
+            android:id="@+id/check_duplicate_btn"
+            android:layout_width="60dp"
+            android:layout_height="29dp"
+            android:text="중복확인"
+            android:textSize="11sp"
+            android:background="@color/colorPrimaryNormal"
+            android:textColor="@color/colorPrimary10"
+            android:layout_gravity="end|center"
+            android:layout_marginEnd="32dp"/>
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/nickname_poss_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용 가능한 닉네임입니다."
+        android:textColor="@color/colorPrimaryNormal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/nickname_et_fl"
+        app:layout_constraintStart_toStartOf="@id/nickname_et_fl"/>
+
+    <Button
+        android:id="@+id/confirm_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="변경하기"
+        android:background="@drawable/primary_btn_bg"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/nickname_poss_iv"
+        app:layout_constraintStart_toStartOf="@id/nickname_poss_iv"
+        app:layout_constraintEnd_toEndOf="@id/nickname_et_fl"
+        android:layout_marginTop="234dp"
+        android:layout_marginEnd="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
