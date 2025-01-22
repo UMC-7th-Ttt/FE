@@ -6,4 +6,91 @@
     </style>
 
     <style name="Theme.FE" parent="Base.Theme.FE" />
+
+
+    <!-- Font style code -->
+
+    <!-- Title -->
+    <style name="title">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">35dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- Subtitle -->
+    <style name="subtitle_01">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">32dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="subtitle_02">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">30dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Body -->
+    <style name="body_regular_01">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">26dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="body_regular_02">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">23dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="body_regular_03">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingExtra">-0.3sp</item>
+        <item name="lineHeight">18dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="body_semibold_01">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">26dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="body_semibold_02">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">-0.35sp</item>
+        <item name="lineHeight">23dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="body_semibold_03">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">-0.3sp</item>
+        <item name="lineHeight">18dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Button -->
+    <style name="button_semibold">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="lineHeight">18.7dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="button_medium">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="lineHeight">18.7dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Caption -->
+    <style name="caption">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:lineSpacingExtra">-0.3sp</item>
+        <item name="lineHeight">14dp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>
