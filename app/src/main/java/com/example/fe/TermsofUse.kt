@@ -43,12 +43,12 @@ class TermsofUse : AppCompatActivity() {
         }
 
         // next_button 클릭 시 다음 페이지로 이동
-//        val nextButton: ImageButton = findViewById(R.id.next_button)
-//        nextButton.setOnClickListener {
-//            // NextActivity로 이동
-//            val intent = Intent(this, NextActivity::class.java)
-//            startActivity(intent)
-//        }
+        val nextButton: ImageButton = findViewById(R.id.next_button)
+        nextButton.setOnClickListener {
+            // NextActivity로 이동
+            val intent = Intent(this, SignUpID::class.java)
+            startActivity(intent)
+        }
 
     }
 }
