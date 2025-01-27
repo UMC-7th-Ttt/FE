@@ -22,7 +22,6 @@ class SignUpComplete : AppCompatActivity() {
             val intent = Intent(this, SignUpPW::class.java)
             startActivity(intent)
         }
-
         enableEdgeToEdge()
 
         // 윈도우 인셋 적용
