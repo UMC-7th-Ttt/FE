@@ -1,5 +1,6 @@
 package com.example.fe
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -35,12 +36,20 @@ class SignUpPW : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_up_pw)
 
+        // Initialize views after setContentView
         val backButton: ImageButton = findViewById(R.id.back_button)
+        nextButton = findViewById(R.id.next_button) // Initialize nextButton here
+
         backButton.setOnClickListener {
             finish() // 현재 액티비티 종료 후 이전 페이지로 돌아감
         }
 
-        // Initialize views
+        nextButton.setOnClickListener {
+            val intent = Intent(this, SignUpName::class.java) // Replace NextActivity with your next activity
+            startActivity(intent)
+        }
+
+        // Initialize other views
         pwInput = findViewById(R.id.pw_input)
         pwCheckInput = findViewById(R.id.pw_check_input)
         pwCheck1Tv = findViewById(R.id.pw_check1_tv)
@@ -51,7 +60,6 @@ class SignUpPW : AppCompatActivity() {
         pwCheckCheck = findViewById(R.id.pw_check_check)
         pwShow = findViewById(R.id.pw_show)
         pwCheckShow = findViewById(R.id.pw_check_show)
-        nextButton = findViewById(R.id.next_button)
 
         // Set initial password visibility state
         pwInput.inputType = 129  // Password input type (hidden)
