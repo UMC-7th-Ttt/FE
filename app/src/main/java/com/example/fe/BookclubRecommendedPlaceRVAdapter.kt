@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.databinding.ItemBookclubRecommendedPlaceBinding
 
 class BookclubRecommendedPlaceRVAdapter(
-    private val places: List<Place> // Place 데이터 리스트
+    private val places: List<Place>
 ) : RecyclerView.Adapter<BookclubRecommendedPlaceRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemBookclubRecommendedPlaceBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,7 +23,7 @@ class BookclubRecommendedPlaceRVAdapter(
             itemBookclubRecommendedPlaceNameTv.text = place.name
             itemBookclubRecommendedPlaceTagTv.text = place.tag
             itemBookclubRecommendedPlaceRatingTv.text = place.rating.toString()
-            itemBookclubRecommendedPlaceImg.setImageResource(place.imageResId) // 이미지 설정
+            itemBookclubRecommendedPlaceImg.setImageResource(place.imageResId)
         }
     }
 

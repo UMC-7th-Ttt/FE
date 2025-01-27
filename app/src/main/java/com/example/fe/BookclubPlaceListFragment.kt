@@ -32,7 +32,6 @@ class BookclubPlaceListFragment : Fragment() {
             Place("알키미스타", "카페", 4.8, R.drawable.img_place5, false)
         )
 
-        // RecyclerView 설정
         val adapter = BookclubPlaceRVAdapter(places)
         binding.bookclubPlaceRv.layoutManager = LinearLayoutManager(requireContext())
         binding.bookclubPlaceRv.adapter = adapter

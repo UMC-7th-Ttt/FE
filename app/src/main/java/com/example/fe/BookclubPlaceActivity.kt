@@ -14,12 +14,10 @@ class BookclubPlaceActivity : AppCompatActivity() {
         binding = ActivityBookclubPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // FrameLayout에 PlaceListFragment 추가
         supportFragmentManager.beginTransaction()
             .replace(R.id.bookclub_place_frm, BookclubPlaceListFragment())
             .commit()
 
-        // 여러 버튼이 BookclubPlaceSearchFragment로 이동하도록 설정
         val commonClickListener = View.OnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.bookclub_place_frm, BookclubPlaceSearchFragment())
