@@ -1,4 +1,5 @@
 package com.example.fe
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -10,7 +11,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.constraintlayout.widget.ConstraintLayout
 
 class SignUpID : AppCompatActivity() {
 
@@ -39,7 +39,7 @@ class SignUpID : AppCompatActivity() {
         }
 
         // Initialize views
-        emailInput = findViewById(R.id.email_input)
+        emailInput = findViewById(R.id.pw_check_input)
         emailError = findViewById(R.id.email_error)
         accountExistsError = findViewById(R.id.account_exists_error)
         sendButton = findViewById(R.id.send_button)
@@ -56,6 +56,7 @@ class SignUpID : AppCompatActivity() {
         verificationCodeInput.visibility = View.GONE
         timerText.visibility = View.GONE
         verificationCodeError.visibility = View.GONE
+
 
         // Email validation logic
         emailInput.addTextChangedListener(object : TextWatcher {
@@ -117,10 +118,13 @@ class SignUpID : AppCompatActivity() {
             }
         }
 
-        // Next button click logic (you can implement the next steps here)
+        val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
-            // Proceed to next screen or step
+            // NextActivity로 이동
+            val intent = Intent(this, SignUpPW::class.java)
+            startActivity(intent)
         }
+
     }
 
     private fun startTimer() {
