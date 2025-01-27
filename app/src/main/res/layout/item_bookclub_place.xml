@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="290dp"
-    android:background="@color/black"
-    android:padding="8dp">
+    android:layout_height="270dp"
+    android:background="@color/black_80"
+    android:padding="3dp">
 
     <ImageView
-        android:id="@+id/bookclub_place_item_img"
+        android:id="@+id/item_bookclub_place_img"
         android:layout_width="365dp"
-        android:layout_height="210dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/img_place1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,20 +19,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/bookclub_place_name_tv"
+        android:id="@+id/item_bookclub_place_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:text="인덱스숍"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@id/bookclub_place_item_img"
-        app:layout_constraintTop_toBottomOf="@id/bookclub_place_item_img" />
+        app:layout_constraintStart_toStartOf="@id/item_bookclub_place_img"
+        app:layout_constraintTop_toBottomOf="@id/item_bookclub_place_img" />
 
     <TextView
-        android:id="@+id/bookclub_place_tag_tv"
-        android:layout_width="wrap_content"
+        android:id="@+id/item_bookclub_place_tag_tv"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
@@ -41,11 +41,12 @@
         android:text="카페"
         android:textColor="@color/primary_50"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@id/bookclub_place_item_img"
-        app:layout_constraintBottom_toBottomOf="@id/bookclub_place_item_img" />
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/item_bookclub_place_img"
+        app:layout_constraintBottom_toBottomOf="@id/item_bookclub_place_img" />
 
     <ImageView
-        android:id="@+id/bookclub_place_star_ic"
+        android:id="@+id/item_bookclub_place_star_ic"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="5dp"
@@ -53,12 +54,12 @@
         android:layout_marginEnd="0dp"
         android:padding="4dp"
         android:src="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/bookclub_place_name_tv"
-        app:layout_constraintTop_toBottomOf="@id/bookclub_place_item_img"
-        app:layout_constraintEnd_toStartOf="@id/placeRating"/>
+        app:layout_constraintStart_toEndOf="@id/item_bookclub_place_name_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_bookclub_place_img"
+        app:layout_constraintEnd_toStartOf="@id/item_bookclub_place_rating_tv"/>
 
     <TextView
-        android:id="@+id/placeRating"
+        android:id="@+id/item_bookclub_place_rating_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -66,16 +67,16 @@
         android:text="4.8"
         android:textColor="@color/white_50"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/bookclub_place_star_ic"
-        app:layout_constraintTop_toBottomOf="@id/bookclub_place_item_img" />
+        app:layout_constraintStart_toEndOf="@id/item_bookclub_place_star_ic"
+        app:layout_constraintTop_toBottomOf="@id/item_bookclub_place_img" />
 
     <ImageView
-        android:id="@+id/bookclub_place_bookmark_ic"
+        android:id="@+id/item_bookclub_place_bookmark_ic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_bookmark_selected"
         android:padding="9dp"
-        app:layout_constraintEnd_toEndOf="@id/bookclub_place_item_img"
-        app:layout_constraintTop_toBottomOf="@id/bookclub_place_item_img"/>
+        app:layout_constraintEnd_toEndOf="@id/item_bookclub_place_img"
+        app:layout_constraintTop_toBottomOf="@id/item_bookclub_place_img"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
