@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpPW"
+    android:background="@color/black">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="42dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/ic_signup_circle_frame2" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:lineSpacingExtra="4dp"
+        android:text="로그인에 사용할 \n비밀번호를 입력해 주세요"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+    <TextView
+        android:id="@+id/pw_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="비밀번호"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <EditText
+        android:id="@+id/pw_input"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white_10"
+        android:hint="비밀번호(영문+숫자6+16자)"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_20"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/pwcheck_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw_label"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <ImageView
+        android:id="@+id/pw_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/pw_input"
+        app:layout_constraintEnd_toEndOf="@+id/pw_input"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="@+id/pw_input"
+        app:layout_constraintTop_toTopOf="@+id/pw_input"
+        app:srcCompat="@drawable/ic_signup_pw_eye" />
+
+
+    <ImageView
+        android:id="@+id/pw_check1"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/pwcheck_label"
+        app:layout_constraintEnd_toStartOf="@+id/pw_check1_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw_input"
+        app:srcCompat="@drawable/ic_signup_check" />
+
+    <TextView
+        android:id="@+id/pw_check1_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="21dp"
+        android:text="6-16자 이내"
+        app:layout_constraintBottom_toTopOf="@+id/pwcheck_label"
+        app:layout_constraintEnd_toStartOf="@+id/pw_check2"
+        app:layout_constraintStart_toEndOf="@+id/pw_check1"
+        app:layout_constraintTop_toBottomOf="@+id/pw_input" />
+
+    <ImageView
+        android:id="@+id/pw_check2"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="47dp"
+        app:layout_constraintBottom_toTopOf="@+id/pw_check_input"
+        app:layout_constraintEnd_toStartOf="@+id/pw_check2_tv"
+        app:layout_constraintStart_toEndOf="@+id/pw_check1_tv"
+        app:layout_constraintTop_toBottomOf="@+id/pw_input"
+        app:layout_constraintVertical_bias="0.6"
+        app:srcCompat="@drawable/ic_signup_check" />
+
+    <TextView
+        android:id="@+id/pw_check2_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="50dp"
+        android:text="대소문자, 숫자, 특수문자 포함"
+        app:layout_constraintBottom_toTopOf="@+id/pw_check_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pw_check2"
+        app:layout_constraintTop_toBottomOf="@+id/pw_input"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/pwcheck_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="비밀번호 재확인"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/pw_check_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw_check1" />
+
+    <EditText
+        android:id="@+id/pw_check_input"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white_10"
+        android:hint="6자 이상의 비밀번호"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_20"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pwcheck_label" />
+
+    <ImageView
+        android:id="@+id/pw_check_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/pw_check_input"
+        app:layout_constraintEnd_toEndOf="@+id/pw_check_input"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="@+id/pw_check_input"
+        app:layout_constraintTop_toTopOf="@+id/pw_check_input"
+        app:layout_constraintVertical_bias="0.533"
+        app:srcCompat="@drawable/ic_signup_pw_eye" />
+
+    <ImageView
+        android:id="@+id/pw_check_check"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/pw_check_check_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw_check_input"
+        app:srcCompat="@drawable/ic_signup_check" />
+
+    <TextView
+        android:id="@+id/pw_check_check_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="265dp"
+        android:text="비밀번호 일치"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pw_check_check"
+        app:layout_constraintTop_toBottomOf="@+id/pw_check_input" />
+
+    <ImageButton
+        android:id="@+id/next_button"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="68dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:src="@drawable/btn_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/next_button_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

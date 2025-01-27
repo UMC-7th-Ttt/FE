@@ -42,7 +42,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/pretendard_bold"
         android:lineSpacingExtra="4dp"
-        android:text="로그인에 사용할 \n아이디를 입력해주세요"
+        android:text="로그인에 사용할 \n아이디를 입력해 주세요"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,21 +51,21 @@
         app:layout_constraintTop_toBottomOf="@id/back_button" />
 
     <TextView
-        android:id="@+id/email_label"
+        android:id="@+id/pwcheck_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/pretendard_medium"
         android:text="아이디(이메일)"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/email_input"
+        app:layout_constraintBottom_toTopOf="@+id/pw_check_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <EditText
-        android:id="@+id/email_input"
+        android:id="@+id/pw_check_input"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_label" />
+        app:layout_constraintTop_toBottomOf="@id/pwcheck_label" />
 
     <!-- 이메일 형식 오류 메시지 -->
 
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_input" />
+        app:layout_constraintTop_toBottomOf="@id/pw_check_input" />
 
     <!-- 인증번호 틀린 경우 메시지 -->
 
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_input" />
+        app:layout_constraintTop_toBottomOf="@+id/pw_check_input" />
 
     <TextView
         android:id="@+id/email_label2"
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_input" />
+        app:layout_constraintTop_toBottomOf="@id/pw_check_input" />
 
     <TextView
         android:id="@+id/verification_code_error"
@@ -168,11 +168,11 @@
         android:backgroundTint="@color/primary_30"
         android:text="전송하기"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/email_input"
-        app:layout_constraintEnd_toEndOf="@+id/email_input"
+        app:layout_constraintBottom_toBottomOf="@+id/pw_check_input"
+        app:layout_constraintEnd_toEndOf="@+id/pw_check_input"
         app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toStartOf="@+id/email_input"
-        app:layout_constraintTop_toTopOf="@+id/email_input"
+        app:layout_constraintStart_toStartOf="@+id/pw_check_input"
+        app:layout_constraintTop_toTopOf="@+id/pw_check_input"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
