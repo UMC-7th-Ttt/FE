@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".SignUpComplete"
     android:background="@color/black">
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
