@@ -19,7 +19,7 @@ class SignUpComplete : AppCompatActivity() {
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             // NextActivity로 이동
-            val intent = Intent(this, SignUpPW::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
         enableEdgeToEdge()
