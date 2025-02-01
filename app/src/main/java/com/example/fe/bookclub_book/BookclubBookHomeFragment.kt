@@ -1,7 +1,6 @@
 package com.example.fe.bookclub_book
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +34,27 @@ class BookclubBookHomeFragment : Fragment() {
         binding.bookclubBookHomeMembersRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.bookclubBookHomeMonthRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        val bookclubMemberRVAdapter = BookclubMemberRVAdapter()
-        val bookclubByMonthRVAdapter = BookclubByMonthRVAdapter()
+        val bookclubMemberRVAdapter = BookclubMemberRVAdapter(object : BookclubMemberRVAdapter.MyItemClickListener {
+            override fun onItemClick(participation: ArrayList<BookclubMember>) {
+                // Fragment 전환
+                val detailFragment = BookclubBookReviewFragment()
+                parentFragmentManager.commit {
+                    replace(R.id.fragment_container, detailFragment)
+                    addToBackStack(null)
+                }
+            }
+        })
+
+        val bookclubByMonthRVAdapter = BookclubByMonthRVAdapter(object : BookclubByMonthRVAdapter.MyItemClickListener {
+            override fun onItemClick(participation: ArrayList<BookclubByMonth>) {
+                // Fragment 전환
+                val detailFragment = BookclubBookRegisterFragment()
+                parentFragmentManager.commit {
+                    replace(R.id.fragment_container, detailFragment)
+                    addToBackStack(null)
+                }
+            }
+        })
 
         val dummyMembers = listOf(
             BookclubMember("주디", R.drawable.img_bookclub_member),
@@ -56,5 +74,6 @@ class BookclubBookHomeFragment : Fragment() {
 
         binding.bookclubBookHomeMembersRv.adapter = bookclubMemberRVAdapter
         binding.bookclubBookHomeMonthRv.adapter = bookclubByMonthRVAdapter
+
     }
 }

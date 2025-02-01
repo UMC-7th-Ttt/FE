@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorMainBg"
     android:id="@+id/fragment_container">
 
     <TextView
@@ -44,10 +45,10 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/bookclub_book_content_tl"
+        android:background="@color/colorMainBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:tabTextAppearance="@style/TabTextStyle"
         app:tabTextColor="@color/colorLabelAlternative"
         app:tabSelectedTextColor="@color/colorLabelNormal"
         app:tabIndicatorColor="@color/colorLabelNormal"

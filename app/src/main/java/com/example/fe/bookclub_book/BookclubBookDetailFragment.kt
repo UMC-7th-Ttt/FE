@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookDetailMemberRVAdapter
 import com.example.fe.bookclub_book.dataclass.BookclubDetailMember
-import com.example.fe.bookclub_book.dataclass.BookclubMember
 import com.example.fe.databinding.FragmentBookclubBookDetailBinding
 
 class BookclubBookDetailFragment : Fragment() {

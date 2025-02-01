@@ -2,7 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorMainBg"
+    android:id="@+id/fragment_container"
+    >
 
     <TextView
         android:id="@+id/mypage_tv"
@@ -82,7 +85,7 @@
         android:id="@+id/mypage_description_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="세상에 하나뿐인 나만의 서재"
+        android:text="세상에 하나뿐인 나만의 서재📚"
         android:textSize="13sp"
         android:textColor="@color/colorLabelAlternative"
         app:layout_constraintTop_toBottomOf="@+id/mypage_nickname_tv"
@@ -93,14 +96,14 @@
         android:id="@+id/mypage_content_tl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorMainBg"
         android:layout_marginTop="16dp"
         app:tabTextAppearance="@style/TabTextStyle"
         app:tabTextColor="@color/colorLabelAlternative"
         app:tabSelectedTextColor="@color/colorLabelNormal"
-        app:tabIndicatorColor="@color/colorLabelNormal"
         app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/colorLabelNormal"
         app:tabIndicatorFullWidth="true"
-        app:tabGravity="fill"
         app:layout_constraintTop_toBottomOf="@id/mypage_character_iv"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -108,11 +111,21 @@
         android:id="@+id/mypage_content_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mypage_content_tl" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/vp_fragment_change_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypage_content_tl"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

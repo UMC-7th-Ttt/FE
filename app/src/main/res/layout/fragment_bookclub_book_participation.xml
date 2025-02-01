@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="50dp"
     android:paddingTop="31dp"
+    android:background="@color/colorMainBg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <TextView

@@ -7,19 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.bookclub_book.dataclass.BookclubMember
 import com.example.fe.databinding.ItemBookclubBookMembersBinding
 
-class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.ViewHolder>() {
+class BookclubMemberRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<BookclubMemberRVAdapter.ViewHolder>() {
 
     private val members = ArrayList<BookclubMember>()
 
-//    interface MyItemClickListener{
-//        fun onRemoveSong(songId: Int)
-//    }
-//
-//    private lateinit var mItemClickListener : MyItemClickListener
-//
-//    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
-//        mItemClickListener = itemClickListener
-//    }
+    interface MyItemClickListener {
+        fun onItemClick(participation: ArrayList<BookclubMember>)
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemBookclubBookMembersBinding = ItemBookclubBookMembersBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -38,6 +32,10 @@ class BookclubMemberRVAdapter() : RecyclerView.Adapter<BookclubMemberRVAdapter.V
         fun bind(bookclubMember: BookclubMember) {
             binding.itemBookclubBookMemberNameTv.text = bookclubMember.name
             binding.itemBookclubBookMembersCoverImg.setImageResource(bookclubMember.coverImg!!)
+
+            binding.root.setOnClickListener {
+                itemClickListener.onItemClick(members)
+            }
         }
     }
 

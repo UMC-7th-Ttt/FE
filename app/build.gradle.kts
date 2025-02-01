@@ -36,10 +36,15 @@ android {
 
     buildFeatures {
         viewBinding = true
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
     }
+
+
 }
 
 dependencies {
+    implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
     implementation (libs.androidx.fragment)
     implementation (libs.androidx.fragment.ktx)
@@ -51,6 +56,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation (libs.androidx.gridlayout)
+    implementation(libs.androidx.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

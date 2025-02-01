@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">15sp</item> <!-- 텍스트 크기 조정 -->
+        <item name="android:textSize">14sp</item> <!-- 텍스트 크기 조정 -->
         <item name="lineHeight">22sp</item>
-        <item name="android:textColor">@color/colorLabelAlternative</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textColor">#282828</item>
     </style>
 
     <style name="Theme.FE.Launcher" parent="Theme.FE">
         <item name="android:windowBackground">@color/colorMainBg</item>
     </style>
+    
+    <style name="calendar_date_tv">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorLabelNormal</item>
+    </style>
+
+    <style name="calendar_week_tv">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#4F4F4F</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ShapeAppearance.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerSize">28dp</item>
+    </style>
+
 </resources>
