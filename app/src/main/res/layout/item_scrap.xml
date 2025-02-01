@@ -35,7 +35,7 @@
         android:id="@+id/scrap_bottom_sheet_plus_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_scrap_plus"
+        android:src="@drawable/ic_scrap_plus"
         app:layout_constraintTop_toTopOf="@id/scrap_item_bottom_sheet_title_tv"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

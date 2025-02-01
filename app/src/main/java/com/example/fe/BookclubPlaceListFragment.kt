@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.databinding.FragmentBookclubPlaceListBinding
@@ -32,7 +33,11 @@ class BookclubPlaceListFragment : Fragment() {
             Place("알키미스타", "카페", 4.8, R.drawable.img_place5, false)
         )
 
-        val adapter = BookclubPlaceRVAdapter(places)
+//        val adapter = BookclubPlaceRVAdapter(places)
+
+        val adapter = BookclubPlaceRVAdapter(places) { place ->
+            (requireActivity() as MainActivity).replaceFragment(BookclubPlaceDetailFragment(), showBottomNav = false)
+        }
         binding.bookclubPlaceRv.layoutManager = LinearLayoutManager(requireContext())
         binding.bookclubPlaceRv.adapter = adapter
     }

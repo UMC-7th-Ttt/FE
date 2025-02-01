@@ -27,7 +27,7 @@
 <!--        어두운 필터 android:tint="#66000000"-->
 
         <ImageView
-            android:id="@+id/bookclub_place_back_btn"
+            android:id="@+id/bookclub_place_back_iv"
             android:layout_width="47dp"
             android:layout_height="47dp"
             android:layout_marginStart="16dp"
@@ -38,13 +38,13 @@
             app:layout_constraintTop_toTopOf="@+id/bookclub_place_detail_img_iv" />
 
         <ImageView
-            android:id="@+id/bookclub_place_detail_home_btn"
+            android:id="@+id/bookclub_place_detail_home_iv"
             android:layout_width="47dp"
             android:layout_height="47dp"
             android:padding="8dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/btn_home"
-            app:layout_constraintTop_toTopOf="@id/bookclub_place_back_btn"
+            app:layout_constraintTop_toTopOf="@id/bookclub_place_back_iv"
             app:layout_constraintEnd_toEndOf="@id/bookclub_place_detail_img_iv" />
 
         <TextView

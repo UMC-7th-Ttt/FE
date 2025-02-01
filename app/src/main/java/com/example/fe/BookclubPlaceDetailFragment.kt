@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import com.example.fe.R
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 
 class BookclubPlaceDetailFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBookclubPlaceDetailBinding
-
+    private var isBookmarked = false // 북마크 상태 추적
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +29,26 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                     )
         }
 
-        // 북마크 아이콘 클릭 리스너
+        initBookmarkClickListener()
+        return binding.root
+    }
+
+    // 북마크 아이콘 클릭 리스너
+    private fun initBookmarkClickListener() {
         binding.bookclubPlaceDetailBookmarkIv.setOnClickListener {
-            val scrapBottomSheet = ScrapBottomSheetFragment()
+            val scrapBottomSheet = ScrapBottomSheetFragment { isSelected ->
+                updateBookmarkState(isSelected) // 상태 업데이트
+            }
             scrapBottomSheet.show(parentFragmentManager, scrapBottomSheet.tag)
         }
+    }
 
-        return binding.root
+    // 북마크 상태 업데이트 함수
+    private fun updateBookmarkState(isSelected: Boolean) {
+        isBookmarked = isSelected // 북마크 상태 변경
+        binding.bookclubPlaceDetailBookmarkIv.setImageResource(
+            if (isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+        )
     }
 
     override fun onStart() {
@@ -47,24 +57,18 @@ class BookclubPlaceDetailFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-
-        // 액티비티의 상단 뷰 숨기기
-        val activity = activity as BookclubPlaceActivity
-        activity.hideTopViews()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-        // 액티비티의 상단 뷰 다시 보이기
-        val activity = activity as BookclubPlaceActivity
-        activity.showTopViews()
 
         // 상태바 복원
         requireActivity().window.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
             statusBarColor = ContextCompat.getColor(requireContext(), R.color.black)
         }
+
+        // 바텀 네비게이션 다시 표시
+        (requireActivity() as MainActivity).showBottomNavigation(true)
     }
 }
-

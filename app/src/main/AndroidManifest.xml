@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FE"
         tools:targetApi="31">
-        <activity android:name=".BookclubPlaceActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,6 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SearchMainActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".BookclubPlaceSearchActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+
     </application>
 
 </manifest>

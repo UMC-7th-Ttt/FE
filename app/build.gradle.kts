@@ -36,10 +36,12 @@ android {
     viewBinding {
         enable = true
     }
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
