@@ -1,9 +1,11 @@
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.Place
+import com.example.fe.R
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
 

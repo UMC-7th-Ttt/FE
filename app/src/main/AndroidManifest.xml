@@ -23,10 +23,10 @@
         </activity>
 
         <activity
-            android:name=".SearchMainActivity"
+            android:name=".search.SearchMainActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".BookclubPlaceSearchActivity"
+        <activity android:name=".bookclub_place.BookclubPlaceSearchActivity"
             android:windowSoftInputMode="adjustPan" />
 
 

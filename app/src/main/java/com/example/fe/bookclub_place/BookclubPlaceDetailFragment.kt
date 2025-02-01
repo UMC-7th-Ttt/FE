@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.example.fe.MainActivity
+import com.example.fe.R
+import com.example.fe.scrap.ScrapBottomSheetFragment
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 
 class BookclubPlaceDetailFragment : DialogFragment() {

@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,9 +1,10 @@
 // BookclubRecommendedPlaceRVAdapter
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.Place
 import com.example.fe.databinding.ItemBookclubRecommendedPlaceBinding
 
 class BookclubRecommendedPlaceRVAdapter(

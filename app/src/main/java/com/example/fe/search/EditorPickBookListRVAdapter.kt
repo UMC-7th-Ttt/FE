@@ -1,8 +1,10 @@
-package com.example.fe
+package com.example.fe.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.Book
+import com.example.fe.R
 import com.example.fe.databinding.ItemEditorPickBookBinding
 
 class EditorPickBookListRVAdapter(private val bookList: List<Book>) :

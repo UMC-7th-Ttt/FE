@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.scrap
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.view.ViewGroup.LayoutParams
+import com.example.fe.R
 import com.example.fe.databinding.FragmentNewScrapDialogBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 

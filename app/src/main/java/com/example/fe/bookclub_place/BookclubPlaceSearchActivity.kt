@@ -1,9 +1,12 @@
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.Place
+import com.example.fe.R
+import com.example.fe.search.RecentSearchRVAdapter
 import com.example.fe.databinding.ActivityBookclubPlaceSearchBinding
 
 class BookclubPlaceSearchActivity : AppCompatActivity() {

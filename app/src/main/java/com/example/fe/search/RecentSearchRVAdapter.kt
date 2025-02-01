@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,12 +1,14 @@
-package com.example.fe
+package com.example.fe.bookclub_place
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.MainActivity
+import com.example.fe.Place
+import com.example.fe.R
 import com.example.fe.databinding.FragmentBookclubPlaceListBinding
 
 class BookclubPlaceListFragment : Fragment() {
