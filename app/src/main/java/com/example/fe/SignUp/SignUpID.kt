@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.SignUp
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.example.fe.R
 
 class SignUpID : AppCompatActivity() {
 

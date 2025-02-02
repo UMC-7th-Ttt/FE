@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.Login
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.R
+import com.example.fe.SignUp.TermsofUse
 
 class Login : AppCompatActivity() {
 

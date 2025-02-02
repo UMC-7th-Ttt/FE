@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.Preference
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.Login.Login
+import com.example.fe.R
 
-class SignUpComplete : AppCompatActivity() {
+class Preference_complete : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

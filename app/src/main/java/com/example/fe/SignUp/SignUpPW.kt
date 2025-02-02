@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.SignUp
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.R
 import java.util.regex.Pattern
 
 class SignUpPW : AppCompatActivity() {

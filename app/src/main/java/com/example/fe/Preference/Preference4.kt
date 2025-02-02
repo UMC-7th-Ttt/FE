@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.Preference
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.R
 
 class Preference4 : AppCompatActivity() {
 

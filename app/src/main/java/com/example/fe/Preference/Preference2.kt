@@ -1,14 +1,14 @@
-package com.example.fe
+package com.example.fe.Preference
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.R
 
 class Preference2 : AppCompatActivity() {
 

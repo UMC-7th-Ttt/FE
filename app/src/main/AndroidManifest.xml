@@ -34,40 +34,40 @@
             android:name=".Setting"
             android:exported="true" />
         <activity          
-            android:name=".Preference4"
+            android:name=".Preference.Preference4"
             android:exported="false" />
         <activity
-            android:name=".Preference_complete"
+            android:name=".Preference.Preference_complete"
             android:exported="false" />
         <activity
-            android:name=".Preference3"
+            android:name=".Preference.Preference3"
             android:exported="false" />
         <activity
-            android:name=".Preference2"
+            android:name=".Preference.Preference2"
             android:exported="false" />
         <activity
-            android:name=".Preference"
+            android:name=".Preference.Preference"
             android:exported="true" />
         <activity
-            android:name=".PasswordResetActivity"
+            android:name=".Login.PasswordResetActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpComplete"
+            android:name=".SignUp.SignUpComplete"
             android:exported="false" />
         <activity
-            android:name=".SignUpName"
+            android:name=".SignUp.SignUpName"
             android:exported="false" />
         <activity
-            android:name=".SignUpPW"
+            android:name=".SignUp.SignUpPW"
             android:exported="false" />
         <activity
-            android:name=".SignUpID"
+            android:name=".SignUp.SignUpID"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Login.Login"
             android:exported="false" />
         <activity
-            android:name=".TermsofUse"
+            android:name=".SignUp.TermsofUse"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
