@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F10"
+    android:padding="16dp">
+    <!-- 툴바 -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F0F10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 뒤로가기 버튼 -->
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/back_btn"
+            android:contentDescription="뒤로가기"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" />
+
+        <!-- 제목 -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서평 기록하기"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="#0F0F10"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="100dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- 책 이미지 -->
+    <ImageView
+        android:id="@+id/book_image"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/book_sample1" />
+
+    <!-- 책 제목 -->
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="책 제목"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/book_image"
+        app:layout_constraintStart_toStartOf="@id/book_image"
+        app:layout_constraintEnd_toEndOf="@id/book_image"
+        android:layout_marginTop="12dp"/>
+
+    <!-- 별점 표시 -->
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="0.0"
+        android:theme="@style/Base.Widget.AppCompat.RatingBar"
+        app:layout_constraintTop_toBottomOf="@id/book_title"
+        app:layout_constraintStart_toStartOf="@id/book_title"
+        app:layout_constraintEnd_toEndOf="@id/book_title"
+        android:layout_marginTop="16dp"/>
+
+    <!-- 별점 숫자 -->
+    <EditText
+        android:id="@+id/rating_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:text="0.0"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rating_bar"
+        app:layout_constraintStart_toStartOf="@+id/rating_bar"
+        app:layout_constraintTop_toBottomOf="@id/rating_bar" />
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="완료"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:background="#2E2F33"
+        app:layout_constraintTop_toBottomOf="@id/rating_text"
+        app:layout_constraintStart_toStartOf="@id/rating_text"
+        app:layout_constraintEnd_toEndOf="@id/rating_text"
+        android:layout_marginTop="24dp"
+        android:enabled="false" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 배경 이미지 -->
+    <ImageView
+        android:id="@+id/banner_image"
+        android:layout_width="match_parent"
+        android:layout_height="304dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/viewpager_sample2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 제목 -->
+    <TextView
+        android:id="@+id/banner_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삶에 대한 고찰"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#FFFF00"
+
+        app:layout_constraintTop_toTopOf="@id/banner_image"
+        app:layout_constraintStart_toStartOf="@id/banner_image"
+    android:layout_marginTop="200dp"
+    android:layout_marginStart="16dp"/>
+
+    <!-- 부제목 -->
+    <TextView
+        android:id="@+id/banner_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="청춘이 말하는 삶의 의미"
+        android:textSize="16sp"
+        android:textColor="#FFFF99"
+   app:layout_constraintTop_toBottomOf="@id/banner_title"
+        app:layout_constraintStart_toStartOf="@id/banner_title"
+        app:layout_constraintEnd_toEndOf="@id/banner_title"
+       android:layout_marginStart="25dp"
+    />
+
+    <!-- 작가 -->
+    <TextView
+        android:id="@+id/banner_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="작가"
+        android:textSize="14sp"
+        android:textColor="#00FF66"
+    app:layout_constraintStart_toEndOf="@id/banner_subtitle"
+        app:layout_constraintTop_toTopOf="@id/banner_subtitle"
+        app:layout_constraintBottom_toBottomOf="@id/banner_subtitle"
+        android:layout_marginStart="180dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:background="#0F0F10">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="#1B1C1E">
+
+        <!-- 책 이미지 -->
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="50dp"
+            android:layout_height="75dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="책 이미지"
+            android:src="@drawable/book_sample1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 책 제목 -->
+        <TextView
+            android:id="@+id/book_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="소설 보다 가을"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/book_cover"
+            app:layout_constraintTop_toTopOf="@id/book_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp"/>
+
+        <!-- 저자 -->
+        <TextView
+            android:id="@+id/book_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="한강"
+            android:textSize="14sp"
+            android:textColor="#CCCCCC"
+            app:layout_constraintStart_toStartOf="@id/book_title"
+            app:layout_constraintTop_toBottomOf="@id/book_title"
+            app:layout_constraintBottom_toBottomOf="@id/book_cover"
+            android:layout_marginTop="4dp"/>
+
+        <!-- 평점 숫자 -->
+        <TextView
+            android:id="@+id/book_rating_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="5.0"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/book_author"
+            android:layout_marginStart="170dp"
+            app:layout_constraintStart_toEndOf="@+id/book_author"
+            app:layout_constraintTop_toTopOf="@+id/book_author" />
+
+        <!-- 별점 표시 -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/book_rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progressBackgroundTint="#AEB0B69C"
+            android:progressTint="#CFF305"
+            android:rating="3.5"
+            android:stepSize="0.5"
+            android:theme="@style/Base.Widget.AppCompat.RatingBar"
+            app:layout_constraintBottom_toBottomOf="@+id/book_rating_text"
+            app:layout_constraintStart_toEndOf="@id/book_rating_text"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@+id/book_rating_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
