@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/bookclub_review_back_btn"
+                android:id="@+id/back_btn"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="20dp"
@@ -37,7 +37,7 @@
                 android:clipToOutline="true"
                 android:src="@drawable/img_person_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookclub_review_back_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/back_btn" />
 
             <TextView
                 android:id="@+id/bookclub_review_person_tv"
@@ -301,7 +301,7 @@
         android:layout_marginEnd="53dp"
         android:paddingStart="20dp"
         />
-    
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/floating_comment_icon"
         android:layout_width="24dp"
@@ -312,15 +312,5 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="16dp"/>
 
-<!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-<!--        android:id="@+id/bookclub_signup_btn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="46dp"-->
-<!--        android:text="가입하기"-->
-<!--        android:backgroundTint="@color/colorPrimaryNormal"-->
-<!--        android:textColor="#333438"-->
-<!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="10dp"/>-->
 
 </RelativeLayout>

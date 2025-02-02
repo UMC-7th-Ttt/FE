@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.fe.R
-import com.example.fe.bookclub_book.BookclubBookActivity
+import com.example.fe.bookclub_book.BookclubBookFragment
 import com.example.fe.bookclub_book.BookclubBookHomeFragment
 import com.example.fe.bookclub_book.BookclubBookParticipationFragment
 
 
-class BookclubBookVPAdapter(activity: BookclubBookActivity) : FragmentStateAdapter(activity)  {
+class BookclubBookVPAdapter(activity: BookclubBookFragment) : FragmentStateAdapter(activity)  {
 
     override fun getItemCount(): Int = 2
 
