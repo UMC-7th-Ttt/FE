@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         // 세로 스크롤 리사이클러뷰 설정
         val recyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-//        recyclerView.adapter = HomeCategoryAdapter(getCategoryList())
+        recyclerView.adapter = HomeCategoryAdapter(getCategoryList())
 
         return view
     }
