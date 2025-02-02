@@ -227,7 +227,6 @@
         android:layout_marginBottom="68dp"
         android:background="@android:color/transparent"
         android:clickable="true"
-        android:src="@drawable/btn_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"

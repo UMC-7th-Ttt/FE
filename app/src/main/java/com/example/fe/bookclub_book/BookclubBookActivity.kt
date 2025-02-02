@@ -1,21 +1,18 @@
 package com.example.fe.bookclub_book
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookVPAdapter
-import com.example.fe.bookclub_book.dataclass.BookclubParticipation
 import com.example.fe.databinding.ActivitiyBookclubBookBinding
-import com.example.fe.databinding.ActivityMainBinding
 import com.example.fe.mypage.MyPageFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class BookclubBookActivity: AppCompatActivity() {
-    lateinit var binding: ActivitiyBookclubBookBinding
+class BookclubBookActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitiyBookclubBookBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +20,7 @@ class BookclubBookActivity: AppCompatActivity() {
         binding = ActivitiyBookclubBookBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bookclubBookPersonIc.setOnClickListener{
+        binding.bookclubBookPersonIc.setOnClickListener {
             val mypageFragment = MyPageFragment()
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, mypageFragment)
@@ -47,4 +44,5 @@ class BookclubBookActivity: AppCompatActivity() {
             }
         }.attach()
     }
+
 }

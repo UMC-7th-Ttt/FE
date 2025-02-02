@@ -1,15 +1,15 @@
 package com.example.fe.mypage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.fe.R
+import com.example.fe.setting.SettingActivity
 import com.example.fe.databinding.FragmentMypageBinding
 import com.example.fe.mypage.adapter.MyPageVPAdapter
-import com.example.fe.setting.SettingHomeFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -42,11 +42,10 @@ class MyPageFragment : Fragment() {
 
         // Settings button click listener
         binding.mypageSettingIv.setOnClickListener {
-            val settingHomeFragment = SettingHomeFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, settingHomeFragment)
-                .addToBackStack(null)
-                .commit()
+            context?.let { ctx ->
+                val intent = Intent(ctx, SettingActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         // TabLayout 클릭 리스너
@@ -67,11 +66,5 @@ class MyPageFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-    }
-
-    // TabLayout 비활성화 메소드
-    fun setTabLayoutEnabled(enabled: Boolean) {
-        binding.mypageContentTl.isEnabled = enabled
-        binding.mypageContentTl.alpha = if (enabled) 1.0f else 0.5f // 비활성화 상태에서 투명도 조정
     }
 }
