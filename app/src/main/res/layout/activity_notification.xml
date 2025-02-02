@@ -14,7 +14,7 @@
         android:background="#0F0F10"
         android:title="알림"
         android:titleTextColor="#FFFFFF"
-        android:navigationIcon="@drawable/back_btn"
+        android:navigationIcon="@drawable/ic_prev_arrow"
     app:layout_constraintTop_toTopOf="parent" />
 
     <!-- "알림이 없습니다" 메시지 -->

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0F0F10"
-    tools:context=".BookDetailActivity">
+    tools:context=".BookDetail.BookDetailActivity">
 
     <!-- 툴바 -->
     <androidx.appcompat.widget.Toolbar
@@ -16,7 +16,7 @@
         android:background="#0F0F10"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/back_btn"
+        app:navigationIcon="@drawable/ic_prev_arrow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -81,7 +81,7 @@
         android:id="@+id/book_title_bg"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/dark_transparent_bg"
+        android:background="@drawable/blur_effect_background"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="@id/book_background"
         app:layout_constraintStart_toStartOf="parent"
