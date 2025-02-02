@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_setting">
+        <item>프로필 변경</item>
+        <item>내 정보 변경</item>
+        <item>테마 변경</item>
+        <item>고객센터</item>
+    </string-array>
+</resources>
