@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.fe.bookclub_place.BookclubPlaceFragment
 import com.example.fe.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         initBottomNavigation()
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(HomeFragment()) // 앱 실행 시 기본 프래그먼트 (홈 화면)
             binding.bottomNavigation.selectedItemId = R.id.bottom_nav_home
         }
+
     }
 
     private fun initBottomNavigation() {

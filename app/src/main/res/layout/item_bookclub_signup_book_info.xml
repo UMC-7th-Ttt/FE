@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="info"-->
+<!--            type="com.example.fe.bookclub_book.dataclass.BookclubByMonth" />-->
+
+<!--    </data>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="양귀자"
+        android:textSize="13sp"
+        android:textColor="@color/colorPrimaryNormal"
+        style="@style/body_regular_02"
+        android:padding="10dp"
+        android:background="@drawable/bookclub_signup_book_info_bg"/>
+
+
+</layout>
