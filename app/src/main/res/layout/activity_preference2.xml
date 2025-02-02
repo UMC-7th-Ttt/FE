@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Preference"
+    android:background="@color/black">
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="42dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/ic_preference_circle2" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:lineSpacingExtra="4dp"
+        android:text="선호하는\n테마를 골라보세요!"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+    <LinearLayout
+        android:id="@+id/experience_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="판타지"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="미스터리"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="고전"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="성장"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="심리학"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/option6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="비즈니스"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="역사"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="트렌드"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="로맨스"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="공학"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/option11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="힐링"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="여행"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="철학"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="예술"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/option15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="과학"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/next_button"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/btn_next"
+        android:clickable="true"
+        android:src="@drawable/btn_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/next_button_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
