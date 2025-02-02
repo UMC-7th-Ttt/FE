@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#2E2F33"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- 같은 취향 유저의 평점 -->
+        <TextView
+            android:id="@+id/similar_users_rating_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="같은 취향 유저의 평점"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 취향 유저 평점 -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/similar_users_rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="4.5"
+            android:progressTint="#CFF305"
+            android:progressBackgroundTint="#AEB0B69C"
+            app:layout_constraintStart_toStartOf="@id/similar_users_rating_label"
+            app:layout_constraintTop_toBottomOf="@id/similar_users_rating_label"
+            android:layout_marginTop="4dp"/>
+
+        <!-- 전체 평점 -->
+        <TextView
+            android:id="@+id/overall_rating_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체 평점"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/similar_users_rating_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/similar_users_rating_label"
+            android:layout_marginStart="16dp"/>
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/overall_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="4.0"
+            style="?android:attr/ratingBarStyleSmall"
+            android:theme="@style/Base.Widget.AppCompat.RatingBar"
+            android:progressTint="#CFF305"
+            android:progressBackgroundTint="#AEB0B69C"
+            app:layout_constraintStart_toStartOf="@id/overall_rating_label"
+            app:layout_constraintTop_toBottomOf="@id/overall_rating_label"
+            android:layout_marginTop="4dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
