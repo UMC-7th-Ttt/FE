@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpComplete"
+    android:background="@color/black">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="153dp"
+        android:layout_marginEnd="86dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="취향분석이 완료되었어요!"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="74dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="93dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="Ttt에 오신 걸 환영합니다. 함께 즐거운 독서생활해요!"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/ic_complete_card"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageButton
+        android:id="@+id/next_button"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="68dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:contentDescription="@string/next_button_description"
+        android:src="@drawable/ic_start_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FE" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-<!--        <item name="android:background">@color/colorMainBg</item>-->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorControlActivated">@color/primary_50</item>
+        <!-- 상태바 색상 -->
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 
     <style name="Theme.FE" parent="Base.Theme.FE" />
-  
+
+
     <!-- Font style code -->
 
     <!-- Title -->

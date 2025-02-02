@@ -25,6 +25,24 @@
             android:name=".setting.SettingActivity"
             android:exported="false" />
         <activity          
+            android:name=".Preference4"
+            android:exported="false" />
+        <activity
+            android:name=".Preference_complete"
+            android:exported="false" />
+        <activity
+            android:name=".Preference3"
+            android:exported="false" />
+        <activity
+            android:name=".Preference2"
+            android:exported="false" />
+        <activity
+            android:name=".Preference"
+            android:exported="true" />
+        <activity
+            android:name=".PasswordResetActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpComplete"
             android:exported="false" />
         <activity
@@ -54,6 +72,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".search.SearchMainActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".bookclub_place.BookclubPlaceSearchActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+
     </application>
 
 </manifest>

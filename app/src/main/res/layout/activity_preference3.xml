@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Preference"
+    android:background="@color/black">
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="42dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/ic_preference_circle3" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:lineSpacingExtra="4dp"
+        android:text="즐기고 싶은\n독서라이프를 골라주세요!"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+    <LinearLayout
+        android:id="@+id/experience_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="짧지만 강력한 독서"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="나만의 책 찾기"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="감성 가득한 독서"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="책과 연결되는 다양한 문화생활"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="매일 아침, 시작하는 독서"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/option6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="취침 전, 책과 함께"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="어디서든 시작하는 독서"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/option8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="서사 가득한 책과 함께"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:id="@+id/option9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/btn_option_background"
+                android:text="여유로운 날, 기분 전환"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/next_button"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/btn_next"
+        android:clickable="true"
+        android:src="@drawable/btn_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/next_button_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

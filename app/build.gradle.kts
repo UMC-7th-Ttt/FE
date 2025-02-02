@@ -33,14 +33,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-        //noinspection DataBindingWithoutKapt
-        dataBinding = true
+    viewBinding {
+        enable = true
     }
-
-
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -56,6 +54,7 @@ dependencies {
     implementation (libs.androidx.recyclerview)
 
     implementation (libs.androidx.core.ktx)
+    
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
