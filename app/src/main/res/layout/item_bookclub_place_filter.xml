@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/black"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/place_filter_selected_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_filter_recommendation"
+        android:padding="7dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bar"
+        android:paddingVertical="11dp"
+        android:layout_marginStart="6dp" />
+
+    <ImageView
+        android:id="@+id/place_filter_bookstore_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_filter_bookstore"
+        android:padding="7dp"
+        android:layout_marginStart="6dp" />
+
+    <ImageView
+        android:id="@+id/place_filter_bookcafe_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_filter_bookcafe"
+        android:padding="7dp"
+        android:layout_marginStart="6dp" />
+
+</LinearLayout>

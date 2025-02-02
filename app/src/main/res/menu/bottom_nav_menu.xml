@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/ic_bottom_nav_home"
+        android:title="홈"/>
+    <item
+        android:id="@+id/bottom_nav_bookclub_book"
+        android:icon="@drawable/ic_bottom_nav_bookclub_book"
+        android:title="책마다 북클럽"/>
+    <item
+        android:id="@+id/bottom_nav_bookclub_place"
+        android:icon="@drawable/ic_bottom_nav_bookclub_place"
+        android:title="나들이 북클럽"/>
+    <item
+        android:id="@+id/bottom_nav_mypage"
+        android:icon="@drawable/ic_bottom_nav_mypage"
+        android:title="마이페이지"/>
+</menu>
