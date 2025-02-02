@@ -22,7 +22,7 @@
             android:id="@+id/back_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/back_btn"
+            android:src="@drawable/ic_prev_arrow"
             android:contentDescription="뒤로가기"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" />
@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:background="@color/white_15"
+        android:background="@color/gray_01"
         android:enabled="false"
         android:text="완료"
         android:textColor="#FFFFFF"

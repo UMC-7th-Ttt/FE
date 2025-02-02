@@ -70,6 +70,6 @@ class BookReviewActivity : AppCompatActivity() {
     // 별점이 0.5 이상이면 버튼 활성화
     private fun validateForm(button: Button, rating: Float) {
         button.isEnabled = rating > 0.0
-        button.setBackgroundColor(if (button.isEnabled) getColor(R.color.primary_50) else getColor(R.color.white_15))
+        button.setBackgroundColor(if (button.isEnabled) getColor(R.color.primary_50) else getColor(R.color.white_10))
     }
 }

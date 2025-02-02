@@ -22,7 +22,7 @@
             android:id="@+id/back_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/back_btn"
+            android:src="@drawable/ic_prev_arrow"
             android:contentDescription="뒤로가기"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" />
@@ -173,7 +173,7 @@
             android:text="공개"
             android:textSize="14sp"
             android:textColor="#FFFFFF"
-            app:buttonTint="@color/radio_button_selector"
+            app:buttonTint="@color/colorPrimaryNormal"
             android:checked="true" />
 
         <!-- 비공개 -->
@@ -184,7 +184,7 @@
             android:text="비공개"
             android:textSize="14sp"
             android:textColor="#FFFFFF"
-            app:buttonTint="@color/radio_button_selector"
+            app:buttonTint="@color/gray_02"
             android:layout_marginStart="24dp" />
 
     </RadioGroup>

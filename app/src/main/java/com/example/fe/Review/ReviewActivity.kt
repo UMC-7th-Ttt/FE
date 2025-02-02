@@ -79,6 +79,6 @@ class ReviewActivity : AppCompatActivity() {
         val isReviewNotEmpty = reviewInput.text.toString().trim().isNotEmpty()
 
         button.isEnabled = isTitleNotEmpty && isReviewNotEmpty
-        button.setBackgroundColor(if (button.isEnabled) getColor(R.color.primary_50) else getColor(R.color.white_15))
+        button.setBackgroundColor(if (button.isEnabled) getColor(R.color.primary_50) else getColor(R.color.white_10))
     }
 }

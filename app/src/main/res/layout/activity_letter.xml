@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0F0F10"
-    tools:context=".LetterActivity">
+    tools:context=".BookLetter.LetterActivity">
 
     <!-- 뒤로 가기 버튼 -->
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/back_btn"
+        android:src="@drawable/ic_prev_arrow"
         android:contentDescription="뒤로 가기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

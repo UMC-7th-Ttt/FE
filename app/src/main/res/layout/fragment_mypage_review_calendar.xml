@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="50dp"
     android:paddingTop="40dp"
     android:background="@color/colorMainBg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -126,7 +125,7 @@
         android:id="@+id/mypage_write_review_floating_btn"
         android:layout_width="58dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         app:icon="@drawable/ic_pencil"
