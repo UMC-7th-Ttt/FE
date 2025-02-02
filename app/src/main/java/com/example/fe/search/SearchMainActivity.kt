@@ -17,8 +17,15 @@ class SearchMainActivity : AppCompatActivity() {
         binding = ActivitySearchMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initBackBtnClickListener()
         initBookclubPlaceRecentSearchRV()
         initCategoryClickListener()
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.searchMainBackBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initBookclubPlaceRecentSearchRV() {
