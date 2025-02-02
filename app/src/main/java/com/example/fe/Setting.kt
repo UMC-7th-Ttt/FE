@@ -1,12 +1,13 @@
-package com.example.fe.setting
+package com.example.fe
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.example.fe.R
 import com.example.fe.databinding.ActivitySettingBinding
+import com.example.fe.setting.SettingChangeInfoFragment
+import com.example.fe.setting.SettingProfileChangeFragment
 
-class SettingActivity: AppCompatActivity() {
+class Setting: AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingBinding
 

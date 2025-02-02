@@ -1,5 +1,6 @@
 package com.example.fe.mypage
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +9,12 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.fe.MyPageWriteReview
 import com.example.fe.R
 import com.example.fe.bookclub_book.DateConverter
 import com.example.fe.databinding.FragmentMypageReviewCalendarBinding
 import com.example.fe.mypage.adapter.CalendarRVAdapter
+import com.example.fe.Setting
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -40,12 +43,10 @@ class MyPageReviewCalendarFragment : Fragment() {
         }
 
         binding.mypageWriteReviewFloatingBtn.setOnClickListener {
-
-            val writeReviewFragment = MyPageWriteReviewFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, writeReviewFragment)
-                .addToBackStack(null)
-                .commit()
+            context?.let { ctx ->
+                val intent = Intent(ctx, MyPageWriteReview::class.java)
+                startActivity(intent)
+            }
         }
 
         return binding.root

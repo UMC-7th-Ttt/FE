@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.fe.bookclub_book.BookclubBookFragment
 import com.example.fe.bookclub_place.BookclubPlaceFragment
 import com.example.fe.databinding.ActivityMainBinding
+import com.example.fe.mypage.MyPageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.bottom_nav_home -> replaceFragment(HomeFragment(), showBottomNav = true)
                 R.id.bottom_nav_bookclub_book -> replaceFragment(BookclubBookFragment(), showBottomNav = true)
                 R.id.bottom_nav_bookclub_place -> replaceFragment(BookclubPlaceFragment(), showBottomNav = true)
-                R.id.bottom_nav_mypage -> replaceFragment(MypageFragment(), showBottomNav = true)
+                R.id.bottom_nav_mypage -> replaceFragment(MyPageFragment(), showBottomNav = true)
             }
             true
         }

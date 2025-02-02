@@ -40,11 +40,11 @@ class MyPageReviewReviewFragment:Fragment() {
         val myPageReviewReviewRVAdapter = MyPageReviewReviewRVAdapter(object : MyPageReviewReviewRVAdapter.MyItemClickListener {
 
             override fun onItemClick(myPageReview: MyPageReview) {
-                val writeReviewFragment = MyPageWriteReviewFragment()
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container, writeReviewFragment)
-                    addToBackStack(null)
-                }
+//                val writeReviewFragment = MyPageWriteReviewFragment()
+//                parentFragmentManager.commit {
+//                    replace(R.id.fragment_container, writeReviewFragment)
+//                    addToBackStack(null)
+//                }
             }
         })
 
