@@ -1,4 +1,4 @@
-package com.example.fe.SignUp
+package com.example.fe.signup
 import android.content.Intent
 import android.os.Bundle
 import android.widget.CheckBox

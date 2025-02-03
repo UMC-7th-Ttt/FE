@@ -1,9 +1,10 @@
-package com.example.fe.SignUp
+package com.example.fe.signup
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -34,9 +35,12 @@ class SignUpID : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_id)
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener {
-            finish() // 현재 액티비티 종료 후 이전 페이지로 돌아감
+        Log.d("SignUpID", "onCreate 실행됨")
+
+        val backButton: ImageButton? = findViewById(R.id.back_button)
+        backButton?.setOnClickListener {
+            Log.d("SignUpID", "뒤로 가기 버튼 클릭됨 -> finish() 실행")
+            finish()
         }
 
         // Initialize views
@@ -121,8 +125,11 @@ class SignUpID : AppCompatActivity() {
 
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
+            // 이메일 값 가져오기
+            val email = emailInput.text.toString()
             // NextActivity로 이동
             val intent = Intent(this, SignUpPW::class.java)
+            intent.putExtra("email", email) // 이메일 값 전달
             startActivity(intent)
         }
 

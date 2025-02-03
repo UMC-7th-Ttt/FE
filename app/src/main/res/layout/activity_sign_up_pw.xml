@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp.SignUpPW"
+    tools:context=".signup.SignUpPW"
     android:background="@color/black">
 
     <ImageButton
@@ -227,6 +227,7 @@
         android:layout_marginBottom="68dp"
         android:background="@android:color/transparent"
         android:clickable="true"
+        android:src="@drawable/btn_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"

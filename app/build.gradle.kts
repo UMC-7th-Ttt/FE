@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.fe"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -42,9 +42,6 @@ android {
 }
 
 dependencies {
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
@@ -61,7 +58,13 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation (libs.androidx.gridlayout)
     implementation(libs.androidx.ui.test.android)
+
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
+
 }

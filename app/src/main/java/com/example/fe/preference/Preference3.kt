@@ -1,4 +1,4 @@
-package com.example.fe.Preference
+package com.example.fe.preference
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fe.R
 
-class Preference2 : AppCompatActivity() {
+class Preference3 : AppCompatActivity() {
 
     private var selectedCount = 0
     private lateinit var nextButton: ImageButton
@@ -19,7 +19,7 @@ class Preference2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_preference2)
+        setContentView(R.layout.activity_preference3)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -47,14 +47,7 @@ class Preference2 : AppCompatActivity() {
             findViewById(R.id.option5),
             findViewById(R.id.option6),
             findViewById(R.id.option7),
-            findViewById(R.id.option8),
-            findViewById(R.id.option9),
-            findViewById(R.id.option10),
-            findViewById(R.id.option11),
-            findViewById(R.id.option12),
-            findViewById(R.id.option13),
-            findViewById(R.id.option14),
-            findViewById(R.id.option15)
+            findViewById(R.id.option8)
         )
 
         // Set click listeners on each TextView
@@ -65,7 +58,7 @@ class Preference2 : AppCompatActivity() {
         }
         nextButton.setOnClickListener {
             // Start the next activity
-            val intent = Intent(this, Preference3::class.java)
+            val intent = Intent(this, Preference4::class.java)
             startActivity(intent)
         }
     }
