@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp.SignUpName"
+    tools:context=".signup.SignUpName"
     android:background="@color/black">
     <ImageButton
         android:id="@+id/back_button"
@@ -152,6 +152,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/next_button_description" />
+        android:contentDescription="@string/next_button_description"
+        android:src="@drawable/btn_next"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

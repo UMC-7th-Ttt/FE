@@ -1,4 +1,4 @@
-package com.example.fe.Preference
+package com.example.fe.preference
 
 import android.content.Intent
 import android.os.Bundle
