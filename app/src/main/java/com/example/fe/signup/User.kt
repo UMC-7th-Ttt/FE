@@ -8,3 +8,7 @@ data class User (
     @SerializedName(value = "nickname")var nickname: String,
     @SerializedName(value = "profileUrl")var profileUrl: String
 )
+
+data class Nickname (
+    @SerializedName(value = "nickname") var nickname: String
+)
