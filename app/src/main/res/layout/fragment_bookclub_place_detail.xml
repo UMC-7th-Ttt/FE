@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        android:paddingBottom="50dp"
+        android:paddingBottom="150dp"
         android:fitsSystemWindows="false"> <!-- 시스템 창 바 무시 -->
 
         <ImageView

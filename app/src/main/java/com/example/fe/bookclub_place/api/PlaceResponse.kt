@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.bookclub_place.api
 
 data class PlaceResponse(
     val placeId: Int,        // 장소 ID

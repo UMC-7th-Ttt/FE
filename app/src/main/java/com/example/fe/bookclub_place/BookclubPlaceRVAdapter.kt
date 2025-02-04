@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.Place
+import com.bumptech.glide.Glide
+import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.R
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
 
 class BookclubPlaceRVAdapter(
-    private val places: List<Place>,
-    private val onItemClick: (Place) -> Unit // 클릭 이벤트 콜백 추가
+    private val places: List<PlaceResponse>,
+    private val onItemClick: (PlaceResponse) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -26,14 +27,26 @@ class BookclubPlaceRVAdapter(
 
     inner class PlaceViewHolder(val binding: ItemBookclubPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(place: Place) {
-            binding.itemBookclubPlaceNameTv.text = place.name
-            binding.itemBookclubPlaceTagTv.text = place.tag
-            binding.itemBookclubPlaceRatingTv.text = "${place.rating}"
-            binding.itemBookclubPlaceImg.setImageResource(place.imageResId)
+        fun bind(place: PlaceResponse) {
+            binding.itemBookclubPlaceNameTv.text = place.title
 
+            if(place.category == "BOOKSTORE") {
+                binding.itemBookclubPlaceTagTv.text = "서점"
+            }
+            else {
+                binding.itemBookclubPlaceTagTv.text = "카페"
+            }
+            binding.itemBookclubPlaceRatingTv.text = "${place.totalRating}"
+
+            // 이미지 URL을 사용하여 이미지 로드 (Glide 사용)
+            Glide.with(binding.root.context)
+                .load(place.image)
+                .placeholder(R.drawable.img_place1) // 로딩 중일 때 보여줄 기본 이미지
+                .into(binding.itemBookclubPlaceImg)
+
+            // 북마크 상태에 따른 아이콘 변경
             binding.itemBookclubPlaceBookmarkIc.setImageResource(
-                if (place.isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+                if (place.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
             )
 
             binding.itemBookclubPlaceImg.setOnClickListener {
@@ -96,4 +109,5 @@ class BookclubPlaceRVAdapter(
             binding.root.context.getDrawable(R.drawable.btn_filter_bookcafe)
         }
     }
+
 }

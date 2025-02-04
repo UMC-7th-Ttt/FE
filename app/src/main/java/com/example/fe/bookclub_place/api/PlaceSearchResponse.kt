@@ -1,4 +1,4 @@
-package com.example.fe
+package com.example.fe.bookclub_place.api
 
 import com.google.gson.annotations.SerializedName
 

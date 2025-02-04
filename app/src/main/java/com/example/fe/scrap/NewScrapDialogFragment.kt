@@ -3,6 +3,7 @@ package com.example.fe.scrap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,11 +31,19 @@ class NewScrapDialogFragment(
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(
-            LayoutParams.WRAP_CONTENT, // 다이얼로그의 가로 크기
-            LayoutParams.WRAP_CONTENT // 다이얼로그의 세로 크기
-        )
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 배경 투명 처리
+        dialog?.window?.apply {
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL) // 위쪽 + 가로 중앙 정렬
+
+            attributes = attributes.apply {
+                y = 400 // 화면의 중간보다 살짝 위쪽으로 조정
+            }
+
+            setLayout(
+                ViewGroup.LayoutParams.WRAP_CONTENT, // 다이얼로그의 가로 크기
+                ViewGroup.LayoutParams.WRAP_CONTENT  // 다이얼로그의 세로 크기
+            )
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 배경 투명 처리
+        }
     }
 
     private fun initListeners() {
