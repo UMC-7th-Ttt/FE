@@ -32,6 +32,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="30dp"
         android:singleLine="true"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         app:layout_constraintStart_toEndOf="@id/search_main_back_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,11 +97,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
             android:text="추천 검색어"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/recent_search_list_rv"
+            app:layout_constraintStart_toStartOf="@id/search_main_layout"
             app:layout_constraintTop_toBottomOf="@id/recent_search_list_rv" />
 
         <androidx.cardview.widget.CardView
@@ -109,8 +112,9 @@
             app:cardBackgroundColor="#252527"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="@id/recommended_search_tv"
+            app:layout_constraintStart_toStartOf="@id/search_main_layout"
             app:layout_constraintTop_toBottomOf="@id/recommended_search_tv" />
 
         <TextView
@@ -157,6 +161,7 @@
             app:layout_constraintTop_toTopOf="@id/humanity_cv" />
 
         <ImageView
+            android:id="@+id/humanity_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_hug"
@@ -176,6 +181,7 @@
             app:layout_constraintTop_toBottomOf="@id/korean_literature_cv" />
 
         <TextView
+            android:id="@+id/self_development_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="자기계발"
@@ -186,6 +192,7 @@
             app:layout_constraintTop_toTopOf="@id/self_development_cv" />
 
         <ImageView
+            android:id="@+id/self_development_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_pencil"
@@ -206,6 +213,7 @@
             app:layout_constraintEnd_toEndOf="@id/humanity_cv"/>
 
         <TextView
+            android:id="@+id/essay_and_travel_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="에세이/여행"
@@ -216,6 +224,7 @@
             app:layout_constraintTop_toTopOf="@id/essay_and_travel_cv" />
 
         <ImageView
+            android:id="@+id/essay_and_travel_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_airplane"
@@ -236,6 +245,7 @@
             app:layout_constraintTop_toBottomOf="@id/self_development_cv" />
 
         <TextView
+            android:id="@+id/society_and_natural_science_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사회/자연과학"
@@ -246,6 +256,7 @@
             app:layout_constraintTop_toTopOf="@id/society_and_natural_science_cv" />
 
         <ImageView
+            android:id="@+id/society_and_natural_science_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_scientist"
@@ -266,6 +277,7 @@
             app:layout_constraintEnd_toEndOf="@id/essay_and_travel_cv"/>
 
         <TextView
+            android:id="@+id/world_literature_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="세계문학"
@@ -276,6 +288,7 @@
             app:layout_constraintTop_toTopOf="@id/world_literature_cv" />
 
         <ImageView
+            android:id="@+id/world_literature_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_earth"
@@ -296,6 +309,7 @@
             app:layout_constraintTop_toBottomOf="@id/society_and_natural_science_cv" />
 
         <TextView
+            android:id="@+id/bookstore_and_bookcafe_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="서점/북카페"
@@ -306,6 +320,7 @@
             app:layout_constraintTop_toTopOf="@id/bookstore_and_bookcafe_cv" />
 
         <ImageView
+            android:id="@+id/bookstore_and_bookcafe_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/img_book"

@@ -32,8 +32,15 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                     )
         }
 
+        initBackBtnClickListener()
         initBookmarkClickListener()
         return binding.root
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.bookclubPlaceBackIv.setOnClickListener {
+            parentFragmentManager.popBackStack() // 기본 뒤로 가기
+        }
     }
 
     // 북마크 아이콘 클릭 리스너

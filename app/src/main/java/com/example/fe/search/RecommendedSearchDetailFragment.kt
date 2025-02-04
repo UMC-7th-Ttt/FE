@@ -24,11 +24,18 @@ class RecommendedSearchDetailFragment : Fragment() {
         val categoryTitle = arguments?.getString("CATEGORY_TITLE", "추천 검색") ?: "추천 검색"
         binding.recommendedSearchDetailTitleTv.text = categoryTitle
 
+        initBackBtnClickListener()
         initPopularBookListRV()
         initRecommendedBookListRV()
         initEditorPickBookListRV()
 
         return binding.root
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.recommendedSearchDetailBackIv.setOnClickListener {
+            parentFragmentManager.popBackStack() // 기본 뒤로 가기
+        }
     }
 
     private fun initPopularBookListRV() {

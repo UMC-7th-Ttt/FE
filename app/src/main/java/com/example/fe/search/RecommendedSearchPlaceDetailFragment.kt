@@ -22,10 +22,17 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
     ): View {
         binding = FragmentRecommendedSearchPlaceDetailBinding.inflate(inflater, container, false)
 
+        initBackBtnClickListener()
         initRecommendedPlaceListRV()
         initEditorPickPlaceListRV()
 
         return binding.root
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.recommendedSearchPlaceDetailBackIv.setOnClickListener {
+            parentFragmentManager.popBackStack() // 기본 뒤로 가기
+        }
     }
 
     private fun initRecommendedPlaceListRV() {
