@@ -52,7 +52,7 @@
                     android:id="@+id/notification_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_check"
+                    android:src="@drawable/ic_bell"
                     android:contentDescription="알림 아이콘"
                     app:layout_constraintEnd_toStartOf="@id/profile_icon"
                     app:layout_constraintTop_toTopOf="parent"
