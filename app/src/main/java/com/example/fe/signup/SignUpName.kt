@@ -1,75 +1,62 @@
 package com.example.fe.signup
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.fe.R
+import android.widget.Toast
+import com.example.fe.databinding.ActivitySignUpNameBinding
+import com.example.fe.signup.service.NicknameService
+import com.example.fe.signup.service.NicknameView
 
-class SignUpName : AppCompatActivity() {
+class SignUpName : AppCompatActivity(), NicknameView {
+    private lateinit var binding: ActivitySignUpNameBinding
+    private lateinit var authService: NicknameService  // 서비스 선언
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_sign_up_name)
+        binding = ActivitySignUpNameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val nicknameInput: EditText = findViewById(R.id.nickname_input)
-        val checkButton: Button = findViewById(R.id.send_button)
-        val errorMessage: TextView = findViewById(R.id.error_message)
-        val pic2Button: ImageButton = findViewById(R.id.pic2)
-        val pic1ImageView: ImageView = findViewById(R.id.pic1)
-        val backButton: ImageButton = findViewById(R.id.back_button)
-        val nextButton: ImageButton = findViewById(R.id.next_button)
+        authService = NicknameService()  // 초기화
+        authService.setNicknameView(this)  // View 연결
 
-        // Handle duplicate nickname check
-        checkButton.setOnClickListener {
-            val nickname = nicknameInput.text.toString()
-            if (nickname == "1234") {  // Replace with your actual check (e.g., API call) usedNickname
-                errorMessage.visibility = View.VISIBLE
-            } else {
-                errorMessage.visibility = View.GONE
-            }
+        binding.sendButton.setOnClickListener {
+            val nickname = binding.sendButton.text.toString()
+            authService.nickName(nickname)  // 닉네임 중복 확인 요청
+        }
+        binding.backButton.setOnClickListener { onBackPressed() } //뒤로 가기 기능
+
+        // 다음 페이지로 이동
+        binding.nextButton.setOnClickListener {
+            val intent = Intent(this, SignUpComplete::class.java) // SignUpComplete로 이동
+            startActivity(intent)
         }
 
-        // Handle selecting an image for pic1
-        pic2Button.setOnClickListener {
+        // 사진 넣기 기능 (갤러리에서 선택)
+        binding.pic2.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, 100)
         }
 
-        // Handle back button click
-        backButton.setOnClickListener {
-            onBackPressed()  // or finish() to explicitly close the current activity
-        }
-
-        // Handle next button click to navigate to next page
-        nextButton.setOnClickListener {
-            val intent = Intent(this, SignUpComplete::class.java) // Replace NextActivity with your next activity
-            startActivity(intent)
-        }
-
-        // For handling edge-to-edge insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
+    // 갤러리에서 선택한 이미지 처리
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == RESULT_OK) {
             val selectedImageUri = data?.data
-            findViewById<ImageView>(R.id.pic1).setImageURI(selectedImageUri)
+            binding.pic1.setImageURI(selectedImageUri)  // 선택한 이미지 설정
         }
+    }
+
+
+    override fun nicknameCheckSuccess() {
+        Toast.makeText(this, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun nicknameCheckFailure() {
+        Toast.makeText(this, "이미 사용 중인 닉네임입니다.", Toast.LENGTH_SHORT).show()
     }
 }
