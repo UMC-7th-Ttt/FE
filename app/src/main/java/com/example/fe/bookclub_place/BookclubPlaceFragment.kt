@@ -42,14 +42,6 @@ class BookclubPlaceFragment : Fragment() {
             .replace(R.id.bookclub_place_list_frm, BookclubPlaceListFragment())
             .commit()
 
-//        requireActivity().supportFragmentManager.beginTransaction()
-//            .replace(R.id.bookclub_place_list_frm, BookclubPlaceListFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString("KEYWORD", binding.bookclubPlaceTitleTv.text.toString()) // 🔥 키워드 전달
-//                }
-//            })
-//            .commit()
-
         initBookclubPlaceSearchClickListener()
         initSearchClickListener()
 
@@ -66,27 +58,6 @@ class BookclubPlaceFragment : Fragment() {
         }
 
         Log.d("BookclubPlaceFragment", "✅ API 요청 실행: $keyword")
-        searchPlaces(keyword) // 🔥 API 호출
-    }
-
-    private fun searchPlaces(keyword: String) {
-        RetrofitClient.api.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
-            override fun onResponse(
-                call: Call<PlaceSearchResponse>,
-                response: Response<PlaceSearchResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val places = response.body()?.result?.places ?: emptyList()
-                    Log.d("BookclubPlaceFragment", "✅ 검색 결과: $places")
-                } else {
-                    Log.e("BookclubPlaceFragment", "❌ 응답 실패: ${response.errorBody()?.string()}")
-                }
-            }
-
-            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-                Log.e("BookclubPlaceFragment", "❌ 네트워크 오류: ${t.message}")
-            }
-        })
     }
 
     // 공통 클릭 리스너 설정 (BookclubPlaceSearchFragment로 이동)
