@@ -2,134 +2,101 @@ package com.example.fe.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.util.Log
+import android.widget.*
 import android.text.method.PasswordTransformationMethod
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.fe.R
+import com.example.fe.login.service.LoginRequest
+import com.example.fe.login.service.LoginService
+import com.example.fe.login.service.LoginView
 import com.example.fe.signup.TermsofUse
 
-class Login : AppCompatActivity() {
+class Login : AppCompatActivity(), LoginView {
+
+    private lateinit var emailInput: EditText
+    private lateinit var passwordInput: EditText
+    private lateinit var loginButton: ImageButton
+    private lateinit var signUpButton: TextView
+    private lateinit var autoLoginCheckbox: CheckBox
+    private lateinit var sharedPreferences: android.content.SharedPreferences
+    private lateinit var loginService: LoginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
 
-        // Handle window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        emailInput = findViewById(R.id.id_input)
+        passwordInput = findViewById(R.id.pw_input)
+        loginButton = findViewById(R.id.login_button)
+        autoLoginCheckbox = findViewById(R.id.login_checkbox)
+        signUpButton = findViewById(R.id.signupButton)
 
-        val emailInput = findViewById<EditText>(R.id.id_input)
-        val passwordInput = findViewById<EditText>(R.id.pw_input)
-        val loginButton = findViewById<ImageButton>(R.id.login_button)
-        val eyeIcon = findViewById<ImageView>(R.id.pw_show)
-        val autoLoginCheckbox = findViewById<CheckBox>(R.id.login_checkbox)
-        val findPw = findViewById<TextView>(R.id.find_pw)
-        val signupLink = findViewById<TextView>(R.id.textView3)
-
-        // SharedPreferences for Auto-Login
-        val sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        // SharedPreferences 초기화
+        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
         autoLoginCheckbox.isChecked = sharedPreferences.getBoolean("autoLogin", false)
 
-        // Add text watchers for email and password input
-        emailInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+        // LoginService 초기화 및 View 연결
+        loginService = LoginService()
+        loginService.setLoginView(this)
 
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                validateInputs(emailInput, passwordInput, loginButton)
-            }
-
-            override fun afterTextChanged(editable: Editable?) {}
-        })
-
-        passwordInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                validateInputs(emailInput, passwordInput, loginButton)
-            }
-
-            override fun afterTextChanged(editable: Editable?) {}
-        })
-
-        // Eye icon click to show/hide password
-        eyeIcon.setOnClickListener {
-            if (passwordInput.transformationMethod is PasswordTransformationMethod) {
-                passwordInput.transformationMethod = null // Show password
-                eyeIcon.setImageResource(R.drawable.ic_login_eye_open) // Change to open eye icon
-            } else {
-                passwordInput.transformationMethod = PasswordTransformationMethod() // Hide password
-                eyeIcon.setImageResource(R.drawable.ic_signup_pw_eye) // Change to closed eye icon
-            }
-            passwordInput.setSelection(passwordInput.text.length) // Keep the cursor at the end
-        }
-
-        // Checkbox for Auto-Login
-        autoLoginCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("autoLogin", isChecked)
-            editor.apply()
-        }
-
-        // Navigate to Password Reset Page
-        findPw.setOnClickListener {
-            val intent = Intent(this@Login, PasswordResetActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Perform login on button click
+        // 로그인 버튼 클릭 이벤트
         loginButton.setOnClickListener {
-            val email = emailInput.text.toString()
-            val password = passwordInput.text.toString()
-            if (isValidLogin(email, password)) {
-                // Proceed with login
-                Toast.makeText(this@Login, "Login successful", Toast.LENGTH_SHORT).show()
-            } else {
-                // Show error message
-                Toast.makeText(this@Login, "Invalid credentials", Toast.LENGTH_SHORT).show()
-            }
+            login()
         }
 
-        // Navigate to Signup Page
-        signupLink.setOnClickListener {
-            val intent = Intent(this@Login, TermsofUse::class.java)
+        signUpButton.setOnClickListener {
+            val intent = Intent(this, TermsofUse::class.java)
             startActivity(intent)
         }
+
+        // 비밀번호 숨기기 설정 (기본적으로 숨겨짐)
+        passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+        val pwShow = findViewById<ImageView>(R.id.pw_show)
+
+        // 비밀번호 보이기/숨기기 토글 기능
+        pwShow.setOnClickListener {
+            if (passwordInput.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                passwordInput.transformationMethod = android.text.method.HideReturnsTransformationMethod.getInstance()
+            } else {
+                passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+            passwordInput.setSelection(passwordInput.text.length)
+        }
     }
 
-    // Validate inputs and enable login button
-    private fun validateInputs(emailInput: EditText, passwordInput: EditText, loginButton: ImageButton) {
-        val email = emailInput.text.toString()
-        val password = passwordInput.text.toString()
-        loginButton.isEnabled = isValidEmail(email) && isValidPassword(password)
+    // 로그인 API 요청 함수
+    private fun login() {
+        val email = emailInput.text.toString().trim()
+        val password = passwordInput.text.toString().trim()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "이메일과 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val user = LoginRequest(email, password)
+
+        Log.d("LOGIN/REQUEST", "로그인 요청: 이메일=$email, 비밀번호=****")
+
+        try {
+            loginService.login(user)
+        } catch (e: Exception) {
+            Log.e("LOGIN/ERROR", "로그인 요청 중 예외 발생: ${e.message}")
+            Toast.makeText(this, "로그인 요청 실패", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    // Check if email is valid
-    private fun isValidEmail(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    // 로그인 성공 시 실행
+    override fun loginSuccess() {
+        Log.d("LOGIN/SUCCESS", "로그인 성공")
+        Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+        // TODO: 홈 화면 이동 로직 추가
     }
 
-    // Check if password is valid
-    private fun isValidPassword(password: String): Boolean {
-        return password.length in 6..16
-    }
-
-    // Validate login credentials
-    private fun isValidLogin(email: String, password: String): Boolean {
-        // Replace this with real login validation logic
-        return email == "Ttt@naver.com" && password == "password123"
+    // 로그인 실패 시 실행
+    override fun loginFailure(message: String) {
+        Log.e("LOGIN/FAILURE", "로그인 실패: $message")
+        Toast.makeText(this, "로그인 실패: $message", Toast.LENGTH_SHORT).show()
     }
 }

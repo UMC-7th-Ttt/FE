@@ -123,7 +123,7 @@ class SignUpPW : AppCompatActivity(), SignUpView {
     private fun getUser(): User {
         val email = intent.getStringExtra("email") ?: ""  // 이메일 값 받기
         val password = binding.pwInput.text.toString()  // 비밀번호 값 가져오기
-        return User(email, password, "3", "")
+        return User(email, password)
     }
 
     // 회원가입을 처리하는 함수
