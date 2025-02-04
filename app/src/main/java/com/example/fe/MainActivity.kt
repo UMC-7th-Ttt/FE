@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.fe.bookclub_book.BookclubBookFragment
 import com.example.fe.bookclub_place.BookclubPlaceFragment
+import com.example.fe.mypage.MyPageFragment
 import com.example.fe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.bottom_nav_mypage -> {
-                    replaceFragment(MypageFragment(), showBottomNav = true)
+                    replaceFragment(MyPageFragment(), showBottomNav = true)
                     return@setOnItemSelectedListener true
                 }
             }
