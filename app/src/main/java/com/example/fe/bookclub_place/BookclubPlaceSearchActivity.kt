@@ -41,12 +41,12 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
                 if (keyword.isNotEmpty()) {
                     Log.d("BookclubPlaceSearchActivity", "✅ 전달할 키워드: $keyword")
 
-                    // ✅ 결과 데이터 설정 (BookclubPlaceFragment로 전달)
+                    // 결과 데이터 설정 (BookclubPlaceFragment로 전달)
                     val resultIntent = Intent().apply {
                         putExtra("KEYWORD", keyword)
                     }
-                    setResult(RESULT_OK, resultIntent) // ✅ 결과 전달
-                    finish() // ✅ 현재 Activity 종료 (이전 Fragment로 돌아감)
+                    setResult(RESULT_OK, resultIntent) // 결과 전달
+                    finish() // 현재 Activity 종료 (이전 Fragment로 돌아감)
                 }
                 true
             } else {
