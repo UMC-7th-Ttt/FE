@@ -22,7 +22,7 @@ class SearchMainActivity : AppCompatActivity() {
         initBackBtnClickListener()
         initBookclubPlaceRecentSearchRV()
         initCategoryClickListener()
-        initDeleteButtonListener()
+        initDeleteAllButtonListener()
     }
 
     private fun initBackBtnClickListener() {
@@ -74,7 +74,7 @@ class SearchMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initDeleteButtonListener() {
+    private fun initDeleteAllButtonListener() {
         binding.recentSearchDeleteTv.setOnClickListener {
             // RecyclerView Adapter에서 데이터 삭제
             val adapter = binding.recentSearchListRv.adapter as? RecentSearchRVAdapter

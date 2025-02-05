@@ -22,7 +22,7 @@ class BookclubPlaceListFragment : Fragment() {
 
     private lateinit var binding: FragmentBookclubPlaceListBinding
     private lateinit var adapter: BookclubPlaceRVAdapter
-    private val places = mutableListOf<PlaceResponse>() // 🔥 API에서 받아온 데이터를 저장할 리스트
+    private val places = mutableListOf<PlaceResponse>() // API에서 받아온 데이터를 저장할 리스트
     private var keyword: String = "검색 결과" // 기본 키워드
 
     override fun onCreateView(
