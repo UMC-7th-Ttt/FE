@@ -3,9 +3,12 @@ package com.example.fe.login
 import android.content.Intent
 import android.media.Image
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
 import android.util.Log
 import android.widget.*
 import android.text.method.PasswordTransformationMethod
+import android.text.style.UnderlineSpan
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fe.R
 import com.example.fe.signup.TermsofUse
@@ -45,6 +48,11 @@ class Login : AppCompatActivity() {
         googleLoginButton.setOnClickListener {
             startGoogleLogin()
         }
+        // 여기에서 signupButton에 밑줄 추가
+        val text = getString(R.string.signup_text)  // strings.xml에서 텍스트 불러오기
+        val spannable = SpannableString(text)
+        spannable.setSpan(UnderlineSpan(), 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        signUpButton.text = spannable  // 밑줄이 적용된 텍스트 설정
 
         passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
         val pwShow = findViewById<ImageView>(R.id.pw_show)

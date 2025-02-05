@@ -23,14 +23,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="17dp"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button"
-        app:layout_constraintVertical_bias="0.65"
+        app:layout_constraintVertical_bias="0.313"
         app:srcCompat="@drawable/ic_signup_circle_frame" />
 
     <TextView
@@ -54,6 +54,7 @@
         android:id="@+id/pwcheck_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/pretendard_medium"
         android:text="아이디(이메일)"
@@ -71,7 +72,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_edittext_background"
+        android:background="@drawable/background_login_input"
         android:backgroundTint="@color/white_10"
         android:hint="ttt@email.com"
         android:inputType="textEmailAddress"
@@ -124,8 +125,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/verification_code_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_error" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- 전송 버튼 -->
 
@@ -136,7 +136,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_edittext_background"
+        android:background="@drawable/background_login_input"
+        android:backgroundTint="@color/white_10"
         android:hint="인증번호 입력"
         android:inputType="text"
         android:textColor="@color/white"
@@ -162,15 +163,15 @@
 
     <Button
         android:id="@+id/send_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="79dp"
+        android:layout_width="90dp"
+        android:layout_height="48dp"
         android:backgroundTint="@color/primary_30"
         android:text="전송하기"
         android:textColor="@color/black"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/pw_check_input"
         app:layout_constraintEnd_toEndOf="@+id/pw_check_input"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="@+id/pw_check_input"
         app:layout_constraintTop_toTopOf="@+id/pw_check_input"
         app:layout_constraintVertical_bias="1.0" />
@@ -194,7 +195,7 @@
         android:id="@+id/timer_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="316dp"
+        android:layout_marginStart="260dp"
         android:text="03:00"
         android:textColor="@color/red"
         android:textSize="20sp"
