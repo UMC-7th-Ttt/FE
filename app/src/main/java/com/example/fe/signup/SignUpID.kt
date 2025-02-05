@@ -43,8 +43,8 @@ class SignUpID : AppCompatActivity(), EmailCheckView, AuthCodeRequestView, AuthC
         binding.emailError.visibility = View.GONE
         binding.accountExistsError.visibility = View.GONE
         binding.verificationCodeError.visibility = View.GONE
-        binding.emailLabel2.visibility = View.GONE
         binding.verificationCodeInput.visibility = View.GONE
+        binding.emailLabel2.visibility = View.GONE
         binding.timerText.visibility = View.GONE
     }
 
@@ -64,8 +64,10 @@ class SignUpID : AppCompatActivity(), EmailCheckView, AuthCodeRequestView, AuthC
                 if (!isEmailValid) {
                     binding.emailError.visibility = View.VISIBLE
                     binding.emailError.text = "이메일 형식이 올바르지 않습니다."
+                    binding.pwCheckInput.setBackgroundResource(R.drawable.background_login_input_error)
                 } else {
                     binding.emailError.visibility = View.GONE
+                    binding.pwCheckInput.setBackgroundResource(R.drawable.background_login_input_normal)
                     emailCheckService.checkEmail(email) // 이메일 중복 검사 API 호출
                 }
             }
@@ -136,8 +138,8 @@ class SignUpID : AppCompatActivity(), EmailCheckView, AuthCodeRequestView, AuthC
     // 인증번호 요청 결과 처리
     override fun onAuthCodeRequestSuccess() {
         verificationCodeSent = true
-        binding.emailLabel2.visibility = View.VISIBLE
         binding.verificationCodeInput.visibility = View.VISIBLE
+        binding.emailLabel2.visibility = View.VISIBLE
         binding.timerText.visibility = View.VISIBLE
         startTimer()
     }

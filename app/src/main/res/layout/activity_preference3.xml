@@ -62,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
 
             <TextView
@@ -107,7 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
 
             <TextView
@@ -140,7 +142,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/option6"
@@ -170,7 +173,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/option8"
@@ -204,7 +208,7 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/btn_next"
         android:clickable="true"
         android:src="@drawable/btn_next"

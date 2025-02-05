@@ -48,33 +48,32 @@
 
     <ImageView
         android:id="@+id/pic1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="122dp"
+        android:layout_height="120dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="13dp"
+        android:background="@drawable/sign_up_name_background"
+        android:clipToOutline="true"
+        android:src="@drawable/ic_signup_pic"
         app:layout_constraintBottom_toTopOf="@+id/nickname_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        android:clipToOutline="true"
-        android:src="@drawable/ic_signup_pic"
-        android:background="@drawable/sign_up_name_background" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
     <ImageButton
         android:id="@+id/pic2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/pic2_description"
         app:layout_constraintBottom_toBottomOf="@+id/pic1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="0.403"
         app:layout_constraintStart_toStartOf="@+id/pic1"
         app:layout_constraintTop_toTopOf="@+id/pic1"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_signup_pic2"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/pic2_description"
-        />
+        app:srcCompat="@drawable/ic_signup_pic2" />
 
     <TextView
         android:id="@+id/nickname_label"
