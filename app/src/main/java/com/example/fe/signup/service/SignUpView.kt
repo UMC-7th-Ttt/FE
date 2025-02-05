@@ -1,4 +1,4 @@
-package com.example.fe.signup
+package com.example.fe.signup.service
 
 interface SignUpView {
     fun onSignUpSuccess()

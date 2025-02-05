@@ -1,4 +1,5 @@
 package com.example.fe.signup
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -6,147 +7,155 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.fe.R
+import com.example.fe.databinding.ActivitySignUpIdBinding
+import com.example.fe.signup.service.email.*
 
-class SignUpID : AppCompatActivity() {
-
-
-    private lateinit var emailInput: EditText
-    private lateinit var emailError: TextView
-    private lateinit var accountExistsError: TextView
-    private lateinit var sendButton: Button
-    private lateinit var verificationCodeInput: EditText
-    private lateinit var emailLabel2: TextView
-    private lateinit var timerText: TextView
-    private lateinit var verificationCodeError: TextView
-    private lateinit var nextButton: ImageButton
+class SignUpID : AppCompatActivity(), EmailCheckView, AuthCodeRequestView, AuthCodeVerifyView {
+    private lateinit var binding: ActivitySignUpIdBinding
+    private val emailCheckService = EmailCheckService()
+    private val authCodeSendService = AuthCodeSendService()
+    private val authCodeVerifyService = AuthCodeVerifyService()
 
     private var isEmailValid = false
     private var isEmailExist = false
     private var verificationCodeSent = false
+    private var isCodeVerified = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up_id)
+        binding = ActivitySignUpIdBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Log.d("SignUpID", "onCreate 실행됨")
+        emailCheckService.setEmailCheckView(this)
+        authCodeSendService.setAuthCodeSendView(this)
+        authCodeVerifyService.setAuthCodeVerifyView(this)
 
-        val backButton: ImageButton? = findViewById(R.id.back_button)
-        backButton?.setOnClickListener {
-            Log.d("SignUpID", "뒤로 가기 버튼 클릭됨 -> finish() 실행")
+        setupUI()
+        setupListeners()
+    }
+
+    private fun setupUI() {
+        // 처음에는 오류 메시지 숨김
+        binding.emailError.visibility = View.GONE
+        binding.accountExistsError.visibility = View.GONE
+        binding.verificationCodeError.visibility = View.GONE
+        binding.emailLabel2.visibility = View.GONE
+        binding.verificationCodeInput.visibility = View.GONE
+        binding.timerText.visibility = View.GONE
+    }
+
+    private fun setupListeners() {
+        binding.backButton.setOnClickListener {
             finish()
         }
 
-        // Initialize views
-        emailInput = findViewById(R.id.pw_check_input)
-        emailError = findViewById(R.id.email_error)
-        accountExistsError = findViewById(R.id.account_exists_error)
-        sendButton = findViewById(R.id.send_button)
-        verificationCodeInput = findViewById(R.id.verification_code_input)
-        emailLabel2 = findViewById(R.id.email_label2)
-        timerText = findViewById(R.id.timer_text)
-        verificationCodeError = findViewById(R.id.verification_code_error)
-        nextButton = findViewById(R.id.next_button)
+        // 이메일 입력 감지
+        binding.pwCheckInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        // Hide elements initially
-        emailError.visibility = View.GONE
-        accountExistsError.visibility = View.GONE
-        emailLabel2.visibility = View.GONE
-        verificationCodeInput.visibility = View.GONE
-        timerText.visibility = View.GONE
-        verificationCodeError.visibility = View.GONE
-
-
-        // Email validation logic
-        emailInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                val email = charSequence.toString()
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = s.toString()
                 isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
                 if (!isEmailValid) {
-                    emailError.visibility = View.VISIBLE
-                    emailError.text = "이메일 형식이 올바르지 않습니다."
+                    binding.emailError.visibility = View.VISIBLE
+                    binding.emailError.text = "이메일 형식이 올바르지 않습니다."
                 } else {
-                    emailError.visibility = View.GONE
-                }
-
-                // Check if email already exists (for demonstration, use a simple condition)
-                isEmailExist = email == "already@exists.com" // Replace with actual check
-                if (isEmailExist) {
-                    accountExistsError.visibility = View.VISIBLE
-                    accountExistsError.text = "이미 가입된 계정이 있습니다."
-                } else {
-                    accountExistsError.visibility = View.GONE
-                }
-
-                // Update send button state based on email validity
-                sendButton.isEnabled = isEmailValid && !isEmailExist
-                if (sendButton.isEnabled) {
-                    sendButton.setBackgroundColor(resources.getColor(R.color.primary_50)) // Set to primary_40 color
-                } else {
-                    sendButton.setBackgroundColor(resources.getColor(R.color.primary_30)) // Set to default color
+                    binding.emailError.visibility = View.GONE
+                    emailCheckService.checkEmail(email) // 이메일 중복 검사 API 호출
                 }
             }
 
-            override fun afterTextChanged(editable: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Send button click logic
-        sendButton.setOnClickListener {
+        // 인증번호 요청 버튼
+        binding.sendButton.setOnClickListener {
+            val email = binding.pwCheckInput.text.toString()
             if (isEmailValid && !isEmailExist) {
-                // Show verification code inputs and timer
-                emailLabel2.visibility = View.VISIBLE
-                verificationCodeInput.visibility = View.VISIBLE
-                timerText.visibility = View.VISIBLE
-                startTimer()
-
-                // Simulate sending the verification code (for demonstration purposes)
-                verificationCodeSent = true
+                authCodeSendService.sendAuthCode(email) // 인증번호 요청 API 호출
             }
         }
 
-        // Verification code validation logic
-        verificationCodeInput.addTextChangedListener {
-            if (verificationCodeSent && it.toString() != "1234") { // Assuming 1234 is the correct code for demo
-                verificationCodeError.visibility = View.VISIBLE
-                verificationCodeError.text = "인증번호가 틀렸습니다. 입력한 정보를 확인해주세요."
+        // 인증번호 입력 감지
+        binding.verificationCodeInput.addTextChangedListener {
+            if (verificationCodeSent && it.toString().length == 6) {
+                val email = binding.pwCheckInput.text.toString()
+                val code = it.toString()
+                authCodeVerifyService.verifyAuthCode(email, code) // 인증번호 검증 API 호출
+            }
+        }
+
+        // 다음 버튼
+        binding.nextButton.setOnClickListener {
+            if (isCodeVerified) {
+                val email = binding.pwCheckInput.text.toString()
+                val intent = Intent(this, SignUpPW::class.java)
+                intent.putExtra("email", email)
+                startActivity(intent)
             } else {
-                verificationCodeError.visibility = View.GONE
+                Toast.makeText(this, "이메일 인증을 완료해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
-        val nextButton: ImageButton = findViewById(R.id.next_button)
-        nextButton.setOnClickListener {
-            // 이메일 값 가져오기
-            val email = emailInput.text.toString()
-            // NextActivity로 이동
-            val intent = Intent(this, SignUpPW::class.java)
-            intent.putExtra("email", email) // 이메일 값 전달
-            startActivity(intent)
-        }
-
     }
 
+    // 타이머 시작 함수
     private fun startTimer() {
-        object : CountDownTimer(3 * 60 * 1000, 1000) { // 3 minutes countdown
+        object : CountDownTimer(3 * 60 * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = (millisUntilFinished / 1000) / 60
                 val seconds = (millisUntilFinished / 1000) % 60
-                timerText.text = String.format("%02d:%02d", minutes, seconds)
+                binding.timerText.text = String.format("%02d:%02d", minutes, seconds)
             }
 
             override fun onFinish() {
-                timerText.text = "00:00"
-                // Optionally disable input or show message when time is over
+                binding.timerText.text = "00:00"
+                verificationCodeSent = false
             }
         }.start()
+    }
+
+    // 이메일 중복 검사 결과 처리
+    override fun onEmailCheckSuccess() {
+        isEmailExist = false
+        binding.accountExistsError.visibility = View.GONE
+        binding.sendButton.isEnabled = true
+    }
+
+    override fun onEmailCheckFailure() {
+        isEmailExist = true
+        binding.accountExistsError.visibility = View.VISIBLE
+        binding.accountExistsError.text = "이미 가입된 계정이 있습니다."
+        binding.sendButton.isEnabled = false
+    }
+
+    // 인증번호 요청 결과 처리
+    override fun onAuthCodeRequestSuccess() {
+        verificationCodeSent = true
+        binding.emailLabel2.visibility = View.VISIBLE
+        binding.verificationCodeInput.visibility = View.VISIBLE
+        binding.timerText.visibility = View.VISIBLE
+        startTimer()
+    }
+
+    override fun onAuthCodeRequestFailure() {
+        Toast.makeText(this, "인증번호 전송 실패. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+    }
+
+    // 인증번호 검증 결과 처리
+    override fun onAuthCodeVerifySuccess() {
+        isCodeVerified = true
+        binding.verificationCodeError.visibility = View.GONE
+        Toast.makeText(this, "인증번호 확인 완료!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAuthCodeVerifyFailure() {
+        isCodeVerified = false
+        binding.verificationCodeError.visibility = View.VISIBLE
+        binding.verificationCodeError.text = "인증번호가 틀렸습니다. 다시 입력해주세요."
     }
 }

@@ -6,14 +6,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.fe.R
 import com.example.fe.databinding.ActivitySignUpPwBinding
-import java.util.regex.Pattern
+import com.example.fe.signup.service.AuthService
+import com.example.fe.signup.service.SignUpView
+import com.example.fe.signup.service.User
 
 // 1단계: SignUpView 인터페이스를 구현하는 MainActivity 클래스
 class SignUpPW : AppCompatActivity(), SignUpView {
@@ -123,7 +123,7 @@ class SignUpPW : AppCompatActivity(), SignUpView {
     private fun getUser(): User {
         val email = intent.getStringExtra("email") ?: ""  // 이메일 값 받기
         val password = binding.pwInput.text.toString()  // 비밀번호 값 가져오기
-        return User(email, password, "99", "")
+        return User(email, password)
     }
 
     // 회원가입을 처리하는 함수

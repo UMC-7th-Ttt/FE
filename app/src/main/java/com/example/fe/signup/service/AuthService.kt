@@ -1,6 +1,7 @@
-package com.example.fe.signup
+package com.example.fe.signup.service
 
 import android.util.Log
+import com.example.fe.network.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
