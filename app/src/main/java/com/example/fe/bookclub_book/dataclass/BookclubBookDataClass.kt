@@ -1,7 +1,5 @@
 package com.example.fe.bookclub_book.dataclass
 
-import com.google.gson.annotations.SerializedName
-
 data class BookclubByMonth(
     val month:String = "",
     val coverImg:Int? = null
@@ -17,7 +15,7 @@ data class BookclubParticipation(
     val progress: Int
 )
 
-data class BookclubDetailMember(
-    val name:String = "",
-    val coverImg:Int? = null
-)
+//data class BookclubDetailMember(
+//    val name:String = "",
+//    val coverImg: String = null.toString()
+//)

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorMainBg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@color/colorMainBg"
+            android:paddingBottom="50dp">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_prev_arrow"
+                android:scaleType="center"
+                android:layout_marginTop="54dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="303dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/back_btn"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/book_bg_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img_bookclub_detail"
+                android:scaleType="centerCrop"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#99000000" />
+
+
+        </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/primary_line"
+                android:layout_width="30dp"
+                android:layout_height="2.5dp"
+                android:background="@color/colorPrimaryNormal"
+                android:layout_marginTop="43dp"
+                app:layout_constraintTop_toBottomOf="@+id/back_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/book_iv"
+                android:layout_width="110dp"
+                android:layout_height="165dp"
+                android:src="@drawable/img_bookclub_detail"
+                android:scaleType="fitXY"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@+id/primary_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/book_info_bg"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:background="#99000000"
+                android:layout_marginTop="143dp"
+                app:layout_constraintTop_toBottomOf="@+id/primary_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/book_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모순"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_bold"
+                app:layout_constraintBottom_toTopOf="@+id/book_author_tv"
+                app:layout_constraintStart_toStartOf="@+id/book_author_tv"/>
+
+            <TextView
+                android:id="@+id/book_author_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="양귀자 장편소설"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/book_info_bg"
+                app:layout_constraintStart_toStartOf="@+id/book_info_bg"/>
+
+            <ImageView
+                android:id="@+id/vertical_gray_line"
+                android:layout_width="0.8dp"
+                android:layout_height="7dp"
+                android:background="#80FFFFFF"
+                app:layout_constraintTop_toTopOf="@+id/book_author_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
+                app:layout_constraintStart_toEndOf="@+id/book_author_tv"
+                app:layout_constraintEnd_toStartOf="@+id/publisher_tv"
+                />
+
+            <TextView
+                android:id="@+id/publisher_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출판사 쓰다"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:layout_marginStart="12dp"
+                app:layout_constraintTop_toTopOf="@+id/book_author_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
+                app:layout_constraintStart_toEndOf="@+id/book_author_tv"/>
+
+            <ImageView
+                android:id="@+id/detail_book_over_next_btn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_next_arrow"
+                android:scaleType="center"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toTopOf="@+id/book_title_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/bookclub_detail_member_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="북클럽 멤버"
+                android:textColor="@color/colorLabelNormal"
+                android:fontFamily="@font/pretendard_bold"
+                android:textSize="16sp"
+                android:layout_marginTop="26dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/book_info_bg"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bookclub_detail_member_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="11dp"
+                android:paddingEnd="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/bookclub_detail_member_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
+                />
+
+            <TextView
+                android:id="@+id/completion_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘도 책을 펼쳐 볼까요?"
+                android:textColor="@color/colorLabelNormal"
+                android:fontFamily="@font/pretendard_bold"
+                android:textSize="16sp"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/bookclub_detail_member_rv"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/completion_cardView"
+                android:layout_width="320dp"
+                android:layout_height="136dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#80000000"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/completion_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/my_completion_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나의 완독률"
+                android:textSize="14sp"
+                android:textColor="@color/colorLabelNeutral"
+                android:fontFamily="@font/pretendard_medium"
+                android:background="@color/transparent"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="14dp"
+                app:layout_constraintTop_toTopOf="@+id/completion_cardView"
+                app:layout_constraintStart_toStartOf="@+id/completion_cardView"
+                android:elevation="4dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/my_completion_progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="235dp"
+                android:layout_height="9dp"
+                android:max="100"
+                android:elevation="5dp"
+                android:progressDrawable="@drawable/progress_bar_primary"
+                android:progress="93"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/my_completion_tv"
+                app:layout_constraintStart_toStartOf="@+id/my_completion_tv"/>
+
+            <TextView
+                android:id="@+id/my_completion_progress_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="93%"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryNormal"
+                android:fontFamily="@font/pretendard_bold"
+                android:background="@color/transparent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/my_completion_progress_bar"
+                app:layout_constraintBottom_toBottomOf="@+id/my_completion_progress_bar"
+                app:layout_constraintStart_toEndOf="@+id/my_completion_progress_bar"
+                android:elevation="5dp"
+                />
+
+
+            <TextView
+                android:id="@+id/elapse_week_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="14sp"
+                android:textColor="@color/colorLabelNeutral"
+                android:fontFamily="@font/pretendard_medium"
+                android:background="@color/transparent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/my_completion_progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/my_completion_progress_bar"
+                android:elevation="4dp"
+                />
+
+
+            <TextView
+                android:id="@+id/recommend_completion_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주차 추천 완독률"
+                android:textSize="14sp"
+                android:textColor="@color/colorLabelNeutral"
+                android:fontFamily="@font/pretendard_medium"
+                android:background="@color/transparent"
+                app:layout_constraintTop_toTopOf="@+id/elapse_week_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/elapse_week_tv"
+                app:layout_constraintStart_toEndOf="@+id/elapse_week_tv"
+                android:elevation="4dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/recommend_completion_progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="235dp"
+                android:layout_height="9dp"
+                android:max="100"
+                android:elevation="5dp"
+                android:progressDrawable="@drawable/progress_bar_sub"
+                android:progress="100"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/elapse_week_tv"
+                app:layout_constraintStart_toStartOf="@+id/elapse_week_tv"/>
+
+            <TextView
+                android:id="@+id/recommend_completion_progress_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:textSize="14sp"
+                android:textColor="#D478FF"
+                android:fontFamily="@font/pretendard_bold"
+                android:background="@color/transparent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/recommend_completion_progress_bar"
+                app:layout_constraintBottom_toBottomOf="@+id/recommend_completion_progress_bar"
+                app:layout_constraintStart_toEndOf="@+id/recommend_completion_progress_bar"
+                android:elevation="5dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/btn_bg_iv"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:background="@color/colorMainBg"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/certify_btn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="서평 인증하기"
+        android:background="@drawable/primary_btn_bg"
+        android:textColor="@color/button_text_color"
+        android:layout_marginHorizontal="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

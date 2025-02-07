@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="info"-->
-<!--            type="com.example.fe.bookclub_book.dataclass.BookclubByMonth" />-->
-
-<!--    </data>-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingEnd="6dp"
+    android:paddingBottom="10dp"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
 
     <TextView
+        android:id="@+id/tag_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="양귀자"
         android:textSize="13sp"
         android:textColor="@color/colorPrimaryNormal"
         style="@style/body_regular_02"
-        android:padding="10dp"
-        android:background="@drawable/bookclub_signup_book_info_bg"/>
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/bookclub_signup_book_info_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

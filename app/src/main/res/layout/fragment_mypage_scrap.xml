@@ -44,7 +44,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/scrap_count_tv"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scrap_rv"
         android:layout_width="wrap_content"
@@ -57,5 +56,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrap_count_tv"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/folder_delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_weight="1"
+        android:text="삭제하기"
+        android:background="@drawable/primary_btn_bg"
+        android:textColor="@color/button_text_color"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,6 +69,18 @@
         app:layout_constraintEnd_toEndOf="@+id/item_review_folder_cardview"
         />
 
+    <ImageView
+        android:id="@+id/check_over"
+        android:layout_width="146dp"
+        android:layout_height="146dp"
+        android:src="@drawable/ic_check"
+        android:background="@drawable/white_rec_border_radius_8"
+        android:elevation="2dp"
+        android:scaleType="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/item_review_folder_cardview"
+        app:layout_constraintStart_toStartOf="@+id/item_review_folder_cardview"/>
+
 
 
 

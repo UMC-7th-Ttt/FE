@@ -1,15 +1,14 @@
 package com.example.fe.bookclub_book
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.R
 import com.example.fe.bookclub_book.dataclass.BookclubParticipation
 import com.example.fe.bookclub_book.adapter.BookclubParticipationRVAdapter
 import com.example.fe.databinding.FragmentBookclubBookParticipationBinding
@@ -38,12 +37,8 @@ class BookclubBookParticipationFragment: Fragment() {
         // 어댑터에 클릭 리스너 추가
         val bookclubParticipationRVAdapter = BookclubParticipationRVAdapter(object : BookclubParticipationRVAdapter.MyItemClickListener {
             override fun onItemClick(participation: BookclubParticipation) {
-                // Fragment 전환
-                val detailFragment = BookclubBookDetailFragment() // 데이터 전달 없이 단순 전환
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container, detailFragment)
-                    addToBackStack(null) // 이전 Fragment로 돌아갈 수 있도록 설정
-                }
+                val intent = Intent(context, BookclubBookDetail::class.java)
+                startActivity(intent)
             }
         })
 
@@ -71,6 +66,7 @@ class BookclubBookParticipationFragment: Fragment() {
             }
         })
 
+        // 참여 현황 이전 북클럽 버튼
         binding.itemParticipationPrevBtn.setOnClickListener {
             val currentPos = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
             val prevPosition = currentPos - 1
@@ -79,6 +75,7 @@ class BookclubBookParticipationFragment: Fragment() {
             }
         }
 
+        // 참여 현황 다음 북클럽 버튼
         binding.itemParticipationNextBtn.setOnClickListener {
             val currentPos = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
             val nextPosition = currentPos + 1

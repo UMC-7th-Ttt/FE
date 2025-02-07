@@ -7,3 +7,7 @@ data class MyPageScrap(
 data class MyPageReview(
     val review:String = ""
 )
+
+data class MyPageScrapFolder(
+    val scrapFolder:String = ""
+)

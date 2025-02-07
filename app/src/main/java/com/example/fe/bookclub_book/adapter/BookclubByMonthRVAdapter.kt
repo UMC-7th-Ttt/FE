@@ -30,7 +30,7 @@ class BookclubByMonthRVAdapter(private val itemClickListener: MyItemClickListene
 
     inner class ViewHolder(val binding: ItemBookclubBookMonthsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(bookclubByMonth: BookclubByMonth) {
-            binding.itemBookclubBookMonthIv.setImageResource(bookclubByMonth.coverImg!!)
+//            binding.itemBookclubBookMonthIv.setImageResource(bookclubByMonth.coverImg!!)
 
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(bookclubsByMonth)
