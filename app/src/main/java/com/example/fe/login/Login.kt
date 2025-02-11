@@ -11,7 +11,7 @@ import android.text.method.PasswordTransformationMethod
 import android.text.style.UnderlineSpan
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fe.R
-import com.example.fe.signup.TermsofUse
+//import com.example.fe.signup.TermsofUse
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
