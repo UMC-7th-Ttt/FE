@@ -2,6 +2,7 @@ package com.example.fe.login.service
 
 import android.util.Log
 import com.example.fe.network.getRetrofit
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,40 +15,64 @@ class LoginService {
     }
 
     fun login(user: LoginRequest) {
-        Log.d("LOGIN/REQUEST", "로그인 요청 시작: 이메일=${user.email}, 비밀번호=${user.password}")
+        Log.d("LOGIN_TEST", "로그인 요청 시작: 이메일=${user.email}, 비밀번호=${user.password}")
 
         val authService = getRetrofit().create(LoginRetrofitInterface::class.java)
-        Log.d("LOGIN/RETROFIT", "Retrofit 객체 생성 완료")
+        Log.d("LOGIN_TEST", "Retrofit 객체 생성 완료")
+
 
         authService.login(user).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                Log.d("LOGIN/RESPONSE", "HTTP 응답 코드: ${response.code()}")
+                Log.d("LOGIN_TEST", "HTTP 응답 코드: ${response.code()}")
+                Log.d("LOGIN_TEST", "응답 헤더: ${response.headers()}") // 응답 헤더 전체 확인
 
-                val rawResponse = response.errorBody()?.string() ?: response.body().toString()
-                Log.d("LOGIN/RAW_RESPONSE", "원본 응답: $rawResponse")
+                val errorBodyString = response.errorBody()?.string()
+                if (errorBodyString != null) {
+                    Log.e("LOGIN_TEST", "서버 응답 에러 바디: $errorBodyString")
 
-                try {
-                    val resp: LoginResponse? = response.body()
-                    if (resp != null) {
-                        Log.d("LOGIN/RESPONSE", "서버 응답 코드: ${resp.code}")
-                        when (resp.code) {
-                            "COMMON200" -> loginView.loginSuccess()
-                            else -> loginView.loginFailure(resp.message ?: "로그인 실패")
-                        }
-                    } else {
-                        Log.e("LOGIN/ERROR", "응답 바디가 null입니다.")
-                        loginView.loginFailure("서버 응답이 없습니다.")
+                    try {
+                        val errorJson = JSONObject(errorBodyString)
+                        val message = errorJson.optString("message", "로그인 실패")
+                        val errorCode = errorJson.optString("code", "UNKNOWN_ERROR")
+
+                        Log.e("LOGIN_TEST", "에러 코드: $errorCode, 메시지: $message")
+                        loginView.loginFailure(message)
+                    } catch (e: Exception) {
+                        Log.e("LOGIN_TEST", "에러 바디 JSON 파싱 오류: ${e.message}")
+                        loginView.loginFailure("서버 오류 발생")
                     }
-                } catch (e: Exception) {
-                    Log.e("LOGIN/PARSE_ERROR", "JSON 파싱 오류: ${e.message}", e)
-                    loginView.loginFailure("데이터 처리 오류 발생")
+                    return
+                }
+
+                val resp: LoginResponse? = response.body()
+                if (resp != null) {
+                    Log.d("LOGIN_TEST", "서버 응답 코드: ${resp.code}")
+                    when (resp.code) {
+                        "COMMON200" -> {
+                            loginView.loginSuccess()
+
+                            // ✅ Authorization 토큰 저장 추가
+                            val authToken = response.headers()["Authorization"]
+                            if (authToken != null) {
+                                Log.d("LOGIN_TEST", "토큰 저장 완료: $authToken")
+                                loginView.saveAuthToken(authToken)
+                            } else {
+                                Log.e("LOGIN_TEST", "Authorization 토큰이 응답에 없음")
+                            }
+                        }
+                        else -> loginView.loginFailure(resp.message ?: "로그인 실패")
+                    }
+                } else {
+                    Log.e("LOGIN_TEST", "응답 바디가 null입니다.")
+                    loginView.loginFailure("서버 응답이 없습니다. (코드: ${response.code()})")
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Log.e("LOGIN/FAILURE", "네트워크 오류: ${t.message}", t)
+                Log.e("LOGIN_TEST", "네트워크 오류: ${t.message}", t)
                 loginView.loginFailure("네트워크 오류 발생")
             }
         })
+
     }
 }
