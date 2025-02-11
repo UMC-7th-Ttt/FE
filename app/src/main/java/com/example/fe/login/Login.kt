@@ -63,6 +63,7 @@ class Login : AppCompatActivity(), LoginView {
         } catch (e: ApiException) {
             Toast.makeText(this, "Google 로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
         }
+
     }
 
 
