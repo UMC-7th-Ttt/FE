@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fe.bookclub_book.dataclass.BookclubByMonth
-import com.example.fe.bookclub_book.dataclass.BookclubMember
-import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubByMonthRVAdapter
 import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
+import com.example.fe.bookclub_book.server.BookClubByMonthResponse
 import com.example.fe.bookclub_book.server.ReadingRecordsListResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
@@ -20,11 +18,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class BookclubBookHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentBookclubBookHomeBinding
     private lateinit var bookclubMemberRVAdapter: BookclubMemberRVAdapter
+    private lateinit var bookclubByMonthRVAdapter: BookclubByMonthRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +33,7 @@ class BookclubBookHomeFragment : Fragment() {
         initBookclubMemberRecyclerview()
         initBookclubByMonthRecyclerview()
         fetchReadingRecords()
+        fetchBookClubMonth()
 
         return binding.root
     }
@@ -58,22 +57,15 @@ class BookclubBookHomeFragment : Fragment() {
     private fun initBookclubByMonthRecyclerview() {
         binding.bookclubBookHomeMonthRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        val bookclubByMonthRVAdapter = BookclubByMonthRVAdapter(object : BookclubByMonthRVAdapter.MyItemClickListener {
-            override fun onItemClick(participation: ArrayList<BookclubByMonth>) {
+        bookclubByMonthRVAdapter = BookclubByMonthRVAdapter(object : BookclubByMonthRVAdapter.MyItemClickListener {
+            override fun onItemClick(bookClub: BookClubByMonthResponse.Result.BookClub) {
                 val intent = Intent(context, BookclubJoin::class.java)
+                intent.putExtra("bookClubId", bookClub.bookClubId)
                 startActivity(intent)
             }
         })
 
-        val dummyBookclubByMonth = listOf(
-            BookclubByMonth("", R.drawable.img_book_cover1),
-            BookclubByMonth("", R.drawable.img_book_cover2),
-            BookclubByMonth("", R.drawable.img_book_cover3)
-        )
-
-        bookclubByMonthRVAdapter.setBookclubByMonth(dummyBookclubByMonth)
         binding.bookclubBookHomeMonthRv.adapter = bookclubByMonthRVAdapter
-
     }
 
     // 서평 상세 조회 함수(북클럽 멤버 리사이클러 뷰 클릭시)
@@ -87,7 +79,6 @@ class BookclubBookHomeFragment : Fragment() {
                     }
                 } else {
                     // 오류 처리
-                    Log.e("BookclubBookHomeFragment", "Error: ${response.code()} - ${response.message()}")
                 }
             }
 
@@ -97,4 +88,23 @@ class BookclubBookHomeFragment : Fragment() {
         })
     }
 
+    // 월별 북클럽 리스트 조회 함수
+    private fun fetchBookClubMonth() {
+        api.getBookClubByMonth().enqueue(object : Callback<BookClubByMonthResponse> {
+            override fun onResponse(call: Call<BookClubByMonthResponse>, response: Response<BookClubByMonthResponse>) {
+                if (response.isSuccessful) {
+                    val bookClubMonthResponse = response.body()
+                    bookClubMonthResponse?.result?.bookClubs?.let { bookClubs ->
+                        bookclubByMonthRVAdapter.setBookclubByMonth(bookClubs)
+                    }
+                } else {
+                    //오류
+                }
+            }
+
+            override fun onFailure(call: Call<BookClubByMonthResponse>, t: Throwable) {
+                Log.e("BookclubBookHomeFragment", "Network Error: ${t.message}")
+            }
+        })
+    }
 }

@@ -168,7 +168,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bookclub_signup_btn"
+        android:id="@+id/done_btn"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:text="완료"

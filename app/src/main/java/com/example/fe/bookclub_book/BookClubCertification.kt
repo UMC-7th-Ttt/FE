@@ -8,26 +8,36 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.R
-import com.example.fe.databinding.ActivityBookclubBookDetailBinding
-import com.example.fe.databinding.ActivityBookclubBookWriteReviewBinding
+import com.example.fe.bookclub_book.adapter.CertifyPhotoRVAdapter
+import com.example.fe.bookclub_book.server.BookClubCertificationRequest
+import com.example.fe.bookclub_book.server.BookClubCertificationResponse
+import com.example.fe.bookclub_book.server.api
+import com.example.fe.databinding.ActivityBookclubCertificationBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class BookclubWriteReview : AppCompatActivity() {
+class BookClubCertification : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBookclubBookWriteReviewBinding
+    private lateinit var binding: ActivityBookclubCertificationBinding
     private lateinit var imageAdapter: CertifyPhotoRVAdapter
     private val selectedImages = mutableListOf<Uri>()
     private lateinit var titleEditText: EditText
     private lateinit var reviewEditText: EditText
     private lateinit var pageCountEditText: EditText
+    private var bookClubId: Int = -1
 
+    @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityBookclubBookWriteReviewBinding.inflate(layoutInflater)
+        binding = ActivityBookclubCertificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.backBtn.setOnClickListener {
@@ -55,7 +65,7 @@ class BookclubWriteReview : AppCompatActivity() {
 
         fun checkEditTexts() {
             val allFilled = editTexts.all { it.text.isNotEmpty() }
-            binding.bookclubSignupBtn.isEnabled = allFilled // 버튼 활성화/비활성화
+            binding.doneBtn.isEnabled = allFilled // 버튼 활성화/비활성화
         }
 
         // EditText에 TextWatcher 추가
@@ -177,6 +187,58 @@ class BookclubWriteReview : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // 인증 버튼 클릭 리스너
+        binding.doneBtn.setOnClickListener {
+            val title = titleEditText.text.toString()
+            val content = reviewEditText.text.toString()
+            val currentPage = pageCountEditText.text.toString().toInt()
+            val imgUrl = if (selectedImages.isNotEmpty()) selectedImages[0].toString() else ""
+            val isSecret = false
+
+            val request = BookClubCertificationRequest(
+                title = title,
+                content = content,
+                currentPage = currentPage,
+                imgUrl = imgUrl,
+                isSecret = isSecret
+            )
+
+            sendCertification(request)
+        }
+
+        bookClubId = intent.getIntExtra("bookClubId", -1)
+    }
+
+    private fun sendCertification(request: BookClubCertificationRequest) {
+        Log.d("BookClubCertification", "bookClubId: $bookClubId") // 로그 추가
+        if (bookClubId == -1) {
+            Toast.makeText(this, "Invalid book club ID", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        api.postCertification(bookClubId, request).enqueue(object :
+            Callback<BookClubCertificationResponse> {
+            override fun onResponse(call: Call<BookClubCertificationResponse>, response: Response<BookClubCertificationResponse>) {
+                if (response.isSuccessful) {
+                    val certificationResponse = response.body()
+                    certificationResponse?.let {
+                        if (it.isSuccess) {
+                            Toast.makeText(this@BookClubCertification, "Certification successful!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this@BookClubCertification, "Failed to certify: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(this@BookClubCertification, "Failed to certify: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<BookClubCertificationResponse>, t: Throwable) {
+                Toast.makeText(this@BookClubCertification, "Network Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 

@@ -3,7 +3,6 @@ package com.example.fe.bookclub_book
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -30,15 +29,24 @@ class BookclubBookDetail: AppCompatActivity() {
             finish()
         }
 
-        // 인증하기 버튼 클릭 리스너
+        // Intent로부터 bookClubId를 가져옵니다.
+        val bookClubId = intent.getIntExtra("bookClubId", -1)
+        if (bookClubId != -1) {
+            fetchBookClubDetail(bookClubId)
+        } else {
+            finish()
+        }
+
         binding.certifyBtn.setOnClickListener {
-            val intent = Intent(this, BookclubWriteReview::class.java)
+            val intent = Intent(this, BookClubCertification::class.java)
+            intent.putExtra("bookClubId", bookClubId) // bookClubId를 넘겨줌
             startActivity(intent)
         }
 
-        // 임의 id로 설정
-        val bookClubId = 1
-        fetchBookClubDetail(bookClubId)
+        binding.bookTitleTv.apply {
+            isSelected = true
+        }
+
 
         initBookclubDetailMemberRecyclerview()
     }
@@ -56,9 +64,9 @@ class BookclubBookDetail: AppCompatActivity() {
                         binding.publisherTv.text = it.result.bookInfo.publisher
                         binding.myCompletionProgressBar.progress = it.result.myCompletionRate
                         binding.myCompletionProgressTv.text = "${it.result.myCompletionRate}%"
+                        binding.elapseWeekTv.text = "${it.result.elapsedWeeks}주차 추천 완독률"
                         binding.recommendCompletionProgressBar.progress = it.result.recommendedCompletionRate
                         binding.recommendCompletionProgressTv.text = "${it.result.recommendedCompletionRate}%"
-                        binding.elapseWeekTv.text = it.result.elapsedWeeks.toString()
 
                         Glide.with(this@BookclubBookDetail)
                             .load(it.result.bookInfo.cover)
@@ -70,12 +78,12 @@ class BookclubBookDetail: AppCompatActivity() {
 
                         bookclubDetailMemberRVAdapter.setMembers(it.result.members)
 
-                        // 인증 버튼의 visibility 설정
-                        if (it.result.elapsedWeeks == 4) {
-                            binding.certifyBtn.visibility = View.VISIBLE
-                        } else {
-                            binding.certifyBtn.visibility = View.INVISIBLE
-                        }
+//                        // 인증 버튼의 visibility 설정
+//                        if (it.result.elapsedWeeks == 4) {
+//                            binding.certifyBtn.visibility = View.VISIBLE
+//                        } else {
+//                            binding.certifyBtn.visibility = View.INVISIBLE
+//                        }
 
                     }
                 } else {

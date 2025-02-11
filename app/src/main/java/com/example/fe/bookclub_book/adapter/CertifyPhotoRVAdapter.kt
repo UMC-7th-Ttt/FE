@@ -1,4 +1,4 @@
-package com.example.fe.bookclub_book
+package com.example.fe.bookclub_book.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fe.R
+import com.example.fe.databinding.ItemCertifyPhotoBinding
 
 class CertifyPhotoRVAdapter(private val images: List<Uri>) : RecyclerView.Adapter<CertifyPhotoRVAdapter.ImageViewHolder>() {
 
@@ -24,4 +26,12 @@ class CertifyPhotoRVAdapter(private val images: List<Uri>) : RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int = images.size
+
+    inner class ViewHolder(private val binding: ItemCertifyPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(uri: Uri) {
+            Glide.with(binding.root.context)
+                .load(uri)
+                .into(binding.photoItemIv)
+        }
+    }
 }

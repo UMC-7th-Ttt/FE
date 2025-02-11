@@ -2,6 +2,7 @@ package com.example.fe.bookclub_book
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,16 @@ import com.example.fe.MainActivity
 import com.example.fe.mypage.MyPageFragment
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookVPAdapter
+import com.example.fe.bookclub_book.server.BookClubUserResponse
+import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookBinding
 import com.example.fe.search.SearchMainActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.bumptech.glide.Glide
 
 class BookclubBookFragment : Fragment() {
 
@@ -27,6 +34,8 @@ class BookclubBookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBookclubBookBinding.inflate(inflater, container, false)
+
+        fetchUser()
 
         // 프로필 아이콘 클릭 리스너 설정
         binding.bookclubBookPersonIc.setOnClickListener {
@@ -63,5 +72,26 @@ class BookclubBookFragment : Fragment() {
         }.attach()
 
         return binding.root
+    }
+
+    private fun fetchUser() {
+        api.getUser().enqueue(object : Callback<BookClubUserResponse> {
+            override fun onResponse(call: Call<BookClubUserResponse>, response: Response<BookClubUserResponse>) {
+                if (response.isSuccessful) {
+                    val userResponse = response.body()
+                    userResponse?.let {
+                        Glide.with(this@BookclubBookFragment)
+                            .load(it.result.profileUrl)
+                            .into(binding.bookclubBookPersonIc)
+                    }
+                } else {
+                    // 오류 처리
+                }
+            }
+
+            override fun onFailure(call: Call<BookClubUserResponse>, t: Throwable) {
+                //오류 처리
+            }
+        })
     }
 }

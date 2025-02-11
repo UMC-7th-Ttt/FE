@@ -3,7 +3,6 @@ package com.example.fe.bookclub_book
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.Toast
@@ -39,7 +38,7 @@ class BookclubJoin : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             finish()
         }
-        
+
         // 홈 아이콘 클릭 리스너
         binding.homeBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -49,8 +48,8 @@ class BookclubJoin : AppCompatActivity() {
             finish()
         }
 
-        val id = 2
-        val bookClubId = 1
+        // Intent로부터 bookClubId를 받아옴
+        val bookClubId = intent.getIntExtra("bookClubId", -1)
         fetchBookClubInfo(bookClubId)
 
         initTagRV()

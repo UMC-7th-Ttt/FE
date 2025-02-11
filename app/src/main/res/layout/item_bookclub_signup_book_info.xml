@@ -14,7 +14,7 @@
         android:textSize="13sp"
         android:textColor="@color/colorPrimaryNormal"
         style="@style/body_regular_02"
-        android:paddingVertical="5dp"
+        android:paddingVertical="8dp"
         android:paddingHorizontal="10dp"
         android:background="@drawable/bookclub_signup_book_info_bg"
         app:layout_constraintTop_toTopOf="parent"
