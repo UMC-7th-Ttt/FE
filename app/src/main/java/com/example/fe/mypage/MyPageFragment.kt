@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fe.databinding.FragmentMypageBinding
 import com.example.fe.mypage.adapter.MyPageVPAdapter
-import com.example.fe.Setting
+import com.example.fe.search.SearchMainActivity
+import com.example.fe.setting.Setting
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -40,7 +41,7 @@ class MyPageFragment : Fragment() {
             }
         }.attach()
 
-        // Settings button click listener
+        // 설정 아이콘 클릭 리스너 설정
         binding.mypageSettingIv.setOnClickListener {
             context?.let { ctx ->
                 val intent = Intent(ctx, Setting::class.java)
@@ -48,23 +49,12 @@ class MyPageFragment : Fragment() {
             }
         }
 
-        // TabLayout 클릭 리스너
-        setupTabLayout(tabLayout, viewPager)
+        // 검색 아이콘 클릭 리스너 설정
+        binding.mypageSearchIv.setOnClickListener {
+            val intent = Intent(context, SearchMainActivity::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
-    }
-
-    private fun setupTabLayout(tabLayout: TabLayout, viewPager: ViewPager2) {
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                // TabLayout이 활성화 상태일 때만 ViewPager2의 Fragment로 전환됨
-                if (tabLayout.isEnabled) { // TabLayout이 활성화 상태인지 확인
-                    viewPager.currentItem = tab.position
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
     }
 }
