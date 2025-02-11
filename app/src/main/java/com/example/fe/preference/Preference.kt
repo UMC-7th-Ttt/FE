@@ -1,4 +1,4 @@
-package com.example.fe.Preference
+package com.example.fe.preference
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fe.R
 
-class Preference2 : AppCompatActivity() {
+class Preference : AppCompatActivity() {
 
     private var selectedCount = 0
     private lateinit var nextButton: ImageButton
@@ -19,7 +19,7 @@ class Preference2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_preference2)
+        setContentView(R.layout.activity_preference)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -47,14 +47,7 @@ class Preference2 : AppCompatActivity() {
             findViewById(R.id.option5),
             findViewById(R.id.option6),
             findViewById(R.id.option7),
-            findViewById(R.id.option8),
-            findViewById(R.id.option9),
-            findViewById(R.id.option10),
-            findViewById(R.id.option11),
-            findViewById(R.id.option12),
-            findViewById(R.id.option13),
-            findViewById(R.id.option14),
-            findViewById(R.id.option15)
+            findViewById(R.id.option8)
         )
 
         // Set click listeners on each TextView
@@ -65,25 +58,34 @@ class Preference2 : AppCompatActivity() {
         }
         nextButton.setOnClickListener {
             // Start the next activity
-            val intent = Intent(this, Preference3::class.java)
+            val intent = Intent(this, Preference2::class.java)
             startActivity(intent)
         }
     }
 
     private fun toggleSelection(option: TextView) {
-        // Toggle the background to indicate selection
-        if (option.isSelected) {
-            option.isSelected = false
-            option.setBackgroundResource(R.color.white_20) // Unselected state
+        // 기본 배경 색상과 텍스트 색상 저장
+        val defaultBackground = R.drawable.background_preference_unselected // 기본 배경
+        val selectedBackground = R.drawable.background_preference_selected // 선택된 배경
+        val defaultTextColor = resources.getColor(R.color.white) // 기본 텍스트 색상
+
+        // 선택된 상태를 확인하고, 선택 여부에 따라 배경 색상 및 글자 색상 변경
+        if (option.tag == "selected") {
+            // 이미 선택된 상태라면, 배경을 기본 상태로 변경하고, 글자 색상 원래대로 복원
+            option.setBackgroundResource(defaultBackground)
+            option.setTextColor(defaultTextColor)
+            option.tag = "unselected" // 상태 변경
             selectedCount--
         } else {
-            option.isSelected = true
-            option.setBackgroundResource(R.color.primary_50) // Selected state
-            option.setTextColor(resources.getColor(R.color.black))
+            // 선택되지 않은 상태라면, 배경을 선택된 상태로 변경하고, 글자 색상 검정색으로 변경
+            option.setBackgroundResource(selectedBackground)
+            option.setTextColor(resources.getColor(R.color.black)) // 글자 색상 검정색
+            option.tag = "selected" // 상태 변경
             selectedCount++
         }
 
-        // Enable or disable the next button based on the selected count
+        // 선택된 아이템의 개수가 3개 이상이면 다음 버튼 활성화
         nextButton.isEnabled = selectedCount >= 3
     }
+
 }

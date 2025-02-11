@@ -5,71 +5,105 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp.TermsofUse"
+    tools:context=".signup.TermsofUse"
     android:background="@color/black">
 
-        <!-- 뒤로 가기 버튼 -->
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back"
-            android:background="@android:color/transparent"/>
+    <!-- 뒤로 가기 버튼 -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description" />
 
-        <!-- 제목 -->
+    <!-- 제목 -->
+
+    <!-- 전체 동의하기 -->
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/ttt_logo_icon"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="226dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:lineSpacingExtra="4dp"
+        android:text="이용 약관에"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="284dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:lineSpacingExtra="4dp"
+        android:text="동의해주세요"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:background="@color/white_10"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <CheckBox
+            android:id="@+id/allcheckBox"
+            android:background="@drawable/btn_checkbox_background"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="3dp"
+            android:layout_gravity="center"
+            android:button="@null"
+            android:clickable="true" />
+
         <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
+            android:id="@+id/allCheckTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="이용 약관에 \n동의해 주세요"
-            android:drawableLeft="@drawable/ic_ttt_logo"
-            android:drawablePadding="8dp"
-            android:textSize="24sp"
-            android:fontFamily="@font/pretendard_bold"
-            android:lineSpacingExtra="4dp"
+            android:layout_marginStart="8dp"
+            android:text="전체 동의하기"
+            android:textSize="16sp"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/back_button" />
+            android:layout_gravity="center" />
+    </LinearLayout>
 
-        <!-- 전체 동의하기 -->
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <CheckBox
-                android:id="@+id/allcheckBox"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:button="@null"
-                android:clickable="true" />
-
-            <TextView
-                android:id="@+id/allCheckTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="전체 동의하기"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center" />
-        </LinearLayout>
-
+    <!-- 필수 동의 항목 1 -->
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -82,8 +116,9 @@
 
         <CheckBox
             android:id="@+id/checkBox1"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:background="@drawable/btn_checkbox_background"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
@@ -101,11 +136,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- 필수 동의 항목 2 -->
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
@@ -113,8 +149,9 @@
 
         <CheckBox
             android:id="@+id/checkBox2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:background="@drawable/btn_checkbox_background"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
@@ -132,11 +169,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- 선택 동의 항목 1 -->
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
@@ -144,8 +182,9 @@
 
         <CheckBox
             android:id="@+id/checkBox3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:background="@drawable/btn_checkbox_background"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
@@ -163,11 +202,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- 선택 동의 항목 2 -->
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
@@ -175,8 +215,9 @@
 
         <CheckBox
             android:id="@+id/checkBox4"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:background="@drawable/btn_checkbox_background"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
@@ -194,18 +235,19 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- 다음 버튼 -->
     <ImageButton
         android:id="@+id/next_button"
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
+        android:src="@drawable/btn_next"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        android:contentDescription="@string/next_button_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

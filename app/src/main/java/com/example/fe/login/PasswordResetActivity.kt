@@ -1,4 +1,4 @@
-package com.example.fe.Login
+package com.example.fe.login
 
 import android.os.Bundle
 import android.widget.EditText

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 값이 잘못된 경우 -->
+    <item android:state_focused="true" android:state_enabled="true" android:drawable="@drawable/background_login_input_error" />
+    <!-- 정상 입력값일 때 -->
+    <item android:state_enabled="true" android:drawable="@drawable/background_login_input_normal" />
+    <!-- 기본 상태 -->
+    <item android:drawable="@drawable/background_login_input_normal" />
+</selector>
