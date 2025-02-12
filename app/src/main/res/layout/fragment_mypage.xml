@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="마이페이지"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/colorLabelNormal"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="26dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,7 +51,7 @@
         android:background="@drawable/circle_background"
         android:scaleType="centerCrop"
         android:clipToOutline="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/mypage_tv"
         app:layout_constraintTop_toBottomOf="@+id/mypage_tv" />
 
@@ -59,9 +59,9 @@
         android:id="@+id/mypage_character_status_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@color/transparent"
+        android:src="@drawable/ic_pencil_white"
         android:background="@drawable/white_border"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         android:clipToOutline="true"
         android:layout_marginStart="44dp"
         android:layout_marginTop="39dp"
@@ -104,6 +104,7 @@
         app:tabIndicatorHeight="2dp"
         app:tabIndicatorColor="@color/colorLabelNormal"
         app:tabIndicatorFullWidth="true"
+        app:tabRippleColor="@null"
         app:layout_constraintTop_toBottomOf="@id/mypage_character_iv"
         app:layout_constraintStart_toStartOf="parent" />
 

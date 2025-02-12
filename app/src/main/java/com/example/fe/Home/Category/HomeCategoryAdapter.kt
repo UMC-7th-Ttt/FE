@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.R
 
-class HomeCategoryAdapter(private val categoryList: List<HomeBook>) :
+class HomeCategoryAdapter(private val categoryList: List<HomeCategory>) :
     RecyclerView.Adapter<HomeCategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,7 +29,7 @@ class HomeCategoryAdapter(private val categoryList: List<HomeBook>) :
         // 가로 방향 리사이클러뷰 설정
         holder.bookRecyclerView.layoutManager =
             LinearLayoutManager(holder.itemView.context, RecyclerView.HORIZONTAL, false)
-//        holder.bookRecyclerView.adapter = HomeBookAdapter(category.books)
+        holder.bookRecyclerView.adapter = HomeBookAdapter(category.books)
     }
 
     override fun getItemCount(): Int = categoryList.size

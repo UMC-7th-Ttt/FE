@@ -23,22 +23,46 @@
                 android:layout_height="28dp"
                 android:src="@drawable/ic_prev_arrow"
                 android:scaleType="center"
-                android:layout_marginTop="54dp"
+                android:layout_marginTop="26dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
             <ImageView
-                android:id="@+id/book_bg_iv"
+                android:id="@+id/home_btn"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_home"
+                android:scaleType="center"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="303dp"
-                android:src="@drawable/img_bookclub_detail_book_bg"
-                android:scaleType="fitXY"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/back_btn"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/book_bg_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/img_bookclub_detail"
+                    android:scaleType="centerCrop"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#99000000" />
+
+
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/line1"
@@ -56,7 +80,9 @@
                 android:layout_height="165dp"
                 android:src="@drawable/img_bookclub_detail"
                 android:scaleType="fitXY"
+                android:background="@color/transparent"
                 android:layout_marginTop="25dp"
+                android:elevation="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/line1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -79,10 +105,8 @@
                 android:textSize="18sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/pretendard_bold"
-                android:layout_marginTop="71dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintTop_toTopOf="@+id/book_info_bg"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintBottom_toTopOf="@+id/book_author_tv"
+                app:layout_constraintStart_toStartOf="@+id/book_author_tv"/>
 
             <TextView
                 android:id="@+id/book_author_tv"
@@ -92,8 +116,10 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/pretendard_medium"
-                app:layout_constraintTop_toBottomOf="@+id/book_title_tv"
-                app:layout_constraintStart_toStartOf="@+id/book_title_tv"/>
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/book_info_bg"
+                app:layout_constraintStart_toStartOf="@+id/book_info_bg"/>
 
             <ImageView
                 android:id="@+id/vertical_gray_line"
@@ -103,7 +129,7 @@
                 app:layout_constraintTop_toTopOf="@+id/book_author_tv"
                 app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
                 app:layout_constraintStart_toEndOf="@+id/book_author_tv"
-                app:layout_constraintEnd_toStartOf="@+id/bookclub_register_book_over_tv3"
+                app:layout_constraintEnd_toStartOf="@+id/publisher_tv"
                 />
 
             <TextView
@@ -119,18 +145,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
                 app:layout_constraintStart_toEndOf="@+id/book_author_tv"/>
 
-            <ImageView
-                android:id="@+id/book_info_next_btn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_next_arrow"
-                android:scaleType="center"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintTop_toTopOf="@+id/book_author_tv"
-                app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
             <TextView
                 android:id="@+id/book_tag_tv"
                 android:layout_width="wrap_content"
@@ -138,8 +152,8 @@
                 android:text="책 정보"
                 android:textColor="@color/colorLabelNormal"
                 style="@style/body_semibold_01"
-                android:textSize="16sp"
-                android:layout_marginTop="26dp"
+                android:textSize="18sp"
+                android:layout_marginTop="36dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/book_info_bg"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -150,12 +164,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:overScrollMode="never"
                 app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
                 tools:listitem="@layout/item_bookclub_signup_book_info"
                 tools:itemCount="3"
                 app:layout_constraintTop_toBottomOf="@+id/book_tag_tv"
-                app:layout_constraintStart_toStartOf="@+id/book_tag_tv"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/publisher_review_tv"
@@ -164,7 +179,7 @@
                 android:text="출판사 서평"
                 android:textColor="@color/colorLabelNormal"
                 style="@style/body_semibold_01"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginTop="36dp"
                 app:layout_constraintTop_toBottomOf="@+id/book_info_tag_fb"
                 app:layout_constraintStart_toStartOf="@+id/book_info_tag_fb"/>
@@ -178,6 +193,8 @@
                 android:text="📕 인생은 탐구하는 것이다\n작가는 소설 속 주인공을 통해 독자들에게 말한다. 자신의 인생을 유심히 관찰하면서 살아가라고. 되어가는 대로 놓아두지 말고 적절한 순간이 오면 과감하게 삶의 방향키를 돌릴 준비를 하면서 살라고. 인생은 그냥 받아들이는 것이 아니라 전 생애를 걸고라도 탐구하면서 살아야 하는 무엇이라고.\n주인공 안진진의 나이가 스물다섯인 것도 그 때문일 것이다. ‘삶에 대해 방관하고 냉소하기를 일삼으며’, ‘삶이란 것을 놓고 진지하게 대차대조표를 작성해본 적도 없이 무작정 손가락 사이로 인생을 흘려보내고 있는’ 주인공의 진지한 자기 검열에 수많은 이십대 독자들이 공감하고 자신의 인생을 다시 생각하게 만들었다는 독후감을 남기고 있으니 『모순』은 소설이 이룰 수 있는 가장 큰 성공을 거둔 셈이다.\n"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
+                android:lineHeight="20sp"
+                android:justificationMode="inter_word"
                 app:layout_constraintTop_toBottomOf="@+id/publisher_review_tv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -187,9 +204,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="북클럽 정보"
+                android:textSize="18sp"
                 android:textColor="@color/colorLabelNormal"
                 style="@style/body_semibold_01"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintTop_toBottomOf="@+id/publisher_review_detail_tv"
                 app:layout_constraintStart_toStartOf="@+id/publisher_review_detail_tv"/>
 
@@ -203,16 +221,40 @@
                 app:layout_constraintStart_toStartOf="@+id/bookclub_info_tv"/>
 
             <TextView
-                android:id="@+id/bookclub_info_date_tv"
+                android:id="@+id/start_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024.01.05 ~ 2024.02.16"
+                android:text="2024.01.05"
                 android:layout_marginStart="6dp"
                 style="@style/body_regular_02"
                 android:textColor="@color/colorLabelNormal"
                 app:layout_constraintTop_toTopOf="@+id/bookclub_info_date_ic"
                 app:layout_constraintBottom_toBottomOf="@+id/bookclub_info_date_ic"
                 app:layout_constraintStart_toEndOf="@+id/bookclub_info_date_ic"/>
+
+            <TextView
+                android:id="@+id/tilde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~"
+                android:layout_marginStart="6dp"
+                style="@style/body_regular_02"
+                android:textColor="@color/colorLabelNormal"
+                app:layout_constraintTop_toTopOf="@+id/start_date_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/start_date_tv"
+                app:layout_constraintStart_toEndOf="@+id/start_date_tv"/>
+
+            <TextView
+                android:id="@+id/end_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024.02.16"
+                android:layout_marginStart="6dp"
+                style="@style/body_regular_02"
+                android:textColor="@color/colorLabelNormal"
+                app:layout_constraintTop_toTopOf="@+id/start_date_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/start_date_tv"
+                app:layout_constraintStart_toEndOf="@+id/tilde"/>
 
             <ImageView
                 android:id="@+id/bookclub_info_person_ic"
@@ -224,10 +266,10 @@
                 app:layout_constraintStart_toStartOf="@+id/bookclub_info_date_ic"/>
 
             <TextView
-                android:id="@+id/bookclub_info_person_tv"
+                android:id="@+id/recruit_number_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="최대 55명 모집"
+                android:text="현황"
                 android:layout_marginStart="6dp"
                 style="@style/body_regular_02"
                 android:textColor="@color/colorLabelNormal"
@@ -235,9 +277,32 @@
                 app:layout_constraintBottom_toBottomOf="@+id/bookclub_info_person_ic"
                 app:layout_constraintStart_toEndOf="@+id/bookclub_info_person_ic"/>
 
+            <TextView
+                android:id="@+id/recruit_number_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_marginStart="6dp"
+                style="@style/body_regular_02"
+                android:textColor="@color/colorLabelNormal"
+                app:layout_constraintTop_toTopOf="@+id/bookclub_info_person_ic"
+                app:layout_constraintBottom_toBottomOf="@+id/bookclub_info_person_ic"
+                app:layout_constraintStart_toEndOf="@+id/recruit_number_tv1"/>
 
             <TextView
-                android:id="@+id/bookclub_rec_tv"
+                android:id="@+id/recruit_number_tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="명"
+                style="@style/body_regular_02"
+                android:textColor="@color/colorLabelNormal"
+                app:layout_constraintTop_toTopOf="@+id/bookclub_info_person_ic"
+                app:layout_constraintBottom_toBottomOf="@+id/bookclub_info_person_ic"
+                app:layout_constraintStart_toEndOf="@+id/recruit_number_tv2"/>
+
+
+            <TextView
+                android:id="@+id/bookclub_recommend_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이런 분께 추천해요!"
@@ -246,6 +311,32 @@
                 android:layout_marginTop="50dp"
                 app:layout_constraintTop_toBottomOf="@+id/bookclub_info_person_ic"
                 app:layout_constraintStart_toStartOf="@+id/bookclub_info_person_ic"/>
+            
+            <ImageView
+                android:id="@+id/recommend_person_icon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/img_recommendation_person"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/bookclub_recommend_tv"
+                app:layout_constraintStart_toStartOf="@+id/bookclub_recommend_tv"/>
+
+            <TextView
+                android:id="@+id/speech_bubble_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&quot; 취향 상관없이  바이블같은 도서 &quot;"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:fontFamily="@font/pretendard_medium"
+                android:background="@drawable/img_speech_bubble_bg"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginStart="14dp"
+                android:maxWidth="272dp"
+                app:layout_constraintStart_toEndOf="@+id/recommend_person_icon"
+                app:layout_constraintTop_toTopOf="@+id/recommend_person_icon"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -259,13 +350,15 @@
         android:layout_alignParentBottom="true"
         />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/join_btn"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:text="가입하기"
-        android:backgroundTint="@color/colorPrimaryNormal"
-        android:textColor="#333438"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/primary_btn_bg"
+        android:textColor="@color/button_text_color"
         android:layout_marginHorizontal="16dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"/>
