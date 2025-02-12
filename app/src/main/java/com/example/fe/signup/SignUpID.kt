@@ -49,9 +49,6 @@ class SignUpID : AppCompatActivity(), EmailCheckView, AuthCodeRequestView, AuthC
     }
 
     private fun setupListeners() {
-        binding.backButton.setOnClickListener {
-            finish()
-        }
 
         // 이메일 입력 감지
         binding.pwCheckInput.addTextChangedListener(object : TextWatcher {

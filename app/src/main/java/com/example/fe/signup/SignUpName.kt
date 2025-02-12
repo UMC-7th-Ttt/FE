@@ -25,7 +25,6 @@ class SignUpName : AppCompatActivity(), NicknameView {
             val nickname = binding.sendButton.text.toString()
             authService.nickName(nickname)  // 닉네임 중복 확인 요청
         }
-        binding.backButton.setOnClickListener { onBackPressed() } //뒤로 가기 기능
 
         // 다음 페이지로 이동
         binding.nextButton.setOnClickListener {

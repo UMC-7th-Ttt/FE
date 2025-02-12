@@ -35,10 +35,6 @@ class SignUpPW : AppCompatActivity(), SignUpView {
         pwInput.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
         pwCheckInput.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
 
-        // 뒤로 가기 버튼
-        binding.backButton.setOnClickListener {
-            finish() // 현재 액티비티 종료 후 이전 페이지로 돌아감
-        }
 
         // 비밀번호 보이기/숨기기
         binding.pwShow.setOnClickListener {
@@ -134,7 +130,7 @@ class SignUpPW : AppCompatActivity(), SignUpView {
             return
         }
 
-        // User 객체 생성
+        // User 객체  생성
         val user = getUser()
 
         // 전송할 값 확인 (로그 출력)

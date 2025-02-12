@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fe.MainActivity
 import com.example.fe.login.Login
 import com.example.fe.R
 
@@ -21,7 +22,7 @@ class Preference_complete : AppCompatActivity() {
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             // NextActivity로 이동
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         enableEdgeToEdge()
