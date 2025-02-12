@@ -25,8 +25,8 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentHomeBinding
+    //    private val binding get() = _binding!!
     private val homeService = RetrofitObj.getRetrofit().create(HomeApiService::class.java)
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         Log.d("HomeFragment", "🟢 HomeFragment 실행됨")
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,12 +53,12 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+//        _binding = null
     }
 
     private fun setupHomeData() {
-        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczODg1MDkyMiwiZW1haWwiOiJqdW55MjAwQG5hdmVyLmNvbSJ9.FadyRE3VgpsBwK0mq06cq-R89gAFGrYEqsEV9-wYIk6xQdBLbik1tAA5EaoQGroO7zFUblSLBTe2amhd4362Mw" //  토큰 추가
-        homeService.getHomeData(token).enqueue(object : Callback<HomeResponse> {
+        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTc2ODE2MiwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.rGfiXRBkJ1x1mpFl5I1LDBClf_TddLfj0e0l_YfgtWU-DqEQ83yXNdicdBmz9k8tmAyqK5iNHAafTdvKo8RIsg" //  토큰 추가
+        homeService.getHomeData("Bearer $token").enqueue(object : Callback<HomeResponse> {
             override fun onResponse(call: Call<HomeResponse>, response: Response<HomeResponse>) {
                 if (response.isSuccessful) {
                     val homeData = response.body()?.result
