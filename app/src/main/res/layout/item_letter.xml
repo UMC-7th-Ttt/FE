@@ -8,101 +8,109 @@
 
     <!-- 배경 이미지 (책 표지를 블러 처리) -->
     <ImageView
-        android:id="@+id/book_background"
+        android:id="@+id/book_bg_iv"
         android:layout_width="match_parent"
         android:layout_height="303dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/book_sample1"
-        android:alpha="0.6"
+        android:src="@drawable/img_bookclub_detail_book_bg"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="30dp"
+        android:layout_height="2.5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryNormal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/book_bg_iv" />
+
+    <ImageView
+        android:id="@+id/book_iv"
+        android:layout_width="110dp"
+        android:layout_height="165dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_bookclub_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <ImageView
+        android:id="@+id/book_info_bg"
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
+        android:background="#99000000"
+        app:layout_constraintBottom_toBottomOf="@id/book_bg_iv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+
     <TextView
-        android:id="@+id/book_number"
+        android:id="@+id/book_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No.1"
-        android:textSize="12sp"
+        android:text="모순"
+        android:textSize="18sp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"/>
+        android:fontFamily="@font/pretendard_bold"
+        android:layout_marginTop="71dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="@+id/book_info_bg"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- 반투명 오버레이 -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="303dp"
-        android:background="#99000000"
-        app:layout_constraintTop_toTopOf="@id/book_background"
-        app:layout_constraintStart_toStartOf="@id/book_background"
-        app:layout_constraintEnd_toEndOf="@id/book_background"/> <!-- 검은색 반투명 -->
+    <TextView
+        android:id="@+id/book_author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="양귀자 장편소설"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/pretendard_medium"
+        app:layout_constraintTop_toBottomOf="@+id/book_title_tv"
+        app:layout_constraintStart_toStartOf="@+id/book_title_tv"/>
 
-    <!-- 책 이미지 (가운데) -->
     <ImageView
-        android:id="@+id/book_cover"
-        android:layout_width="120dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/book_sample1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:id="@+id/vertical_gray_line"
+        android:layout_width="0.8dp"
+        android:layout_height="7dp"
+        android:background="#80FFFFFF"
+        app:layout_constraintTop_toTopOf="@+id/book_author_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
+        app:layout_constraintStart_toEndOf="@+id/book_author_tv"
+        android:layout_marginStart="5dp"
+        />
 
-    <!-- 책 정보 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/book_title_bg"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/blur_effect_background"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/book_background"
+    <TextView
+        android:id="@+id/publisher_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="출판사 쓰다"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/pretendard_medium"
+        android:layout_marginStart="12dp"
+        app:layout_constraintTop_toTopOf="@+id/book_author_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
+        app:layout_constraintStart_toEndOf="@+id/book_author_tv"/>
+
+    <ImageView
+        android:id="@+id/book_info_next_btn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_next_arrow"
+        android:scaleType="center"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@+id/book_author_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/book_author_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        />
 
-        <!-- 책 제목 -->
-        <TextView
-            android:id="@+id/book_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="서랍에 저녁을 넣어 두었다"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="70dp"/>
 
-        <!-- 저자 | 출판사 -->
-        <TextView
-            android:id="@+id/book_author_publisher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="한강 시집 | 출판사 문학과 지성"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/book_title"
-            app:layout_constraintStart_toStartOf="@+id/book_title"
-             />
-
-        <!-- 화살표 아이콘 -->
-        <ImageView
-            android:id="@+id/btn_arrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/btn_arrow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-             />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/book_info_title"
@@ -113,75 +121,90 @@
         android:textColor="@color/white"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/book_title_bg"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
-        app:layout_constraintStart_toStartOf="@+id/book_title_bg"
-        app:layout_constraintTop_toBottomOf="@+id/book_title_bg" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_bg_iv" />
 
-    <com.google.android.material.chip.ChipGroup
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/book_tags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:singleLine="true"
+        app:flexWrap="wrap"
+        app:flexDirection="row"
+        app:justifyContent="flex_start"
         app:layout_constraintTop_toBottomOf="@id/book_info_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp">
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="양귀자"
+            style="@style/CustomMaterialButton"
+            android:text="양귀자" />
 
-            style="@style/Widget.MaterialComponents.Chip.Choice"/>
-
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="300쪽"
-            style="@style/Widget.MaterialComponents.Chip.Choice"/>
+            android:text="300쪽"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="장편소설"
-            style="@style/Widget.MaterialComponents.Chip.Choice"/>
+            android:text="장편소설"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="국내소설"
-            style="@style/Widget.MaterialComponents.Chip.Choice"/>
-    </com.google.android.material.chip.ChipGroup>
+            android:text="국내소설"/>
 
-   <TextView
-       android:id="@+id/book_excerpt_title"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="책 구절"
-       android:textSize="20sp"
-       android:textColor="@color/white"
-       app:layout_constraintStart_toStartOf="@id/book_tags"
-       app:layout_constraintTop_toBottomOf="@id/book_tags"
-       app:layout_constraintEnd_toStartOf="@id/book_tags"
-       app:layout_constraintEnd_toEndOf="@id/book_tags"
-       android:layout_marginTop="10dp"/>
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E북 등록"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="한국소설"/>
+    </com.google.android.flexbox.FlexboxLayout>
 
     <!-- 도서 DB 제공 -->
+    <TextView
+        android:id="@+id/book_excerpt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="책 구절"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/book_tags"
+        app:layout_constraintEnd_toStartOf="@id/book_tags"
+        app:layout_constraintHorizontal_bias="0.00"
+        app:layout_constraintStart_toStartOf="@+id/book_tags"
+        app:layout_constraintTop_toBottomOf="@id/book_tags" />
+
     <TextView
         android:id="@+id/book_excerpt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="인생은 탐구하면서 살아가는 것이 아니라, 살아가면서 탐구하는 것이다. 실수는 되풀이된다. 그것이 인생이다..."
 
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/book_excerpt_title"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="@id/book_excerpt_title"
         app:layout_constraintTop_toBottomOf="@id/book_excerpt_title" />
 

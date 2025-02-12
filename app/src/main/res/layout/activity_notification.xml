@@ -12,10 +12,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#0F0F10"
-        android:title="알림"
-        android:titleTextColor="#FFFFFF"
-        android:navigationIcon="@drawable/ic_prev_arrow"
-    app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 툴바 내부 레이아웃 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 뒤로 가기 버튼 -->
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_prev_arrow"
+                android:contentDescription="뒤로 가기"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <!-- 알림 타이틀 -->
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알림"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/btn_back"
+                app:layout_constraintTop_toTopOf="@id/btn_back"
+                app:layout_constraintBottom_toBottomOf="@id/btn_back"
+                android:layout_marginStart="120dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- "알림이 없습니다" 메시지 -->
     <TextView

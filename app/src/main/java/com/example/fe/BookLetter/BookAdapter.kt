@@ -14,10 +14,10 @@ class BookAdapter(private val bookList: List<Book>) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val bookCover: ImageView = view.findViewById(R.id.book_cover)
-        val bookTitle: TextView = view.findViewById(R.id.book_title)
-        val bookAuthor: TextView = view.findViewById(R.id.book_author_publisher)
-        val arrowButton: ImageView = view.findViewById(R.id.btn_arrow)  // 🔹 변경
+        val bookCover: ImageView = view.findViewById(R.id.book_iv)
+        val bookTitle: TextView = view.findViewById(R.id.book_title_tv)
+        val bookAuthor: TextView = view.findViewById(R.id.book_author_tv)
+        val arrowButton: ImageView = view.findViewById(R.id.book_info_next_btn)  // 🔹 변경
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {

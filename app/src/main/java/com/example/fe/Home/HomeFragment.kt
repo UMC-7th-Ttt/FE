@@ -1,56 +1,104 @@
 package com.example.fe.Home
 
+import HorizontalItemDecoration
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+
+import com.example.app.ui.home.HomeBookAdapter
 import com.example.fe.Home.Category.HomeBook
-import com.example.fe.Home.Category.HomeCategory
-import com.example.fe.Home.Category.HomeCategoryAdapter
-import com.example.fe.R
+import com.example.fe.Notification.NotificationActivity
+
+import com.example.fe.databinding.FragmentHomeBinding
+import com.example.fe.network.RetrofitObj
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewPager: ViewPager2
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private val homeService = RetrofitObj.getRetrofit().create(HomeApiService::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        // 세로 스크롤 리사이클러뷰 설정
-        val recyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        recyclerView.adapter = HomeCategoryAdapter(getCategoryList())
-
-        return view
+        Log.d("HomeFragment", "🟢 HomeFragment 실행됨")
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ViewPager 설정
-        viewPager = view.findViewById(R.id.view_pager)
+        // 🔹 API 데이터 불러오기
+        setupHomeData()
 
-        val bannerList = listOf(
-            BannerItem(R.drawable.viewpager_sample2, "삶에 대한 고찰", "청춘이 말하는 삶의 의미", "파묵"),
-            BannerItem(R.drawable.viewpager_sample2, "행복의 철학", "작은 것에서 찾는 행복", "알랭 드 보통"),
-            BannerItem(R.drawable.viewpager_sample2, "자기 계발의 힘", "성공하는 사람들의 비밀", "브라이언 트레이시")
-        )
-
-        viewPager.adapter = ViewPagerAdapter(bannerList)
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        // 🔹 알림 버튼 클릭 이벤트
+        binding.notificationIcon.setOnClickListener {
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    private fun getCategoryList(): List<HomeCategory> {
-        return listOf(
-            HomeCategory("인기 도서", listOf(HomeBook(R.drawable.book_sample1, "책 1"))),
-            HomeCategory("추천 도서", listOf(HomeBook(R.drawable.book_sample1, "책 2")))
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupHomeData() {
+        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczODg1MDkyMiwiZW1haWwiOiJqdW55MjAwQG5hdmVyLmNvbSJ9.FadyRE3VgpsBwK0mq06cq-R89gAFGrYEqsEV9-wYIk6xQdBLbik1tAA5EaoQGroO7zFUblSLBTe2amhd4362Mw" //  토큰 추가
+        homeService.getHomeData(token).enqueue(object : Callback<HomeResponse> {
+            override fun onResponse(call: Call<HomeResponse>, response: Response<HomeResponse>) {
+                if (response.isSuccessful) {
+                    val homeData = response.body()?.result
+                    if (homeData != null) {
+                        Log.d("API", "✅ 데이터 불러오기 성공")
+                        updateUI(homeData)
+                    }
+                } else {
+                    Log.e("API", "❌ 응답 실패: ${response.errorBody()?.string()}")
+                    Toast.makeText(requireContext(), "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<HomeResponse>, t: Throwable) {
+                Log.e("API", "❌ API 호출 실패", t)
+                Toast.makeText(requireContext(), "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun updateUI(data: HomeResult) {
+        // 🔹 프로필 설정
+        binding.greetingText.text = "안녕하세요, ${data.nickname}님!\n오늘은 어떤 책을 시작해볼까요?"
+        Glide.with(this).load(data.profileUrl).into(binding.profileIcon)
+
+        // 🔹 배너 ViewPager 설정
+        binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
+        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        // 🔹 리사이클러뷰 (카테고리별 책 리스트)
+        val recyclerViews = listOf(
+            binding.verticalRecyclerView1, binding.verticalRecyclerView2,
+            binding.verticalRecyclerView3, binding.verticalRecyclerView4, binding.verticalRecyclerView5
         )
+
+        val categoryBookLists = data.bookLetterList.map { it.bookList.map { book -> HomeBook(book.bookCoverImg) } }
+
+        for (i in recyclerViews.indices) {
+            recyclerViews[i].layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            recyclerViews[i].adapter = HomeBookAdapter(categoryBookLists.getOrNull(i) ?: emptyList())
+        }
     }
 }

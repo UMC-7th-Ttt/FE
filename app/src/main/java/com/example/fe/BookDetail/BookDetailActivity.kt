@@ -32,7 +32,7 @@ class BookDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val reviewRecyclerView = findViewById<RecyclerView>(R.id.user_rating_view)
+        val reviewRecyclerView = findViewById<RecyclerView>(R.id.other_review_card)
         reviewRecyclerView.layoutManager = LinearLayoutManager(this)
 
         // 더미 데이터 추가
