@@ -1,7 +1,9 @@
     plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-}
+        alias(libs.plugins.android.application)
+        alias(libs.plugins.kotlin.android)
+
+        id("kotlin-kapt")
+    }
 
 android {
     namespace = "com.example.fe"
@@ -63,9 +65,12 @@ dependencies {
     implementation (libs.androidx.gridlayout)
     implementation(libs.androidx.ui.test.android)
 
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
     implementation("androidx.credentials:credentials:1.3.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
@@ -76,11 +81,19 @@ dependencies {
     implementation ("com.google.android.gms:play-services-auth:20.5.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.gms:play-services-identity:17.0.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation("com.github.bumptech.glide:glide:4.15.1")
+
+    // OkHttp
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
+
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
 }
