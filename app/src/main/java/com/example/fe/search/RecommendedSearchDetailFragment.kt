@@ -1,14 +1,20 @@
 package com.example.fe.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fe.Book
-import com.example.fe.R
 import com.example.fe.databinding.FragmentRecommendedSearchDetailBinding
+import com.example.fe.search.api.BookSuggestionResponse
+import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.search.api.BookEditorPickResponse
+import com.example.fe.search.api.BookUserSuggestionResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecommendedSearchDetailFragment : Fragment() {
 
@@ -20,12 +26,11 @@ class RecommendedSearchDetailFragment : Fragment() {
     ): View {
         binding = FragmentRecommendedSearchDetailBinding.inflate(inflater, container, false)
 
-        // 전달받은 카테고리 제목 적용
         val categoryTitle = arguments?.getString("CATEGORY_TITLE", "추천 검색") ?: "추천 검색"
         binding.recommendedSearchDetailTitleTv.text = categoryTitle
 
         initBackBtnClickListener()
-        initPopularBookListRV()
+        initPopularBookListRV(categoryTitle)
         initRecommendedBookListRV()
         initEditorPickBookListRV()
 
@@ -34,49 +39,91 @@ class RecommendedSearchDetailFragment : Fragment() {
 
     private fun initBackBtnClickListener() {
         binding.recommendedSearchDetailBackIv.setOnClickListener {
-            parentFragmentManager.popBackStack() // 기본 뒤로 가기
+            parentFragmentManager.popBackStack()
         }
     }
 
-    private fun initPopularBookListRV() {
-        val bookList = listOf(
-            Pair(R.drawable.img_book_cover1, false),
-            Pair(R.drawable.img_book_cover2, true),
-            Pair(R.drawable.img_book_cover3, false),
-            Pair(R.drawable.img_book_cover4, true),
-        )
+    private fun initPopularBookListRV(categoryTitle: String) {
+        val categoryName = when (categoryTitle) {
+            "한국 문학" -> "koreanLiterature"
+            "인문" -> "humanities"
+            "자기 계발" -> "selfDevelopment"
+            "에세이/여행" -> "essayAndTravel"
+            "사회/자연 과학" -> "socialAndNaturalSciences"
+            "세계 문학" -> "worldLiterature"
+            else -> "koreanLiterature"
+        }
 
-        val adapter = PopularBookListRVAdapter(bookList)
-        binding.popularBookListRv.adapter = adapter
-        binding.popularBookListRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        RetrofitClient.bookApi.getBookSuggestions(categoryName).enqueue(object : Callback<BookSuggestionResponse> {
+            override fun onResponse(call: Call<BookSuggestionResponse>, response: Response<BookSuggestionResponse>) {
+                if (response.isSuccessful) {
+                    val bookList = response.body()?.result?.books ?: emptyList()
+                    val bookAdapter = PopularBookListRVAdapter(bookList)
+                    binding.popularBookListRv.adapter = bookAdapter
+                    binding.popularBookListRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                } else {
+                    Log.e("API Error", "${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<BookSuggestionResponse>, t: Throwable) {
+                Log.e("Network Error", "${t.message}")
+            }
+        })
     }
 
     private fun initRecommendedBookListRV() {
-        val bookList = listOf(
-            Book(R.drawable.img_book_cover7, "소설 보다 가을", "한강 시집", "",true),
-            Book(R.drawable.img_book_cover6, "모순", "한강 시집", "", false),
-            Book(R.drawable.img_book_cover5, "홍학의 자리", "정혜연", "", true),
-            Book(R.drawable.img_book_cover1, "분명 좋은 일만 생길 거예요", "김선현", "", false),
-            Book(R.drawable.img_book_cover3, "작별인사", "김영하", "", false)
-        )
+        RetrofitClient.bookApi.getUserBookSuggestions()
+            .enqueue(object : Callback<BookUserSuggestionResponse> {
+                override fun onResponse(call: Call<BookUserSuggestionResponse>, response: Response<BookUserSuggestionResponse>) {
+                    if (response.isSuccessful) {
+                        val result = response.body()?.result
 
-        val bookAdapter = RecommendedBookListRVAdapter(bookList)
-        binding.recommendedBookListRv.adapter = bookAdapter
-        binding.recommendedBookListRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        val memberNickname = result?.memberNickname ?: "사용자"
+
+                        // memberNickname을 recommended_book_intro_tv에 적용
+                        binding.recommendedBookIntroTv.text = "${memberNickname}님의 맞춤 추천 독서를 즐겨봐요!"
+
+
+                        val bookList = result?.books ?: emptyList()
+                        val bookAdapter = RecommendedBookListRVAdapter(bookList)
+                        binding.recommendedBookListRv.adapter = bookAdapter
+                        binding.recommendedBookListRv.layoutManager =
+                            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+                    } else {
+                        Log.e("API Error", "❌ ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<BookUserSuggestionResponse>, t: Throwable) {
+                    Log.e("Network Error", "❌ ${t.message}")
+                }
+            })
     }
 
     private fun initEditorPickBookListRV() {
-        val editorPickBooks = listOf(
-            Book(R.drawable.img_book_cover1, "분명 좋은 일만 생길 거예요", "이슬비 에세이", "📙 \"북레터 삶에 대한 고찰\"", true),
-            Book(R.drawable.img_book_cover2, "힘들어? 그래도 해야지 어떡해", "아찔", "📙 \"북레터 삶에 대한 고찰\"", false),
-            Book(R.drawable.img_book_cover5, "홍학의 자리", "한강", "📙 \"북레터 삶에 대한 고찰\"", true),
-            Book(R.drawable.img_book_cover4, "사랑은 모든걸 아니까요", "정홍수", "📙 \"북레터 삶에 대한 고찰\"", false)
-        )
+        RetrofitClient.bookApi.getEditorPickBooks()
+            .enqueue(object : Callback<BookEditorPickResponse> {
+                override fun onResponse(call: Call<BookEditorPickResponse>, response: Response<BookEditorPickResponse>) {
+                    if (response.isSuccessful) {
+                        val result = response.body()?.result
 
-        val editorPickAdapter = EditorPickBookListRVAdapter(editorPickBooks)
-        binding.editorPickBookListRv.adapter = editorPickAdapter
-        binding.editorPickBookListRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                        val bookLetterTitle = result?.bookLetterTitle ?: "북레터 한 줄"
+
+                        val bookList = result?.books ?: emptyList()
+                        val bookAdapter = EditorPickBookListRVAdapter(bookList, bookLetterTitle)
+                        binding.editorPickBookListRv.adapter = bookAdapter
+                        binding.editorPickBookListRv.layoutManager =
+                            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    } else {
+                        Log.e("API Error", "❌ ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<BookEditorPickResponse>, t: Throwable) {
+                    Log.e("Network Error", "❌ ${t.message}")
+                }
+            })
     }
 }

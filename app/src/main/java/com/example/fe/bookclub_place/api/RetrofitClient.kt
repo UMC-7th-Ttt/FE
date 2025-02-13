@@ -1,5 +1,6 @@
 package com.example.fe.bookclub_place.api
 
+import com.example.fe.search.api.BookSearchAPI
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -11,7 +12,7 @@ object RetrofitClient {
 
     // 서버 요청 시 자동으로 Authorization 헤더 추가
     private val authInterceptor = Interceptor { chain ->
-        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczODg1MDg1MSwiZW1haWwiOiJqb2hhZXVuMDgwMkBuYXZlci5jb20ifQ.1BMYgN1Z7OYngeQi3cSWv934zHqsSEq9NPhX9tbzXWqT2WsgOgtf9zgfpgWTG_rf9GkqhF74ApPcpf4HRekJ8w"
+        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTU4Njg3MSwiZW1haWwiOiJqb2hhZXVuMDgwMkBuYXZlci5jb20ifQ.efSXqmUIFV1ox3DqyedxQg3zRod_IrILAOAMu4LCsNzjcaARERl-sqa2A83jqpH3DIMtrvZrstl4VturnyzCeg"
 
         val request = chain.request().newBuilder()
             .addHeader("Authorization", token)  // 헤더에 자동으로 토큰 추가
@@ -31,7 +32,11 @@ object RetrofitClient {
             .build()
     }
 
-    val api: PlaceSearchAPI by lazy {
+    val placeApi: PlaceSearchAPI by lazy {
         retrofit.create(PlaceSearchAPI::class.java)
+    }
+
+    val bookApi: BookSearchAPI by lazy {
+        retrofit.create(BookSearchAPI::class.java)
     }
 }

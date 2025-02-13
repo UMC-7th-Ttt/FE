@@ -1,5 +1,3 @@
-
-
 package com.example.fe.bookclub_place
 
 import android.os.Bundle
@@ -22,8 +20,7 @@ class BookclubPlaceListFragment : Fragment() {
 
     private lateinit var binding: FragmentBookclubPlaceListBinding
     private lateinit var adapter: BookclubPlaceRVAdapter
-    private val places = mutableListOf<PlaceResponse>() // API에서 받아온 데이터를 저장할 리스트
-    private var keyword: String = "검색 결과" // 기본 키워드
+    private val places = mutableListOf<PlaceResponse>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,39 +28,42 @@ class BookclubPlaceListFragment : Fragment() {
     ): View {
         binding = FragmentBookclubPlaceListBinding.inflate(inflater, container, false)
 
-        // `parentFragment`를 통해 `BookclubPlaceFragment`의 `bookclubPlaceTitleTv` 값 가져오기
-//        val parentFragment = parentFragment as? BookclubPlaceFragment
-//        keyword = parentFragment?.getKeywordFromTitleTv() ?: "검색 결과"
-//        Log.d("BookclubPlaceListFragment", "✅ getKeywordFromTitleTv로 받은 키워드: $keyword")
+        // `LAT`, `LON` 또는 `KEYWORD` 값 확인
+        val lat = arguments?.getDouble("LAT", -1.0) ?: -1.0
+        val lon = arguments?.getDouble("LON", -1.0) ?: -1.0
+        val keyword = arguments?.getString("KEYWORD", "")
 
-        keyword = arguments?.getString("KEYWORD", "검색 결과") ?: "검색 결과"
-        Log.d("BookclubPlaceListFragment", "✅ arguments로 받은 키워드: $keyword")
+        Log.d("BookclubPlaceListFragment", "✅ 전달받은 데이터 - LAT: $lat, LON: $lon, KEYWORD: $keyword")
 
-
-        // RecyclerView 초기화
         initBookclubPlaceListRV()
 
-        // API 요청 실행 (키워드 기반 장소 검색)
-        searchPlaces(keyword)
+        if (!keyword.isNullOrBlank()) { // keyword가 null이 아니고 공백이 아닐 때만 실행
+            searchPlaces(keyword)
+        } else if (lat != -1.0 && lon != -1.0) {
+            sortPlaces(lat, lon) // 현재 위치 기반 장소 검색
+        }
 
         return binding.root
     }
 
-    // RecyclerView 초기화
     private fun initBookclubPlaceListRV() {
         adapter = BookclubPlaceRVAdapter(places) { place ->
+            val fragment = BookclubPlaceDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("PLACE_ID", place.placeId) // placeId 전달
+                }
+            }
             (requireActivity() as MainActivity).addFragment(
-                BookclubPlaceDetailFragment(),
-                showBottomNav = false,
+                fragment,
+                showBottomNav = false
             )
         }
         binding.bookclubPlaceRv.layoutManager = LinearLayoutManager(requireContext())
         binding.bookclubPlaceRv.adapter = adapter
     }
 
-    // API를 호출하여 장소 데이터를 가져오는 함수
     private fun searchPlaces(keyword: String) {
-        RetrofitClient.api.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
+        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(
                 call: Call<PlaceSearchResponse>,
                 response: Response<PlaceSearchResponse>
@@ -72,9 +72,9 @@ class BookclubPlaceListFragment : Fragment() {
                     val newPlaces = response.body()?.result?.places ?: emptyList()
                     Log.d("BookclubPlaceListFragment", "✅ 검색 결과: $newPlaces")
 
-                    places.clear() // 기존 데이터 삭제
-                    places.addAll(newPlaces) // 새로운 데이터 추가
-                    adapter.notifyDataSetChanged() // RecyclerView 업데이트
+                    places.clear()
+                    places.addAll(newPlaces)
+                    adapter.notifyDataSetChanged()
                 } else {
                     Log.e("BookclubPlaceListFragment", "❌ 응답 실패: ${response.errorBody()?.string()}")
                 }
@@ -86,5 +86,31 @@ class BookclubPlaceListFragment : Fragment() {
         })
     }
 
-}
+    private fun sortPlaces(lat: Double, lon: Double) {
+        RetrofitClient.placeApi.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse> {
+            override fun onResponse(
+                call: Call<PlaceSearchResponse>,
+                response: Response<PlaceSearchResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()?.result
+                    val newPlaces = result?.places ?: emptyList()
+                    val currentPlace = result?.currentPlace ?: "알 수 없음" // currentPlace 가져오기
 
+                    Log.d("BookclubPlaceListFragment", "✅ 현재 위치 기반 검색 결과: $newPlaces")
+                    Log.d("BookclubPlaceListFragment", "📍 현재 위치 (currentPlace): $currentPlace")
+
+                    places.clear()
+                    places.addAll(newPlaces)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Log.e("BookclubPlaceListFragment", "❌ 응답 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
+                Log.e("BookclubPlaceListFragment", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+    }
+}

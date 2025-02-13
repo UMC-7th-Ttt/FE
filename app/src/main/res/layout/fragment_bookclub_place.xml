@@ -12,23 +12,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:paddingBottom="20dp"
-        android:text="상월곡동"
+        android:layout_marginBottom="20dp"
+        android:text="현재 위치"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bookclub_place_list_frm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bookclub_place_arrow_down_ic"
-        android:layout_width="16dp"
-        android:layout_height="24dp"
+        android:layout_width="13dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
         android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@+id/bookclub_place_title_tv"
         app:layout_constraintStart_toEndOf="@+id/bookclub_place_title_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/bookclub_place_title_tv" />
 
     <ImageView
         android:id="@+id/bookclub_place_search_ic"

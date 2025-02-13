@@ -3,6 +3,8 @@ package com.example.fe.scrap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +49,18 @@ class NewScrapDialogFragment(
     }
 
     private fun initListeners() {
+        // 글자 수 업데이트
+        binding.scrapNameEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val currentLength = s?.length ?: 0
+                binding.charCountTv.text = "$currentLength/10"  // 글자 수 업데이트
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         // "완료" 버튼 클릭 시
         binding.newScrapCompeleteBtn.setOnClickListener {
             val scrapName = binding.scrapNameEt.text.toString().trim()

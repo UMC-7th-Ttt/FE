@@ -21,6 +21,7 @@
             android:layout_height="350dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_place_detail"
+            android:foreground="@drawable/gradation_effect_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,24 +55,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginBottom="5dp"
             android:text="파이키"
             android:textColor="@color/primary_50"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv"
+            app:layout_constraintBottom_toTopOf="@id/bookclub_place_detail_address_tv"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/bookclub_place_detail_address_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="서울 종로구 서순라길 81 파이키"
             android:textColor="@color/primary_50"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/bookclub_place_detail_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/bookclub_place_detail_name_tv" />
-
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv"
+            app:layout_constraintStart_toStartOf="@id/bookclub_place_detail_name_tv" />
         <TextView
             android:id="@+id/bookclub_place_detail_tag_tv"
             android:layout_width="wrap_content"
@@ -79,12 +80,10 @@
             android:text="북카페"
             android:textColor="@color/primary_50"
             android:textSize="17sp"
-            android:padding="4dp"
-            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv"
+            app:layout_constraintTop_toTopOf="@+id/bookclub_place_detail_address_tv"
+            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_address_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp" />
-
+            android:layout_marginEnd="20dp" />
         <ImageView
             android:id="@+id/bookclub_place_detail_write_iv"
             android:layout_width="wrap_content"
@@ -206,26 +205,31 @@
             app:layout_constraintStart_toStartOf="@id/bookclub_place_detail_entire_rating_tv">
 
             <ImageView
+                android:id="@+id/bookclub_place_detail_entire_star1"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/ic_star"/>
 
             <ImageView
+                android:id="@+id/bookclub_place_detail_entire_star2"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/ic_star"/>
 
             <ImageView
+                android:id="@+id/bookclub_place_detail_entire_star3"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/ic_star"/>
 
             <ImageView
+                android:id="@+id/bookclub_place_detail_entire_star4"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/ic_star"/>
 
             <ImageView
+                android:id="@+id/bookclub_place_detail_entire_star5"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/ic_star"/>
@@ -296,15 +300,38 @@
                     android:paddingTop="2dp"
                     android:src="@drawable/ic_clock" />
 
-                <TextView
-                    android:id="@+id/bookclub_place_detail_time_tv"
-                    android:text="월요일 10:00 - 19:00 \n화, 목, 토, 일 10:00-22:00 \n수요일 정기휴뮤"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="7dp"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="2dp"
+                <LinearLayout
+                    android:id="@+id/bookclub_place_detail_info_time_tv_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/weekdays_business_tv"
+                        android:text="운영시간 11:00-19:00"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/sun_business_tv"
+                        android:text="(일요일 11:00-15:00)"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/holiday_tv"
+                        android:text="정기휴무 : 월요일"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -357,7 +384,8 @@
             app:layout_constraintTop_toBottomOf="@id/bookclub_place_detail_kwd_tv"
             app:layout_constraintStart_toStartOf="@id/bookclub_place_detail_kwd_tv">
 
-            <TextView
+            <ImageView
+                android:id="@+id/bookclub_place_detail_parking_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/kwd_parking_no"
@@ -366,7 +394,8 @@
                 android:layout_marginEnd="8dp"
                 android:textColor="@color/white" />
 
-            <TextView
+            <ImageView
+                android:id="@+id/bookclub_place_detail_place_rental_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/kwd_rental_ok"

@@ -7,5 +7,6 @@ data class PlaceResponse(
     val address: String,     // 주소
     val image: String,       // 이미지 URL
     val totalRating: Double, // 평점
-    val isScraped: Boolean   // 북마크 여부
+    val isScraped: Boolean,   // 북마크 여부
+    val curationTitle: String?       // 이미지 URL
 )

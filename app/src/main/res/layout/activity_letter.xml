@@ -28,8 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
     <!-- 북레터 콘텐츠 소개 -->
     <TextView
         android:id="@+id/letter_intro"

@@ -13,8 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.MainActivity
 import com.example.fe.Place
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
+import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookclubPlaceSearchBinding
 import com.example.fe.search.RecentSearchRVAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BookclubPlaceSearchActivity : AppCompatActivity() {
 
@@ -62,7 +67,7 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
     }
 
     private fun initBookclubPlaceRecentSearchRV() {
-        val recentSearches = mutableListOf("북카페", "공간 대여", "커피", "서점", "화장실", "성북구", "디저트")
+        val recentSearches = mutableListOf("서대문", "카페", "제주", "공간 대여", "책", "화장실", "성북구", "디저트")
 
         val adapter = RecentSearchRVAdapter(recentSearches)
         binding.bookclubPlaceRecentSearchListRv.adapter = adapter
@@ -71,18 +76,27 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
     }
 
     private fun initBookclubRecommendedPlaceRV() {
-        val recommendedPlaces = listOf(
-            Place("인덱스숍", "카페", 4.8, R.drawable.img_place1, false),
-            Place("서울책보고", "서점", 4.5, R.drawable.img_place2, false),
-            Place("카페꼼마 합정점", "카페", 4.7, R.drawable.img_place3, false),
-            Place("전부책방스튜디오", "서점", 4.3, R.drawable.img_place4, false),
-            Place("알키미스타", "카페", 4.6, R.drawable.img_place5, false)
-        )
+        RetrofitClient.placeApi.getPlaceSuggestions().enqueue(object :
+            Callback<PlaceSuggestionResponse> {
+            override fun onResponse(
+                call: Call<PlaceSuggestionResponse>,
+                response: Response<PlaceSuggestionResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val recommendedPlaces = response.body()?.result?.places ?: emptyList()
+                    val adapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces)
+                    binding.bookclubRecommendedPlaceListRv.adapter = adapter
+                    binding.bookclubRecommendedPlaceListRv.layoutManager =
+                        LinearLayoutManager(this@BookclubPlaceSearchActivity, RecyclerView.HORIZONTAL, false)
+                } else {
+                    Log.e("API Error", "❌ ${response.errorBody()?.string()}")
+                }
+            }
 
-        val recommendedPlaceAdapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces)
-        binding.bookclubRecommendedPlaceListRv.adapter = recommendedPlaceAdapter
-        binding.bookclubRecommendedPlaceListRv.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+            override fun onFailure(call: Call<PlaceSuggestionResponse>, t: Throwable) {
+                Log.e("Network Error", "❌ ${t.message}")
+            }
+        })
     }
 
     // 전체 삭제 버튼 클릭 이벤트 처리

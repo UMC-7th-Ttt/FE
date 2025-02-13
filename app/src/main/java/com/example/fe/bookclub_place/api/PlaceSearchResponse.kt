@@ -10,6 +10,8 @@ data class PlaceSearchResponse(
 )
 
 data class Result(
+    @SerializedName("currentPlace") val currentPlace: String,
+    @SerializedName("profileImg") val profileImg: String,
     @SerializedName("places") val places: List<PlaceResponse>,
     @SerializedName("cursor") val cursor: Int,
     @SerializedName("limit") val limit: Int,

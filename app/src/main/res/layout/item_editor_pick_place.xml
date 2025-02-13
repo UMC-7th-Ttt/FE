@@ -10,7 +10,7 @@
     app:layout_constraintEnd_toEndOf="parent">
 
     <ImageView
-        android:id="@+id/item_book_cover_iv"
+        android:id="@+id/item_editor_pick_place_iv"
         android:layout_width="60dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
@@ -21,22 +21,22 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
-        android:id="@+id/item_book_title_tv"
+        android:id="@+id/item_editor_pick_place_title_tv"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:text="책 제목"
+        android:text="공간 이름"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
         android:maxLines="1"
         android:ellipsize="end"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toEndOf="@id/item_book_cover_iv"
-        app:layout_constraintTop_toTopOf="@id/item_book_cover_iv"
+        app:layout_constraintStart_toEndOf="@id/item_editor_pick_place_iv"
+        app:layout_constraintTop_toTopOf="@id/item_editor_pick_place_iv"
         android:layout_marginStart="12dp" />
 
     <TextView
-        android:id="@+id/item_book_author_tv"
+        android:id="@+id/item_editor_pick_category_tv"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -46,19 +46,19 @@
         android:textSize="11sp"
         android:layout_marginTop="2dp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/item_book_title_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_book_title_tv" />
+        app:layout_constraintStart_toStartOf="@id/item_editor_pick_place_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_editor_pick_place_title_tv" />
 
     <TextView
-        android:id="@+id/item_book_letter_title_tv"
+        android:id="@+id/item_curation_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="북레터 제목"
+        android:text="큐레이션 한 마디"
         android:textSize="12sp"
         android:textColor="@color/white"
         android:layout_marginTop="2dp"
-        app:layout_constraintStart_toStartOf="@id/item_book_author_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_book_author_tv" />
+        app:layout_constraintStart_toStartOf="@id/item_editor_pick_category_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_editor_pick_category_tv" />
 
     <ImageView
         android:id="@+id/item_bookmark_iv"
@@ -66,7 +66,7 @@
         android:layout_height="24dp"
         android:src="@drawable/ic_bookmark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/item_book_cover_iv"
-        app:layout_constraintBottom_toBottomOf="@id/item_book_cover_iv" />
+        app:layout_constraintTop_toTopOf="@id/item_editor_pick_place_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_editor_pick_place_iv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

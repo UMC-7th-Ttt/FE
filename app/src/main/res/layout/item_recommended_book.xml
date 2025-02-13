@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/item_recommended_book_author_tv"
-                android:layout_width="90dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="한강 시집"
                 android:textSize="10sp"

@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import com.example.fe.R
 import com.example.fe.databinding.FragmentBookclubPlaceFilterBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BookclubPlaceFilterBottomSheetFragment(
-    private val onFilterSelected: (filter: String) -> Unit
+    private val onFilterSelected: (filter: String) -> Unit,
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBookclubPlaceFilterBottomSheetBinding
