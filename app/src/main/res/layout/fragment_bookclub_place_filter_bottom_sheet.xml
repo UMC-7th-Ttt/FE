@@ -19,8 +19,10 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginVertical="2dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="13dp"
             android:paddingStart="10dp"
-            android:paddingEnd="0dp">
+            android:paddingEnd="10dp">
 
             <TextView
                 android:id="@+id/filter_recommendation_text"
@@ -32,13 +34,13 @@
                 android:textSize="16sp"
                 android:gravity="center_vertical" />
 
-<!--            색 적용안됨..-->
             <RadioButton
                 android:id="@+id/filter_recommendation_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/primary_50"
+                android:theme="@style/CustomRadioButton"
                 android:layout_gravity="end" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -47,8 +49,9 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginVertical="3dp"
+            android:paddingBottom="18dp"
             android:paddingStart="10dp"
-            android:paddingEnd="0dp">
+            android:paddingEnd="10dp">
 
             <TextView
                 android:id="@+id/filter_distance_text"
@@ -64,7 +67,7 @@
                 android:id="@+id/filter_distance_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/primary_50"
+                android:theme="@style/CustomRadioButton"
                 android:layout_gravity="end" />
         </LinearLayout>
 
