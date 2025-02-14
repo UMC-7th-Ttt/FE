@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.fe">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,22 +22,31 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".mypage.MyPageScrapDetail"
+            android:exported="false" />
+        <activity
+            android:name=".bookclub_book.BookclubBookDetail"
+            android:exported="false" />
+        <activity
+            android:name=".bookclub_book.BookClubCertification"
+            android:exported="false" />
+        <activity
             android:name=".BookDetail.BookDetailActivity"
             android:exported="false" />
         <activity
             android:name=".BookLetter.LetterActivity"
             android:exported="false" />
         <activity
-            android:name=".BookclubBookReview"
+            android:name=".bookclub_book.BookclubBookReviewDetail"
             android:exported="true" />
         <activity
-            android:name=".BookclubJoin"
+            android:name=".bookclub_book.BookclubJoin"
             android:exported="true" />
         <activity
-            android:name=".MyPageWriteReview"
+            android:name=".Review.ReviewActivity"
             android:exported="true" />
         <activity
-            android:name=".Setting"
+            android:name=".setting.Setting"
             android:exported="true" />
         <activity
             android:name=".preference.Preference4"
@@ -77,7 +89,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -87,6 +98,7 @@
         <activity
             android:name=".bookclub_place.BookclubPlaceSearchActivity"
             android:windowSoftInputMode="adjustPan" />
+
     </application>
 
 </manifest>

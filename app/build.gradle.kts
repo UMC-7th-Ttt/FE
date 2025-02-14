@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+    implementation (libs.glide)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
 
     implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
@@ -79,5 +83,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
-
 }

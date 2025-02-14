@@ -10,7 +10,7 @@
         <LinearLayout
             android:id="@+id/item_calendar_date_bg"
             android:layout_width="46dp"
-            android:layout_height="68dp"
+            android:layout_height="55dp"
             app:layout_constraintDimensionRatio="1:1"
             android:padding="11dp"
             android:backgroundTint="@color/transparent"

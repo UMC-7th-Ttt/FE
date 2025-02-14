@@ -9,12 +9,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.fe.MyPageWriteReview
-import com.example.fe.R
-import com.example.fe.bookclub_book.DateConverter
+import com.example.fe.Review.ReviewActivity
 import com.example.fe.databinding.FragmentMypageReviewCalendarBinding
 import com.example.fe.mypage.adapter.CalendarRVAdapter
-import com.example.fe.Setting
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -38,25 +35,14 @@ class MyPageReviewCalendarFragment : Fragment() {
         initClickListeners()
         setAdapter()
 
-        binding.mypageCalendarReviewSwapBtn.setOnClickListener {
-            replaceFragment(MyPageReviewReviewFragment())
-        }
-
         binding.mypageWriteReviewFloatingBtn.setOnClickListener {
             context?.let { ctx ->
-                val intent = Intent(ctx, MyPageWriteReview::class.java)
+                val intent = Intent(ctx, ReviewActivity::class.java)
                 startActivity(intent)
             }
         }
 
         return binding.root
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.vp_fragment_change_container, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     private fun initClickListeners() {

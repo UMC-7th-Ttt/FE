@@ -92,12 +92,12 @@
 
         <!-- 화살표 아이콘 -->
         <ImageView
-            android:id="@+id/arrow_icon"
+            android:id="@+id/btn_arrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/arrow_btn"
+            android:src="@drawable/btn_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
              />

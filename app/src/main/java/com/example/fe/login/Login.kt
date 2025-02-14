@@ -16,6 +16,7 @@ import com.example.fe.databinding.ActivityLoginBinding
 import com.example.fe.login.service.LoginRequest
 import com.example.fe.login.service.LoginService
 import com.example.fe.signup.TermsofUse
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
