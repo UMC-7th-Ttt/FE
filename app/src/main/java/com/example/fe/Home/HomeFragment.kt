@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+
 import com.example.fe.Home.Category.HomeBook
 import com.example.fe.Home.Category.HomeCategory
 import com.example.fe.Home.Category.HomeCategoryAdapter
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
         setupHomeData()
 
         binding.notificationIcon.setOnClickListener {
-            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            val intent = Intent(requireContext(), com.example.fe.BookLetter.LetterActivity::class.java) //이부분 NotificationActivity로 반드시바꿔나야함!!
             startActivity(intent)
         }
     }
@@ -75,6 +76,42 @@ class HomeFragment : Fragment() {
         Glide.with(this).load(data.profileUrl).into(binding.profileIcon)
 
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
+
+        if (data.bookClubList.isNotEmpty()) {
+            val bookClub = data.bookClubList[0] // 첫 번째 북클럽 정보만 표시
+            binding.activityCard.bookTitle.text = bookClub.bookTitle
+            binding.activityCard.progressBar.progress = bookClub.completionRate
+            binding.activityCard.progressPercentage.text = "${bookClub.completionRate}% 완료"
+
+            Glide.with(this)
+                .load(bookClub.bookCover)
+                .into(binding.activityCard.bookImage)
+        }
+
+
+        // ✅ remindReviewList 데이터 적용
+        if (data.remindReviewList.isNotEmpty()) {
+            val review1 = data.remindReviewList.getOrNull(0) // 첫 번째 리뷰 데이터
+            val review2 = data.remindReviewList.getOrNull(1) // 두 번째 리뷰 데이터 (없을 수도 있음)
+
+            if (review1 != null) {
+                binding.finalCard.card1Title.text = review1.bookTitle
+                binding.finalCard.card1Description.text = review1.content
+                binding.finalCard.card1Date.text = review1.writeDate
+                Glide.with(this)
+                    .load(review1.bookCover)
+                    .into(binding.finalCard.card1Image)
+            }
+
+            if (review2 != null) {
+                binding.finalCard.card2Title.text = review2.bookTitle
+                binding.finalCard.card2Description.text = review2.content
+                binding.finalCard.card2Date.text = review2.writeDate
+                Glide.with(this)
+                    .load(review2.bookCover)
+                    .into(binding.finalCard.card2Image)
+            }
+        }
 
         val categoryList = data.bookLetterList.map {
             HomeCategory(it.bookLetterTitle, it.bookList.map { book -> HomeBook(book.bookCoverImg) })
