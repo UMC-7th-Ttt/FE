@@ -130,7 +130,7 @@ class SignUpPW : AppCompatActivity(), SignUpView {
             return
         }
 
-        // User 객체  생성
+        // User 객체   생성
         val user = getUser()
 
         // 전송할 값 확인 (로그 출력)
