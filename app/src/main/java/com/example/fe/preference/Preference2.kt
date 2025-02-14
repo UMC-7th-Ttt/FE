@@ -27,6 +27,8 @@ class Preference2 : AppCompatActivity() {
             insets
         }
 
+        val selectedOptions = intent.getStringArrayListExtra("selectedOptions")
+
         val backButton: ImageButton = findViewById(R.id.back_button)
         nextButton = findViewById(R.id.next_button) // Initialize nextButton here
 

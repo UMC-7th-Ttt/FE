@@ -20,11 +20,9 @@ class LoginService {
         val authService = getRetrofit().create(LoginRetrofitInterface::class.java)
         Log.d("LOGIN_TEST", "Retrofit 객체 생성 완료")
 
-
         authService.login(user).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 Log.d("LOGIN_TEST", "HTTP 응답 코드: ${response.code()}")
-                Log.d("LOGIN_TEST", "응답 헤더: ${response.headers()}") // 응답 헤더 전체 확인
 
                 val errorBodyString = response.errorBody()?.string()
                 if (errorBodyString != null) {
@@ -51,10 +49,19 @@ class LoginService {
                         "COMMON200" -> {
                             loginView.loginSuccess()
 
-                            // ✅ Authorization 토큰 저장 추가
+                            // ✅ accessToken 저장 추가
+                            val accessToken = resp.result?.accessToken
+                            if (!accessToken.isNullOrEmpty()) {
+                                Log.d("LOGIN_TEST", "accessToken 저장 완료: $accessToken")
+                                loginView.saveAuthToken(accessToken)
+                            } else {
+                                Log.e("LOGIN_TEST", "accessToken이 응답에 없음")
+                            }
+
+                            // ✅ Authorization 헤더의 토큰도 저장 (기존 로직 유지)
                             val authToken = response.headers()["Authorization"]
-                            if (authToken != null) {
-                                Log.d("LOGIN_TEST", "토큰 저장 완료: $authToken")
+                            if (!authToken.isNullOrEmpty()) {
+                                Log.d("LOGIN_TEST", "Authorization 토큰 저장 완료: $authToken")
                                 loginView.saveAuthToken(authToken)
                             } else {
                                 Log.e("LOGIN_TEST", "Authorization 토큰이 응답에 없음")
@@ -73,6 +80,5 @@ class LoginService {
                 loginView.loginFailure("네트워크 오류 발생")
             }
         })
-
     }
 }

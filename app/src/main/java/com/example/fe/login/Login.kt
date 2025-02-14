@@ -90,6 +90,14 @@ class Login : AppCompatActivity(), LoginView {
         signUpButton = findViewById(R.id.signupButton)
 
         sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+
+        val savedAuthToken = sharedPreferences.getString("authToken", null)
+        if (!savedAuthToken.isNullOrEmpty()) {
+            Log.d("LOGIN_TEST", "저장된 accessToken 확인: $savedAuthToken")
+        } else {
+            Log.d("LOGIN_TEST", "저장된 accessToken이 없음")
+        }
+
         autoLoginCheckbox.isChecked = sharedPreferences.getBoolean("autoLogin", false)
 
         val text = getString(R.string.signup_text)
@@ -143,17 +151,6 @@ class Login : AppCompatActivity(), LoginView {
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 val responseBody = response.body?.string()
                 Log.d("GOOGLE_Login", "백엔드 응답: $responseBody") // 응답 로그 추가
-
-                val authToken = response.header("Authorization")
-                if (authToken != null) {
-                    getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                        .edit()
-                        .putString("authToken", authToken)
-                        .apply()
-                    Log.d("GOOGLE_Login", "토큰 저장 완료: $authToken")
-                } else {
-                    Log.e("GOOGLE_Login", "토큰이 응답에 없음")
-                }
             }
         })
     }
