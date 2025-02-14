@@ -58,7 +58,7 @@ class Preference3 : AppCompatActivity() {
         }
         nextButton.setOnClickListener {
             // Start the next activity
-            val intent = Intent(this, Preference::class.java)
+            val intent = Intent(this, Preference4::class.java)
             startActivity(intent)
         }
     }

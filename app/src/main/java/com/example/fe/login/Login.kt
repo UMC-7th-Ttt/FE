@@ -130,16 +130,11 @@ class Login : AppCompatActivity(), LoginView {
     }
 
     private fun sendIdTokenToBackend(idToken: String) {
-        val cleanedIdToken = idToken.replace("\n", "").replace("\"", "")
-        Log.d("GOOGLE_Login", "전송할 idToken (정리됨): $cleanedIdToken")
-
-        val url = "http://3.38.209.11:8080/api/google-login"
-        val jsonObject = JSONObject().apply { put("idToken", idToken) }
-        val requestBody = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaType())
+        val requestBody = idToken.toRequestBody("application/json; charset=utf-8".toMediaType())
 
         val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
+            .url("http://3.38.209.11:8080/api/google-login")
+            .post(requestBody)  // 🚨 JSON 없이 Raw Body 전송
             .build()
 
         val client = OkHttpClient()
@@ -151,6 +146,12 @@ class Login : AppCompatActivity(), LoginView {
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 val responseBody = response.body?.string()
                 Log.d("GOOGLE_Login", "백엔드 응답: $responseBody") // 응답 로그 추가
+                // 구글 로그인 성공 후 Preference 화면으로 이동
+                runOnUiThread {
+                    // 로그인 성공 후 Preference로 이동
+                    startActivity(Intent(this@Login, Preference::class.java))
+                    finish() // 현재 액티비티 종료
+                }
             }
         })
     }
