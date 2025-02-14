@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun initBottomNavigation() {
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -54,19 +53,6 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
-
-    // 프래그먼트 변경 시 바텀 네비게이션 숨기기 기능 추가
-//    fun replaceFragment(fragment: Fragment, showBottomNav: Boolean = true, addToBackStack: Boolean = false) {
-//        val transaction = supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_frm_in_bottom_nav, fragment)
-//
-//        if (addToBackStack) {
-//            transaction.addToBackStack(null) // 백 스택에 추가할 경우만 실행
-//        }
-//
-//        transaction.commit()
-//        showBottomNavigation(showBottomNav)
-//    }
 
     fun replaceFragment(fragment: Fragment, showBottomNav: Boolean = true) {
         supportFragmentManager.beginTransaction()

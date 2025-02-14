@@ -66,14 +66,11 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                     val detail = response.body()?.result
                     detail?.let {
                         binding.bookclubPlaceDetailNameTv.text = it.title
-                        binding.bookclubPlaceDetailAddressTv.text = it.address
                         binding.bookclubPlaceDetailTagTv.text = if (it.category == "CAFE") "북카페" else "서점"
                         binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "야외에서도 책을 읽을 수 있는 북카페"
                         binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "날씨가 좋은 날 여유롭게 책을 읽으며 맛있는 커피를 즐길 수 있는 뉴트로 감성의 힙한 종로 카페를 찾으시나요?"
-                        binding.bookclubPlaceDetailEntireRatingNumTv.text = it.totalRating.toString()
+                        binding.bookclubPlaceDetailEntireRatingNumTv.text = String.format("%.1f", it.totalRating)
                         binding.bookclubPlaceDetailLocationTv.text = it.address
-//                        binding.weekdaysBusinessTv.text = "운영시간 ${it.weekdaysBusiness}"
-//                        binding.sunBusinessTv.text = "(일요일 ${it.sunBusiness})"
                         binding.weekdaysBusinessTv.text = "운영시간 ${it.weekdaysBusiness ?: ""}"
                         binding.sunBusinessTv.text = "(일요일 ${it.sunBusiness ?: ""})"
                         binding.holidayTv.text = "정기휴무 : ${it.holiday ?: "연중무휴"}"
