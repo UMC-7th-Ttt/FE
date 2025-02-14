@@ -6,7 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface LoginRetrofitInterface {
-    @POST("api/login")
-    @Headers("Content-Type: application/json")  // 추가
+    @Headers("Content-Type: application/json")
+    @POST("/api/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 }
