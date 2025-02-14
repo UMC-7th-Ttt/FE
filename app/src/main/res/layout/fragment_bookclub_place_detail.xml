@@ -54,25 +54,15 @@
             android:id="@+id/bookclub_place_detail_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
             android:text="파이키"
             android:textColor="@color/primary_50"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/bookclub_place_detail_address_tv"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv" />
 
-        <TextView
-            android:id="@+id/bookclub_place_detail_address_tv"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="서울 종로구 서순라길 81 파이키"
-            android:textColor="@color/primary_50"
-            android:textSize="16sp"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv"
-            app:layout_constraintStart_toStartOf="@id/bookclub_place_detail_name_tv" />
         <TextView
             android:id="@+id/bookclub_place_detail_tag_tv"
             android:layout_width="wrap_content"
@@ -80,10 +70,10 @@
             android:text="북카페"
             android:textColor="@color/primary_50"
             android:textSize="17sp"
-            app:layout_constraintTop_toTopOf="@+id/bookclub_place_detail_address_tv"
-            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_address_tv"
+            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_name_tv"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="20dp" />
+
         <ImageView
             android:id="@+id/bookclub_place_detail_write_iv"
             android:layout_width="wrap_content"
@@ -159,7 +149,7 @@
             android:id="@+id/bookclub_place_detail_entire_rating_num_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="28dp"
             android:text="4.5"
             android:textStyle="bold"
             android:textSize="30sp"
@@ -174,7 +164,7 @@
             android:id="@+id/dotted_line_ic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="27dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_dotted_line"
             android:elevation="2dp"

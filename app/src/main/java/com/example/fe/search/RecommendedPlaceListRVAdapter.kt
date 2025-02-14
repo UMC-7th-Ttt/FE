@@ -16,7 +16,7 @@ class RecommendedPlaceListRVAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(place: PlaceResponse) {
             binding.itemRecommendedPlaceNameTv.text = place.title
-            binding.itemRecommendedPlaceRatingTv.text = place.totalRating.toString()
+            binding.itemRecommendedPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
             // 이미지 설정 (Glide 사용)
             Glide.with(binding.root.context)

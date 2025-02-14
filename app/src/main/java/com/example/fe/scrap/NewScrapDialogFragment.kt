@@ -1,8 +1,11 @@
 package com.example.fe.scrap
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -12,6 +15,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.view.ViewGroup.LayoutParams
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import com.example.fe.R
 import com.example.fe.databinding.FragmentNewScrapDialogBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
@@ -33,11 +38,13 @@ class NewScrapDialogFragment(
 
     override fun onStart() {
         super.onStart()
+        dialog?.window?.setDimAmount(0.5f) // 배경을 50% 어둡게
+
         dialog?.window?.apply {
             setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL) // 위쪽 + 가로 중앙 정렬
 
             attributes = attributes.apply {
-                y = 400 // 화면의 중간보다 살짝 위쪽으로 조정
+                y = 500 // 화면의 중앙
             }
 
             setLayout(
@@ -46,6 +53,17 @@ class NewScrapDialogFragment(
             )
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 배경 투명 처리
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            showKeyboard()
+        }, 200) // 200ms 후 키보드 실행
+    }
+
+    // NewScrapDialog 떴을 때 키보드 자동 실행
+    private fun showKeyboard() {
+        binding.scrapNameEt.requestFocus() // EditText에 포커스 주기
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.scrapNameEt, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun initListeners() {
@@ -60,6 +78,24 @@ class NewScrapDialogFragment(
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        // EditText 키보드 "완료(✔)" 버튼 클릭 시
+        binding.scrapNameEt.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val scrapName = binding.scrapNameEt.text.toString().trim()
+
+                if (scrapName.isNotEmpty()) {
+                    showCustomToast(scrapName) // 커스텀 토스트 실행
+                    onScrapCreated() // 북마크 상태 변경 콜백 호출
+                    dismiss() // 다이얼로그 닫기
+                } else {
+                    Toast.makeText(requireContext(), "스크랩명을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                }
+                true
+            } else {
+                false
+            }
+        }
 
         // "완료" 버튼 클릭 시
         binding.newScrapCompeleteBtn.setOnClickListener {

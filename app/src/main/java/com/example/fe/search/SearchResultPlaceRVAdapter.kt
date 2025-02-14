@@ -18,7 +18,7 @@ class SearchResultPlaceRVAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(place: PlaceResponse) {
             binding.itemSearchResultPlaceNameTv.text = place.title
-            binding.itemSearchResultPlaceRatingTv.text = place.totalRating.toString()
+            binding.itemSearchResultPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
             // 이미지 로딩 (Glide 사용)
             Glide.with(binding.root.context)

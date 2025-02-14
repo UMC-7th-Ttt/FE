@@ -28,7 +28,7 @@ class BookclubRecommendedPlaceRVAdapter(
         holder.binding.apply {
             itemBookclubRecommendedPlaceNameTv.text = place.title
             itemBookclubRecommendedPlaceTagTv.text = if (place.category == "CAFE") "카페" else "서점"
-            itemBookclubRecommendedPlaceRatingTv.text = place.totalRating.toString()
+            itemBookclubRecommendedPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
             // 이미지 로드
             Glide.with(holder.itemView.context)

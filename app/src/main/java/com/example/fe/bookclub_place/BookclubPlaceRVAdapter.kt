@@ -36,7 +36,8 @@ class BookclubPlaceRVAdapter(
             } else {
                 binding.itemBookclubPlaceTagTv.text = "카페"
             }
-            binding.itemBookclubPlaceRatingTv.text = "${place.totalRating}"
+
+            binding.itemBookclubPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
             // 이미지 URL을 사용하여 이미지 로드 (Glide 사용)
             Glide.with(binding.root.context)

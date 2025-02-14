@@ -6,7 +6,7 @@
         android:layout_width="264dp"
         android:layout_height="170dp"
         app:cardBackgroundColor="#292a2d"
-        app:cardCornerRadius="17dp">
+        app:cardCornerRadius="11dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,6 +49,9 @@
                         android:background="@android:color/transparent"
                         android:hint="스크랩명을 입력해주세요."
                         android:maxLength="10"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
