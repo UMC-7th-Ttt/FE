@@ -1,6 +1,3 @@
-package com.example.fe.Home
-
-import HorizontalItemDecoration
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-
-import com.example.app.ui.home.HomeBookAdapter
 import com.example.fe.Home.Category.HomeBook
+import com.example.fe.Home.Category.HomeCategory
+import com.example.fe.Home.Category.HomeCategoryAdapter
+import com.example.fe.Home.HomeApiService
+import com.example.fe.Home.HomeResponse
+import com.example.fe.Home.HomeResult
+import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.Notification.NotificationActivity
-
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
 import retrofit2.Call
@@ -25,8 +24,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
-    //    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHomeBinding
     private val homeService = RetrofitObj.getRetrofit().create(HomeApiService::class.java)
 
     override fun onCreateView(
@@ -41,23 +39,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔹 API 데이터 불러오기
         setupHomeData()
 
-        // 🔹 알림 버튼 클릭 이벤트
         binding.notificationIcon.setOnClickListener {
             val intent = Intent(requireContext(), NotificationActivity::class.java)
             startActivity(intent)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-//        _binding = null
-    }
-
     private fun setupHomeData() {
-        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTc2ODE2MiwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.rGfiXRBkJ1x1mpFl5I1LDBClf_TddLfj0e0l_YfgtWU-DqEQ83yXNdicdBmz9k8tmAyqK5iNHAafTdvKo8RIsg" //  토큰 추가
+        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTc2ODE2MiwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.rGfiXRBkJ1x1mpFl5I1LDBClf_TddLfj0e0l_YfgtWU-DqEQ83yXNdicdBmz9k8tmAyqK5iNHAafTdvKo8RIsg"
         homeService.getHomeData("Bearer $token").enqueue(object : Callback<HomeResponse> {
             override fun onResponse(call: Call<HomeResponse>, response: Response<HomeResponse>) {
                 if (response.isSuccessful) {
@@ -80,25 +71,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateUI(data: HomeResult) {
-        // 🔹 프로필 설정
         binding.greetingText.text = "안녕하세요, ${data.nickname}님!\n오늘은 어떤 책을 시작해볼까요?"
         Glide.with(this).load(data.profileUrl).into(binding.profileIcon)
 
-        // 🔹 배너 ViewPager 설정
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
-        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        // 🔹 리사이클러뷰 (카테고리별 책 리스트)
-        val recyclerViews = listOf(
-            binding.verticalRecyclerView1, binding.verticalRecyclerView2,
-            binding.verticalRecyclerView3, binding.verticalRecyclerView4, binding.verticalRecyclerView5
-        )
-
-        val categoryBookLists = data.bookLetterList.map { it.bookList.map { book -> HomeBook(book.bookCoverImg) } }
-
-        for (i in recyclerViews.indices) {
-            recyclerViews[i].layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViews[i].adapter = HomeBookAdapter(categoryBookLists.getOrNull(i) ?: emptyList())
+        val categoryList = data.bookLetterList.map {
+            HomeCategory(it.bookLetterTitle, it.bookList.map { book -> HomeBook(book.bookCoverImg) })
         }
+
+        binding.verticalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.verticalRecyclerView.adapter = HomeCategoryAdapter(categoryList)
     }
 }

@@ -1,10 +1,11 @@
 package com.example.fe
 
+import HomeFragment
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.fe.Home.HomeFragment
+
 import com.example.fe.bookclub_book.BookclubBookFragment
 import com.example.fe.bookclub_place.BookclubPlaceFragment
 import com.example.fe.databinding.ActivityMainBinding

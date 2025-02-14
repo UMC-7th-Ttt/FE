@@ -133,130 +133,23 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/category_title1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="카테고리 제목"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+
+
+
+        <!-- 가로 리사이클러뷰 (1) -->
+
+
+
 
 
         <!-- 가로 리사이클러뷰 (1) -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vertical_recycler_view1"
+            android:id="@+id/vertical_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/shelf"/>
-
-        <TextView
-            android:id="@+id/category_title2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="카테고리 제목"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-
-        <!-- 가로 리사이클러뷰 (1) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vertical_recycler_view2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/shelf"/>
-        <TextView
-            android:id="@+id/category_title3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="카테고리 제목"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-
-        <!-- 가로 리사이클러뷰 (1) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vertical_recycler_view3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/shelf"/>
-
-
-        <TextView
-            android:id="@+id/category_title4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="카테고리 제목"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-
-        <!-- 가로 리사이클러뷰 (1) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vertical_recycler_view4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"/>
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/shelf"/>
-
-
-        <TextView
-            android:id="@+id/category_title5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="카테고리 제목"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-
-        <!-- 가로 리사이클러뷰 (1) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vertical_recycler_view5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/shelf"/>
 
 
 
