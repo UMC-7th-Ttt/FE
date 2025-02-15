@@ -1,3 +1,5 @@
+package com.example.fe.BookLetter
+
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,6 +25,8 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookTitleTv.text = book.title // 책 제목
             bookAuthorTv.text = book.author // 작가 이름
             publisherTv.text = book.publisher // 출판사 이름
+            bookExcerpt.text = book.description //구절
+            togle1.text = book.categoryName //토글
 
             // Glide로 표지 이미지 로드
             Glide.with(root.context)
@@ -33,7 +37,7 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookInfoNextBtn.setOnClickListener {
                 val context = root.context
                 val intent = Intent(context, BookDetailActivity::class.java)
-                intent.putExtra("BOOK_ID", book.bookId) // 책 ID 전달
+                //intent.putExtra("BOOK_ID", book.bookId) // 책 ID 전달
                 context.startActivity(intent)
             }
         }

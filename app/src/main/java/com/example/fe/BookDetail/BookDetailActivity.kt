@@ -18,6 +18,8 @@ class BookDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_detail)
 
 
+
+
         // 🔹 뒤로 가기 버튼
         val backButton = findViewById<ImageView>(R.id.back_button)
         backButton.setOnClickListener {
