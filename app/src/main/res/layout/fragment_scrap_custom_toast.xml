@@ -12,17 +12,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:paddingStart="7dp"
+            android:paddingStart="10dp"
             android:paddingEnd="20dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/scrap_item_iv"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:src="@drawable/img_scrap_book"
+                android:scaleType="centerCrop"
+                app:strokeWidth="0dp"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/scrap_item_name_tv"

@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fe.Book
-import com.example.fe.Place
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceEditorPickResponse
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
@@ -21,7 +19,6 @@ import retrofit2.Response
 class RecommendedSearchPlaceDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentRecommendedSearchPlaceDetailBinding
-    private lateinit var recommendedPlaceAdapter: RecommendedPlaceListRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

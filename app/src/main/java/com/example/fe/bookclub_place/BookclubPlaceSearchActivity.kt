@@ -3,19 +3,17 @@ package com.example.fe.bookclub_place
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.inputmethod.EditorInfo
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.MainActivity
-import com.example.fe.Place
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookclubPlaceSearchBinding
+import com.example.fe.search.RecentSearchManager
 import com.example.fe.search.RecentSearchRVAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +22,8 @@ import retrofit2.Response
 class BookclubPlaceSearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookclubPlaceSearchBinding
+    private lateinit var recentSearchAdapter: RecentSearchRVAdapter
+    private val recentSearches = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,12 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
                 if (keyword.isNotEmpty()) {
                     Log.d("BookclubPlaceSearchActivity", "✅ 전달할 키워드: $keyword")
 
+                    RecentSearchManager.addRecentSearch(this, keyword)
+                    recentSearches.clear()
+                    recentSearches.addAll(RecentSearchManager.getRecentSearches(this))
+                    recentSearchAdapter.notifyDataSetChanged()
+                    UpdateUIWithEmptyRecentSearch()
+
                     // 결과 데이터 설정 (BookclubPlaceFragment로 전달)
                     val resultIntent = Intent().apply {
                         putExtra("KEYWORD", keyword)
@@ -67,12 +73,16 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
     }
 
     private fun initBookclubPlaceRecentSearchRV() {
-        val recentSearches = mutableListOf("서대문", "카페", "제주", "공간 대여", "책", "화장실", "성북구", "디저트")
-
-        val adapter = RecentSearchRVAdapter(recentSearches)
-        binding.bookclubPlaceRecentSearchListRv.adapter = adapter
-        binding.bookclubPlaceRecentSearchListRv.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        recentSearches.addAll(RecentSearchManager.getRecentSearches(this))
+        recentSearchAdapter = RecentSearchRVAdapter(recentSearches) { keyword ->
+            RecentSearchManager.removeRecentSearch(this, keyword)
+            recentSearches.remove(keyword)
+            recentSearchAdapter.notifyDataSetChanged()
+            UpdateUIWithEmptyRecentSearch()
+        }
+        binding.bookclubPlaceRecentSearchListRv.adapter = recentSearchAdapter
+        binding.bookclubPlaceRecentSearchListRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        UpdateUIWithEmptyRecentSearch()
     }
 
     private fun initBookclubRecommendedPlaceRV() {
@@ -99,13 +109,19 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
         })
     }
 
-    // 전체 삭제 버튼 클릭 이벤트 처리
+    // 최근 검색어 전체 삭제 버튼 클릭 이벤트 처리
     private fun initDeleteAllButtonListener() {
         binding.bookclubPlaceRecentSearchDeleteTv.setOnClickListener {
-            // RecyclerView Adapter에서 데이터 삭제
-            val adapter = binding.bookclubPlaceRecentSearchListRv.adapter as? RecentSearchRVAdapter
-            adapter?.clearData()
+            RecentSearchManager.clearRecentSearches(this)
+            recentSearches.clear()
+            recentSearchAdapter.notifyDataSetChanged()
+            UpdateUIWithEmptyRecentSearch()
+        }
+    }
 
+    // 최근 검색어 리스트 상태에 맞춰 UI 조정
+    private fun UpdateUIWithEmptyRecentSearch() {
+        if (recentSearches.isEmpty()) {
             // 최근 검색어 관련 UI 숨기기
             binding.bookclubPlaceRecentSearchTv.visibility = View.GONE
             binding.bookclubPlaceRecentSearchDeleteTv.visibility = View.GONE
@@ -136,6 +152,10 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
 
             // 변경 사항 적용
             constraintSet.applyTo(constraintLayout)
+        } else {
+            binding.bookclubPlaceRecentSearchTv.visibility = View.VISIBLE
+            binding.bookclubPlaceRecentSearchDeleteTv.visibility = View.VISIBLE
+            binding.bookclubPlaceRecentSearchListRv.visibility = View.VISIBLE
         }
     }
 }
