@@ -57,7 +57,7 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     private fun fetchBookDetail(bookId: Long) {
-        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9..." // 📌 실제 토큰 값 넣기
+        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg" // 📌 실제 토큰 값 넣기
 
         val bookService = RetrofitObj.getRetrofit().create(BookDetailService::class.java)
         bookService.getBookDetail(token, bookId).enqueue(object : Callback<BookDetailResponse> {
@@ -88,6 +88,7 @@ class BookDetailActivity : AppCompatActivity() {
             btnCategory.text = bookDetail.category
             btnPage.text = "${bookDetail.itemPage}쪽"
             btnEbook.text = "E북 등록"
+            btnAuthor.text = bookDetail.author
 
             // ✅ 값이 없으면 버튼 숨김
             btnCategory.visibility = if (bookDetail.category.isNullOrBlank()) View.GONE else View.VISIBLE
@@ -99,12 +100,16 @@ class BookDetailActivity : AppCompatActivity() {
                 .load(bookDetail.cover)
                 .into(bookIv)
 
-            // ✅ book_info_card.xml의 바인딩 객체 가져오기 (이름 변경 반영)
-            val bookInfoCardBinding = BookInfoCardBinding.bind(binding.bookInfo)
 
-            // ✅ book_info_card 내부의 RatingBar 설정
+            val bookInfoCardBinding = BookInfoCardBinding.inflate(layoutInflater)
+            binding.bookInfo.addView(bookInfoCardBinding.root)
+
+            // ✅ 평점 설정
             bookInfoCardBinding.similarUsersRatingBar.rating = bookDetail.userRating.toFloat()
             bookInfoCardBinding.overallRatingBar.rating = bookDetail.totalRating.toFloat()
+
+
+
 
 
             // ✅ 리뷰 목록 설정
