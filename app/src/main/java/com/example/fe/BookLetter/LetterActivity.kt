@@ -41,7 +41,7 @@ class LetterActivity : AppCompatActivity() {
     }
 
     private fun fetchBookLetterDetail(bookLetterId: Long) {
-        val rawToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTc2ODE2MiwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.rGfiXRBkJ1x1mpFl5I1LDBClf_TddLfj0e0l_YfgtWU-DqEQ83yXNdicdBmz9k8tmAyqK5iNHAafTdvKo8RIsg" // 원래 토큰 값 (HomeFragment에서 사용한 것과 동일)
+        val rawToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg" // 원래 토큰 값 (HomeFragment에서 사용한 것과 동일)
         val token = "Bearer $rawToken" // ✅ "Bearer "를 동적으로 붙여서 생성
 
         // ✅ 로그 추가 (Retrofit이 실제로 어떤 요청을 보내는지 확인)

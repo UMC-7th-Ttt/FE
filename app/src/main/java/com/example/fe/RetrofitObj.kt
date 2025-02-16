@@ -13,7 +13,7 @@ object RetrofitObj {
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczODg1MDkyMiwiZW1haWwiOiJqdW55MjAwQG5hdmVyLmNvbSJ9.FadyRE3VgpsBwK0mq06cq-R89gAFGrYEqsEV9-wYIk6xQdBLbik1tAA5EaoQGroO7zFUblSLBTe2amhd4362Mw") // 🔹토큰
+                .addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg") // 🔹토큰
                 .build()
             chain.proceed(request)
         }

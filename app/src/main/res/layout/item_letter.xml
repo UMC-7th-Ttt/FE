@@ -141,41 +141,35 @@
         android:layout_marginTop="8dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/togle1"
+            android:id="@+id/btn_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/CustomMaterialButton"
             android:text="양귀자" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_page"
             style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="300쪽"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_category"
             style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="장편소설"/>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="국내소설"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_ebook"
             style="@style/CustomMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="E북 등록"/>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="한국소설"/>
+
     </com.google.android.flexbox.FlexboxLayout>
 
     <!-- 도서 DB 제공 -->

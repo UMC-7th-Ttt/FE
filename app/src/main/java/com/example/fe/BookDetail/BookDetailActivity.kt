@@ -2,13 +2,22 @@ package com.example.fe.BookDetail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.fe.BookDetail.Review.UserReview
 import com.example.fe.BookDetail.Review.UserReviewAdapter
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityBookDetailBinding
+import com.example.fe.databinding.BookInfoCardBinding
+import com.example.fe.network.RetrofitObj
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -38,17 +47,81 @@ class BookDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 🔹 리뷰 RecyclerView 설정
-        binding.otherReviewCard.layoutManager = LinearLayoutManager(this)
+        // ✅ 책 ID 가져오기
+        val bookId = intent.getLongExtra("BOOK_ID", -1L)
+        if (bookId != -1L) {
+            fetchBookDetail(bookId) // API 호출
+        } else {
+            Log.e("BookDetailActivity", "❌ 책 ID가 없습니다.")
+        }
+    }
 
-        // 더미 데이터 추가
-        val dummyReviews = listOf(
-            UserReview(R.drawable.profile_1, "책벌레 민지", "그 아픔 속에서도, 그 사람과 함께 했던 추억들을 되새기며..."),
-            UserReview(R.drawable.profile_1, "문학 소년 태준", "이 책을 읽고 난 후, 인생에 대한 시각이 완전히 달라졌다."),
-            UserReview(R.drawable.profile_1, "철학자 윤아", "책 속 구절들이 하나하나 마음에 남는다. 반드시 읽어야 할 책.")
-        )
+    private fun fetchBookDetail(bookId: Long) {
+        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9..." // 📌 실제 토큰 값 넣기
 
-        val adapter = UserReviewAdapter(dummyReviews)
-        binding.otherReviewCard.adapter = adapter
+        val bookService = RetrofitObj.getRetrofit().create(BookDetailService::class.java)
+        bookService.getBookDetail(token, bookId).enqueue(object : Callback<BookDetailResponse> {
+            override fun onResponse(call: Call<BookDetailResponse>, response: Response<BookDetailResponse>) {
+                if (response.isSuccessful) {
+                    val bookDetail = response.body()?.result
+                    if (bookDetail != null) {
+                        bindDataToUI(bookDetail) // 📌 UI 업데이트
+                    }
+                } else {
+                    Log.e("BookDetailActivity", "❌ 응답 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<BookDetailResponse>, t: Throwable) {
+                Log.e("BookDetailActivity", "❌ 네트워크 오류 발생", t)
+            }
+        })
+    }
+
+    private fun bindDataToUI(bookDetail: BookDetail) {
+        with(binding) {
+            // ✅ 책 기본 정보 설정
+            bookTitleTv.text = bookDetail.title
+            bookAuthorTv.text = bookDetail.author
+            publisherTv.text = bookDetail.publisher
+            bookExcerpt.text = bookDetail.description
+            btnCategory.text = bookDetail.category
+            btnPage.text = "${bookDetail.itemPage}쪽"
+            btnEbook.text = "E북 등록"
+
+            // ✅ 값이 없으면 버튼 숨김
+            btnCategory.visibility = if (bookDetail.category.isNullOrBlank()) View.GONE else View.VISIBLE
+            btnPage.visibility = if (bookDetail.itemPage == 0) View.GONE else View.VISIBLE
+            btnEbook.visibility = if (bookDetail.hasEbook) View.VISIBLE else View.GONE
+
+            // ✅ 책 표지 이미지 설정
+            Glide.with(this@BookDetailActivity)
+                .load(bookDetail.cover)
+                .into(bookIv)
+
+            // ✅ book_info_card.xml의 바인딩 객체 가져오기 (이름 변경 반영)
+            val bookInfoCardBinding = BookInfoCardBinding.bind(binding.bookInfo)
+
+            // ✅ book_info_card 내부의 RatingBar 설정
+            bookInfoCardBinding.similarUsersRatingBar.rating = bookDetail.userRating.toFloat()
+            bookInfoCardBinding.overallRatingBar.rating = bookDetail.totalRating.toFloat()
+
+
+            // ✅ 리뷰 목록 설정
+            if (bookDetail.reviews.isNotEmpty()) {
+                val reviews = bookDetail.reviews.map {
+                    UserReview(
+                        profileImage = R.drawable.profile_1, // Glide로 설정해야 함
+                        userName = it.memberInfo.nickname,
+                        reviewText = it.content
+                    )
+                }
+                val adapter = UserReviewAdapter(reviews)
+                otherReviewCard.layoutManager = LinearLayoutManager(this@BookDetailActivity)
+                otherReviewCard.adapter = adapter
+            } else {
+                otherReview.visibility = View.GONE // 리뷰 없으면 제목 숨김
+            }
+        }
     }
 }

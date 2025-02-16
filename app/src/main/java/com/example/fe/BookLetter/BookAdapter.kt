@@ -2,6 +2,7 @@ package com.example.fe.BookLetter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,7 +27,18 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookAuthorTv.text = book.author // 작가 이름
             publisherTv.text = book.publisher // 출판사 이름
             bookExcerpt.text = book.description //구절
-            togle1.text = book.categoryName //토글
+            btnCategory.text = book.categoryName //카테고리
+            btnAuthor.text = book.author// 버튼에 들어가는 작가연결
+            btnPage.text = "${book.itemPage}쪽"
+
+            btnEbook.text = "E북 등록" // 버튼 텍스트 설정
+
+            // ✅ 값이 없는 경우 버튼을 숨김 (GONE 처리)
+            btnAuthor.visibility = if (book.author.isNullOrBlank()) View.GONE else View.VISIBLE
+            btnPage.visibility = if (book.itemPage == 0) View.GONE else View.VISIBLE
+            btnCategory.visibility = if (book.categoryName.isNullOrBlank()) View.GONE else View.VISIBLE
+
+            btnEbook.visibility = if (!book.hasEbook) View.GONE else View.VISIBLE
 
             // Glide로 표지 이미지 로드
             Glide.with(root.context)
@@ -37,7 +49,7 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookInfoNextBtn.setOnClickListener {
                 val context = root.context
                 val intent = Intent(context, BookDetailActivity::class.java)
-                //intent.putExtra("BOOK_ID", book.bookId) // 책 ID 전달
+                intent.putExtra("BOOK_ID", book.bookId) // 책 ID 전달
                 context.startActivity(intent)
             }
         }

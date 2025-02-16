@@ -30,7 +30,8 @@
         android:contentDescription="홈 버튼"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolbar"/>
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        android:layout_marginTop="10dp"/>
 
     <!-- 스크롤 가능한 콘텐츠 -->
     <ScrollView
@@ -153,13 +154,52 @@
                 android:layout_marginTop="16dp"/>
 
             <!-- 태그 리스트 -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tag_recycler_view"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/book_tags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:flexWrap="wrap"
+                app:flexDirection="row"
+                app:justifyContent="flex_start"
+                app:layout_constraintTop_toBottomOf="@id/book_info_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/book_info_title"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomMaterialButton"
+                    android:text="양귀자" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_page"
+                    style="@style/CustomMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="300쪽"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_category"
+                    style="@style/CustomMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="장편소설"/>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_ebook"
+                    style="@style/CustomMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="E북 등록"/>
+
+
+            </com.google.android.flexbox.FlexboxLayout>
+
 
             <!-- 출판사 서평 -->
             <TextView
@@ -170,7 +210,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tag_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/book_tags"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="16dp"/>
 
@@ -208,19 +248,21 @@
 
 
             <!-- ConstraintLayout으로 감싸서 include 적용 -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/book_info_card"
+                android:id="@+id/book_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/rating_text"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp">
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_text">
 
                 <include
                     layout="@layout/book_info_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -236,7 +278,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/book_info_card"
+                app:layout_constraintTop_toBottomOf="@id/book_info"
                 android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
