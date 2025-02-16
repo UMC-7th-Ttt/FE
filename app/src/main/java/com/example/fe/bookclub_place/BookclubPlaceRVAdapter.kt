@@ -1,14 +1,23 @@
 package com.example.fe.bookclub_place
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
+import com.example.fe.scrap.ScrapBottomSheetFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BookclubPlaceRVAdapter(
     private val places: List<PlaceResponse>,
@@ -46,13 +55,63 @@ class BookclubPlaceRVAdapter(
                 .into(binding.itemBookclubPlaceImg)
 
             // 북마크 상태에 따른 아이콘 변경
-            binding.itemBookclubPlaceBookmarkIc.setImageResource(
-                if (place.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
-            )
+            updateBookmarkUI(place.isScraped)
 
+            // 북마크 클릭 이벤트
+            binding.itemBookclubPlaceBookmarkIc.setOnClickListener {
+                if (place.isScraped) {
+                    deleteScrap(place)
+                } else {
+                    val scrapBottomSheet = ScrapBottomSheetFragment(
+                        bookId = null,
+                        placeId = place.placeId,
+                        onBookmarkStateChanged = { isSelected ->
+                            place.isScraped = isSelected // API 응답값으로 업데이트
+                            updateBookmarkUI(isSelected)
+                        }
+                    )
+                    scrapBottomSheet.show(
+                        (binding.root.context as AppCompatActivity).supportFragmentManager,
+                        scrapBottomSheet.tag
+                    )
+                }
+            }
+
+            // 상세 페이지 이동
             binding.itemBookclubPlaceImg.setOnClickListener {
                 onItemClick(place)
             }
+        }
+
+        // 북마크 UI 업데이트 함수
+        private fun updateBookmarkUI(isScraped: Boolean) {
+            binding.itemBookclubPlaceBookmarkIc.setImageResource(
+                if (isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+            )
+        }
+
+        // 스크랩 삭제 API 호출
+        private fun deleteScrap(place: PlaceResponse) {
+            RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        place.isScraped = false
+                        updateBookmarkUI(false)
+                        showToast("스크랩이 취소되었습니다")
+                    } else {
+                        Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("ScrapAPI", "❌ 네트워크 오류: ${t.message}")
+                }
+            })
+        }
+
+        // 토스트 메시지 표시 함수
+        private fun showToast(message: String) {
+            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
         }
     }
 
