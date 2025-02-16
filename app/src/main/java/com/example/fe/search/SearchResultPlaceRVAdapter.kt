@@ -18,6 +18,8 @@ class SearchResultPlaceRVAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(place: PlaceResponse) {
             binding.itemSearchResultPlaceNameTv.text = place.title
+
+            // 평점 소수점 한자리까지
             binding.itemSearchResultPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
             // 이미지 로딩 (Glide 사용)

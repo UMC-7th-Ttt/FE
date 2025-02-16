@@ -1,16 +1,24 @@
 package com.example.fe.scrap
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapBottomSheetBinding
+import com.example.fe.mypage.ScrapFolderResponse
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ScrapBottomSheetFragment(
+    private val bookId: Int?,
+    private val placeId: Int?,
     private val onBookmarkStateChanged: (Boolean) -> Unit // 선택/해제 상태 콜백 추가
 ) : BottomSheetDialogFragment() {
 
@@ -34,34 +42,52 @@ class ScrapBottomSheetFragment(
     }
 
     private fun initScrapBottomSheetRV() {
-        val scrapList = listOf(
-            Pair("도서", R.drawable.img_scrap_book),
-            Pair("공간", R.drawable.img_scrap_place),
-            Pair("뇌과학..🧠", R.drawable.img_scrap_user_add)
+        RetrofitClient.scrapApi.getScrapFolders().enqueue(object : Callback<ScrapFolderResponse> {
+            override fun onResponse(
+                call: Call<ScrapFolderResponse>,
+                response: Response<ScrapFolderResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val scrapFolders = response.body()?.result?.folders ?: emptyList()
+                    setupRecyclerView(scrapFolders)
+                } else {
+                    Log.e("ScrapAPI", "❌ API 요청 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ScrapFolderResponse>, t: Throwable) {
+                Log.e("ScrapAPI", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+    }
+
+    // API에서 받아온 데이터를 리사이클러뷰에 설정
+    private fun setupRecyclerView(scrapFolders: List<ScrapFolderResponse.Result.Folder>) {
+        val adapter = ScrapBottomSheetRVAdapter(
+            scrapFolders,
+            bookId, // 전달된 도서 ID (null이면 공간 스크랩)
+            placeId, // 전달된 공간 ID (null이면 도서 스크랩)
+            { isSelected -> onBookmarkStateChanged(isSelected) },
+            this
         )
-
-//        val adapter = ScrapBottomSheetRVAdapter(scrapList) { isSelected ->
-//            onBookmarkStateChanged(isSelected) // 선택/해제 상태 콜백 호출
-//        }
-
-        val adapter = ScrapBottomSheetRVAdapter(scrapList, { isSelected ->
-            onBookmarkStateChanged(isSelected)
-        }, this) // 현재 ScrapBottomSheetFragment 넘김
 
         binding.scrapBottomSheetRv.adapter = adapter
         binding.scrapBottomSheetRv.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
     }
 
+    // "새 스크랩" 클릭 시 다이얼로그 띄우기
     private fun initListeners() {
-        // "새 스크랩" 클릭 시 다이얼로그 띄우기
         binding.newScrapTv.setOnClickListener {
-            val dialog = NewScrapDialogFragment {
-                onBookmarkStateChanged(true) // 북마크 상태 변경
-            }
+            val dialog = NewScrapDialogFragment(
+                bookId = bookId,   // bookId 전달
+                placeId = placeId, // placeId 전달
+                onScrapCreated = {
+                    onBookmarkStateChanged(true) // 북마크 상태 변경
+                }
+            )
             dismiss() // ScrapBottomSheetFragment 닫기
             dialog.show(parentFragmentManager, "NewScrapDialogFragment")
         }
     }
-
 }
