@@ -2,12 +2,11 @@ package com.example.fe.bookclub_book.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fe.bookclub_book.server.BookClubParticipationResponse
+import com.example.fe.bookclub_book.dataclass.BookClubParticipationResponse
 import com.example.fe.databinding.ItemBookclubBookParticipationBinding
 
 class BookclubParticipationRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<BookclubParticipationRVAdapter.ViewHolder>() {

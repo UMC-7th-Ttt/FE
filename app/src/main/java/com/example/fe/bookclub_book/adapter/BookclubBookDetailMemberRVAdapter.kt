@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fe.bookclub_book.server.BookClubDetailResponse
+import com.example.fe.bookclub_book.dataclass.BookClubDetailResponse
 import com.example.fe.databinding.ItemBookclubBookDetailMemberBinding
 
 class BookclubBookDetailMemberRVAdapter : RecyclerView.Adapter<BookclubBookDetailMemberRVAdapter.ViewHolder>() {

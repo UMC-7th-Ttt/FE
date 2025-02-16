@@ -6,8 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.fe.BookDetail.BookDetailActivity
 import com.example.fe.bookclub_book.adapter.BookclubBookDetailMemberRVAdapter
-import com.example.fe.bookclub_book.server.BookClubDetailResponse
+import com.example.fe.bookclub_book.dataclass.BookClubDetailResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.ActivityBookclubBookDetailBinding
 import retrofit2.Call
@@ -42,6 +43,15 @@ class BookclubBookDetail: AppCompatActivity() {
             intent.putExtra("bookClubId", bookClubId) // bookClubId를 넘겨줌
             startActivity(intent)
         }
+
+        val bookId = intent.getIntExtra("bookId",-1)
+
+        binding.detailBookOverNextBtn.setOnClickListener {
+            val intent = Intent(this, BookDetailActivity::class.java)
+            intent.putExtra("bookId", bookId) // bookId를 넘겨줌
+            startActivity(intent)
+        }
+
 
         binding.bookTitleTv.apply {
             isSelected = true

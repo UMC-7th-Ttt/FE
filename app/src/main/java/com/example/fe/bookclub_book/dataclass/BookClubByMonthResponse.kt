@@ -1,4 +1,4 @@
-package com.example.fe.bookclub_book.server
+package com.example.fe.bookclub_book.dataclass
 
 data class BookClubByMonthResponse(
     val isSuccess: Boolean,

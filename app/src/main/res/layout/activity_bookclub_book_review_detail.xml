@@ -92,6 +92,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="13dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/img_bookclub_review_photo"
                 app:layout_constraintStart_toStartOf="@+id/profile_iv"
                 app:layout_constraintTop_toBottomOf="@+id/bookclub_review_line_iv" />

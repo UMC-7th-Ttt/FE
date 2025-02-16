@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.bookclub_book.adapter.BookclubParticipationRVAdapter
-import com.example.fe.bookclub_book.server.BookClubParticipationResponse
+import com.example.fe.bookclub_book.dataclass.BookClubParticipationResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookParticipationBinding
 import retrofit2.Call
@@ -45,6 +45,7 @@ class BookclubBookParticipationFragment: Fragment() {
             override fun onItemClick(participation: BookClubParticipationResponse.Result.BookClub) {
                 val intent = Intent(context, BookclubBookDetail::class.java).apply {
                     putExtra("bookClubId", participation.bookClubId)
+//                    putExtra("bookId", participation.bookId)
                 }
                 startActivity(intent)
             }

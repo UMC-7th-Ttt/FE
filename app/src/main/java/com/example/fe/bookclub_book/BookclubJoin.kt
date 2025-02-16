@@ -1,22 +1,21 @@
 package com.example.fe.bookclub_book
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.ImageView
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fe.HomeFragment
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookInfoTagRVAdapter
 import com.example.fe.bookclub_book.dataclass.BookClubBookJoin
-import com.example.fe.bookclub_book.server.BookClubJoinInfoResponse
+import com.example.fe.bookclub_book.dataclass.BookClubJoinInfoResponse
+import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.ActivityBookclubJoinBinding
+import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.google.android.flexbox.FlexboxLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +24,6 @@ import retrofit2.Response
 class BookclubJoin : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookclubJoinBinding
-
     private lateinit var bookInfoTagRVAdapter: BookInfoTagRVAdapter
     private lateinit var bookInfoTagList: List<String>
 
@@ -53,14 +51,9 @@ class BookclubJoin : AppCompatActivity() {
         fetchBookClubInfo(bookClubId)
 
         initTagRV()
-
-//        binding.joinBtn.setOnClickListener {
-//            val bookClubBookJoin = BookClubBookJoin(id = id, bookClubId = bookClubId)
-//            postBookClubJoinInfo(bookClubBookJoin)
-//        }
     }
 
-    fun fetchBookClubInfo(bookClubId: Int) {
+    private fun fetchBookClubInfo(bookClubId: Int) {
         api.getBookClubInfo(bookClubId).enqueue(object : Callback<BookClubJoinInfoResponse> {
             override fun onResponse(call: Call<BookClubJoinInfoResponse>, response: Response<BookClubJoinInfoResponse>) {
                 if (response.isSuccessful) {
@@ -92,9 +85,8 @@ class BookclubJoin : AppCompatActivity() {
                             .into(binding.bookBgIv)
 
                         binding.joinBtn.setOnClickListener { view ->
-                            showJoinCompleteToast(it.result.bookInfo.cover)
+                            joinBookClub(bookClubId.toLong())
                         }
-
                     }
                 } else {
                     // 오류 처리
@@ -108,24 +100,30 @@ class BookclubJoin : AppCompatActivity() {
         })
     }
 
-    private fun postBookClubJoinInfo(bookClubBookJoin: BookClubBookJoin) {
-        api.joinBookClub(bookClubBookJoin).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+    private fun joinBookClub(bookClubId: Long) {
+        api.joinBookClub(bookClubId).enqueue(object : Callback<BookClubJoinResponse> {
+            override fun onResponse(call: Call<BookClubJoinResponse>, response: Response<BookClubJoinResponse>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@BookclubJoin, "가입 완료!", Toast.LENGTH_SHORT).show()
+                    response.body()?.let {
+                        if (it.isSuccess) {
+                            showCustomToast("가입이 완료되었습니다!")
+                        } else {
+                            Toast.makeText(this@BookclubJoin, "가입 실패: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 } else {
                     // 오류 처리
                     println("Error: ${response.code()} - ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<BookClubJoinResponse>, t: Throwable) {
                 println("Network Error: ${t.message}")
             }
         })
     }
 
-    fun initTagRV() {
+    private fun initTagRV() {
         val bookInfoTagRecyclerView = findViewById<RecyclerView>(R.id.book_info_tag_fb)
         bookInfoTagRecyclerView.layoutManager = FlexboxLayoutManager(this)
 
@@ -135,7 +133,7 @@ class BookclubJoin : AppCompatActivity() {
         bookInfoTagRecyclerView.adapter = bookInfoTagRVAdapter
     }
 
-    private fun updateTagList(author: String, page:String, publisher: String, hasEbook: Boolean, category: String) {
+    private fun updateTagList(author: String, page: String, publisher: String, hasEbook: Boolean, category: String) {
         val tags = mutableListOf(author, page, publisher, category)
 
         bookInfoTagList = tags
@@ -146,24 +144,24 @@ class BookclubJoin : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
-    private fun showJoinCompleteToast(bookCoverUrl: String) {
-        // 커스텀 레이아웃 인플레이트
-        val toastLayout = layoutInflater.inflate(R.layout.bookclub_join_toast, null)
+    private fun showCustomToast(bookCoverUrl: String) {
+        val inflater = LayoutInflater.from(this)
+        val toastBinding = FragmentScrapCustomToastBinding.inflate(inflater)
 
-        // 책 커버 이미지를 Glide로 로드
-        val bookCoverImageView = toastLayout.findViewById<ImageView>(R.id.toast_book_cover_iv)
+        // Glide를 사용하여 이미지 로드
         Glide.with(this)
             .load(bookCoverUrl) // 책 커버 이미지 URL
-            .into(bookCoverImageView)
+            .into(toastBinding.scrapItemIv) // 아이콘 설정
 
-        // 토스트 생성
-        val toast = Toast(applicationContext)
-        toast.duration = Toast.LENGTH_SHORT
-        toast.view = toastLayout
+        toastBinding.scrapItemNameTv.text = "가입이 완료되었습니다!"
 
-        // 토스트 위치 설정 (화면 상단)
-        toast.setGravity(Gravity.TOP or Gravity.FILL_HORIZONTAL, 0, 290)
+        // 토스트 객체 생성
+        val toast = Toast(this).apply {
+            duration = Toast.LENGTH_SHORT
+            view = toastBinding.root
+            setGravity(android.view.Gravity.TOP, 0, 200) // 위치 조정: 상단에 표시
+        }
+
         toast.show()
     }
 }

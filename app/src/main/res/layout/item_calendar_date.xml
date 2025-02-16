@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item_calendar_date_bg"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:backgroundTint="@color/transparent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp">
-
-        <LinearLayout
-            android:id="@+id/item_calendar_date_bg"
-            android:layout_width="46dp"
-            android:layout_height="55dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:padding="11dp"
-            android:backgroundTint="@color/transparent"
+        <ImageView
+            android:id="@+id/item_calendar_date_cover_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_weight="1"
+            android:src="@drawable/img_book_cover1"
+            android:scaleType="centerCrop"
+            android:paddingHorizontal="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:id="@+id/item_calendar_date_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/colorLabelNormal"
-                style="@style/calendar_date_tv"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/item_calendar_date_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorLabelNormal"
+            android:layout_margin="11dp"
+            style="@style/calendar_date_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</layout>

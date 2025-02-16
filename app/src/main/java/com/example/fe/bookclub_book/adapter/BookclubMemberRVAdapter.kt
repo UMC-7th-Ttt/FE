@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fe.bookclub_book.dataclass.BookclubMember
-import com.example.fe.bookclub_book.server.ReadingRecordsListResponse
+import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
 import com.example.fe.databinding.ItemBookclubBookMembersBinding
 
 
