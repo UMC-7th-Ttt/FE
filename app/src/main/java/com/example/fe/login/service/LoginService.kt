@@ -49,7 +49,7 @@ class LoginService {
                         "COMMON200" -> {
                             loginView.loginSuccess()
 
-                            // ✅ accessToken 저장 추가
+                            //accessToken 저장 추가
                             val accessToken = resp.result?.accessToken
                             if (!accessToken.isNullOrEmpty()) {
                                 Log.d("LOGIN_TEST", "accessToken 저장 완료: $accessToken")
@@ -58,7 +58,7 @@ class LoginService {
                                 Log.e("LOGIN_TEST", "accessToken이 응답에 없음")
                             }
 
-                            // ✅ Authorization 헤더의 토큰도 저장 (기존 로직 유지)
+                            //Authorization 헤더의 토큰도 저장 (기존 로직 유지)
                             val authToken = response.headers()["Authorization"]
                             if (!authToken.isNullOrEmpty()) {
                                 Log.d("LOGIN_TEST", "Authorization 토큰 저장 완료: $authToken")

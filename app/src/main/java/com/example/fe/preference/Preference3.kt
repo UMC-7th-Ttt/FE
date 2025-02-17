@@ -14,7 +14,7 @@ class Preference3 : AppCompatActivity() {
 
     private var selectedCount = 0
     private lateinit var nextButton: ImageButton
-    private lateinit var optionViews: List<TextView> // Holds all the TextViews representing options
+    private lateinit var optionViews: List<TextView> // 모든 옵션을 나타내는 TextView 목록
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +28,17 @@ class Preference3 : AppCompatActivity() {
         }
 
         val backButton: ImageButton = findViewById(R.id.back_button)
-        nextButton = findViewById(R.id.next_button) // Initialize nextButton here
+        nextButton = findViewById(R.id.next_button) // nextButton 초기화
 
         backButton.setOnClickListener {
             finish() // 현재 액티비티 종료 후 이전 페이지로 돌아감
         }
 
-        // Initialize the next button
+        // nextButton 초기화
         nextButton = findViewById(R.id.next_button)
-        nextButton.isEnabled = false  // Start with the next button disabled
+        nextButton.isEnabled = false  // 시작 시 nextButton 비활성화
 
-        // Initialize the options list (TextViews for the options)
+        // 옵션 목록 초기화 (옵션을 위한 TextView들)
         optionViews = listOf(
             findViewById(R.id.option1),
             findViewById(R.id.option2),
@@ -50,14 +50,14 @@ class Preference3 : AppCompatActivity() {
             findViewById(R.id.option8)
         )
 
-        // Set click listeners on each TextView
+        // 각 TextView에 클릭 리스너 설정
         optionViews.forEach { option ->
             option.setOnClickListener {
-                toggleSelection(option)
+                toggleSelection(option) // 선택 상태를 변경하는 함수 호출
             }
         }
         nextButton.setOnClickListener {
-            // Start the next activity
+            // 다음 액티비티 시작
             val intent = Intent(this, Preference4::class.java)
             startActivity(intent)
         }
@@ -75,13 +75,13 @@ class Preference3 : AppCompatActivity() {
             option.setBackgroundResource(defaultBackground)
             option.setTextColor(defaultTextColor)
             option.tag = "unselected" // 상태 변경
-            selectedCount--
+            selectedCount-- // 선택된 개수 감소
         } else {
             // 선택되지 않은 상태라면, 배경을 선택된 상태로 변경하고, 글자 색상 검정색으로 변경
             option.setBackgroundResource(selectedBackground)
             option.setTextColor(resources.getColor(R.color.black)) // 글자 색상 검정색
             option.tag = "selected" // 상태 변경
-            selectedCount++
+            selectedCount++ // 선택된 개수 증가
         }
 
         // 선택된 아이템의 개수가 3개 이상이면 다음 버튼 활성화
