@@ -39,9 +39,6 @@ class PasswordResetActivity : AppCompatActivity() {
             return
         }
 
-        // 서버와 통신하여 비밀번호 변경 이메일을 보내는 로직을 구현
-        // 예시: 서버 API 호출 (Retrofit, Firebase 등)
-        // 이메일을 보내는 API 호출
 
         // 서버가 이메일을 정상적으로 처리한 후:
         Toast.makeText(this, "비밀번호 변경 메일을 보냈습니다.", Toast.LENGTH_LONG).show()

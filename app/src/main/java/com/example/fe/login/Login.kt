@@ -134,7 +134,7 @@ class Login : AppCompatActivity(), LoginView {
 
         val request = Request.Builder()
             .url("http://3.38.209.11:8080/api/google-login")
-            .post(requestBody)  // 🚨 JSON 없이 Raw Body 전송
+            .post(requestBody)  //JSON 없이 Raw Body 전송
             .build()
 
         val client = OkHttpClient()
