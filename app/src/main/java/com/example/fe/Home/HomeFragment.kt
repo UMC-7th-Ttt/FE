@@ -46,6 +46,10 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), com.example.fe.BookLetter.LetterActivity::class.java) //이부분 NotificationActivity로 반드시바꿔나야함!!
             startActivity(intent)
         }
+        binding.searchIcon.setOnClickListener {
+            val intent = Intent(requireContext(), com.example.fe.Review.ReviewActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
+            startActivity(intent)
+        }
     }
 
     private fun setupHomeData() {

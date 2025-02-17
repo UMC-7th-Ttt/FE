@@ -21,6 +21,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".Review.BookReviewActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Review.ReviewActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".BookDetail.BookDetailActivity"
             android:exported="false" />
         <activity
