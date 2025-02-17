@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="#0F0F10">
+    android:background="@drawable/gradient_bg">
 
     <!-- 제목 -->
     <TextView

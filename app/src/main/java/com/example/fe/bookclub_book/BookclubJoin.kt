@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fe.HomeFragment
+
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookInfoTagRVAdapter

@@ -12,7 +12,10 @@
 
     <application
         android:networkSecurityConfig="@xml/network_security_config"
+
         android:usesCleartextTraffic="true"
+
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,6 +27,7 @@
         tools:targetApi="31">
 
         <activity
+
             android:name=".mypage.MyPageScrapDetail"
             android:exported="false" />
         <activity
@@ -32,6 +36,16 @@
         <activity
             android:name=".bookclub_book.BookClubCertification"
             android:exported="false" />
+        <activity
+            android:name=".Notification.NotificationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Review.BookReviewActivity"
+            android:exported="false" />
+
+
+
         <activity
             android:name=".BookDetail.BookDetailActivity"
             android:exported="false" />
