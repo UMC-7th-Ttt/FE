@@ -13,6 +13,7 @@ import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookclubPlaceSearchBinding
+import com.example.fe.search.EditorPickPlaceListRVAdapter
 import com.example.fe.search.RecentSearchManager
 import com.example.fe.search.RecentSearchRVAdapter
 import retrofit2.Call
@@ -94,7 +95,22 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val recommendedPlaces = response.body()?.result?.places ?: emptyList()
-                    val adapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces)
+//                    val adapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces)
+
+                    // 클릭 시 상세 페이지 이동하도록 수정
+                    val adapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces) { place ->
+                        val fragment = BookclubPlaceDetailFragment().apply {
+                            arguments = Bundle().apply {
+                                putInt("PLACE_ID", place.placeId) // 장소 ID 전달
+                            }
+                        }
+
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_bookclub_place_search_layout, fragment) // 컨테이너 맞춰서 변경
+                            .addToBackStack(null)
+                            .commit()
+                    }
+
                     binding.bookclubRecommendedPlaceListRv.adapter = adapter
                     binding.bookclubRecommendedPlaceListRv.layoutManager =
                         LinearLayoutManager(this@BookclubPlaceSearchActivity, RecyclerView.HORIZONTAL, false)

@@ -84,17 +84,29 @@ class BookclubPlaceRVAdapter(
         }
 
         // 북마크 UI 업데이트 함수
+//        private fun updateBookmarkUI(isScraped: Boolean) {
+//            binding.itemBookclubPlaceBookmarkIc.setImageResource(
+//                if (isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+//            )
+//        }
+
         private fun updateBookmarkUI(isScraped: Boolean) {
-            binding.itemBookclubPlaceBookmarkIc.setImageResource(
-                if (isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
-            )
+            binding.root.context?.let { context ->
+                binding.itemBookclubPlaceBookmarkIc.setImageResource(
+                    if (isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+                )
+            }
         }
+
 
         // 스크랩 삭제 API 호출
         private fun deleteScrap(place: PlaceResponse) {
+            Log.d("ScrapAPI", "🔹 스크랩 취소 요청: placeId = ${place.placeId}")
+
             RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        Log.d("ScrapAPI", "✅ 스크랩 취소 성공: placeId = ${place.placeId}")
                         place.isScraped = false
                         updateBookmarkUI(false)
                         showToast("스크랩이 취소되었습니다")
