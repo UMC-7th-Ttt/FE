@@ -7,13 +7,15 @@
     android:paddingBottom="15dp"
     android:background="#292a2d">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/scrap_item_bottom_sheet_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="47dp"
+        android:layout_height="65dp"
         android:layout_marginEnd="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/img_scrap_book"
+        app:strokeWidth="0dp"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -8,6 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val BASE_URL = "http://3.38.209.11:8080"
 
+// 새로운 토큰 설정
+val authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDQ3MjcxNywiZW1haWwiOiJqdW55MjAwQG5hdmVyLmNvbSJ9.Ix51rD7DP5EOySibSxPIS1gHn9FwjDROAx5OaeWAjtK2SrNTJG-KnmzYs8v3QfTdGUpT3BaQezdYmkllWHEScQ"
+
+// Retrofit 인스턴스 생성
 fun getRetrofit(token: String): Retrofit {
     val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(token)) // 인터셉터 추가
@@ -24,7 +28,6 @@ fun getRetrofit(token: String): Retrofit {
         .build()
 }
 
-val authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDI5OTA5MCwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.GdsOYoY9QlaHaqtdITnCa9OXLt2OeVYRqgNSOFVzD7SK3wjDtDJOrkZSaoLay6RKc6Tf4EIxo_dZZcZs14BTeQ"
 // API 인터페이스 인스턴스 생성
 val api: MyPageRetrofitInterface by lazy {
     getRetrofit(authToken).create(MyPageRetrofitInterface::class.java)

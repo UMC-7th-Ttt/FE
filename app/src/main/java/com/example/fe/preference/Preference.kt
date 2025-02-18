@@ -14,7 +14,7 @@ class Preference : AppCompatActivity() {
 
     private var selectedCount = 0
     private lateinit var nextButton: ImageButton
-    private lateinit var optionViews: List<TextView> // Holds all the TextViews representing options
+    private lateinit var optionViews: List<TextView> // 모든 옵션을 나타내는 TextView 목록
     private val selectedOptions = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,17 +29,17 @@ class Preference : AppCompatActivity() {
         }
 
         val backButton: ImageButton = findViewById(R.id.back_button)
-        nextButton = findViewById(R.id.next_button) // Initialize nextButton here
+        nextButton = findViewById(R.id.next_button) // nextButton 초기화
 
         backButton.setOnClickListener {
             finish() // 현재 액티비티 종료 후 이전 페이지로 돌아감
         }
 
-        // Initialize the next button
+        // nextButton 초기화
         nextButton = findViewById(R.id.next_button)
-        nextButton.isEnabled = false  // Start with the next button disabled
+        nextButton.isEnabled = false  // 시작 시 nextButton 비활성화
 
-        // Initialize the options list (TextViews for the options)
+        // 옵션 목록 초기화 (옵션을 위한 TextView들)
         optionViews = listOf(
             findViewById(R.id.option1),
             findViewById(R.id.option2),
@@ -51,14 +51,14 @@ class Preference : AppCompatActivity() {
             findViewById(R.id.option8)
         )
 
-        // Set click listeners on each TextView
+        // 각 TextView에 클릭 리스너 설정
         optionViews.forEach { option ->
             option.setOnClickListener {
                 toggleSelection(option)
             }
         }
         nextButton.setOnClickListener {
-            // Start the next activity
+            // 다음 액티비티 시작
             val intent = Intent(this, Preference2::class.java)
             intent.putStringArrayListExtra("selectedOptions", ArrayList(selectedOptions))
             startActivity(intent)

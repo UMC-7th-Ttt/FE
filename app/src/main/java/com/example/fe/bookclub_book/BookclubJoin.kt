@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookInfoTagRVAdapter
-import com.example.fe.bookclub_book.dataclass.BookClubBookJoin
 import com.example.fe.bookclub_book.dataclass.BookClubJoinInfoResponse
 import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
 import com.example.fe.bookclub_book.server.api
@@ -76,15 +75,10 @@ class BookclubJoin : AppCompatActivity() {
                             it.result.bookInfo.category
                         )
 
-                        Glide.with(this@BookclubJoin)
-                            .load(it.result.bookInfo.cover)
-                            .into(binding.bookIv)
+                        loadImage(it.result.bookInfo.cover, binding.bookIv)
+                        loadImage(it.result.bookInfo.cover, binding.bookBgIv)
 
-                        Glide.with(this@BookclubJoin)
-                            .load(it.result.bookInfo.cover)
-                            .into(binding.bookBgIv)
-
-                        binding.joinBtn.setOnClickListener { view ->
+                        binding.joinBtn.setOnClickListener {
                             joinBookClub(bookClubId.toLong())
                         }
                     }
@@ -144,16 +138,22 @@ class BookclubJoin : AppCompatActivity() {
         }
     }
 
-    private fun showCustomToast(bookCoverUrl: String) {
+    private fun loadImage(url: String, imageView: ImageView) {
+        if (!isFinishing && !isDestroyed) {
+            Glide.with(this)
+                .load(url)
+                .into(imageView)
+        }
+    }
+
+    private fun showCustomToast(message: String) {
         val inflater = LayoutInflater.from(this)
         val toastBinding = FragmentScrapCustomToastBinding.inflate(inflater)
 
         // Glide를 사용하여 이미지 로드
-        Glide.with(this)
-            .load(bookCoverUrl) // 책 커버 이미지 URL
-            .into(toastBinding.scrapItemIv) // 아이콘 설정
+        loadImage("책 커버 이미지 URL", toastBinding.scrapItemIv) // 여기에 실제 책 커버 URL을 넣어야 합니다.
 
-        toastBinding.scrapItemNameTv.text = "가입이 완료되었습니다!"
+        toastBinding.scrapItemNameTv.text = message
 
         // 토스트 객체 생성
         val toast = Toast(this).apply {

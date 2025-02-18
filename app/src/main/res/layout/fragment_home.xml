@@ -38,8 +38,8 @@
                 <!-- 검색 아이콘 -->
                 <ImageView
                     android:id="@+id/search_icon"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_search"
                     android:contentDescription="검색 아이콘"
                     app:layout_constraintEnd_toStartOf="@id/notification_icon"
@@ -53,6 +53,8 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/ic_bell"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:contentDescription="알림 아이콘"
                     app:layout_constraintEnd_toStartOf="@id/profile_icon"
                     app:layout_constraintTop_toTopOf="parent"
@@ -69,7 +71,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="12dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -78,43 +80,66 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="304dp"
             android:layout_marginTop="8dp" />
 
+
         <!-- 텍스트 섹션 -->
-        <TextView
-            android:id="@+id/greeting_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="안녕하세요, 유저님!\n오늘은 어떤 책을 시작해볼까요?"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
-            android:layout_margin="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="나의 활동"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"/>
+            android:background="@drawable/gradient_bg">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이번 달도 Ttt.와 즐거운 독서 라이프 즐겨봐요!"
-            android:textSize="16sp"
-            android:textColor="#C2C4C8E0"
-            android:layout_marginStart="16dp"/>
+            <TextView
+                android:id="@+id/greeting_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="안녕하세요, 유저님!\n오늘은 어떤 책을 시작해볼까요?"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="나의 활동"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/greeting_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="이번 달도 Ttt.와 즐거운 독서 라이프 즐겨봐요!"
+                android:textColor="#C2C4C8E0"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- "나의 활동" 카드뷰 -->
         <include
-            layout="@layout/activity_card"
             android:id="@+id/activity_card"
+            layout="@layout/activity_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
+
+
+
+
+        <!-- 가로 리사이클러뷰 (1) -->
+
+
+
 
 
         <!-- 가로 리사이클러뷰 (1) -->
@@ -125,6 +150,7 @@
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"/>
+
 
 
 

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -13,8 +14,8 @@ import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
-import com.example.fe.scrap.ScrapBottomSheetFragment
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
+import com.example.fe.scrap.ScrapBottomSheetFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +24,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBookclubPlaceDetailBinding
     private var isBookmarked = false // 북마크 상태 추적
+    private var placeId: Int = -1 // 장소 ID 저장
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +42,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
         }
 
         // placeId 받아와 해당 상세 내용 출력
-        val placeId = arguments?.getInt("PLACE_ID", -1) ?: -1
+        placeId = arguments?.getInt("PLACE_ID", -1) ?: -1
         if (placeId != -1) {
             getPlaceDetails(placeId)
         }
@@ -84,9 +86,8 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                             if (it.hasSpaceRental) R.drawable.kwd_rental_ok else R.drawable.kwd_rental_no
                         )
 
-                        binding.bookclubPlaceDetailBookmarkIv.setImageResource(
-                            if (it.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
-                        )
+                        isBookmarked = it.isScraped // 북마크 상태 저장
+                        updateBookmarkUI()
 
                         Glide.with(this@BookclubPlaceDetailFragment)
                             .load(it.image)
@@ -129,22 +130,56 @@ class BookclubPlaceDetailFragment : DialogFragment() {
         }
     }
 
-    // 북마크 아이콘 클릭 리스너
+    // 북마크 아이콘 클릭 리스너 (ScrapBottomSheetFragment에 placeId 전달)
     private fun initBookmarkClickListener() {
         binding.bookclubPlaceDetailBookmarkIv.setOnClickListener {
-            val scrapBottomSheet = ScrapBottomSheetFragment { isSelected ->
-                updateBookmarkState(isSelected) // 상태 업데이트
+            if (isBookmarked) {
+                deleteScrap()
+            } else {
+                val scrapBottomSheet = ScrapBottomSheetFragment(
+                    bookId = null, // 장소 스크랩이므로 bookId는 null
+                    placeId = placeId,
+                    onBookmarkStateChanged = { isSelected ->
+                        updateBookmarkState(isSelected)
+                    }
+                )
+                scrapBottomSheet.show(parentFragmentManager, scrapBottomSheet.tag)
             }
-            scrapBottomSheet.show(parentFragmentManager, scrapBottomSheet.tag)
         }
     }
 
-    // 북마크 상태 업데이트 함수
-    private fun updateBookmarkState(isSelected: Boolean) {
-        isBookmarked = isSelected // 북마크 상태 변경
+    // 스크랩 삭제 API 호출
+    private fun deleteScrap() {
+        RetrofitClient.scrapApi.deletePlaceScrap(placeId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    isBookmarked = false
+                    updateBookmarkUI()
+                    showToast("스크랩이 취소되었습니다")
+                } else {
+                    Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("ScrapAPI", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+    }
+
+    private fun updateBookmarkUI() {
         binding.bookclubPlaceDetailBookmarkIv.setImageResource(
             if (isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
         )
+    }
+
+    private fun updateBookmarkState(isSelected: Boolean) {
+        isBookmarked = isSelected
+        updateBookmarkUI()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

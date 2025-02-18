@@ -206,7 +206,7 @@ class BookclubPlaceFragment : Fragment() {
                     if (keyword != null) putString("KEYWORD", keyword)
                 }
             })
-            .addToBackStack(null)
+//            .addToBackStack(null)
             .commit()
     }
 

@@ -65,6 +65,14 @@
             android:exported="false" />
         
         <activity
+            android:name=".Notification.NotificationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Review.BookReviewActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".BookDetail.BookDetailActivity"
             android:exported="false" />
         
@@ -147,12 +155,4 @@
 
         <activity
             android:name=".search.SearchMainActivity"
-            android:windowSoftInputMode="adjustPan" />
-        
-        <activity
-            android:name=".bookclub_place.BookclubPlaceSearchActivity"
-            android:windowSoftInputMode="adjustPan" />
-
-    </application>
-
-</manifest>
+ ▋

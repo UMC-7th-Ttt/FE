@@ -44,10 +44,19 @@ android {
 }
 
 dependencies {
+
     implementation (libs.glide)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+
+
 
     implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
@@ -92,6 +101,7 @@ dependencies {
     kapt ("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
 
