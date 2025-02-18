@@ -1,10 +1,12 @@
 package com.example.fe.setting
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.example.fe.R
 import com.example.fe.databinding.ActivitySettingBinding
+import com.example.fe.mypage.MyPageScrapDetail
 
 class Setting: AppCompatActivity() {
 
@@ -22,19 +24,13 @@ class Setting: AppCompatActivity() {
         }
 
         binding.mypageSettingDetailTv1.setOnClickListener {
-            val profileChangeFagment = SettingProfileChangeFragment()
-            supportFragmentManager.commit {
-                replace(R.id.fragment_container, profileChangeFagment)
-                addToBackStack(null)
-            }
+            val intent = Intent(this, ChangeProfile::class.java)
+            startActivity(intent)
         }
 
         binding.mypageSettingDetailTv2.setOnClickListener {
-            val settingChangeInfoFragment = SettingChangeInfoFragment()
-            supportFragmentManager.commit {
-                replace(R.id.fragment_container, settingChangeInfoFragment)
-                addToBackStack(null)
-            }
+            val intent = Intent(this, ChangeInfo::class.java)
+            startActivity(intent)
         }
     }
 }

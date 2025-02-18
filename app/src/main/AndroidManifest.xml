@@ -27,6 +27,21 @@
             android:name=".mypage.MyPageScrapDetail"
             android:exported="false" />
         <activity
+            android:name=".setting.ChangeProfile"
+            android:exported="false" />
+        <activity
+            android:name=".setting.ChangeInfo"
+            android:exported="false" />
+        <activity
+            android:name=".setting.VerifyPassword"
+            android:exported="false" />
+        <activity
+            android:name=".setting.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".setting.Alarm"
+            android:exported="false" />
+        <activity
             android:name=".bookclub_book.BookclubBookDetail"
             android:exported="false" />
         <activity
@@ -86,27 +101,27 @@
         <activity
             android:name=".signup.TermsofUse"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-
 <!--        <activity-->
 <!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+<!--            android:exported="true" />-->
 
         <activity
-            android:name=".SplashActivity_ttt"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-->
+<!--            android:name=".SplashActivity_ttt"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <activity
             android:name=".search.SearchMainActivity"

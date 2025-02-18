@@ -11,4 +11,7 @@ interface MyPageRetrofitInterface {
     @GET("/api/scraps/folders")
     fun getFolders(): Call<ScrapFolderResponse>
 
+    @GET("/api/users")
+    fun getUser(): Call<GetUserResponse>
+
 }
