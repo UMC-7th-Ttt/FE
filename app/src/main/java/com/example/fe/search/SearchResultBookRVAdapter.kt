@@ -1,6 +1,7 @@
 // SearchResultBookRVAdapter 수정 (도서 스크랩 관련 부분만 변경)
 package com.example.fe.search
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.BookDetail.BookDetailActivity
 import com.example.fe.R
 import com.example.fe.databinding.ItemSearchResultBookBinding
 import com.example.fe.search.api.BookResponse
