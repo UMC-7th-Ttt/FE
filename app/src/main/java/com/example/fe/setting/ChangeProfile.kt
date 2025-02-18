@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.fe.R
 import com.example.fe.databinding.ActivityChangeProfileBinding
 import com.example.fe.mypage.GetUserResponse
+import com.example.fe.mypage.UserResponse
 import com.example.fe.signup.service.NicknameService
 import com.example.fe.signup.service.NicknameView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -136,8 +137,8 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
     }
 
     private fun getUser() {
-        com.example.fe.mypage.api.getUser().enqueue(object : Callback<GetUserResponse> {
-            override fun onResponse(call: Call<GetUserResponse>, response: Response<GetUserResponse>) {
+        com.example.fe.mypage.api.getUser().enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
                     val getUserResponse = response.body()
                     getUserResponse?.let {
@@ -150,7 +151,7 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
                 }
             }
 
-            override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("MyPageScrapFragment", "Network Error: ${t.message}")
             }
         })
