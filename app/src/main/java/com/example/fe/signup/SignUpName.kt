@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import com.example.fe.databinding.ActivitySignUpNameBinding
 import com.example.fe.signup.service.NicknameService
@@ -18,6 +19,8 @@ class SignUpName : AppCompatActivity(), NicknameView {
         binding = ActivitySignUpNameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val id = intent.getIntExtra("id", -1)
+        Log.d("SignUpName", "회원가입 ID: $id")
         authService = NicknameService()  // 초기화
         authService.setNicknameView(this)  // View 연결
 

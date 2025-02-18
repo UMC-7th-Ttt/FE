@@ -12,5 +12,11 @@ data class AuthResponse (
     @SerializedName(value = "isSuccess") val isSuccess: Boolean,
     @SerializedName(value = "code") val code: String,
     @SerializedName(value = "message") val message: String,
-    @SerializedName("result") val result: Any?
+    @SerializedName("result") val result: ResultData?
+)
+
+data class ResultData(
+    val id: Int,
+    val nickname: String,
+    val profileUrl: String
 )

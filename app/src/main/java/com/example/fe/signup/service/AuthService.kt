@@ -19,22 +19,22 @@ class AuthService {
 
         authService.signUp(user).enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                Log.d("AuthService", "onResponse 호출됨")  // 로그 추가
-                if (response.isSuccessful) {
-                    Log.d("AuthService", "회원가입 성공: ${response.body()}")
-                    signUpView?.onSignUpSuccess()
+                Log.d("AuthService", "onResponse 호출됨")
+                if (response.isSuccessful && response.body() != null) {
+                    val resp: AuthResponse = response.body()!!
+                    Log.d("AuthService", "회원가입 성공: $resp")
+
+                    val id = resp.result?.id ?: -1 // result가 null일 경우 기본값 -1 설정
+                    if (id != -1) {
+                        signUpView.onSignUpSuccess(id) // id 값 전달
+                    } else {
+                        Log.e("AuthService", "회원가입 성공했지만 ID 없음")
+                        signUpView.onSignUpFailure()
+                    }
                 } else {
-                    // ✅ 서버 응답 메시지 확인
                     val errorMessage = response.errorBody()?.string()
                     Log.e("AuthService", "회원가입 실패 - 응답 코드: ${response.code()}, 메시지: $errorMessage")
-                    signUpView?.onSignUpFailure()
-                }
-                Log.d("SIGNUP/SUCCESS", response.toString())
-                val resp: AuthResponse = response.body()!!
-
-                when(resp.code) {
-                    1000.toString() -> signUpView.onSignUpSuccess()
-                    else -> signUpView.onSignUpFailure()
+                    signUpView.onSignUpFailure()
                 }
             }
 
