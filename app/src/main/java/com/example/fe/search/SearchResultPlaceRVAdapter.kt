@@ -12,6 +12,7 @@ import com.example.fe.R
 import com.example.fe.databinding.ItemSearchResultPlaceBinding
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -74,7 +75,19 @@ class SearchResultPlaceRVAdapter(
                         if (response.isSuccessful) {
                             place.isScraped = false // 스크랩 해제
                             updateBookmarkUI(false)
-                            showToast("스크랩이 취소되었습니다")
+
+                            val inflater = LayoutInflater.from(binding.root.context)
+                            val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
+
+                            // 스크랩 취소 토스트 메시지 설정
+                            toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+
+                            val toast = Toast(binding.root.context).apply {
+                                duration = Toast.LENGTH_SHORT
+                                view = toastBinding.root
+                                setGravity(android.view.Gravity.TOP, 0, 100)
+                            }
+                            toast.show()
                         } else {
                             Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
                         }
