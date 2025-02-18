@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mypage_tv" />
 
     <ImageView
-        android:id="@+id/mypage_character_status_iv"
+        android:id="@+id/change_profile_ic"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_pencil_white"

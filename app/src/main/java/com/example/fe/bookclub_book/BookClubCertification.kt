@@ -3,6 +3,7 @@ package com.example.fe.bookclub_book
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,11 +13,13 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.CertifyPhotoRVAdapter
-import com.example.fe.bookclub_book.server.BookClubCertificationRequest
-import com.example.fe.bookclub_book.server.BookClubCertificationResponse
+import com.example.fe.bookclub_book.dataclass.BookClubCertificationRequest
+import com.example.fe.bookclub_book.dataclass.BookClubCertificationResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.ActivityBookclubCertificationBinding
 import retrofit2.Call
@@ -51,6 +54,25 @@ class BookClubCertification : AppCompatActivity() {
 
         // 이미지 선택 버튼 클릭 리스너
         binding.photoIv1.setOnClickListener {
+            // 현재 기기에 설정된 쓰기 권한을 가져오기 위한 변수
+            var writePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE )
+
+            // 현재 기기에 설정된 읽기 권한을 가져오기 위한 변수
+            var readPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+            // 읽기 권한과 쓰기 권한에 대해서 설정이 되어있지 않다면
+            if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
+                // 읽기, 쓰기 권한을 요청합니다.
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    1
+                )
+            }
+
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, 100)

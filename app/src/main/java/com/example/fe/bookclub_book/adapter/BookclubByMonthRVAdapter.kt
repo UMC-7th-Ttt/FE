@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fe.bookclub_book.server.BookClubByMonthResponse
+import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
 import com.example.fe.databinding.ItemBookclubBookMonthsBinding
 
 class BookclubByMonthRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<BookclubByMonthRVAdapter.ViewHolder>() {

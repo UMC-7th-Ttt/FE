@@ -30,7 +30,7 @@ class MyPageFragment : Fragment() {
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
 
-        getUser()
+        fetchUser()
 
         val tabLayout: TabLayout = binding.mypageContentTl
         val viewPager: ViewPager2 = binding.mypageContentVp
@@ -65,12 +65,12 @@ class MyPageFragment : Fragment() {
         return binding.root
     }
 
-    private fun getUser() {
-        api.getUser().enqueue(object : Callback<GetUserResponse> {
-            override fun onResponse(call: Call<GetUserResponse>, response: Response<GetUserResponse>) {
+    private fun fetchUser() {
+        api.getUser().enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
-                    val getUserResponse = response.body()
-                    getUserResponse?.let {
+                    val userResponse = response.body()
+                    userResponse?.let {
                         binding.mypageNicknameTv.text = it.result.nickname
 
                         Glide.with(this@MyPageFragment)
@@ -78,12 +78,12 @@ class MyPageFragment : Fragment() {
                             .into(binding.mypageCharacterIv)
                     }
                 } else {
-                    Log.e("MyPageScrapFragment", "Error: ${response.code()} - ${response.message()}")
+                    Log.e("MyPageFragment", "Error: ${response.code()} - ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
-                Log.e("MyPageScrapFragment", "Network Error: ${t.message}")
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e("MyPageFragment", "Network Error: ${t.message}")
             }
         })
     }

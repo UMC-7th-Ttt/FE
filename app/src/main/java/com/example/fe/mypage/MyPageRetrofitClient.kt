@@ -1,7 +1,6 @@
 package com.example.fe.mypage
 
 import com.example.fe.bookclub_book.server.AuthInterceptor
-import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

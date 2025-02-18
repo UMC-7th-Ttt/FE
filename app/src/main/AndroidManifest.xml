@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.fe">
+    
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    
     <!-- 위치 사용 권한 추가 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -26,85 +27,115 @@
         <activity
             android:name=".mypage.MyPageScrapDetail"
             android:exported="false" />
+        
+        <activity
+            android:name=".mypage.MyPageReviewList"
+            android:exported="false" />
+        
+        <activity
+            android:name=".mypage.ScrapNewFolder"
+            android:exported="false" />
+        
         <activity
             android:name=".setting.ChangeProfile"
             android:exported="false" />
+        
         <activity
             android:name=".setting.ChangeInfo"
             android:exported="false" />
+        
         <activity
             android:name=".setting.VerifyPassword"
             android:exported="false" />
+        
         <activity
             android:name=".setting.ChangePassword"
             android:exported="false" />
+        
         <activity
             android:name=".setting.Alarm"
             android:exported="false" />
+        
         <activity
             android:name=".bookclub_book.BookclubBookDetail"
             android:exported="false" />
+        
         <activity
             android:name=".bookclub_book.BookClubCertification"
             android:exported="false" />
+        
         <activity
             android:name=".BookDetail.BookDetailActivity"
             android:exported="false" />
+        
         <activity
             android:name=".BookLetter.LetterActivity"
             android:exported="false" />
+        
         <activity
             android:name=".bookclub_book.BookclubBookReviewDetail"
             android:exported="true" />
+        
         <activity
             android:name=".bookclub_book.BookclubJoin"
             android:exported="true" />
+        
         <activity
             android:name=".Review.ReviewActivity"
             android:exported="true" />
+        
         <activity
             android:name=".setting.Setting"
             android:exported="true" />
+        
         <activity
             android:name=".preference.Preference4"
             android:exported="true" />
+        
         <activity
             android:name=".preference.Preference_complete"
             android:exported="false" />
+        
         <activity
             android:name=".preference.Preference3"
             android:exported="false" />
+        
         <activity
             android:name=".preference.Preference2"
             android:exported="false" />
+        
         <activity
             android:name=".preference.Preference"
             android:exported="true" />
+        
         <activity
             android:name=".login.PasswordResetActivity"
             android:exported="false" />
+        
         <activity
             android:name=".signup.SignUpComplete"
             android:exported="false" />
+        
         <activity
             android:name=".signup.SignUpName"
             android:exported="true" />
+        
         <activity
             android:name=".signup.SignUpPW"
             android:exported="false" />
+        
         <activity
             android:name=".signup.SignUpID"
             android:exported="true" />
+        
         <activity
             android:name=".login.Login"
             android:exported="true" />
+        
         <activity
             android:name=".signup.TermsofUse"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true" />-->
-
+        
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -114,18 +145,10 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".SplashActivity_ttt"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
         <activity
             android:name=".search.SearchMainActivity"
             android:windowSoftInputMode="adjustPan" />
+        
         <activity
             android:name=".bookclub_place.BookclubPlaceSearchActivity"
             android:windowSoftInputMode="adjustPan" />

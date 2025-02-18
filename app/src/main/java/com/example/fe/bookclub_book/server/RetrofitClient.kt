@@ -1,5 +1,6 @@
 package com.example.fe.bookclub_book.server
 
+import com.example.fe.mypage.MyPageRetrofitInterface
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,4 +28,8 @@ val authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbi
 // API 인터페이스 인스턴스 생성
 val api: BookClubRetrofitInterface by lazy {
     getRetrofit(authToken).create(BookClubRetrofitInterface::class.java)
+}
+
+val api2: MyPageRetrofitInterface by lazy {
+    getRetrofit(authToken).create(MyPageRetrofitInterface::class.java)
 }

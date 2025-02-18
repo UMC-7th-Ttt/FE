@@ -1,6 +1,7 @@
-package com.example.fe.bookclub_book.server
+package com.example.fe.bookclub_book.dataclass
 
-data class BookClubDetailResponse(
+
+data class BookClubJoinInfoResponse(
     val isSuccess: Boolean,
     val code: String,
     val message: String,
@@ -8,11 +9,10 @@ data class BookClubDetailResponse(
 ) {
     data class Result(
         val bookClubId: Int,
-        val elapsedWeeks: Int,
-        val myCompletionRate: Int,
-        val recommendedCompletionRate: Int,
-        val bookInfo: BookInfo,
-        val members: List<Member>
+        val startDate: String,
+        val endDate: String,
+        val recuitNumber: Int,
+        val bookInfo: BookInfo
     ) {
         data class BookInfo(
             val id: Int,
@@ -21,13 +21,10 @@ data class BookClubDetailResponse(
             val author: String,
             val category: String,
             val publisher: String,
+            val itemPage: Int,
+            val description: String,
+            val hasEbook: Boolean,
             val isScraped: Boolean
-        )
-
-        data class Member(
-            val id: Int,
-            val nickname: String,
-            val profileUrl: String
         )
     }
 }

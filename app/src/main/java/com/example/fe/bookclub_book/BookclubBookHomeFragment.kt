@@ -1,17 +1,21 @@
 package com.example.fe.bookclub_book
 
+import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.bookclub_book.adapter.BookclubByMonthRVAdapter
 import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
-import com.example.fe.bookclub_book.server.BookClubByMonthResponse
-import com.example.fe.bookclub_book.server.ReadingRecordsListResponse
+import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
+import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
 import retrofit2.Call
@@ -24,21 +28,45 @@ class BookclubBookHomeFragment : Fragment() {
     private lateinit var bookclubMemberRVAdapter: BookclubMemberRVAdapter
     private lateinit var bookclubByMonthRVAdapter: BookclubByMonthRVAdapter
 
+    companion object {
+        private const val REQUEST_READ_MEDIA_IMAGES = 1
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBookclubBookHomeBinding.inflate(inflater, container, false)
 
-        initBookclubMemberRecyclerview()
-        initBookclubByMonthRecyclerview()
-        fetchReadingRecords()
-        fetchBookClubMonth()
+        if (ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(READ_MEDIA_IMAGES),
+                REQUEST_READ_MEDIA_IMAGES)
+        } else {
+            initViews()
+        }
 
         return binding.root
     }
 
-    // 북클럽 멤버 리사이클러뷰 초기화 함수
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_READ_MEDIA_IMAGES) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                initViews()
+            } else {
+                Log.e("BookclubBookHomeFragment", "Permission denied to read media images")
+            }
+        }
+    }
+
+    private fun initViews() {
+        initBookclubMemberRecyclerview()
+        initBookclubByMonthRecyclerview()
+        fetchReadingRecords()
+        fetchBookClubMonth()
+    }
+
     private fun initBookclubMemberRecyclerview() {
         binding.bookclubBookHomeMembersRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -53,7 +81,6 @@ class BookclubBookHomeFragment : Fragment() {
         binding.bookclubBookHomeMembersRv.adapter = bookclubMemberRVAdapter
     }
 
-    // 월별 북클럽 리사이클러뷰 초기화 함수
     private fun initBookclubByMonthRecyclerview() {
         binding.bookclubBookHomeMonthRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -68,7 +95,6 @@ class BookclubBookHomeFragment : Fragment() {
         binding.bookclubBookHomeMonthRv.adapter = bookclubByMonthRVAdapter
     }
 
-    // 서평 상세 조회 함수(북클럽 멤버 리사이클러 뷰 클릭시)
     private fun fetchReadingRecords() {
         api.getReadingRecords().enqueue(object : Callback<ReadingRecordsListResponse> {
             override fun onResponse(call: Call<ReadingRecordsListResponse>, response: Response<ReadingRecordsListResponse>) {
@@ -76,9 +102,10 @@ class BookclubBookHomeFragment : Fragment() {
                     val readingRecordsResponse = response.body()
                     readingRecordsResponse?.let {
                         bookclubMemberRVAdapter.setMembers(it.result.readingRecords)
+                        Log.d("BookclubBookHomeFragment", "Reading records fetched: ${it.result.readingRecords.size}")
                     }
                 } else {
-                    // 오류 처리
+                    Log.e("BookclubBookHomeFragment", "Failed to fetch reading records: ${response.code()}")
                 }
             }
 
@@ -88,17 +115,18 @@ class BookclubBookHomeFragment : Fragment() {
         })
     }
 
-    // 월별 북클럽 리스트 조회 함수
     private fun fetchBookClubMonth() {
         api.getBookClubByMonth().enqueue(object : Callback<BookClubByMonthResponse> {
             override fun onResponse(call: Call<BookClubByMonthResponse>, response: Response<BookClubByMonthResponse>) {
                 if (response.isSuccessful) {
                     val bookClubMonthResponse = response.body()
-                    bookClubMonthResponse?.result?.bookClubs?.let { bookClubs ->
-                        bookclubByMonthRVAdapter.setBookclubByMonth(bookClubs)
+                    bookClubMonthResponse?.result?.let { result ->
+                        bookclubByMonthRVAdapter.setBookclubByMonth(result.bookClubs)
+                        binding.bookclubBookHomeMonthTv.text = "${result.currentMonth}월 북클럽"
+                        Log.d("BookclubBookHomeFragment", "Book clubs by month fetched: ${result.bookClubs.size}")
                     }
                 } else {
-                    //오류
+                    Log.e("BookclubBookHomeFragment", "Failed to fetch book clubs by month: ${response.code()}")
                 }
             }
 

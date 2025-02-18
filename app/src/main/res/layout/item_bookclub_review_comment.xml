@@ -23,6 +23,7 @@
             android:layout_height="38dp"
             android:background="@drawable/circle_background"
             android:clipToOutline="true"
+            android:scaleType="centerCrop"
             android:src="@drawable/img_person_icon"/>
 
         <LinearLayout
