@@ -143,11 +143,12 @@ class SignUpPW : AppCompatActivity(), SignUpView {
     }
 
     // 1단계: SignUpView 인터페이스에서 정의한 onSignUpSuccess 메서드 구현
-    override fun onSignUpSuccess() {
+    override fun onSignUpSuccess(id: Int) {
         Toast.makeText(this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show() // 회원가입 성공 메시지 표시
 
         // 다른 페이지로 이동
-        val intent = Intent(this, SignUpName::class.java) // NextActivity는 실제로 넘어갈 액티비티로 교체해야 함
+        val intent = Intent(this, SignUpName::class.java)
+        intent.putExtra("id", id)
         startActivity(intent)
 
     }
