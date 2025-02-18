@@ -34,5 +34,9 @@
         <item name="android:fontFamily">@font/pretendard_bold</item>
     </style>
 
+    <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/primary_50</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 
 </resources>

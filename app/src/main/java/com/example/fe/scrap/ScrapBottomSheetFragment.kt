@@ -28,6 +28,11 @@ class ScrapBottomSheetFragment(
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setDimAmount(0.5f) // 배경을 50% 어둡게
+    }
+
     private fun initScrapBottomSheetRV() {
         val scrapList = listOf(
             Pair("도서", R.drawable.img_scrap_book),
@@ -35,9 +40,13 @@ class ScrapBottomSheetFragment(
             Pair("뇌과학..🧠", R.drawable.img_scrap_user_add)
         )
 
-        val adapter = ScrapBottomSheetRVAdapter(scrapList) { isSelected ->
-            onBookmarkStateChanged(isSelected) // 선택/해제 상태 콜백 호출
-        }
+//        val adapter = ScrapBottomSheetRVAdapter(scrapList) { isSelected ->
+//            onBookmarkStateChanged(isSelected) // 선택/해제 상태 콜백 호출
+//        }
+
+        val adapter = ScrapBottomSheetRVAdapter(scrapList, { isSelected ->
+            onBookmarkStateChanged(isSelected)
+        }, this) // 현재 ScrapBottomSheetFragment 넘김
 
         binding.scrapBottomSheetRv.adapter = adapter
         binding.scrapBottomSheetRv.layoutManager =
@@ -50,6 +59,7 @@ class ScrapBottomSheetFragment(
             val dialog = NewScrapDialogFragment {
                 onBookmarkStateChanged(true) // 북마크 상태 변경
             }
+            dismiss() // ScrapBottomSheetFragment 닫기
             dialog.show(parentFragmentManager, "NewScrapDialogFragment")
         }
     }

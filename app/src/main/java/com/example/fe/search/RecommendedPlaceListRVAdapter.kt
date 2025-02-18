@@ -3,16 +3,40 @@ package com.example.fe.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.Place
+import com.bumptech.glide.Glide
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.databinding.ItemRecommendedPlaceBinding
 
 class RecommendedPlaceListRVAdapter(
-    private val placeList: List<Place>
+    private val placeList: List<PlaceResponse>
 ) : RecyclerView.Adapter<RecommendedPlaceListRVAdapter.PlaceViewHolder>() {
 
     inner class PlaceViewHolder(val binding: ItemRecommendedPlaceBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(place: PlaceResponse) {
+            binding.itemRecommendedPlaceNameTv.text = place.title
+            binding.itemRecommendedPlaceRatingTv.text = String.format("%.1f", place.totalRating)
+
+            // 이미지 설정 (Glide 사용)
+            Glide.with(binding.root.context)
+                .load(place.image)
+                .placeholder(R.drawable.img_place1) // 기본 이미지 설정
+                .into(binding.itemRecommendedPlaceImg)
+
+            // 카테고리 변환 ("BOOKSTORE" -> "서점", "CAFE" -> "북카페")
+            binding.itemRecommendedPlaceTagTv.text = when (place.category) {
+                "BOOKSTORE" -> "서점"
+                "CAFE" -> "북카페"
+                else -> place.category
+            }
+
+            // 북마크 아이콘 설정
+            binding.itemRecommendedPlaceBookmarkIv.setImageResource(
+                if (place.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+            )
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val binding = ItemRecommendedPlaceBinding.inflate(
@@ -24,24 +48,7 @@ class RecommendedPlaceListRVAdapter(
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        val place = placeList[position]
-        holder.binding.apply {
-            itemRecommendedPlaceNameTv.text = place.name
-            itemRecommendedPlaceTagTv.text = place.tag
-            itemRecommendedPlaceRatingTv.text = place.rating.toString()
-            itemRecommendedPlaceImg.setImageResource(place.imageResId)
-
-            // 북마크 상태에 따라 아이콘 변경
-            itemRecommendedPlaceBookmarkIv.setImageResource(
-                if (place.isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
-            )
-
-            // 북마크 버튼 클릭 이벤트
-            itemRecommendedPlaceBookmarkIv.setOnClickListener {
-                place.isBookmarked = !place.isBookmarked
-                notifyItemChanged(position) // 변경된 데이터 반영
-            }
-        }
+        holder.bind(placeList[position])
     }
 
     override fun getItemCount(): Int = placeList.size

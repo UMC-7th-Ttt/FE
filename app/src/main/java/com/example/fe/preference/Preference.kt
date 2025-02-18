@@ -15,6 +15,7 @@ class Preference : AppCompatActivity() {
     private var selectedCount = 0
     private lateinit var nextButton: ImageButton
     private lateinit var optionViews: List<TextView> // Holds all the TextViews representing options
+    private val selectedOptions = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,7 @@ class Preference : AppCompatActivity() {
         nextButton.setOnClickListener {
             // Start the next activity
             val intent = Intent(this, Preference2::class.java)
+            intent.putStringArrayListExtra("selectedOptions", ArrayList(selectedOptions))
             startActivity(intent)
         }
     }
@@ -76,12 +78,14 @@ class Preference : AppCompatActivity() {
             option.setTextColor(defaultTextColor)
             option.tag = "unselected" // 상태 변경
             selectedCount--
+            selectedOptions.remove(option.text.toString()) // 리스트에서 제거
         } else {
             // 선택되지 않은 상태라면, 배경을 선택된 상태로 변경하고, 글자 색상 검정색으로 변경
             option.setBackgroundResource(selectedBackground)
             option.setTextColor(resources.getColor(R.color.black)) // 글자 색상 검정색
             option.tag = "selected" // 상태 변경
             selectedCount++
+            selectedOptions.add(option.text.toString()) // 리스트에 추가
         }
 
         // 선택된 아이템의 개수가 3개 이상이면 다음 버튼 활성화

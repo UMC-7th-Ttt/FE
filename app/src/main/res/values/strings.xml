@@ -2,10 +2,12 @@
     <string name="app_name">FE</string>
     <string name="back_button_description">뒤로 가기</string>
     <string name="next_button_description">다음 단계</string>
+    <string name="signup_text"><u>가입하기</u></string>
     <string name="send_button_description">인증번호 전송</string>
     <string name="pic2_description">프로필 사진 고르기</string>
     <string name="login_button_description">로그인버튼</string>
     <string name="google_login_button_description">구글 로그인 버튼</string>
     <string name="submit_button">구글 로그인 버튼</string>
-    <string name="signup_text">가입하기</string>
+    <string name="web_client_id">157724603423-bvvdb2crs63d4lpd8n44uqd4nqi6m3i5.apps.googleusercontent.com</string>
+<!--    <string name="signup_text">가입하기</string>-->
 </resources>

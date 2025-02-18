@@ -2,13 +2,13 @@ package com.example.fe.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
 import com.example.fe.databinding.FragmentMypageBinding
 import com.example.fe.mypage.adapter.MyPageVPAdapter
 import com.example.fe.search.SearchMainActivity
@@ -29,6 +29,8 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
+
+        fetchUser()
 
         val tabLayout: TabLayout = binding.mypageContentTl
         val viewPager: ViewPager2 = binding.mypageContentVp
@@ -60,14 +62,6 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
-        // 프로필 변경 아이콘 클릭 리스너 설정
-//        binding.changeProfileIc.setOnClickListener {
-//            val intent = Intent(context, ChangeProfileActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        fetchUser()
-
         return binding.root
     }
 
@@ -84,12 +78,12 @@ class MyPageFragment : Fragment() {
                             .into(binding.mypageCharacterIv)
                     }
                 } else {
-                    // 오류 처리
+                    Log.e("MyPageFragment", "Error: ${response.code()} - ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                //오류 처리
+                Log.e("MyPageFragment", "Network Error: ${t.message}")
             }
         })
     }

@@ -3,15 +3,36 @@ package com.example.fe.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.Book
+import com.bumptech.glide.Glide
 import com.example.fe.R
 import com.example.fe.databinding.ItemEditorPickBookBinding
+import com.example.fe.search.api.BookResponse
 
-class EditorPickBookListRVAdapter(private val bookList: List<Book>) :
-    RecyclerView.Adapter<EditorPickBookListRVAdapter.BookViewHolder>() {
+class EditorPickBookListRVAdapter(
+    private val bookList: List<BookResponse>,
+    private val bookLetterTitle: String // 북레터 제목 추가
+) : RecyclerView.Adapter<EditorPickBookListRVAdapter.BookViewHolder>() {
 
-    inner class BookViewHolder(val binding: ItemEditorPickBookBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class BookViewHolder(private val binding: ItemEditorPickBookBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(book: BookResponse) {
+            // 책 커버 이미지 설정 (Glide 사용)
+            Glide.with(binding.root.context)
+                .load(book.cover)
+                .placeholder(R.drawable.img_book_cover7) // 기본 이미지 설정
+                .into(binding.itemBookCoverIv)
+
+            // 책 제목, 저자 및 북레터 제목 설정
+            binding.itemBookTitleTv.text = book.title
+            binding.itemBookAuthorTv.text = book.author
+            binding.itemBookLetterTitleTv.text = "📙 \"${bookLetterTitle}\"" // 북레터 제목 적용
+
+            // 북마크 아이콘 설정
+            binding.itemBookmarkIv.setImageResource(
+                if (book.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+            )
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemEditorPickBookBinding.inflate(
@@ -21,25 +42,7 @@ class EditorPickBookListRVAdapter(private val bookList: List<Book>) :
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val book = bookList[position]
-        holder.binding.apply {
-            itemBookCoverIv.setImageResource(book.imageResId)
-            itemBookTitleTv.text = book.title
-            itemBookAuthorTv.text = book.author
-            itemBookLetterTitleTv.text = book.letterTitle
-//            itemBookLetterTitleTv.text = "\"${book.letterTitle}\"" // 큰따옴표 포함해서 출력
-
-            // 북마크 상태에 따라 아이콘 변경
-            itemBookmarkIv.setImageResource(
-                if (book.isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
-            )
-
-            // 북마크 버튼 클릭 시 상태 변경
-            itemBookmarkIv.setOnClickListener {
-                book.isBookmarked = !book.isBookmarked
-                notifyItemChanged(position)
-            }
-        }
+        holder.bind(bookList[position])
     }
 
     override fun getItemCount(): Int = bookList.size
