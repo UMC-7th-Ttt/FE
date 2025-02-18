@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.R
+import com.example.fe.Review.SpaceReviewActivity
+import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.databinding.ItemSearchResultPlaceBinding
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
@@ -19,7 +22,9 @@ import retrofit2.Response
 
 class SearchResultPlaceRVAdapter(
     private val places: List<PlaceResponse>,
-    private val onItemClick: (PlaceResponse) -> Unit
+    private val onItemClick: (PlaceResponse) -> Unit,
+    private val callerActivity: String? // 호출한 액티비티 정보 추가
+
 ) : RecyclerView.Adapter<SearchResultPlaceRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemSearchResultPlaceBinding) :
@@ -44,10 +49,23 @@ class SearchResultPlaceRVAdapter(
             // 북마크 상태 설정
             updateBookmarkUI(place.isScraped)
 
-            // 아이템 클릭 시 상세 화면 이동
+            // 아이템 클릭 시 이동하는 화면 결정
             binding.itemSearchResultPlaceIv.setOnClickListener {
                 onItemClick(place)
             }
+
+            // 아이템 클릭 시 이동하는 액티비티 결정
+//            binding.itemSearchResultPlaceIv.setOnClickListener {
+//                val context = binding.root.context
+//                val intent = if (callerActivity == "ReviewActivity") {
+//                    Intent(context, SpaceReviewActivity::class.java)
+//                } else {
+//                    Intent(context, BookclubPlaceDetailFragment::class.java)
+//                }.apply {
+//                    putExtra("PLACE_ID", place.placeId) // 장소 ID 전달
+//                }
+//                context.startActivity(intent)
+//            }
 
             // 북마크 버튼 클릭 이벤트 추가
             binding.itemSearchResultPlaceBookmarkIc.setOnClickListener {

@@ -12,11 +12,20 @@ import com.example.fe.databinding.ActivityReviewBookBinding
 class BookReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBookBinding
+    private var bookId: Int = -1 // 기본값 설정
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBookBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 🔹 인텐트에서 전달된 데이터 가져오기
+        bookId = intent.getIntExtra("BOOK_ID", -1)
+        val bookTitle = intent.getStringExtra("BOOK_TITLE") ?: "제목 없음"
+        val bookCoverUrl = intent.getStringExtra("BOOK_COVER") ?: ""
+
+
 
         // 🔹 뒤로 가기 버튼 클릭 시, ReviewActivity로 이동
         binding.backButton.setOnClickListener {

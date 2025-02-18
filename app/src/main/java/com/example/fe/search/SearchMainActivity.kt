@@ -19,10 +19,15 @@ class SearchMainActivity : AppCompatActivity() {
     private lateinit var recentSearchAdapter: RecentSearchRVAdapter
     private val recentSearches = mutableListOf<String>()
 
+    private var callerActivity: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 호출한 액티비티 정보를 저장
+        callerActivity = intent.getStringExtra("CALLER")
 
         initBackBtnClickListener()
         initSearchInputListener()
