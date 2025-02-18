@@ -1,9 +1,11 @@
 package com.example.fe.search
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.BookDetail.BookDetailActivity
 import com.example.fe.R
 import com.example.fe.databinding.ItemSearchResultBookBinding
 import com.example.fe.search.api.BookResponse
@@ -39,6 +41,16 @@ class SearchResultBookRVAdapter(private val bookList: List<BookResponse>) :
             itemBookmarkIv.setImageResource(
                 if (book.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
             )
+
+            // 아이템 클릭 시 BookDetailActivity로 이동 (책 ID만 전달)
+            root.setOnClickListener {
+                val context = root.context
+                val intent = Intent(context, BookDetailActivity::class.java).apply {
+                    putExtra("BOOK_ID", book.id) // 책 ID만 전달
+                }
+                context.startActivity(intent)
+            }
+
         }
     }
 

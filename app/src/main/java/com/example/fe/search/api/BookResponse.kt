@@ -1,7 +1,9 @@
 package com.example.fe.search.api
 
+import com.google.gson.annotations.SerializedName
+
 data class BookResponse(
-    val id: Int,
+    val id: Long,
     val cover: String, // 책 표지 이미지 url
     val title: String,
     val author: String,
