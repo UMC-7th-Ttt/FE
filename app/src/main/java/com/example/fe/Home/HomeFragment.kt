@@ -19,6 +19,7 @@ import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.Notification.NotificationActivity
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
+import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,11 +44,11 @@ class HomeFragment : Fragment() {
         setupHomeData()
 
         binding.notificationIcon.setOnClickListener {
-            val intent = Intent(requireContext(), com.example.fe.BookLetter.LetterActivity::class.java) //이부분 NotificationActivity로 반드시바꿔나야함!!
+            val intent = Intent(requireContext(), NotificationActivity::class.java) //이부분 NotificationActivity로 반드시바꿔나야함!!
             startActivity(intent)
         }
         binding.searchIcon.setOnClickListener {
-            val intent = Intent(requireContext(), com.example.fe.Review.ReviewActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
+            val intent = Intent(requireContext(), SearchMainActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
             startActivity(intent)
         }
     }
@@ -112,7 +113,28 @@ class HomeFragment : Fragment() {
             if (review1 != null) {
                 binding.finalCard.card1Title.text = review1.bookTitle
                 binding.finalCard.card1Description.text = review1.content
-                binding.finalCard.card1Date.text = review1.writeDate
+
+                // 날짜 문자열에서 일과 월을 추출
+                val parts = review1.writeDate.split("-")
+                val day = parts[2] // 일
+                val month = parts[1].toInt() // 월을 정수로 변환
+
+                binding.finalCard.card1Date.text = day
+                binding.finalCard.card1Month.text = when (month) {
+                    1 -> "JAN"
+                    2 -> "FEB"
+                    3 -> "MAR"
+                    4 -> "APR"
+                    5 -> "MAY"
+                    6 -> "JUN"
+                    7 -> "JUL"
+                    8 -> "AUG"
+                    9 -> "SEP"
+                    10 -> "OCT"
+                    11 -> "NOV"
+                    12 -> "DEC"
+                    else -> "" // 잘못된 월 처리
+                }
 
                 // Safe call을 사용하여 Glide 호출
                 context?.let {
@@ -122,10 +144,32 @@ class HomeFragment : Fragment() {
                 }
             }
 
+
             if (review2 != null) {
                 binding.finalCard.card2Title.text = review2.bookTitle
                 binding.finalCard.card2Description.text = review2.content
-                binding.finalCard.card2Date.text = review2.writeDate
+
+                // 날짜 문자열에서 일과 월을 추출
+                val parts = review2.writeDate.split("-")
+                val day = parts[2] // 일
+                val month = parts[1].toInt() // 월을 정수로 변환
+
+                binding.finalCard.card2Date.text = day // 일 설정
+                binding.finalCard.card2Month.text = when (month) { // 월 설정
+                    1 -> "JAN"
+                    2 -> "FEB"
+                    3 -> "MAR"
+                    4 -> "APR"
+                    5 -> "MAY"
+                    6 -> "JUN"
+                    7 -> "JUL"
+                    8 -> "AUG"
+                    9 -> "SEP"
+                    10 -> "OCT"
+                    11 -> "NOV"
+                    12 -> "DEC"
+                    else -> "" // 잘못된 월 처리
+                }
 
                 // Safe call을 사용하여 Glide 호출
                 context?.let {
@@ -134,6 +178,7 @@ class HomeFragment : Fragment() {
                         .into(binding.finalCard.card2Image)
                 }
             }
+
         }
 
         val categoryList = data.bookLetterList.map {

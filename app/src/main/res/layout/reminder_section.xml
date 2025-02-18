@@ -34,7 +34,7 @@
     <!-- 첫 번째 카드 -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_1"
-        android:layout_width="0dp"
+        android:layout_width="160dp"
         android:layout_height="200dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
@@ -60,22 +60,44 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+            
+            <androidx.cardview.widget.CardView
+                android:id="@+id/date_cardView"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="10dp"
+                android:background="#F7F7F8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- 날짜 레이블 -->
-            <TextView
-                android:id="@+id/card_1_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#BFFFFFFF"
-                android:padding="4dp"
-                android:text="DEC\n21"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/card_1_image"
-                app:layout_constraintEnd_toEndOf="@id/card_1_image"
-                android:layout_margin="8dp" />
+                <!-- 날짜 레이블 -->
+                <TextView
+                    android:id="@+id/card_1_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="DEC"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:layout_gravity="center|top"
+                    app:layout_constraintTop_toTopOf="@id/date_cardView"/>
+
+                <TextView
+                    android:id="@+id/card_1_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="21"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textSize="18sp"
+                    android:layout_gravity="center|bottom"/>
+
+            </androidx.cardview.widget.CardView>
+
+
 
             <!-- 제목 -->
             <TextView
@@ -113,7 +135,7 @@
     <!-- 두 번째 카드 -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_2"
-        android:layout_width="0dp"
+        android:layout_width="160dp"
         android:layout_height="200dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
@@ -140,21 +162,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 날짜 레이블 -->
-            <TextView
-                android:id="@+id/card_2_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#BFFFFFFF"
-                android:padding="4dp"
-                android:text="DEC\n05"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/card_2_image"
-                app:layout_constraintEnd_toEndOf="@id/card_2_image"
-                android:layout_margin="8dp" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/date_cardView2"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="10dp"
+                android:background="#F7F7F8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- 날짜 레이블 -->
+                <TextView
+                    android:id="@+id/card_2_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="DEC"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:layout_gravity="center|top"
+                    app:layout_constraintTop_toTopOf="@id/date_cardView"/>
+
+                <TextView
+                    android:id="@+id/card_2_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="21"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textSize="18sp"
+                    android:layout_gravity="center|bottom"/>
+
+            </androidx.cardview.widget.CardView>
 
             <!-- 제목 -->
             <TextView

@@ -16,6 +16,7 @@ import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -26,7 +27,10 @@ interface BookClubRetrofitInterface {
 
     //북클럽 가입하기
     @GET("api/book-clubs/{bookClubId}/join")
-    fun getBookClubInfo(@Path("bookClubId") bookClubId: Int): Call<BookClubJoinInfoResponse>
+    fun getBookClubInfo(
+        @Path("bookClubId") bookClubId: Int,
+//        @Header("Authorization") token: String
+    ): Call<BookClubJoinInfoResponse>
 
     @POST("api/book-clubs/{bookClubId}/join")
     fun joinBookClub(
@@ -35,7 +39,10 @@ interface BookClubRetrofitInterface {
 
     //북클럽 상세 조회
     @GET("api/book-clubs/{bookClubId}/details")
-    fun getBookClubDetail(@Path("bookClubId") bookClubId: Int): Call<BookClubDetailResponse>
+    fun getBookClubDetail(
+        @Path("bookClubId") bookClubId: Int,
+        @Header("Authorization") token: String
+    ): Call<BookClubDetailResponse>
 
     //멤버 리뷰 목록 조회
     @GET("api/reading-records")
