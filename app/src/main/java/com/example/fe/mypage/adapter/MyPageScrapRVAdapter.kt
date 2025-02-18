@@ -1,6 +1,7 @@
 package com.example.fe.mypage.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.databinding.ItemMypageScrapFolderBinding
 import com.example.fe.databinding.ItemMypageScrapFolderPlusBinding
+import com.example.fe.mypage.MyPageScrapDetail
 import com.example.fe.mypage.ScrapFolderResponse
+import com.example.fe.mypage.ScrapNewFolder
 
 class MyPageScrapRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val folders = ArrayList<ScrapFolderResponse.Result.Folder>()
     private var isEditMode = false
     private val selectedItems = mutableSetOf<ScrapFolderResponse.Result.Folder>()
+    private val nonDeletableFolderIds = setOf(16, 17) // 기본 폴더 ID
 
     companion object {
         const val TYPE_DEFAULT = 0
@@ -63,7 +67,11 @@ class MyPageScrapRVAdapter(private val itemClickListener: MyItemClickListener) :
                 if (isEditMode) {
                     toggleItemSelection(folder)
                 } else {
-                    itemClickListener.onItemClick(folder.folderId)
+                    val context = binding.root.context
+                    val intent = Intent(context, MyPageScrapDetail::class.java)
+                    intent.putExtra("folderId", folder.folderId)
+                    intent.putExtra("folderName", folder.name)
+                    context.startActivity(intent)
                 }
             }
 
@@ -74,47 +82,29 @@ class MyPageScrapRVAdapter(private val itemClickListener: MyItemClickListener) :
                 View.GONE // 선택되지 않은 경우 체크 표시 숨기기
             }
 
+            // 기본 폴더는 선택 불가
+            if(isEditMode) {
+                binding.root.isEnabled = folder.folderId !in nonDeletableFolderIds
+            }
+
+
             binding.folderNameTv.text = folder.name
 
+            // 이미지뷰 목록
+            val imageViews = listOf(binding.scrapFolderIv1, binding.scrapFolderIv2, binding.scrapFolderIv3, binding.scrapFolderIv4)
+
+            // 이미지뷰 초기화
+            imageViews.forEach { it.setImageResource(android.R.color.transparent) }
+
             // 이미지가 있는 경우에만 Glide를 사용해 로드
-            if (folder.images.isNotEmpty()) {
-                if (folder.images.size > 0) {
-                    Glide.with(binding.scrapFolderIv1.context)
-                        .load(folder.images[0])
-                        .into(binding.scrapFolderIv1)
-                } else {
-                    binding.scrapFolderIv1.setImageResource(android.R.color.transparent)
+            folder.images.forEachIndexed { index, imageUrl ->
+                if (index < imageViews.size) {
+                    Glide.with(imageViews[index].context)
+                        .load(imageUrl)
+                        .placeholder(android.R.color.transparent) // 플레이스홀더 추가
+                        .error(android.R.color.transparent) // 에러 이미지 추가
+                        .into(imageViews[index])
                 }
-
-                if (folder.images.size > 1) {
-                    Glide.with(binding.scrapFolderIv2.context)
-                        .load(folder.images[1])
-                        .into(binding.scrapFolderIv2)
-                } else {
-                    binding.scrapFolderIv2.setImageResource(android.R.color.transparent)
-                }
-
-                if (folder.images.size > 2) {
-                    Glide.with(binding.scrapFolderIv3.context)
-                        .load(folder.images[2])
-                        .into(binding.scrapFolderIv3)
-                } else {
-                    binding.scrapFolderIv3.setImageResource(android.R.color.transparent)
-                }
-
-                if (folder.images.size > 3) {
-                    Glide.with(binding.scrapFolderIv4.context)
-                        .load(folder.images[3])
-                        .into(binding.scrapFolderIv4)
-                } else {
-                    binding.scrapFolderIv4.setImageResource(android.R.color.transparent)
-                }
-            } else {
-                // 이미지가 없을 경우 기본 이미지 또는 빈 이미지 설정
-                binding.scrapFolderIv1.setImageResource(android.R.color.transparent)
-                binding.scrapFolderIv2.setImageResource(android.R.color.transparent)
-                binding.scrapFolderIv3.setImageResource(android.R.color.transparent)
-                binding.scrapFolderIv4.setImageResource(android.R.color.transparent)
             }
         }
     }
@@ -123,7 +113,9 @@ class MyPageScrapRVAdapter(private val itemClickListener: MyItemClickListener) :
         fun bind() {
             // 특별 아이템 바인딩 로직
             binding.root.setOnClickListener {
-                // 새 폴더 추가 로직
+                val context = binding.root.context
+                val intent = Intent(context, ScrapNewFolder::class.java)
+                context.startActivity(intent)
             }
         }
     }

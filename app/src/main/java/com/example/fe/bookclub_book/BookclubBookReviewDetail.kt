@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.fe.bookclub_book.adapter.CommentsAdapter
-import com.example.fe.bookclub_book.server.BookClubReviewDetailResponse
-import com.example.fe.bookclub_book.server.CommentsResponse
-import com.example.fe.bookclub_book.server.CommentRequest
+import com.example.fe.bookclub_book.dataclass.BookClubReviewDetailResponse
+import com.example.fe.bookclub_book.dataclass.CommentsResponse
+import com.example.fe.bookclub_book.dataclass.CommentRequest
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.ActivityBookclubBookReviewDetailBinding
 import retrofit2.Call
