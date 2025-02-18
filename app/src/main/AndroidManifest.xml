@@ -155,4 +155,8 @@
 
         <activity
             android:name=".search.SearchMainActivity"
- ▋
+            android:exported="false">
+        </activity>
+
+    </application>
+</manifest>
