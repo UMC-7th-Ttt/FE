@@ -23,6 +23,9 @@
             android:name=".mypage.MyPageScrapDetail"
             android:exported="false" />
         <activity
+            android:name=".mypage.MyPageReviewList"
+            android:exported="false" />
+        <activity
             android:name=".mypage.ScrapNewFolder"
             android:exported="false" />
         <activity

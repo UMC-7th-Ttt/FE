@@ -24,7 +24,7 @@ fun getRetrofit(token: String): Retrofit {
         .build()
 }
 
-val authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTczOTc2ODE2MiwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.rGfiXRBkJ1x1mpFl5I1LDBClf_TddLfj0e0l_YfgtWU-DqEQ83yXNdicdBmz9k8tmAyqK5iNHAafTdvKo8RIsg"
+val authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDI5OTA5MCwiZW1haWwiOiJtb2Rlc3RuYXR1cmVAbmF2ZXIuY29tIn0.GdsOYoY9QlaHaqtdITnCa9OXLt2OeVYRqgNSOFVzD7SK3wjDtDJOrkZSaoLay6RKc6Tf4EIxo_dZZcZs14BTeQ"
 // API 인터페이스 인스턴스 생성
 val api: BookClubRetrofitInterface by lazy {
     getRetrofit(authToken).create(BookClubRetrofitInterface::class.java)

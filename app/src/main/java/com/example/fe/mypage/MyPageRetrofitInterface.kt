@@ -65,4 +65,14 @@ interface MyPageRetrofitInterface {
     @DELETE("/api/scraps/folders/{folderId}")
     fun deleteFolder(@Path("folderId") folderId: Int): Call<DeleteFolderResponse>
 
+    @GET("/api/users")
+    fun getUser(): Call<UserResponse>
+
+    //서평 모아보기
+    @GET("/api/reviews/")
+    fun getReviews(
+        @Query("cursor") cursor: Int,
+        @Query("limit") limit: Int
+    ): Call<ReviewListResponse>
+
 }

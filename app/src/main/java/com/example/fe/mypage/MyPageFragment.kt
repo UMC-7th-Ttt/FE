@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
 import com.example.fe.databinding.FragmentMypageBinding
 import com.example.fe.mypage.adapter.MyPageVPAdapter
 import com.example.fe.search.SearchMainActivity
 import com.example.fe.setting.Setting
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPageFragment : Fragment() {
 
@@ -55,6 +60,37 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 프로필 변경 아이콘 클릭 리스너 설정
+//        binding.changeProfileIc.setOnClickListener {
+//            val intent = Intent(context, ChangeProfileActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        fetchUser()
+
         return binding.root
+    }
+
+    private fun fetchUser() {
+        api.getUser().enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val userResponse = response.body()
+                    userResponse?.let {
+                        binding.mypageNicknameTv.text = it.result.nickname
+
+                        Glide.with(this@MyPageFragment)
+                            .load(it.result.profileUrl)
+                            .into(binding.mypageCharacterIv)
+                    }
+                } else {
+                    // 오류 처리
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                //오류 처리
+            }
+        })
     }
 }

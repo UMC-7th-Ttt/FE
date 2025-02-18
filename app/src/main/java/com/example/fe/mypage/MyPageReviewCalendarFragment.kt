@@ -49,11 +49,8 @@ class MyPageReviewCalendarFragment : Fragment() {
         }
 
         binding.changeBtn.setOnClickListener {
-            val newFragment = MyPageReviewReviewFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(binding.fragmentContainer.id, newFragment)
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(context,MyPageReviewList::class.java)
+            startActivity(intent)
         }
 
         fetchReviews(criteriaDate.year, criteriaDate.monthValue) // 리뷰 데이터를 가져옵니다
