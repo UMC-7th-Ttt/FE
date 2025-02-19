@@ -10,8 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.BookLetter.LetterActivity
 import com.example.fe.databinding.ItemCategoryBinding
 
+
+
+
+
+import kotlin.math.abs
+
+
 class HomeCategoryAdapter(private val categoryList: List<HomeCategory>) :
     RecyclerView.Adapter<HomeCategoryAdapter.CategoryViewHolder>() {
+
+    private var startX = 0f // 터치 시작 X 좌표
+    private val touchThreshold = 20 // 최소 이동 거리 (가로 스크롤 감지 기준)
+    private var startY = 0f // 터치 시작 Y 좌표
 
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: HomeCategory) {
@@ -25,10 +36,21 @@ class HomeCategoryAdapter(private val categoryList: List<HomeCategory>) :
             }
 
 
+
             // ✅ bookRecyclerView에서 스크롤할 때는 클릭 이벤트가 실행되지 않도록 함
             binding.bookRecyclerView.setOnTouchListener { _, event ->
-                if (event.action == MotionEvent.ACTION_UP) {
-                    binding.root.performClick() // 부모 클릭 실행
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startX = event.x
+                        startY = event.y
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        val diffX = abs(event.x - startX)
+                        val diffY = abs(event.y - startY)
+                        if (diffX < touchThreshold && diffY < touchThreshold) {
+                            binding.root.performClick() // 부모 클릭 실행
+                        }
+                    }
                 }
                 false
             }
