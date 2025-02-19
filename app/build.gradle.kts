@@ -28,6 +28,19 @@ android {
             )
         }
     }
+
+    packagingOptions {
+        pickFirst("META-INF/INDEX.LIST")
+        pickFirst("META-INF/io.netty.versions.properties")
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -66,7 +79,7 @@ dependencies {
     implementation (libs.androidx.recyclerview)
 
     implementation (libs.androidx.core.ktx)
-    
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
@@ -98,6 +111,7 @@ dependencies {
 
     // Glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.firebase.appdistribution.gradle)
     kapt ("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
