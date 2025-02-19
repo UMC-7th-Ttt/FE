@@ -18,10 +18,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.location.LocationManagerCompat.requestLocationUpdates
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import com.bumptech.glide.Glide
+import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentBookclubPlaceBinding
+import com.example.fe.mypage.MyPageFragment
 import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,6 +82,7 @@ class BookclubPlaceFragment : Fragment() {
 
         initBookclubPlaceSearchClickListener()
         initSearchClickListener()
+        initProfileIconClickListener()
 
         return binding.root
     }
@@ -158,10 +163,20 @@ class BookclubPlaceFragment : Fragment() {
             override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
                 if (response.isSuccessful) {
                     val currentPlace = response.body()?.result?.currentPlace ?: "알 수 없음"
+                    val profileImgUrl = response.body()?.result?.profileImg ?: "" // 프로필 이미지 URL 가져오기
+
                     Log.d("BookclubPlaceFragment", "📍 현재 위치 (currentPlace): $currentPlace")
 
                     // bookclubPlaceTitleTv 업데이트 (한 번만 실행됨)
                     updateKeywordToTitle(currentPlace)
+
+                    // 프로필 이미지 URL을 가져와서 Glide로 로딩하여 설정
+                    if (profileImgUrl.isNotEmpty()) {
+                        Glide.with(requireContext())
+                            .load(profileImgUrl) // 프로필 이미지 URL
+                            .circleCrop()  // 이미지를 원형으로 표시
+                            .into(binding.bookclubPlacePersonIc) // ImageView에 설정
+                    }
                 }
             }
 
@@ -187,6 +202,19 @@ class BookclubPlaceFragment : Fragment() {
         binding.bookclubPlaceSearchIc.setOnClickListener {
             val intent = Intent(requireContext(), SearchMainActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    // 마이페이지로 이동
+    private fun initProfileIconClickListener() {
+        binding.bookclubPlacePersonIc.setOnClickListener {
+            val mypageFragment = MyPageFragment()
+            parentFragmentManager.commit {
+                replace(R.id.bookclub_place_frm, mypageFragment)
+                addToBackStack(null)
+            }
+
+            (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_mypage
         }
     }
 
