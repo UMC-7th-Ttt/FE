@@ -58,7 +58,7 @@ class EditorPickBookListRVAdapter(
 
         // 북마크(스크랩) 삭제 API 호출
         private fun deleteScrap(book: BookResponse) {
-            RetrofitClient.scrapApi.deleteBookScrap(book.bookId)
+            RetrofitClient.scrapApi.deleteBookScrap(book.id)
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
@@ -93,7 +93,7 @@ class EditorPickBookListRVAdapter(
         // 스크랩 추가 바텀시트 띄우기
         private fun showScrapBottomSheet(book: BookResponse) {
             val scrapBottomSheet = ScrapBottomSheetFragment(
-                bookId = book.bookId,  // 도서 ID 전달
+                bookId = book.id,  // 도서 ID 전달
                 placeId = null, // 장소 스크랩이 아니므로 null
                 onBookmarkStateChanged = { isSelected ->
                     book.isScraped = isSelected

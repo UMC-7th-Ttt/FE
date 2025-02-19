@@ -10,5 +10,5 @@ data class BookResponse(
     val category: String,
     val publisher: String,
     val itemLink: String,
-    val isScraped: Boolean
+    var isScraped: Boolean
 )
