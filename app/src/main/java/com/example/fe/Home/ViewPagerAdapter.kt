@@ -1,9 +1,12 @@
 package com.example.fe.Home
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.BookLetter.LetterActivity
 import com.example.fe.databinding.ItemHomeViewpagerBinding
 
 class ViewPagerAdapter(private val bannerList: List<BannerItem>) :
@@ -20,6 +23,18 @@ class ViewPagerAdapter(private val bannerList: List<BannerItem>) :
             binding.bannerTitle.text = item.title
             binding.bannerSubtitle.text = item.subtitle
             binding.bannerAuthor.text = item.author
+
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+
+                Log.d("ViewPagerAdapter", "📡 클릭된 bookLetterId: ${item.bookLetterId}") // ✅ 로그 확인
+
+                val intent = Intent(context, LetterActivity::class.java)
+                intent.putExtra("bookLetterId", item.bookLetterId.toLong()) // ✅ bookLetterId 전달
+                context.startActivity(intent)
+
+                Log.d("ViewPagerAdapter", "📡 Intent 실행 완료 (bookLetterId: ${item.bookLetterId})")
+            }
         }
     }
 

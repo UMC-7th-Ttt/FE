@@ -37,7 +37,6 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/book_image"
             app:layout_constraintTop_toTopOf="@id/book_image"
             app:layout_goneMarginStart="15dp"/>
@@ -50,7 +49,8 @@
            android:src="@drawable/ic_next"
            app:layout_constraintBottom_toBottomOf="@id/book_title"
            app:layout_constraintStart_toEndOf="@id/book_title"
-           app:layout_constraintEnd_toEndOf="parent"/>
+           android:layout_marginStart="10dp"
+          />
 
 
         <!-- 완독률 텍스트 -->
