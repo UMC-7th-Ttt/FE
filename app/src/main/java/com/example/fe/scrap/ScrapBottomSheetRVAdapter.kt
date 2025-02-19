@@ -134,6 +134,9 @@ class ScrapBottomSheetRVAdapter(
         toast.show()
 
         // ScrapBottomSheetFragment 닫기
-        parentFragment.dismiss()
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            parentFragment.dismiss()
+        }, 300)
+
     }
 }

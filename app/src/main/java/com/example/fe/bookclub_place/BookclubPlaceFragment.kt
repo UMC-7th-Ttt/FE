@@ -33,8 +33,8 @@ class BookclubPlaceFragment : Fragment() {
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
 
-    private var currentLat: Double = 0.0
-    private var currentLon: Double = 0.0
+    var currentLat: Double = 0.0
+    var currentLon: Double = 0.0
     private var isFirstLoad = true // 처음 한 번만 실행하기 위한 플래그 추가
 
     private val searchActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -208,6 +208,56 @@ class BookclubPlaceFragment : Fragment() {
             })
 //            .addToBackStack(null)
             .commit()
+    }
+
+    // "추천순", "거리순" 필터 적용
+//    fun updateListByFilter(filter: String) {
+//        Log.d("BookclubPlaceFragment", "📌 필터 변경: $filter")
+//
+//        val fragment = childFragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
+//        if (fragment is BookclubPlaceListFragment) {
+//            fragment.updateListByFilter(filter, currentLat, currentLon) // ✅ lat, lon 전달
+//        }
+//    }
+
+    fun updateListByFilter(filter: String) {
+        Log.d("BookclubPlaceFragment", "📌 필터 변경 요청: $filter")
+
+        val fragment = childFragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
+        if (fragment is BookclubPlaceListFragment) {
+            Log.d("BookclubPlaceFragment", "✅ BookclubPlaceListFragment에 필터 전달 시도")
+            fragment.updateListByFilter(filter, currentLat, currentLon) // ✅ lat, lon 전달
+        } else {
+            Log.e("BookclubPlaceFragment", "❌ BookclubPlaceListFragment 찾을 수 없음. 다시 로드 시도")
+
+            // Fragment 트랜잭션을 다시 수행하여 리스트 프래그먼트를 업데이트
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.bookclub_place_list_frm, BookclubPlaceListFragment().apply {
+                    arguments = Bundle().apply {
+                        putDouble("LAT", currentLat)
+                        putDouble("LON", currentLon)
+                    }
+                })
+                .commitNow()
+
+            // 다시 찾은 후 호출
+//            requireActivity().supportFragmentManager.executePendingTransactions()
+//            val updatedFragment = childFragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
+//            if (updatedFragment is BookclubPlaceListFragment) {
+//                updatedFragment.updateListByFilter(filter, currentLat, currentLon)
+//                Log.d("BookclubPlaceFragment", "✅ BookclubPlaceListFragment 다시 로드 후 필터 적용 완료")
+//            } else {
+//                Log.e("BookclubPlaceFragment", "❌ BookclubPlaceListFragment 다시 로드 실패")
+//            }
+
+            val updatedFragment = childFragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
+            if (updatedFragment is BookclubPlaceListFragment) {
+                updatedFragment.updateListByFilter(filter, currentLat, currentLon)
+                Log.d("BookclubPlaceFragment", "✅ BookclubPlaceListFragment 다시 로드 후 필터 적용 완료")
+            } else {
+                Log.e("BookclubPlaceFragment", "❌ BookclubPlaceListFragment 다시 로드 실패")
+            }
+        }
     }
 
     override fun onDestroyView() {

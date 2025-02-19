@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.R
+import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.bookclub_place.api.PlaceEditorPickResponse
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
@@ -48,7 +49,20 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
                 ) {
                     if (response.isSuccessful) {
                         val placeList = response.body()?.result?.places ?: emptyList()
-                        val placeAdapter = RecommendedPlaceListRVAdapter(placeList)
+
+                        // 공간 detail fragment로 이동
+                        val placeAdapter = RecommendedPlaceListRVAdapter(placeList) { place ->
+                            val fragment = BookclubPlaceDetailFragment().apply {
+                                arguments = Bundle().apply {
+                                    putInt("PLACE_ID", place.placeId)
+                                }
+                            }
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.main_recommended_search_place_layout, fragment)
+                                .addToBackStack(null)
+                                .commit()
+                        }
+
                         binding.recommendedPlaceListRv.adapter = placeAdapter
                         binding.recommendedPlaceListRv.layoutManager =
                             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -72,7 +86,22 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
                 ) {
                     if (response.isSuccessful) {
                         val placeList = response.body()?.result?.places ?: emptyList()
-                        val placeAdapter = EditorPickPlaceListRVAdapter(placeList)
+//                        val placeAdapter = EditorPickPlaceListRVAdapter(placeList)
+
+                        // 클릭 시 상세 페이지 이동하도록 수정
+                        val placeAdapter = EditorPickPlaceListRVAdapter(placeList) { place ->
+                            val fragment = BookclubPlaceDetailFragment().apply {
+                                arguments = Bundle().apply {
+                                    putInt("PLACE_ID", place.placeId) // 장소 ID 전달
+                                }
+                            }
+
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.main_recommended_search_place_layout, fragment)
+                                .addToBackStack(null)
+                                .commit()
+                        }
+
                         binding.editorPickPlaceListRv.adapter = placeAdapter
                         binding.editorPickPlaceListRv.layoutManager =
                             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
