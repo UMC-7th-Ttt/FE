@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentSearchResultPlaceBinding
+import com.example.fe.Review.SpaceReviewActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +22,7 @@ import retrofit2.Response
 class SearchResultPlaceFragment : Fragment() {
     private lateinit var binding: FragmentSearchResultPlaceBinding
     private lateinit var keyword: String
+    private var callerActivity: String? = null // 호출한 액티비티 정보
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +30,7 @@ class SearchResultPlaceFragment : Fragment() {
     ): View {
         binding = FragmentSearchResultPlaceBinding.inflate(inflater, container, false)
         keyword = arguments?.getString("KEYWORD") ?: ""
+        callerActivity = activity?.intent?.getStringExtra("CALLER") // SearchMainActivity에서 받은 값
 
         searchPlaces(keyword)
 
@@ -35,20 +38,24 @@ class SearchResultPlaceFragment : Fragment() {
     }
 
     private fun searchPlaces(keyword: String) {
-        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
-            override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-                if (response.isSuccessful) {
-                    val placeList = response.body()?.result?.places ?: emptyList()
-                    displaySearchResults(placeList) // 검색 결과 표시
-                } else {
-                    Log.e("API_ERROR", "❌ ${response.errorBody()?.string()}")
+        RetrofitClient.placeApi.searchPlaces(keyword)
+            .enqueue(object : Callback<PlaceSearchResponse> {
+                override fun onResponse(
+                    call: Call<PlaceSearchResponse>,
+                    response: Response<PlaceSearchResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val placeList = response.body()?.result?.places ?: emptyList()
+                        displaySearchResults(placeList) // 검색 결과 표시
+                    } else {
+                        Log.e("API_ERROR", "❌ ${response.errorBody()?.string()}")
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-                Log.e("NETWORK_ERROR", "❌ ${t.localizedMessage}")
-            }
-        })
+                override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
+                    Log.e("NETWORK_ERROR", "❌ ${t.localizedMessage}")
+                }
+            })
     }
 
     private fun displaySearchResults(places: List<PlaceResponse>) {
@@ -59,8 +66,6 @@ class SearchResultPlaceFragment : Fragment() {
             binding.searchResultPlaceRv.visibility = View.VISIBLE
             binding.emptyResultTv.visibility = View.GONE
 
-
-            // 이미지 클릭 시 detail fragment로 이동
             val adapter = SearchResultPlaceRVAdapter(places) { place ->
                 val fragment = BookclubPlaceDetailFragment().apply {
                     arguments = Bundle().apply {
@@ -73,6 +78,7 @@ class SearchResultPlaceFragment : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
+
             binding.searchResultPlaceRv.layoutManager = LinearLayoutManager(requireContext())
             binding.searchResultPlaceRv.adapter = adapter
         }

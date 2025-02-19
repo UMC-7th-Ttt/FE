@@ -25,7 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewScrapDialogFragment(
-    private val bookId: Int?,
+    private val bookId: Long?,
     private val placeId: Int?,
     private val onScrapCreated: () -> Unit // 북마크 상태 변경 콜백 추가
 ) : DialogFragment() {

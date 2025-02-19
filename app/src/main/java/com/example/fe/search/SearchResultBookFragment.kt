@@ -18,6 +18,7 @@ import retrofit2.Response
 class SearchResultBookFragment : Fragment() {
     private lateinit var binding: FragmentSearchResultBookBinding
     private lateinit var keyword: String
+    private var callerActivity: String? = null // 호출한 액티비티 정보
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +26,7 @@ class SearchResultBookFragment : Fragment() {
     ): View {
         binding = FragmentSearchResultBookBinding.inflate(inflater, container, false)
         keyword = arguments?.getString("KEYWORD") ?: ""
+        callerActivity = activity?.intent?.getStringExtra("CALLER") // SearchMainActivity에서 받은 값
 
         searchBooks(keyword)
 
@@ -36,7 +38,7 @@ class SearchResultBookFragment : Fragment() {
             override fun onResponse(call: Call<BookSearchResponse>, response: Response<BookSearchResponse>) {
                 if (response.isSuccessful) {
                     val bookList = response.body()?.result?.books ?: emptyList()
-                    displaySearchResults(bookList) // 검색 결과 표시
+                    displaySearchResults(bookList)
                 } else {
                     Log.e("API_ERROR", "❌ ${response.errorBody()?.string()}")
                 }
@@ -56,7 +58,7 @@ class SearchResultBookFragment : Fragment() {
             binding.searchResultBookRv.visibility = View.VISIBLE
             binding.emptyResultTv.visibility = View.GONE
 
-            val adapter = SearchResultBookRVAdapter(books)
+            val adapter = SearchResultBookRVAdapter(books, callerActivity)
             binding.searchResultBookRv.layoutManager = LinearLayoutManager(requireContext())
             binding.searchResultBookRv.adapter = adapter
         }

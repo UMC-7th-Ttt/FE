@@ -1,5 +1,6 @@
 package com.example.fe.Review
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityReviewBinding
+import com.example.fe.search.SearchMainActivity
 
 class ReviewActivity : AppCompatActivity() {
 
@@ -23,6 +25,14 @@ class ReviewActivity : AppCompatActivity() {
         // 뒤로가기 버튼 클릭 이벤트
         binding.backButton.setOnClickListener {
             finish() // 현재 액티비티 종료
+        }
+
+        // addLocationButton 클릭 시 SearchMainActivity로 이동
+        binding.addLocationButton.setOnClickListener {
+            val intent = Intent(this, SearchMainActivity::class.java).apply {
+                putExtra("CALLER", "ReviewActivity") // 호출한 액티비티 정보 추가
+            }
+            startActivity(intent)
         }
 
         // 서평 입력란 글자 수 표시
