@@ -211,7 +211,7 @@ class BookclubPlaceFragment : Fragment() {
             val mypageFragment = MyPageFragment()
             parentFragmentManager.commit {
                 replace(R.id.bookclub_place_frm, mypageFragment)
-                addToBackStack(null)
+//                addToBackStack(null)
             }
 
             (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_mypage

@@ -38,9 +38,18 @@ class SearchMainActivity : AppCompatActivity() {
 
     private fun initBackBtnClickListener() {
         binding.searchMainBackBtn.setOnClickListener {
-            finish()
+            val fragment = supportFragmentManager.findFragmentById(R.id.search_main_layout)
+
+            if (fragment is SearchResultFragment) {
+                // 검색 결과 프래그먼트가 있으면 제거하고 기본 화면 유지
+                supportFragmentManager.popBackStack()
+            } else {
+                // 검색 결과 프래그먼트가 없으면 SearchMainActivity 종료
+                finish()
+            }
         }
     }
+
 
     private fun initSearchInputListener() {
         binding.searchMainInputEt.setOnEditorActionListener { view, actionId, _ ->
