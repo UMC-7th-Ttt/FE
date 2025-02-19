@@ -19,6 +19,7 @@ import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.Notification.NotificationActivity
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
+import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
         binding.searchIcon.setOnClickListener {
-            val intent = Intent(requireContext(), com.example.fe.Review.ReviewActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
+            val intent = Intent(requireContext(), SearchMainActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
             startActivity(intent)
         }
     }
