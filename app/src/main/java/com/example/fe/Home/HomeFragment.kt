@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.fe.BookLetter.LetterActivity
+import com.example.fe.Home.ActivityItem
+import com.example.fe.Home.ActivityPagerAdapter
 import com.example.fe.Home.Category.CategoryItemDecoration
 
 import com.example.fe.Home.Category.HomeBook
@@ -19,6 +22,7 @@ import com.example.fe.Home.HomeResponse
 import com.example.fe.Home.HomeResult
 import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.Notification.NotificationActivity
+import com.example.fe.R
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
 import com.example.fe.search.SearchMainActivity
@@ -48,8 +52,8 @@ class HomeFragment : Fragment() {
         binding.notificationIcon.setOnClickListener {
             val intent = Intent(
                 requireContext(),
-                com.example.fe.BookLetter.LetterActivity::class.java
-            ) //이부분 NotificationActivity로 반드시바꿔나야함!!
+                NotificationActivity::class.java
+            )
             startActivity(intent)
         }
         binding.searchIcon.setOnClickListener {
@@ -89,6 +93,14 @@ class HomeFragment : Fragment() {
 
         binding.greetingText.text = "안녕하세요, ${data.nickname}님!\n오늘은 어떤 책을 시작해볼까요?"
 
+        //완독률
+        val activityList = data?.bookClubList?.map {
+            ActivityItem(it.bookTitle, it.completionRate, it.bookCover)
+        } ?: emptyList()
+
+        binding.activityViewPager.adapter = ActivityPagerAdapter(activityList)
+        binding.activityViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
 
 
          // ✅ bookLetterId 로그 추가
@@ -110,19 +122,7 @@ class HomeFragment : Fragment() {
 
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
 
-        if (data.bookClubList.isNotEmpty()) {
-            val bookClub = data.bookClubList[0] // 첫 번째 북클럽 정보만 표시
-            binding.activityCard.bookTitle.text = bookClub.bookTitle
-            binding.activityCard.progressBar.progress = bookClub.completionRate
-            binding.activityCard.progressPercentage.text = "${bookClub.completionRate}% 완료"
 
-            // Safe call을 사용하여 Glide 호출
-            context?.let {
-                Glide.with(it)
-                    .load(bookClub.bookCover)
-                    .into(binding.activityCard.bookImage)
-            }
-        }
 
         // ✅ remindReviewList 데이터 적용
         if (data.remindReviewList.isNotEmpty()) {

@@ -63,7 +63,10 @@
 
                 <!-- 프로필 아이콘 (오른쪽 끝) -->
                 <ImageView
+                    android:background="@drawable/circle_background"
                     android:id="@+id/profile_icon"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/profile_1"

@@ -3,6 +3,7 @@ package com.example.fe.Home.Category
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,15 @@ class HomeCategoryAdapter(private val categoryList: List<HomeCategory>) :
 
             if (binding.bookRecyclerView.itemDecorationCount == 0) {
                 binding.bookRecyclerView.addItemDecoration(SpaceItemDecoration(16)) // 16dp 간격 추가
+            }
+
+
+            // ✅ bookRecyclerView에서 스크롤할 때는 클릭 이벤트가 실행되지 않도록 함
+            binding.bookRecyclerView.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_UP) {
+                    binding.root.performClick() // 부모 클릭 실행
+                }
+                false
             }
 
 

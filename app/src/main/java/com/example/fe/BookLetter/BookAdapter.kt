@@ -1,6 +1,7 @@
 package com.example.fe.BookLetter
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookAuthorTv.text = book.author // 작가 이름
             publisherTv.text = book.publisher // 출판사 이름
             bookExcerpt.text = book.description // 구절
+            category.text = book.categoryName //
             btnCategory.text = book.categoryName // 카테고리
             btnAuthor.text = book.author // 버튼에 들어가는 작가 연결
             btnPage.text = "${book.itemPage}쪽"
@@ -52,6 +54,14 @@ class BookAdapter(private val bookList: List<BookDetail>) :
 
             // ✅ 배경을 어둡게 만들기 (반투명 View 추가)
             bookBgIv.alpha = 0.5f // 50% 투명도 적용
+
+            //알라딘 이동
+            detailButton.setOnClickListener {
+                val context = root.context
+                val aladinUrl = "https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&SearchWord=${Uri.encode(book.title)}"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(aladinUrl))
+                context.startActivity(intent)
+            }
 
             // 클릭하면 상세 페이지 이동
             bookInfoNextBtn.setOnClickListener {
