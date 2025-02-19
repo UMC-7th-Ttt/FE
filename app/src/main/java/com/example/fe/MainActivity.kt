@@ -20,6 +20,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        val showFragment = intent.getStringExtra("SHOW_FRAGMENT")
+        if (showFragment == "MyPageFragment") {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_layout, MyPageFragment()) // ✅ MyPageFragment로 변경
+                .commit()
+        }//리뷰에서 메인으로오면 마이프레그먼트 띄우도록
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

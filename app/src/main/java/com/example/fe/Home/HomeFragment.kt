@@ -7,7 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.fe.BookLetter.LetterActivity
+import com.example.fe.Home.ActivityItem
+import com.example.fe.Home.ActivityPagerAdapter
+import com.example.fe.Home.Category.CategoryItemDecoration
 
 import com.example.fe.Home.Category.HomeBook
 import com.example.fe.Home.Category.HomeCategory
@@ -17,8 +22,10 @@ import com.example.fe.Home.HomeResponse
 import com.example.fe.Home.HomeResult
 import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.Notification.NotificationActivity
+import com.example.fe.R
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
+import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,17 +50,22 @@ class HomeFragment : Fragment() {
         setupHomeData()
 
         binding.notificationIcon.setOnClickListener {
-            val intent = Intent(requireContext(), com.example.fe.BookLetter.LetterActivity::class.java) //이부분 NotificationActivity로 반드시바꿔나야함!!
+            val intent = Intent(
+                requireContext(),
+                NotificationActivity::class.java
+            )
             startActivity(intent)
         }
         binding.searchIcon.setOnClickListener {
-            val intent = Intent(requireContext(), com.example.fe.Review.ReviewActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
+            val intent =
+                Intent(requireContext(), SearchMainActivity::class.java)//이부분 나중에 검색쪽으로 변경필요
             startActivity(intent)
         }
     }
 
     private fun setupHomeData() {
-        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg"
+        val token =
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg"
         homeService.getHomeData("Bearer $token").enqueue(object : Callback<HomeResponse> {
             override fun onResponse(call: Call<HomeResponse>, response: Response<HomeResponse>) {
                 if (response.isSuccessful) {
@@ -81,6 +93,26 @@ class HomeFragment : Fragment() {
 
         binding.greetingText.text = "안녕하세요, ${data.nickname}님!\n오늘은 어떤 책을 시작해볼까요?"
 
+        //완독률
+        val activityList = data?.bookClubList?.map {
+            ActivityItem(it.bookTitle, it.completionRate, it.bookCover)
+        } ?: emptyList()
+
+        binding.activityViewPager.adapter = ActivityPagerAdapter(activityList)
+        binding.activityViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+
+
+         // ✅ bookLetterId 로그 추가
+        val categoryList = data.bookLetterList.map {
+            Log.d("HomeFragment", "📡 생성된 bookLetterId: ${it.bookLetterId}")
+            HomeCategory(
+                it.bookLetterTitle,
+                it.bookList.map { book -> HomeBook(book.bookCoverImg) },
+                it.bookLetterId.toLong() // ✅ bookLetterId 추가
+            )
+        }
+
         // Safe call을 사용하여 Glide 호출
         context?.let {
             Glide.with(it)
@@ -90,19 +122,7 @@ class HomeFragment : Fragment() {
 
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
 
-        if (data.bookClubList.isNotEmpty()) {
-            val bookClub = data.bookClubList[0] // 첫 번째 북클럽 정보만 표시
-            binding.activityCard.bookTitle.text = bookClub.bookTitle
-            binding.activityCard.progressBar.progress = bookClub.completionRate
-            binding.activityCard.progressPercentage.text = "${bookClub.completionRate}% 완료"
 
-            // Safe call을 사용하여 Glide 호출
-            context?.let {
-                Glide.with(it)
-                    .load(bookClub.bookCover)
-                    .into(binding.activityCard.bookImage)
-            }
-        }
 
         // ✅ remindReviewList 데이터 적용
         if (data.remindReviewList.isNotEmpty()) {
@@ -136,13 +156,17 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val categoryList = data.bookLetterList.map {
-            HomeCategory(it.bookLetterTitle, it.bookList.map { book -> HomeBook(book.bookCoverImg) })
-        }
+
 
         binding.verticalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.verticalRecyclerView.adapter = HomeCategoryAdapter(categoryList)
+
+        if (binding.verticalRecyclerView.itemDecorationCount == 0) {
+            binding.verticalRecyclerView.addItemDecoration(CategoryItemDecoration(50)) // 32dp 간격 추가
+
+
+        }
+
+
     }
-
-
 }

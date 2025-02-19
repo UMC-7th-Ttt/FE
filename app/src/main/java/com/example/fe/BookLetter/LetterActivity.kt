@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.fe.Home.Category.CategoryItemDecoration
 import com.example.fe.databinding.ActivityLetterBinding
 import com.example.fe.network.RetrofitObj
 import retrofit2.Call
@@ -32,12 +33,9 @@ class LetterActivity : AppCompatActivity() {
             finish()
         }
 
-        // ✅ 북레터 ID 고정 (예: 4)
-        val bookLetterId = 4L
-
-
-        // ✅ API 호출
-        fetchBookLetterDetail(bookLetterId)
+        val bookLetterId = intent.getLongExtra("bookLetterId", 0L) // ✅ bookLetterId 받기
+        Log.d("LetterActivity", "📡 전달받은 bookLetterId: $bookLetterId") // ✅ 로그 추가
+        fetchBookLetterDetail(bookLetterId) // ✅ 전달받은 bookLetterId로 API 호출
     }
 
     private fun fetchBookLetterDetail(bookLetterId: Long) {
@@ -102,6 +100,10 @@ class LetterActivity : AppCompatActivity() {
             // ✅ 제공 도서 목록 바인딩 (books -> book_recycler)
             bookRecycler.layoutManager = LinearLayoutManager(this@LetterActivity)
             bookRecycler.adapter = BookAdapter(bookLetterDetail.books)
+
+            if (bookRecycler.itemDecorationCount == 0) {
+                bookRecycler.addItemDecoration(CategoryItemDecoration(100)) // 32dp 세로 간격 추가
+            }
         }
     }
 
