@@ -46,28 +46,6 @@ class SearchResultBookRVAdapter(
                 if (book.isScraped) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
             )
 
-            // 아이템 클릭 시 BookDetailActivity로 이동 (책 ID만 전달)
-//            root.setOnClickListener {
-//                val context = root.context
-//                val intent = Intent(context, BookDetailActivity::class.java).apply {
-//                    putExtra("BOOK_ID", book.id) // 책 ID만 전달
-//                }
-//                context.startActivity(intent)
-//            }
-
-            // 아이템 클릭 시 이동하는 액티비티 결정
-//            root.setOnClickListener {
-//                val context = root.context
-//                val intent = if (callerActivity == "ReviewActivity") {
-//                    Intent(context, BookReviewActivity::class.java)
-//                } else {
-//                    Intent(context, BookDetailActivity::class.java)
-//                }.apply {
-//                    putExtra("BOOK_ID", book.id) // 책 ID 전달
-//                }
-//                context.startActivity(intent)
-//            }
-
             // 아이템 클릭 시 이동하는 액티비티 결정
             root.setOnClickListener {
                 val context = root.context

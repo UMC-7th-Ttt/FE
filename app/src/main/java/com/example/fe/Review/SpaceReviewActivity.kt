@@ -17,6 +17,11 @@ class SpaceReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_space)  // 공간별점 레이아웃
 
+        // 추가된 부분 !!!!!!!
+        val placeId = intent.getIntExtra("PLACE_ID", -1)
+        val placeTitle = intent.getStringExtra("PLACE_TITLE") ?: "알 수 없음"
+        val placeImage = intent.getStringExtra("PLACE_IMAGE") // 장소 이미지 받기 (URL)
+
         val backButton = findViewById<ImageView>(R.id.back_button)
         val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
         val ratingText = findViewById<EditText>(R.id.rating_text)
