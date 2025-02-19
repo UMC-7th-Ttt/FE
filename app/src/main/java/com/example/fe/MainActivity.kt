@@ -1,6 +1,7 @@
 package com.example.fe
 
 import HomeFragment
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -27,6 +28,16 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment()) // 앱 실행 시 기본 프래그먼트 (홈 화면)
             binding.bottomNavigation.selectedItemId = R.id.bottom_nav_home
+        }
+
+        // Intent에서 데이터 가져오기
+        val loadHomeFragment = intent.getBooleanExtra("GO_HOME", false)
+
+        if (loadHomeFragment) {
+            // HomeFragment를 로드하는 로직
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm_in_bottom_nav, HomeFragment())
+                .commit()
         }
 
     }

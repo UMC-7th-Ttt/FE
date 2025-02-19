@@ -1,12 +1,17 @@
 package com.example.fe.search
 
+import HomeFragment
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.MainActivity
+import com.example.fe.R
 import com.example.fe.databinding.FragmentRecommendedSearchDetailBinding
 import com.example.fe.search.api.BookSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
@@ -29,7 +34,9 @@ class RecommendedSearchDetailFragment : Fragment() {
         val categoryTitle = arguments?.getString("CATEGORY_TITLE", "추천 검색") ?: "추천 검색"
         binding.recommendedSearchDetailTitleTv.text = categoryTitle
 
+
         initBackBtnClickListener()
+        initHomeBtnClickListener()
         initPopularBookListRV(categoryTitle)
         initRecommendedBookListRV()
         initEditorPickBookListRV()
@@ -40,6 +47,19 @@ class RecommendedSearchDetailFragment : Fragment() {
     private fun initBackBtnClickListener() {
         binding.recommendedSearchDetailBackIv.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+    }
+
+    private fun initHomeBtnClickListener() {
+        binding.recommendedSearchDetailHomeIv.setOnClickListener {
+            // MainActivity로 이동하면서 GO_HOME 플래그를 명확히 설정
+            val mainActivityIntent = Intent(requireActivity(), MainActivity::class.java)
+            mainActivityIntent.putExtra("GO_HOME", true) // 🚀 홈 이동 플래그 설정
+
+            startActivity(mainActivityIntent)
+
+            // SearchMainActivity 종료
+            requireActivity().finish()
         }
     }
 

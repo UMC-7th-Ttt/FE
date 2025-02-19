@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.bookclub_place.api.PlaceEditorPickResponse
@@ -28,6 +30,7 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
         binding = FragmentRecommendedSearchPlaceDetailBinding.inflate(inflater, container, false)
 
         initBackBtnClickListener()
+        initHomeBtnClickListener()
         initRecommendedPlaceListRV()
         initEditorPickPlaceListRV()
 
@@ -37,6 +40,20 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
     private fun initBackBtnClickListener() {
         binding.recommendedSearchPlaceDetailBackIv.setOnClickListener {
             parentFragmentManager.popBackStack() // 뒤로 가기
+        }
+    }
+
+    // 홈 페이지로 이동
+    private fun initHomeBtnClickListener() {
+        binding.recommendedSearchPlaceDetailHomeIv.setOnClickListener {
+            // MainActivity로 이동하면서 GO_HOME 플래그를 명확히 설정
+            val mainActivityIntent = Intent(requireActivity(), MainActivity::class.java)
+            mainActivityIntent.putExtra("GO_HOME", true) // 🚀 홈 이동 플래그 설정
+
+            startActivity(mainActivityIntent)
+
+            // SearchMainActivity 종료
+            requireActivity().finish()
         }
     }
 

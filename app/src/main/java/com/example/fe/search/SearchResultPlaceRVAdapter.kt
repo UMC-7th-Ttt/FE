@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.databinding.ItemSearchResultPlaceBinding
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,6 +46,15 @@ class SearchResultPlaceRVAdapter(
             // 북마크 상태 설정
             updateBookmarkUI(place.isScraped)
 
+            // 북마크 버튼 클릭 이벤트 추가
+            binding.itemSearchResultPlaceBookmarkIc.setOnClickListener {
+                if (place.isScraped) {
+                    deleteScrap(place)
+                } else {
+                    showScrapBottomSheet(place)
+                }
+            }
+
             // 아이템 클릭 시 이동하는 화면 결정
             binding.root.setOnClickListener {
                 val context = binding.root.context
@@ -62,15 +73,6 @@ class SearchResultPlaceRVAdapter(
                     onItemClick(place)
                 }
             }
-
-            // 북마크 버튼 클릭 이벤트 추가
-            binding.itemSearchResultPlaceBookmarkIc.setOnClickListener {
-                if (place.isScraped) {
-                    deleteScrap(place)
-                } else {
-                    showScrapBottomSheet(place)
-                }
-            }
         }
 
         private fun updateBookmarkUI(isScraped: Boolean) {
@@ -86,6 +88,19 @@ class SearchResultPlaceRVAdapter(
                         if (response.isSuccessful) {
                             place.isScraped = false // 스크랩 해제
                             updateBookmarkUI(false)
+
+                            val inflater = LayoutInflater.from(binding.root.context)
+                            val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
+
+                            // 스크랩 취소 토스트 메시지 설정
+                            toastBinding.scrapCancelTv.text = "스크랩이 취소되었습니다!"
+
+                            val toast = Toast(binding.root.context).apply {
+                                duration = Toast.LENGTH_SHORT
+                                view = toastBinding.root
+                                setGravity(android.view.Gravity.TOP, 0, 100)
+                            }
+                            toast.show()
                         } else {
                             Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
                         }
