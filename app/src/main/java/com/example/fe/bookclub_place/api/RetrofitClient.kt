@@ -13,7 +13,7 @@ object RetrofitClient {
 
     // 서버 요청 시 자동으로 Authorization 헤더 추가
     private val authInterceptor = Interceptor { chain ->
-        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDM4OTI5NiwiZW1haWwiOiJqb2hhZXVuMDgwMkBuYXZlci5jb20ifQ.D-spn9hOvCwr02TAC5LCwruKqYhOM2TZQJ6YS-nFtICmjC78yXC5fziSO2jwN3WT-Q9G6KhR6IrhfGCX7io84w"
+        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDQ4MzI2OCwiZW1haWwiOiJqb2hhZXVuMDgwMkBuYXZlci5jb20ifQ.Og-7WoFJDbtSj0ITO0tzPODXltv4B3RPCVQyJTOD1djCFeSATm-xv96sgbNHa6Qg3KYEyh1h_r8cGujTtPTs8A"
 
         val request = chain.request().newBuilder()
             .addHeader("Authorization", token)  // 헤더에 자동으로 토큰 추가

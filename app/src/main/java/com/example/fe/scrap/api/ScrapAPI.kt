@@ -16,7 +16,7 @@ interface ScrapAPI {
     // 도서 스크랩
     @POST("api/books/{bookId}/scraps")
     fun scrapBook(
-        @Path("bookId") bookId: Int,
+        @Path("bookId") bookId: Long,
         @Query("folder") folder: String
     ): Call<Void>
 
@@ -29,7 +29,7 @@ interface ScrapAPI {
 
     // 도서 스크랩 취소
     @DELETE("api/books/{bookId}/scraps")
-    fun deleteBookScrap(@Path("bookId") bookId: Int): Call<Void>
+    fun deleteBookScrap(@Path("bookId") bookId: Long): Call<Void>
 
     // 공간 스크랩 취소
     @DELETE("api/places/{placeId}/scraps")

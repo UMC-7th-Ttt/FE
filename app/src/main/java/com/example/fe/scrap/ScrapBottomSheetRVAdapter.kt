@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class ScrapBottomSheetRVAdapter(
     private val scrapFolders: List<ScrapFolderResponse.Result.Folder>,
-    private val bookId: Int?, // 도서 스크랩 ID (도서일 경우)
+    private val bookId: Long?, // 도서 스크랩 ID (도서일 경우)
     private val placeId: Int?, // 장소 스크랩 ID (공간일 경우)
     private val onItemSelected: (Boolean) -> Unit,
     private val parentFragment: BottomSheetDialogFragment

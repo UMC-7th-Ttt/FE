@@ -114,11 +114,6 @@ class SearchResultPlaceRVAdapter(
                 scrapBottomSheet.tag
             )
         }
-
-        // 토스트 메시지 표시
-        private fun showToast(message: String) {
-            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
