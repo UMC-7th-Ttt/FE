@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
@@ -92,12 +93,28 @@ class BookclubPlaceRVAdapter(
 
         // 스크랩 삭제 API 호출
         private fun deleteScrap(place: PlaceResponse) {
+
             RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         place.isScraped = false
                         updateBookmarkUI(false)
-                        showToast("스크랩이 취소되었습니다")
+
+                        // LayoutInflater 수정
+                        val inflater = LayoutInflater.from(binding.root.context)
+                        val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
+
+                        // 토스트 메시지 설정
+                        toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+
+                        // 커스텀 토스트 생성 및 표시
+                        val toast = Toast(binding.root.context).apply {
+                            duration = Toast.LENGTH_SHORT
+                            view = toastBinding.root
+                            setGravity(android.view.Gravity.TOP, 0, 100)
+                        }
+                        toast.show()
+
                     } else {
                         Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
                     }
@@ -107,11 +124,6 @@ class BookclubPlaceRVAdapter(
                     Log.e("ScrapAPI", "❌ 네트워크 오류: ${t.message}")
                 }
             })
-        }
-
-        // 토스트 메시지 표시 함수
-        private fun showToast(message: String) {
-            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -129,14 +141,46 @@ class BookclubPlaceRVAdapter(
         }
     }
 
+    // 필터 적용
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FilterViewHolder) {
             holder.binding.apply {
+                // 초기 필터 기본값 (거리순)
+                var currentFilter = "거리순"
+
                 placeFilterSelectedIv.setOnClickListener {
-                    val filterBottomSheet = BookclubPlaceFilterBottomSheetFragment { selectedFilter ->
-                        when (selectedFilter) {
-                            "추천순" -> placeFilterSelectedIv.setBackgroundResource(R.drawable.btn_filter_recommendation)
-                            "거리순" -> placeFilterSelectedIv.setBackgroundResource(R.drawable.btn_filter_distance)
+                    val filterBottomSheet = BookclubPlaceFilterBottomSheetFragment(currentFilter) { selectedFilter ->
+                        currentFilter = selectedFilter // 선택한 필터값 저장
+
+                        Log.d("BookclubPlaceRVAdapter", "📌 필터 선택됨: $selectedFilter")
+
+                        // 선택한 필터에 따라 placeFilterSelectedIv 배경 변경
+                        placeFilterSelectedIv.setBackgroundResource(
+                            if (selectedFilter == "추천순") R.drawable.btn_filter_recommendation
+                            else R.drawable.btn_filter_distance
+                        )
+
+//                        // ✅ 현재 `BookclubPlaceFragment`에서 lat, lon 가져와서 전달
+//                        (holder.itemView.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
+//                            val placeFragment = fragmentManager.findFragmentById(R.id.bookclub_place_frm)
+//                            if (placeFragment is BookclubPlaceFragment) {
+//                                val lat = placeFragment.currentLat
+//                                val lon = placeFragment.currentLon
+//
+//                                // ✅ `updateListByFilter(selectedFilter, lat, lon)` 호출하도록 수정!
+//                                val listFragment = fragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
+//                                if (listFragment is BookclubPlaceListFragment) {
+//                                    listFragment.updateListByFilter(selectedFilter, lat, lon)
+//                                }
+//                            }
+//                        }
+                        // ✅ 부모 Fragment에서 직접 `updateListByFilter` 호출
+                        val fragment = holder.itemView.context as? AppCompatActivity
+                        fragment?.supportFragmentManager?.fragments?.forEach { frag ->
+                            if (frag is BookclubPlaceFragment) {
+                                Log.d("BookclubPlaceRVAdapter", "✅ BookclubPlaceFragment에 필터 전달 성공")
+                                frag.updateListByFilter(selectedFilter)
+                            }
                         }
                     }
                     filterBottomSheet.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "FilterBottomSheet")
@@ -151,6 +195,51 @@ class BookclubPlaceRVAdapter(
             holder.bind(filteredPlaces[position - 1])
         }
     }
+
+//    // 필터 적용
+//    // ✅ BookclubPlaceRVAdapter 수정 (BookclubPlaceFragment 찾는 방법 변경)
+//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//        if (holder is FilterViewHolder) {
+//            holder.binding.apply {
+//                // 현재 선택된 필터 상태 저장
+//                var currentFilter = "거리순"
+//
+//                placeFilterSelectedIv.setOnClickListener {
+//                    val filterBottomSheet = BookclubPlaceFilterBottomSheetFragment(currentFilter) { selectedFilter ->
+//                        currentFilter = selectedFilter // ✅ 선택한 필터값 저장
+//
+//                        Log.d("BookclubPlaceRVAdapter", "📌 필터 선택됨: $selectedFilter") // ✅ 필터 선택 로그 추가
+//
+//                        placeFilterSelectedIv.setBackgroundResource(
+//                            if (selectedFilter == "추천순") R.drawable.btn_filter_recommendation
+//                            else R.drawable.btn_filter_distance
+//                        )
+//
+//                        // ✅ `parentFragmentManager`를 사용하여 `BookclubPlaceFragment` 찾기
+//                        (holder.itemView.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
+//                            val placeFragment = fragmentManager.fragments.firstOrNull { it is BookclubPlaceFragment }
+//                            if (placeFragment is BookclubPlaceFragment) {
+//                                Log.d("BookclubPlaceRVAdapter", "✅ BookclubPlaceFragment에 필터 전달 성공") // ✅ 필터 전달 확인
+//                                placeFragment.updateListByFilter(selectedFilter) // ✅ 여기서 호출해야 함!
+//                            } else {
+//                                Log.e("BookclubPlaceRVAdapter", "❌ BookclubPlaceFragment를 찾을 수 없음")
+//                            }
+//                        }
+//                    }
+//                    filterBottomSheet.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "FilterBottomSheet")
+//                }
+//
+//                // 필터 키워드 선택
+//                placeFilterBookstoreIv.setOnClickListener { handleFilterClick(it.id, this, "BOOKSTORE") }
+//                placeFilterBookcafeIv.setOnClickListener { handleFilterClick(it.id, this, "CAFE") }
+//                updateFilterState(this)
+//            }
+//        } else if (holder is PlaceViewHolder) {
+//            holder.bind(filteredPlaces[position - 1])
+//        }
+//    }
+
+
 
     override fun getItemCount(): Int = filteredPlaces.size + 1
 

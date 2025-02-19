@@ -16,7 +16,7 @@
                 android:id="@+id/new_scrap_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
+                android:paddingTop="25dp"
                 android:text="스크랩명"
                 android:textColor="@color/white"
                 android:textSize="16sp"

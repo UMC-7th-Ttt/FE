@@ -60,6 +60,7 @@
             android:textColor="@color/primary_50"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:letterSpacing="-0.03"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_img_iv" />
 
@@ -97,17 +98,18 @@
         <ImageView
             android:id="@+id/bookclub_place_detail_title_line_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_title_line"
+            android:layout_height="0dp"
             android:layout_marginStart="20dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/ic_title_line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/bookclub_place_detail_description_title_tv"
-            app:layout_constraintBottom_toBottomOf="@id/bookclub_place_detail_description_title_tv"
+            app:layout_constraintBottom_toBottomOf="@+id/bookclub_place_detail_description_title_tv"
             app:layout_constraintEnd_toStartOf="@id/bookclub_place_detail_description_title_tv" />
 
         <TextView
             android:id="@+id/bookclub_place_detail_description_title_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
             android:paddingHorizontal="10dp"
@@ -115,8 +117,8 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/bookclub_place_detail_bookmark_iv"
             app:layout_constraintStart_toEndOf="@id/bookclub_place_detail_title_line_iv"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@id/bookclub_place_detail_img_iv" />
 
         <TextView

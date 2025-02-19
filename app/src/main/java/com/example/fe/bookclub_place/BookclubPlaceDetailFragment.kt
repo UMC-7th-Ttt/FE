@@ -15,6 +15,7 @@ import com.example.fe.R
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
+import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -155,7 +156,22 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                 if (response.isSuccessful) {
                     isBookmarked = false
                     updateBookmarkUI()
-                    showToast("스크랩이 취소되었습니다")
+
+                    // LayoutInflater 수정
+                    val inflater = LayoutInflater.from(binding.root.context)
+                    val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
+
+                    // 토스트 메시지 설정
+                    toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+
+                    // 커스텀 토스트 생성 및 표시
+                    val toast = Toast(binding.root.context).apply {
+                        duration = Toast.LENGTH_SHORT
+                        view = toastBinding.root
+                        setGravity(android.view.Gravity.TOP, 0, 100)
+                    }
+                    toast.show()
+
                 } else {
                     Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
                 }
@@ -176,10 +192,6 @@ class BookclubPlaceDetailFragment : DialogFragment() {
     private fun updateBookmarkState(isSelected: Boolean) {
         isBookmarked = isSelected
         updateBookmarkUI()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

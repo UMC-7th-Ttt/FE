@@ -8,7 +8,8 @@ import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.databinding.ItemBookclubRecommendedPlaceBinding
 
 class BookclubRecommendedPlaceRVAdapter(
-    private var places: List<PlaceResponse> = emptyList()
+    private var places: List<PlaceResponse> = emptyList(),
+    private val onItemClick: (PlaceResponse) -> Unit
 ) : RecyclerView.Adapter<BookclubRecommendedPlaceRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemBookclubRecommendedPlaceBinding) :
@@ -35,6 +36,11 @@ class BookclubRecommendedPlaceRVAdapter(
                 .load(place.image)
                 .placeholder(com.example.fe.R.drawable.img_place1)
                 .into(itemBookclubRecommendedPlaceImg)
+
+            // 장소 클릭 이벤트 (상세보기로 이동)
+            itemBookclubRecommendedPlaceImg.setOnClickListener {
+                onItemClick(place)
+            }
         }
     }
 
