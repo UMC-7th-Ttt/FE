@@ -12,10 +12,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.BookclubByMonthRVAdapter
 import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
 import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
+import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
 import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
 import retrofit2.Call
@@ -96,7 +99,8 @@ class BookclubBookHomeFragment : Fragment() {
     }
 
     private fun fetchReadingRecords() {
-        api.getReadingRecords().enqueue(object : Callback<ReadingRecordsListResponse> {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookClubRetrofitInterface::class.java)
+        api.getReadingRecords().enqueue(object : Callback<ReadingRecordsListResponse>  {
             override fun onResponse(call: Call<ReadingRecordsListResponse>, response: Response<ReadingRecordsListResponse>) {
                 if (response.isSuccessful) {
                     val readingRecordsResponse = response.body()
@@ -116,6 +120,7 @@ class BookclubBookHomeFragment : Fragment() {
     }
 
     private fun fetchBookClubMonth() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookClubRetrofitInterface::class.java)
         api.getBookClubByMonth().enqueue(object : Callback<BookClubByMonthResponse> {
             override fun onResponse(call: Call<BookClubByMonthResponse>, response: Response<BookClubByMonthResponse>) {
                 if (response.isSuccessful) {

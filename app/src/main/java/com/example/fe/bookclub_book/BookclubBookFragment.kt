@@ -2,6 +2,7 @@ package com.example.fe.bookclub_book
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,8 @@ import com.example.fe.mypage.MyPageFragment
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookVPAdapter
 import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.JohnRetrofitClient
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.FragmentBookclubBookBinding
 import com.example.fe.search.SearchMainActivity
 import com.google.android.material.tabs.TabLayout
@@ -74,22 +76,25 @@ class BookclubBookFragment : Fragment() {
     }
 
     private fun fetchUser() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookClubRetrofitInterface::class.java)
         api.getUser().enqueue(object : Callback<BookClubUserResponse> {
             override fun onResponse(call: Call<BookClubUserResponse>, response: Response<BookClubUserResponse>) {
                 if (response.isSuccessful) {
                     val userResponse = response.body()
                     userResponse?.let {
+                        val profileUrl = it.result.profileUrl
+                        Log.d("BookclubBookFragment", "Profile URL: $profileUrl") // 로그로 URL 확인
                         Glide.with(this@BookclubBookFragment)
-                            .load(it.result.profileUrl)
+                            .load(profileUrl)
                             .into(binding.bookclubBookPersonIc)
                     }
                 } else {
-                    // 오류 처리
+                    Log.e("BookclubBookFragment", "Response not successful: ${response.code()} - ${response.message()}") // 실패 로그 추가
                 }
             }
 
             override fun onFailure(call: Call<BookClubUserResponse>, t: Throwable) {
-                //오류 처리
+                Log.e("BookclubBookFragment", "API call failed", t) // 실패 로그 추가
             }
         })
     }

@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookInfoTagRVAdapter
 import com.example.fe.bookclub_book.dataclass.BookClubJoinInfoResponse
 import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.ActivityBookclubJoinBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -54,6 +57,7 @@ class BookclubJoin : AppCompatActivity() {
     }
 
     private fun fetchBookClubInfo(bookClubId: Int) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.getBookClubInfo(bookClubId).enqueue(object : Callback<BookClubJoinInfoResponse> {
             override fun onResponse(call: Call<BookClubJoinInfoResponse>, response: Response<BookClubJoinInfoResponse>) {
                 if (response.isSuccessful) {
@@ -96,6 +100,7 @@ class BookclubJoin : AppCompatActivity() {
     }
 
     private fun joinBookClub(bookClubId: Long) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.joinBookClub(bookClubId).enqueue(object : Callback<BookClubJoinResponse> {
             override fun onResponse(call: Call<BookClubJoinResponse>, response: Response<BookClubJoinResponse>) {
                 if (response.isSuccessful) {

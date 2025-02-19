@@ -155,9 +155,13 @@
         <activity
             android:name=".bookclub_place.BookclubPlaceSearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        
+
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        
+        <activity
+            android:name=".SplashActivity_ttt"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
