@@ -52,7 +52,6 @@ class SearchResultBookRVAdapter(
                     }
                 }
 
-                // 아이템 클릭 시 이동하는 액티비티 결정
                 root.setOnClickListener {
                     val context = root.context
                     val intent = if (callerActivity == "ReviewActivity") {
@@ -65,6 +64,7 @@ class SearchResultBookRVAdapter(
                         putExtra("BOOK_COVER", book.cover)     // 책 이미지 URL 전달
                     }
                     context.startActivity(intent)
+                    (context as? AppCompatActivity)?.finish()
                 }
             }
         }

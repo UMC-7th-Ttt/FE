@@ -43,7 +43,7 @@ class BookReviewActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val rating = s.toString().toFloatOrNull() ?: 0f
                 if (rating in 0.0..5.0) {
-                    binding.ratingBar.rating = rating
+                    binding.ratingBar.rating = rating // 별점 UI도 업데이트
                     validateForm(rating)
                 }
             }
@@ -51,17 +51,16 @@ class BookReviewActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
+        // 🔹 완료 버튼 클릭 시 데이터 전달 후 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
             val intent = Intent(this, ReviewActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 putExtra("BOOK_ID", bookId)
                 putExtra("BOOK_TITLE", bookTitle)
                 putExtra("BOOK_COVER", bookCover)
                 putExtra("BOOK_RATING", binding.ratingBar.rating)
             }
-            startActivity(intent) // ✅ `ReviewActivity`를 다시 실행
-            finish() // ✅ 현재 액티비티 종료
+            startActivity(intent)  // ✅ ReviewActivity로 이동
+            finish()  // 현재 액티비티 종료
         }
     }
 

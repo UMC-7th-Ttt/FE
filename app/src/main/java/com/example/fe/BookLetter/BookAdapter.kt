@@ -26,9 +26,9 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             bookTitleTv.text = book.title // 책 제목
             bookAuthorTv.text = book.author // 작가 이름
             publisherTv.text = book.publisher // 출판사 이름
-            bookExcerpt.text = book.description //구절
-            btnCategory.text = book.categoryName //카테고리
-            btnAuthor.text = book.author// 버튼에 들어가는 작가연결
+            bookExcerpt.text = book.description // 구절
+            btnCategory.text = book.categoryName // 카테고리
+            btnAuthor.text = book.author // 버튼에 들어가는 작가 연결
             btnPage.text = "${book.itemPage}쪽"
 
             btnEbook.text = "E북 등록" // 버튼 텍스트 설정
@@ -37,13 +37,21 @@ class BookAdapter(private val bookList: List<BookDetail>) :
             btnAuthor.visibility = if (book.author.isNullOrBlank()) View.GONE else View.VISIBLE
             btnPage.visibility = if (book.itemPage == 0) View.GONE else View.VISIBLE
             btnCategory.visibility = if (book.categoryName.isNullOrBlank()) View.GONE else View.VISIBLE
-
             btnEbook.visibility = if (!book.hasEbook) View.GONE else View.VISIBLE
 
-            // Glide로 표지 이미지 로드
+            // ✅ Glide로 책 표지 로드 (책 표지와 배경을 동일하게 적용)
             Glide.with(root.context)
                 .load(book.cover)
-                .into(bookIv)
+                .into(bookIv) // 책 표지 적용
+
+            // ✅ 배경 이미지를 bookIv와 동일하게 설정 + 확대 + 어둡게
+            Glide.with(root.context)
+                .load(book.cover)
+                .transform(com.bumptech.glide.load.resource.bitmap.CenterCrop()) // 확대 적용
+                .into(bookBgIv)
+
+            // ✅ 배경을 어둡게 만들기 (반투명 View 추가)
+            bookBgIv.alpha = 0.5f // 50% 투명도 적용
 
             // 클릭하면 상세 페이지 이동
             bookInfoNextBtn.setOnClickListener {
@@ -53,7 +61,10 @@ class BookAdapter(private val bookList: List<BookDetail>) :
                 context.startActivity(intent)
             }
         }
+
+
     }
+
 
     override fun getItemCount(): Int = bookList.size
 }
