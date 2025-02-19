@@ -55,8 +55,10 @@ class SpaceReviewActivity : AppCompatActivity() {
         binding.submitButton.setOnClickListener {
             saveSpaceToPreferences(placeId, placeTitle, placeImage, binding.ratingBar.rating)
 
-            val intent = Intent(this, ReviewActivity::class.java)
-            startActivity(intent)  // ✅ ReviewActivity로 이동
+            val intent = Intent(this, ReviewActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)  // ✅ 기존 ReviewActivity가 있다면 재사용
             finish()  // 현재 액티비티 종료
         }
     }

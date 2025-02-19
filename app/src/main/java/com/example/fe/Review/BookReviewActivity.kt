@@ -43,7 +43,7 @@ class BookReviewActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val rating = s.toString().toFloatOrNull() ?: 0f
                 if (rating in 0.0..5.0) {
-                    binding.ratingBar.rating = rating // 별점 UI도 업데이트
+                    binding.ratingBar.rating = rating
                     validateForm(rating)
                 }
             }
@@ -53,28 +53,20 @@ class BookReviewActivity : AppCompatActivity() {
 
         // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
-            saveBookToPreferences(bookId, bookTitle, bookCover, binding.ratingBar.rating)
-
-            val intent = Intent(this, ReviewActivity::class.java)
-            startActivity(intent)  // ✅ ReviewActivity로 이동
-            finish()  // 현재 액티비티 종료
+            val intent = Intent(this, ReviewActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                putExtra("BOOK_ID", bookId)
+                putExtra("BOOK_TITLE", bookTitle)
+                putExtra("BOOK_COVER", bookCover)
+                putExtra("BOOK_RATING", binding.ratingBar.rating)
+            }
+            startActivity(intent) // ✅ `ReviewActivity`를 다시 실행
+            finish() // ✅ 현재 액티비티 종료
         }
     }
 
     // ✅ 별점이 0.5 이상이면 버튼 활성화
     private fun validateForm(rating: Float) {
         binding.submitButton.isEnabled = rating >= 0.5
-    }
-
-    // ✅ SharedPreferences에 데이터 저장
-    private fun saveBookToPreferences(bookId: Int, bookTitle: String, bookCover: String, rating: Float) {
-        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
-        val editor = sharedPref.edit()
-
-        editor.putInt("BOOK_ID", bookId)
-        editor.putString("BOOK_TITLE", bookTitle)
-        editor.putString("BOOK_COVER", bookCover)
-        editor.putFloat("BOOK_RATING", rating)
-        editor.apply()
     }
 }
