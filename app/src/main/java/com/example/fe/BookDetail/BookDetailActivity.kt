@@ -3,7 +3,9 @@ package com.example.fe.BookDetail
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -12,10 +14,13 @@ import com.example.fe.BookDetail.Review.UserReviewAdapter
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.Review.ReviewActivity
+import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookDetailBinding
 import com.example.fe.databinding.BookInfoCardBinding
+import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.network.RetrofitObj
 import com.example.fe.scrap.NewScrapDialogFragment
+import com.example.fe.scrap.ScrapBottomSheetFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +29,9 @@ import retrofit2.Response
 class BookDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookDetailBinding
+    // 추가된 부분 !!!
+    private var isBookmarked = false // 북마크 상태 저장
+    private var bookId: Long = -1L // 책 ID 저장
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,15 +64,6 @@ class BookDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //스크랩 페이지로 이동
-        binding.icMark.setOnClickListener{
-            val intent = Intent(this, NewScrapDialogFragment::class.java)
-
-            startActivity(intent)
-        }
-
-
-
         // ✅ 책 ID 가져오기
         val bookId = intent.getLongExtra("BOOK_ID", -1L)
         if (bookId != -1L) {
@@ -72,6 +71,10 @@ class BookDetailActivity : AppCompatActivity() {
         } else {
             Log.e("BookDetailActivity", "❌ 책 ID가 없습니다.")
         }
+
+        // 추가된 부분 !!!
+        // 북마크 클릭 리스너 설정
+        initBookmarkClickListener()
     }
 
     private fun fetchBookDetail(bookId: Long) {
@@ -83,6 +86,9 @@ class BookDetailActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val bookDetail = response.body()?.result
                     if (bookDetail != null) {
+                        // 추가된 부분 !!!!!
+                        isBookmarked = bookDetail.isScraped // 북마크 상태 저장
+
                         bindDataToUI(bookDetail) // 📌 UI 업데이트
                     }
                 } else {
@@ -126,10 +132,6 @@ class BookDetailActivity : AppCompatActivity() {
             bookInfoCardBinding.similarUsersRatingBar.rating = bookDetail.userRating.toFloat()
             bookInfoCardBinding.overallRatingBar.rating = bookDetail.totalRating.toFloat()
 
-
-
-
-
             // ✅ 리뷰 목록 설정
             if (bookDetail.reviews.isNotEmpty()) {
                 val reviews = bookDetail.reviews.map {
@@ -145,6 +147,68 @@ class BookDetailActivity : AppCompatActivity() {
             } else {
                 otherReview.visibility = View.GONE // 리뷰 없으면 제목 숨김
             }
+
+            // 추가된 부분 !!!
+            updateBookmarkUI()
         }
+    }
+
+    // 추가된 부분 !!!!!
+    private fun initBookmarkClickListener() {
+        binding.icMark.setOnClickListener {
+            if (isBookmarked) {
+                deleteScrap()
+            } else {
+                val scrapBottomSheet = ScrapBottomSheetFragment(
+                    bookId = bookId,
+                    placeId = null,
+                    onBookmarkStateChanged = { isSelected ->
+                        updateBookmarkState(isSelected)
+                    }
+                )
+                scrapBottomSheet.show(supportFragmentManager, scrapBottomSheet.tag)
+            }
+        }
+    }
+
+    private fun deleteScrap() {
+        RetrofitClient.scrapApi.deleteBookScrap(bookId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    isBookmarked = false
+                    updateBookmarkUI()
+
+                    // ✅ 커스텀 토스트 메시지 표시
+                    val inflater = LayoutInflater.from(binding.root.context)
+                    val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
+                    toastBinding.scrapCancelTv.text = "스크랩 취소되었습니다!"
+
+                    val toast = Toast(binding.root.context).apply {
+                        duration = Toast.LENGTH_SHORT
+                        view = toastBinding.root
+                        setGravity(android.view.Gravity.TOP, 0, 100)
+                    }
+                    toast.show()
+
+                } else {
+                    Log.e("ScrapAPI", "❌ 스크랩 취소 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("ScrapAPI", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+    }
+
+    private fun updateBookmarkUI() {
+        binding.icMark.setImageResource(
+            if (isBookmarked) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark
+        )
+    }
+
+    private fun updateBookmarkState(isSelected: Boolean) {
+        isBookmarked = isSelected
+        updateBookmarkUI()
     }
 }

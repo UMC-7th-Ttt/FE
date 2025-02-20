@@ -153,7 +153,7 @@
                 android:id="@+id/ic_mark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_mark"
+                android:src="@drawable/ic_bookmark"
                 app:layout_constraintTop_toBottomOf="@+id/book_bg_iv"
                 android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"

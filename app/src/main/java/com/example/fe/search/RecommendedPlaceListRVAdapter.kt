@@ -80,7 +80,7 @@ class RecommendedPlaceListRVAdapter(
                             val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
 
                             // 스크랩 취소 토스트 메시지 설정
-                            toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+                            toastBinding.scrapCancelTv.text = "스크랩 취소되었습니다!"
 
                             // 커스텀 토스트 생성 및 표시
                             val toast = Toast(binding.root.context).apply {
