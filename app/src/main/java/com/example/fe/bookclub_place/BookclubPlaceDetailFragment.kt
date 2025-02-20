@@ -22,6 +22,7 @@ import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,13 +70,29 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     private fun initHomeBtnClickListener() {
         binding.bookclubPlaceDetailHomeIv.setOnClickListener {
-            val mypageFragment = HomeFragment()
-            parentFragmentManager.commit {
-                replace(R.id.bookclub_place_frm, mypageFragment)
-//                addToBackStack(null)
-            }
+            if (requireActivity() is SearchMainActivity) {
+                // SearchMainActivity에서 왔다면 MainActivity를 새로 실행
+                val mainActivityIntent = Intent(requireActivity(), MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    putExtra("GO_HOME", true)
+                }
+                startActivity(mainActivityIntent)
 
-            (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_home
+                // 현재 SearchMainActivity 종료
+                requireActivity().finish()
+            } else {
+                // MainActivity에서 왔다면 Fragment 교체
+                val homeFragment = HomeFragment()
+                requireActivity().supportFragmentManager.commit {
+                    replace(R.id.main_frm_in_bottom_nav, homeFragment)
+                }
+
+                // 바텀 네비게이션 업데이트
+                (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_home
+
+                // DialogFragment 닫기
+                dismiss()
+            }
         }
     }
 
@@ -194,7 +211,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                     val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
 
                     // 토스트 메시지 설정
-                    toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+                    toastBinding.scrapCancelTv.text = "스크랩 취소되었습니다!"
 
                     // 커스텀 토스트 생성 및 표시
                     val toast = Toast(binding.root.context).apply {
