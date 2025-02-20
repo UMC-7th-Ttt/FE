@@ -88,7 +88,7 @@ class Login : AppCompatActivity(), LoginView {
         passwordInput = findViewById(R.id.pw_input)
         loginButton = findViewById(R.id.login_button)
         googleLoginButton = findViewById(R.id.google_login_button)
-        autoLoginCheckbox = findViewById(R.id.login_checkbox)
+        autoLoginCheckbox = findViewById(R.id.login_checkbox_1)
         signUpButton = findViewById(R.id.signupButton)
 
         sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)

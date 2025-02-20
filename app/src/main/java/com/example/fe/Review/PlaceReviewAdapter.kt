@@ -14,6 +14,8 @@ class PlaceReviewAdapter(private val placeList: MutableList<PlaceReviewItem>) :
         fun bind(place: PlaceReviewItem) {
             binding.placeName.text = place.placeTitle
             binding.placeLocation.text = place.location
+            binding.placeRatingBar.rating = place.rating
+            binding.placeRatingText.text = String.format("%.1f", place.rating)
             Glide.with(binding.root.context)
                 .load(place.imageUrl)
                 .into(binding.placeImage)  // 장소 이미지 로드

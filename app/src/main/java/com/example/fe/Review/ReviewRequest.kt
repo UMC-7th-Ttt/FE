@@ -3,12 +3,12 @@ package com.example.fe.Review
 data class ReviewRequest(
     val title: String,
     val content: String,
-    val bookRanking: Int,
-    val placeRanking: Int,
+    val bookRanking: Float,
+    val placeRanking: Float,
     val isSecret: Boolean,
     val writeDate: String,
-    val bookId: Int?,
-    val placeId: Int?
+    val bookId: Long?,
+    val placeId: Long?
 )
 
 data class ReviewResponse(
@@ -19,5 +19,5 @@ data class ReviewResponse(
 )
 
 data class ReviewResult(
-    val reviewId: Int
+    val reviewId: Long
 )

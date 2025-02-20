@@ -8,9 +8,17 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
+import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityReviewBinding
 import com.example.fe.search.SearchMainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ReviewActivity : AppCompatActivity() {
 
@@ -20,6 +28,8 @@ class ReviewActivity : AppCompatActivity() {
 
     private lateinit var placeReviewAdapter: PlaceReviewAdapter
     private val placeList = mutableListOf<PlaceReviewItem>() // ✅ 장소 리스트
+
+    private lateinit var apiService: ReviewApiService//api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +68,17 @@ class ReviewActivity : AppCompatActivity() {
 
         // ✅ 완료 버튼 클릭 시
         binding.submitButton.setOnClickListener {
-            Toast.makeText(this, "서평이 저장되었습니다!", Toast.LENGTH_SHORT).show()
-            finish()
+            //Toast.makeText(this, "서평이 저장되었습니다!", Toast.LENGTH_SHORT).show()
+            submitReview()
+
+            navigateToMyPage()
+
+            //finish()
         }
+
+        // API 서비스 초기화
+        apiService = JohnRetrofitClient.getClient(this).create(ReviewApiService::class.java)
+
 
         binding.backButton.setOnClickListener {
             finish()
@@ -69,6 +87,90 @@ class ReviewActivity : AppCompatActivity() {
         binding.reviewInput.addTextChangedListener(textWatcher)
         binding.titleInput.addTextChangedListener(textWatcher)
     }
+
+
+    //api전송
+    private fun submitReview() {
+        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
+        val title = binding.titleInput.text.toString()
+        val content = binding.reviewInput.text.toString()
+        val bookRanking = sharedPref.getFloat("BOOK_RATING", 0f)
+        val placeRanking = sharedPref.getFloat("PLACE_RATING", 0f)
+        val isSecret = binding.privateOption.isChecked
+        val bookId = sharedPref.getLong("BOOK_ID", -1L).takeIf { it != -1L }
+        val placeId = sharedPref.getLong("PLACE_ID", -1L).takeIf { it != -1L }
+
+        // 현재 날짜 가져오기 (형식: YYYY-MM-DD)
+        val writeDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        // 현재 날짜 대신 하루 전 날짜로 설정
+
+
+        val reviewRequest = ReviewRequest(
+            title = title,
+            content = content,
+            bookRanking = bookRanking,
+            placeRanking = placeRanking,
+            isSecret = isSecret,
+            writeDate = writeDate,
+            bookId = bookId,
+            placeId = placeId
+        )
+
+
+        android.util.Log.d("ReviewAPI", "📌 API 요청 데이터:")
+        android.util.Log.d("ReviewAPI", "title: $title")
+        android.util.Log.d("ReviewAPI", "content: $content")
+        android.util.Log.d("ReviewAPI", "bookRanking: $bookRanking")
+        android.util.Log.d("ReviewAPI", "placeRanking: $placeRanking")
+        android.util.Log.d("ReviewAPI", "isSecret: $isSecret")
+        android.util.Log.d("ReviewAPI", "writeDate: $writeDate")
+        android.util.Log.d("ReviewAPI", "bookId: $bookId")
+        android.util.Log.d("ReviewAPI", "placeId: $placeId")
+
+
+        apiService.submitReview(reviewRequest).enqueue(object : Callback<ReviewResponse> {
+            override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
+                android.util.Log.d("ReviewAPI", "🔵 응답 코드: ${response.code()}")
+                android.util.Log.d("ReviewAPI", "🔵 응답 메시지: ${response.message()}")
+                android.util.Log.d("ReviewAPI", "🔵 응답 바디: ${response.errorBody()?.string()}")
+
+                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    Toast.makeText(this@ReviewActivity, "서평이 성공적으로 등록되었습니다!", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this@ReviewActivity, "서평 등록 실패: ${response.body()?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+
+
+            override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                Toast.makeText(this@ReviewActivity, "네트워크 오류 발생", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+    }
+    // ✅ 마이페이지로 이동하는 함수
+    private fun navigateToMyPage() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra("FRAGMENT", "MyPageFragment") // ✅ 마이페이지로 이동
+        }
+        startActivity(intent)
+        finish() // ✅ 현재 ReviewActivity 종료
+    }
+
+
+    // ✅ 모든 액티비티 종료 후 마이페이지 이동
+    /*private fun navigateToMyPage() {
+        val intent = Intent(this@ReviewActivity, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra("FRAGMENT", "MyPageFragment") // ✅ 마이페이지 이동 플래그
+        }
+        startActivity(intent)
+        finish() // 현재 액티비티 종료
+    }*/
 
     override fun onResume() {
         super.onResume()
@@ -82,9 +184,11 @@ class ReviewActivity : AppCompatActivity() {
         val placeId = sharedPref.getLong("PLACE_ID", -1L)
         val placeTitle = sharedPref.getString("PLACE_TITLE", null)
         val placeImage = sharedPref.getString("PLACE_IMAGE", null)
+        val placeRating = sharedPref.getFloat("PLACE_RATING", 0f)
+
 
         if (placeId != -1L && placeTitle != null && placeImage != null) {
-            val newPlace = PlaceReviewItem(placeTitle, "위치 정보 없음", placeImage)
+            val newPlace = PlaceReviewItem(placeTitle, "위치 정보 없음", placeImage, placeRating)
 
             placeList.clear() // 기존 데이터 초기화
             placeList.add(newPlace)

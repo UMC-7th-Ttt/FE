@@ -10,10 +10,7 @@ import retrofit2.http.Path
 
 interface ReviewApiService {
     @POST("/api/reviews/")
-    fun submitReview(
-
-        @Body reviewRequest: ReviewRequest
-    ): Call<ReviewResponse>
+    fun submitReview(@Body reviewRequest: ReviewRequest): Call<ReviewResponse>
 
     @GET("/api/reviews/{reviewId}")
     fun getReviewDetail(
