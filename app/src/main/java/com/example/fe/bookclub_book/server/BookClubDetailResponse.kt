@@ -27,7 +27,8 @@ data class BookClubDetailResponse(
         data class Member(
             val id: Int,
             val nickname: String,
-            val profileUrl: String
+            val profileUrl: String,
+            val hasReviewed: Boolean
         )
     }
 }

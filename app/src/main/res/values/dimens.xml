@@ -1,4 +1,5 @@
 <resources>
     <dimen name="pageMargin">200dp</dimen>
     <dimen name="offset">100dp</dimen>
+    <dimen name="recycler_item_spacing">8dp</dimen> <!-- ✅ 여기 값을 변경하면 간격 조절 가능 -->
 </resources>

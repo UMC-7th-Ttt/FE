@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.FragmentMypageScrapBinding
 import com.example.fe.mypage.adapter.MyPageScrapRVAdapter
+import com.example.fe.mypage.server.DeleteFolderResponse
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.ScrapFolderResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +38,16 @@ class MyPageScrapFragment : Fragment() {
             toggleEditMode()
         }
 
+        binding.folderDeleteBtn.setOnClickListener {
+            deleteSelectedFolders()
+        }
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchFolders() // 액티비티가 다시 활성화될 때 폴더 목록을 업데이트
     }
 
     private fun toggleEditMode() {
@@ -62,7 +75,7 @@ class MyPageScrapFragment : Fragment() {
     }
 
     private fun initScrapRecyclerview() {
-        binding.scrapRv.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.scrapRv.layoutManager = GridLayoutManager(context, 2)
 
         myPageScrapRVAdapter = MyPageScrapRVAdapter(object : MyPageScrapRVAdapter.MyItemClickListener {
             override fun onItemClick(folderId: Int) {
@@ -83,12 +96,14 @@ class MyPageScrapFragment : Fragment() {
     }
 
     private fun fetchFolders() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
         api.getFolders().enqueue(object : Callback<ScrapFolderResponse> {
             override fun onResponse(call: Call<ScrapFolderResponse>, response: Response<ScrapFolderResponse>) {
                 if (response.isSuccessful) {
                     val scrapFolderResponse = response.body()
                     scrapFolderResponse?.let {
                         myPageScrapRVAdapter.setScrap(it.result.folders)
+                        binding.scrapCountTv.text = it.result.folderCount.toString()
                     }
                 } else {
                     Log.e("MyPageScrapFragment", "Error: ${response.code()} - ${response.message()}")
@@ -99,5 +114,30 @@ class MyPageScrapFragment : Fragment() {
                 Log.e("MyPageScrapFragment", "Network Error: ${t.message}")
             }
         })
+    }
+
+    private fun deleteSelectedFolders() {
+        val selectedFolders = myPageScrapRVAdapter.getSelectedItems()
+        selectedFolders.forEach { folder ->
+            val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
+            api.deleteFolder(folder.folderId).enqueue(object : Callback<DeleteFolderResponse> {
+                override fun onResponse(call: Call<DeleteFolderResponse>, response: Response<DeleteFolderResponse>) {
+                    if (response.isSuccessful) {
+                        val apiResponse = response.body()
+                        if (apiResponse?.isSuccess == true) {
+                            fetchFolders() // 삭제 후 폴더 목록 갱신
+                        } else {
+                            Log.e("MyPageScrapFragment", "Failed to delete folder: ${apiResponse?.message}")
+                        }
+                    } else {
+                        Log.e("MyPageScrapFragment", "API call failed with response code ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteFolderResponse>, t: Throwable) {
+                    Log.e("MyPageScrapFragment", "API call failed: ${t.message}")
+                }
+            })
+        }
     }
 }

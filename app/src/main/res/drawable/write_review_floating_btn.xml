@@ -6,19 +6,9 @@
         <shape android:shape="oval">
             <solid android:color="@color/colorPrimaryNormal" />
             <size
-                android:width="56dp"
-                android:height="56dp" />
+                android:width="40dp"
+                android:height="40dp" />
         </shape>
-    </item>
-
-    <!-- 연필 아이콘 -->
-    <item
-        android:gravity="center">
-        <bitmap
-            android:src="@drawable/ic_pencil"
-            android:gravity="center"
-            android:width="24dp"
-            android:height="24dp"/>
     </item>
 
 </layer-list>

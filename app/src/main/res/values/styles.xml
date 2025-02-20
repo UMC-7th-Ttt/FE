@@ -31,12 +31,16 @@
 
     <style name="tab_layout_text">
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:fontFamily">@font/pretendard_medium</item>
     </style>
 
     <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/primary_50</item>
         <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerSize">4dp</item>
     </style>
 
 </resources>

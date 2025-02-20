@@ -3,6 +3,7 @@ package com.example.fe.bookclub_book
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,19 +13,23 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.CertifyPhotoRVAdapter
 import com.example.fe.bookclub_book.server.BookClubCertificationRequest
 import com.example.fe.bookclub_book.server.BookClubCertificationResponse
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.bookclub_book.server.BookClubDetailResponse
+import com.example.fe.bookclub_book.server.BookClubJoinInfoResponse
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.ActivityBookclubCertificationBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class BookClubCertification : AppCompatActivity() {
-
     private lateinit var binding: ActivityBookclubCertificationBinding
     private lateinit var imageAdapter: CertifyPhotoRVAdapter
     private val selectedImages = mutableListOf<Uri>()
@@ -32,6 +37,8 @@ class BookClubCertification : AppCompatActivity() {
     private lateinit var reviewEditText: EditText
     private lateinit var pageCountEditText: EditText
     private var bookClubId: Int = -1
+    private var bookId: Int = -1
+    private var maxPageCount: Int = 0
 
     @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +58,25 @@ class BookClubCertification : AppCompatActivity() {
 
         // 이미지 선택 버튼 클릭 리스너
         binding.photoIv1.setOnClickListener {
+            // 현재 기기에 설정된 쓰기 권한을 가져오기 위한 변수
+            var writePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE )
+
+            // 현재 기기에 설정된 읽기 권한을 가져오기 위한 변수
+            var readPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+            // 읽기 권한과 쓰기 권한에 대해서 설정이 되어있지 않다면
+            if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
+                // 읽기, 쓰기 권한을 요청합니다.
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    1
+                )
+            }
+
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, 100)
@@ -65,7 +91,7 @@ class BookClubCertification : AppCompatActivity() {
 
         fun checkEditTexts() {
             val allFilled = editTexts.all { it.text.isNotEmpty() }
-            binding.doneBtn.isEnabled = allFilled // 버튼 활성화/비활성화
+            binding.doneBtn.isEnabled = allFilled
         }
 
         // EditText에 TextWatcher 추가
@@ -74,7 +100,7 @@ class BookClubCertification : AppCompatActivity() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    checkEditTexts() // 텍스트가 변경될 때마다 호출
+                    checkEditTexts()
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
@@ -162,8 +188,15 @@ class BookClubCertification : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-
         // Page Count EditText 설정
+        bookId = intent.getIntExtra("BOOK_ID", -1)
+
+        if (bookId != -1) {
+            fetchBookClubInfo(bookId)
+        } else {
+            Toast.makeText(this, "Invalid book ID", Toast.LENGTH_SHORT).show()
+        }
+
         pageCountEditText.setOnClickListener {
             setEditTextBackground(pageCountEditText, true)
         }
@@ -181,8 +214,17 @@ class BookClubCertification : AppCompatActivity() {
                 // 사용자가 입력할 수 있는 숫자만 허용
                 if (!s.isNullOrEmpty() && !s.toString().matches("\\d*".toRegex())) {
                     // 마지막 입력이 숫자가 아닐 경우 입력 내용 지우기
-                    pageCountEditText.setText(s.subSequence(0, s.length - 1)) // 마지막 문자 지우기
-                    pageCountEditText.setSelection(pageCountEditText.text.length) // 커서 위치 조정
+                    pageCountEditText.setText(s.subSequence(0, s.length - 1))
+                    pageCountEditText.setSelection(pageCountEditText.text.length)
+                    Toast.makeText(this@BookClubCertification, "숫자만 입력할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                } else if (!s.isNullOrEmpty()) {
+                    // 최대 페이지 수를 넘지 않도록 제한
+                    val input = s.toString().toIntOrNull()
+                    if (input != null && input > maxPageCount) {
+                        pageCountEditText.setText(maxPageCount.toString())
+                        pageCountEditText.setSelection(pageCountEditText.text.length)
+                        Toast.makeText(this@BookClubCertification, "${maxPageCount}페이지를 넘어갈 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -211,13 +253,37 @@ class BookClubCertification : AppCompatActivity() {
         bookClubId = intent.getIntExtra("bookClubId", -1)
     }
 
+    private fun fetchBookClubInfo(bookId: Int) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
+        api.getBookClubInfo(bookId).enqueue(object : Callback<BookClubJoinInfoResponse> {
+            override fun onResponse(call: Call<BookClubJoinInfoResponse>, response: Response<BookClubJoinInfoResponse>) {
+                if (response.isSuccessful) {
+                    val bookClubDetailResponse = response.body()
+                    bookClubDetailResponse?.let {
+                        if (it.isSuccess) {
+                            maxPageCount = it.result.bookInfo.itemPage
+                            pageCountEditText.hint = "0/${it.result.bookInfo.itemPage}"
+                        } else {
+                            Toast.makeText(this@BookClubCertification, "Failed to fetch: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(this@BookClubCertification, "Failed to fetch: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<BookClubJoinInfoResponse>, t: Throwable) {
+                Toast.makeText(this@BookClubCertification, "Network Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     private fun sendCertification(request: BookClubCertificationRequest) {
-        Log.d("BookClubCertification", "bookClubId: $bookClubId") // 로그 추가
         if (bookClubId == -1) {
-            Toast.makeText(this, "Invalid book club ID", Toast.LENGTH_SHORT).show()
             return
         }
 
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.postCertification(bookClubId, request).enqueue(object :
             Callback<BookClubCertificationResponse> {
             override fun onResponse(call: Call<BookClubCertificationResponse>, response: Response<BookClubCertificationResponse>) {
@@ -225,7 +291,6 @@ class BookClubCertification : AppCompatActivity() {
                     val certificationResponse = response.body()
                     certificationResponse?.let {
                         if (it.isSuccess) {
-                            Toast.makeText(this@BookClubCertification, "Certification successful!", Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
                             Toast.makeText(this@BookClubCertification, "Failed to certify: ${it.message}", Toast.LENGTH_SHORT).show()
@@ -247,8 +312,8 @@ class BookClubCertification : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
-                selectedImages.add(uri) // 선택한 이미지 URI 추가
-                imageAdapter.notifyDataSetChanged() // RecyclerView 업데이트
+                selectedImages.add(uri)
+                imageAdapter.notifyDataSetChanged()
             }
         }
     }

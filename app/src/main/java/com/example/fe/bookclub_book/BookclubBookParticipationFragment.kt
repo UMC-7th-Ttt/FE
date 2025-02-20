@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.BookclubParticipationRVAdapter
 import com.example.fe.bookclub_book.server.BookClubParticipationResponse
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.FragmentBookclubBookParticipationBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,6 +46,7 @@ class BookclubBookParticipationFragment: Fragment() {
             override fun onItemClick(participation: BookClubParticipationResponse.Result.BookClub) {
                 val intent = Intent(context, BookclubBookDetail::class.java).apply {
                     putExtra("bookClubId", participation.bookClubId)
+                    putExtra("BOOK_ID", participation.bookId)
                 }
                 startActivity(intent)
             }
@@ -55,6 +57,7 @@ class BookclubBookParticipationFragment: Fragment() {
 
     // 참여중인 북클럽 정보 조회 함수
     private fun fetchParticipations() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookClubRetrofitInterface::class.java)
         api.getParticipation().enqueue(object : Callback<BookClubParticipationResponse> {
             override fun onResponse(call: Call<BookClubParticipationResponse>, response: Response<BookClubParticipationResponse>) {
                 if (response.isSuccessful) {

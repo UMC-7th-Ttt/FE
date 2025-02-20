@@ -4,60 +4,79 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.fe.R
+import com.bumptech.glide.Glide
+import com.example.fe.databinding.ActivityReviewSpaceBinding
 
 class SpaceReviewActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityReviewSpaceBinding
+    private var placeId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_review_space)  // 공간별점 레이아웃
+        binding = ActivityReviewSpaceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val backButton = findViewById<ImageView>(R.id.back_button)
-        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
-        val ratingText = findViewById<EditText>(R.id.rating_text)
-        val submitButton = findViewById<Button>(R.id.submit_button)
+        // 🔹 인텐트에서 데이터 가져오기
+        placeId = intent.getIntExtra("PLACE_ID", -1)
+        val placeTitle = intent.getStringExtra("PLACE_TITLE") ?: "장소 없음"
+        val placeImage = intent.getStringExtra("PLACE_IMAGE") ?: ""
 
-        // 초기 버튼 비활성화
-        submitButton.isEnabled = false
+        // 🔹 UI 적용
+        binding.titleText.text = placeTitle
+        Glide.with(this).load(placeImage).into(binding.bookImage)
 
-        // 🔹 뒤로가기 버튼 클릭 시 ReviewActivity로 이동
-        backButton.setOnClickListener {
-            val intent = Intent(this, ReviewActivity::class.java)
-            startActivity(intent)
-            finish()
+        // ✅ 초기 상태: 버튼 비활성화
+        binding.submitButton.isEnabled = false
+
+        // ⭐ 별점 입력 시 업데이트 및 버튼 활성화 체크
+        binding.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+            binding.ratingText.setText(String.format("%.1f", rating))
+            validateForm(rating)
         }
 
-        // 🔹 별점이 변경될 때 숫자 업데이트
-        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
-            ratingText.setText(String.format("%.1f", rating))
-            submitButton.isEnabled = rating > 0.0
-        }
-
-        // 🔹 숫자 입력 시 별점 업데이트
-        ratingText.addTextChangedListener(object : TextWatcher {
+        // ⭐ EditText에서 숫자를 입력하면 별점도 변경되도록 설정
+        binding.ratingText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val ratingValue = s.toString().toFloatOrNull() ?: 0.0f
-                if (ratingValue in 0.0..5.0) {
-                    ratingBar.rating = ratingValue
-                    submitButton.isEnabled = ratingValue > 0.0
+                val rating = s.toString().toFloatOrNull() ?: 0f
+                if (rating in 0.0..5.0) {
+                    binding.ratingBar.rating = rating // 별점 UI도 업데이트
+                    validateForm(rating)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 🔹 완료 버튼 클릭 시 ReviewActivity로 이동
-        submitButton.setOnClickListener {
-            val intent = Intent(this, ReviewActivity::class.java)
-            startActivity(intent)
-            finish()
+        // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
+        binding.submitButton.setOnClickListener {
+            saveSpaceToPreferences(placeId, placeTitle, placeImage, binding.ratingBar.rating)
+
+            val intent = Intent(this, ReviewActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)  // ✅ 기존 ReviewActivity가 있다면 재사용
+            finish()  // 현재 액티비티 종료
         }
+    }
+
+    // ✅ 별점이 0.5 이상이면 버튼 활성화
+    private fun validateForm(rating: Float) {
+        binding.submitButton.isEnabled = rating >= 0.5
+    }
+
+    // ✅ SharedPreferences에 데이터 저장
+    private fun saveSpaceToPreferences(placeId: Int, placeTitle: String, placeImage: String, rating: Float) {
+        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        editor.putInt("PLACE_ID", placeId)
+        editor.putString("PLACE_TITLE", placeTitle)
+        editor.putString("PLACE_IMAGE", placeImage)
+        editor.putFloat("PLACE_RATING", rating)
+        editor.apply()
     }
 }

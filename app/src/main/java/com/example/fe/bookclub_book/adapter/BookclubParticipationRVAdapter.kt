@@ -2,7 +2,6 @@ package com.example.fe.bookclub_book.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,10 +34,10 @@ class BookclubParticipationRVAdapter(private val itemClickListener: MyItemClickL
             binding.itemParticipantProgressBar.progress = participation.completionRate
             binding.itemParticipationProgressTv.text = "${participation.completionRate}%"
             binding.titleTv.text = participation.bookTitle
+            binding.authorTv.text = participation.bookAuthor
 
             Glide.with(binding.bookBgIv.context)
                 .load(participation.bookCover)
-                .apply(RequestOptions().override(450, 600)) // 해상도 설정
                 .into(binding.bookBgIv)
 
             Glide.with(binding.bookIv.context)

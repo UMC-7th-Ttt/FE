@@ -42,4 +42,5 @@ class SearchResultFragment : Fragment() {
             }
         }.attach()
     }
+
 }

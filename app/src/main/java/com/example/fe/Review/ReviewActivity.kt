@@ -1,84 +1,110 @@
 package com.example.fe.Review
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.R
+import com.example.fe.databinding.ActivityReviewBinding
+import com.example.fe.search.SearchMainActivity
 
 class ReviewActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityReviewBinding
+    private lateinit var reviewBookAdapter: ReviewBookAdapter
+    private val bookList = mutableListOf<ReviewItem>() // ✅ 리스트 추가
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_review)
 
-        // UI 요소 바인딩
-        val backButton = findViewById<ImageView>(R.id.back_button)
-        val titleInput = findViewById<EditText>(R.id.title_input)
-        val reviewInput = findViewById<EditText>(R.id.review_input)
-        val charCount = findViewById<TextView>(R.id.review_char_count)
-        val submitButton = findViewById<Button>(R.id.submit_button)
-        val publicOption = findViewById<RadioButton>(R.id.public_option)
-        val privateOption = findViewById<RadioButton>(R.id.private_option)
+        binding = ActivityReviewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 초기 버튼 비활성화
-        submitButton.isEnabled = false
-
-        // 뒤로가기 버튼 클릭 이벤트
-        backButton.setOnClickListener {
-            finish() // 현재 액티비티 종료
+        // ✅ RecyclerView 설정
+        reviewBookAdapter = ReviewBookAdapter(bookList)
+        binding.locationRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ReviewActivity)
+            adapter = reviewBookAdapter
         }
 
-        // 서평 입력란 글자 수 표시
-        reviewInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        // ✅ 도서 / 장소 추가 버튼 클릭 → `SearchMainActivity`로 이동
+        binding.addLocationButton.setOnClickListener {
+            val intent = Intent(this, SearchMainActivity::class.java)
+            intent.putExtra("CALLER", "ReviewActivity")
+            startActivity(intent)
+            finish()
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val length = s?.length ?: 0
-                charCount.text = "$length/300" // 글자 수 업데이트
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                validateForm(submitButton, titleInput, reviewInput)
-            }
-        })
-
-        // 제목 입력란 변경 시 버튼 활성화 체크
-        titleInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validateForm(submitButton, titleInput, reviewInput)
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        // 완료 버튼 클릭 이벤트
-        submitButton.setOnClickListener {
-            val title = titleInput.text.toString().trim()
-            val review = reviewInput.text.toString().trim()
-            val isPublic = publicOption.isChecked // 공개 여부
-
-            // 저장 로직 (예: SharedPreferences, DB 저장 가능)
+        // ✅ 완료 버튼 클릭 시
+        binding.submitButton.setOnClickListener {
             Toast.makeText(this, "서평이 저장되었습니다!", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
-            finish() // 액티비티 종료
+        // ✅ 뒤로 가기 버튼 클릭 (초기화 후 `MyPageFragment`로 이동)
+        binding.backButton.setOnClickListener {
+
+
+            finish() // ✅ `ReviewActivity` 종료
+        }
+
+        // ✅ 제목 및 서평 입력 감지하여 버튼 활성화
+        binding.reviewInput.addTextChangedListener(textWatcher)
+        binding.titleInput.addTextChangedListener(textWatcher)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    // ✅ `Intent`에서 데이터 가져와서 RecyclerView에 추가
+    private fun checkForNewBook() {
+        val bookId = intent.getIntExtra("BOOK_ID", -1)
+        val bookTitle = intent.getStringExtra("BOOK_TITLE")
+        val bookCover = intent.getStringExtra("BOOK_COVER")
+        val bookRating = intent.getFloatExtra("BOOK_RATING", 0f)
+
+        if (bookId != -1 && bookTitle != null && bookCover != null) {
+            val newBook = ReviewItem(bookTitle, "작가 미상", bookCover)
+            addBookToRecyclerView(newBook)
+
+            // ✅ 한 번만 추가되도록 `Intent` 데이터 제거
+            intent.removeExtra("BOOK_ID")
+            intent.removeExtra("BOOK_TITLE")
+            intent.removeExtra("BOOK_COVER")
+            intent.removeExtra("BOOK_RATING")
         }
     }
 
-    // 제목과 서평이 입력되었는지 확인하여 버튼 활성화
-    private fun validateForm(button: Button, titleInput: EditText, reviewInput: EditText) {
-        val isTitleNotEmpty = titleInput.text.toString().trim().isNotEmpty()
-        val isReviewNotEmpty = reviewInput.text.toString().trim().isNotEmpty()
+    // ✅ RecyclerView에 아이템 추가
+    private fun addBookToRecyclerView(book: ReviewItem) {
+        bookList.add(book)
+        reviewBookAdapter.notifyItemInserted(bookList.size - 1)
+    }
 
-        button.isEnabled = isTitleNotEmpty && isReviewNotEmpty
-        button.setBackgroundColor(if (button.isEnabled) getColor(R.color.primary_50) else getColor(R.color.white_10))
+    // ✅ 제목과 서평이 입력되었는지 확인하여 버튼 활성화
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            validateForm()
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    private fun validateForm() {
+        val isTitleNotEmpty = binding.titleInput.text.toString().trim().isNotEmpty()
+        val isReviewNotEmpty = binding.reviewInput.text.toString().trim().isNotEmpty()
+        val isFormValid = isTitleNotEmpty && isReviewNotEmpty
+
+        binding.submitButton.isEnabled = isFormValid
+        binding.submitButton.setBackgroundColor(
+            if (isFormValid) getColor(R.color.primary_50) else getColor(R.color.white_10)
+        )
     }
 }

@@ -12,11 +12,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.CommentsAdapter
 import com.example.fe.bookclub_book.server.BookClubReviewDetailResponse
 import com.example.fe.bookclub_book.server.CommentsResponse
 import com.example.fe.bookclub_book.server.CommentRequest
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.ActivityBookclubBookReviewDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +28,7 @@ class BookclubBookReviewDetail : AppCompatActivity() {
     private lateinit var binding: ActivityBookclubBookReviewDetailBinding
     private lateinit var commentsAdapter: CommentsAdapter
     private var comments = mutableListOf<CommentsResponse.Result.Comment>()
+    private var readingRecordId: Int = -1
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +42,10 @@ class BookclubBookReviewDetail : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        commentsAdapter = CommentsAdapter(this,comments)
+        commentsAdapter = CommentsAdapter(this, comments) { commentId ->
+            showReplyInput(commentId) // 답글 입력창 표시
+        }
+
         binding.commentsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.commentsRecyclerView.adapter = commentsAdapter
 
@@ -56,6 +61,7 @@ class BookclubBookReviewDetail : AppCompatActivity() {
     }
 
     private fun fetchBookClubReviewDetail(readingRecordId: Int) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.getBookClubReviewDetail(readingRecordId).enqueue(object : Callback<BookClubReviewDetailResponse> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<BookClubReviewDetailResponse>, response: Response<BookClubReviewDetailResponse>) {
@@ -91,6 +97,7 @@ class BookclubBookReviewDetail : AppCompatActivity() {
     }
 
     private fun fetchComments(readingRecordId: Int) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.getComments(readingRecordId).enqueue(object : Callback<CommentsResponse> {
             @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
             override fun onResponse(call: Call<CommentsResponse>, response: Response<CommentsResponse>) {
@@ -119,6 +126,15 @@ class BookclubBookReviewDetail : AppCompatActivity() {
         })
     }
 
+    private fun showReplyInput(commentId: Int) {
+        binding.floatingCommentEditText.visibility = View.VISIBLE
+        binding.floatingCommentEditText.setHint("답글을 입력하세요") // 힌트 설정
+        binding.floatingCommentEditText.tag = commentId // 댓글 ID를 태그로 설정
+        binding.floatingCommentIcon.setOnClickListener {
+            postReply(readingRecordId, commentId) // 답글 작성
+        }
+    }
+
     private fun postComment(readingRecordId: Int) {
         val content = binding.floatingCommentEditText.text.toString().trim()
         if (content.isEmpty()) {
@@ -127,6 +143,7 @@ class BookclubBookReviewDetail : AppCompatActivity() {
         }
 
         val commentRequest = CommentRequest(content)
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
 
         api.postComment(readingRecordId, commentRequest).enqueue(object : Callback<CommentsResponse> {
             override fun onResponse(call: Call<CommentsResponse>, response: Response<CommentsResponse>) {
@@ -147,6 +164,42 @@ class BookclubBookReviewDetail : AppCompatActivity() {
             }
         })
     }
+
+    private fun postReply(readingRecordId: Int, parentCommentId: Int) {
+        val content = binding.floatingCommentEditText.text.toString().trim()
+        if (content.isEmpty()) {
+            Toast.makeText(this, "답글을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val commentRequest = CommentRequest(content, parentCommentId)
+
+        // 디버깅을 위한 로그 출력
+        Log.d("BookclubBookReviewDetail", "Posting reply with content: $content and parentCommentId: $parentCommentId")
+
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
+        api.postComment(readingRecordId, commentRequest).enqueue(object : Callback<CommentsResponse> {
+            override fun onResponse(call: Call<CommentsResponse>, response: Response<CommentsResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("BookclubBookReviewDetail", "Response: ${response.body()}")
+                    binding.floatingCommentEditText.text.clear()
+                    hideKeyboard()
+                    fetchComments(readingRecordId) // 댓글 목록을 다시 가져옵니다.
+                } else {
+                    Log.e("BookclubBookReviewDetail", "Error: ${response.code()} - ${response.message()}")
+                    Toast.makeText(this@BookclubBookReviewDetail, "답글 작성에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<CommentsResponse>, t: Throwable) {
+                Log.e("BookclubBookReviewDetail", "Network Error: ${t.message}")
+                Toast.makeText(this@BookclubBookReviewDetail, "네트워크 오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+
 
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

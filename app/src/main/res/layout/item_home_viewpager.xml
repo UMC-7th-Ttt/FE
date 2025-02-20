@@ -24,11 +24,11 @@
         android:text="삶에 대한 고찰"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="#FFFF00"
+        android:textColor="#D0F306"
 
         app:layout_constraintTop_toTopOf="@id/banner_image"
         app:layout_constraintStart_toStartOf="@id/banner_image"
-    android:layout_marginTop="200dp"
+    android:layout_marginTop="230dp"
     android:layout_marginStart="16dp"/>
 
     <!-- 부제목 -->
@@ -38,11 +38,11 @@
         android:layout_height="wrap_content"
         android:text="청춘이 말하는 삶의 의미"
         android:textSize="16sp"
-        android:textColor="#FFFF99"
+        android:textColor="#D0F306"
    app:layout_constraintTop_toBottomOf="@id/banner_title"
         app:layout_constraintStart_toStartOf="@id/banner_title"
-        app:layout_constraintEnd_toEndOf="@id/banner_title"
-       android:layout_marginStart="25dp"
+
+
     />
 
     <!-- 작가 -->
@@ -52,9 +52,10 @@
         android:layout_height="wrap_content"
         android:text="작가"
         android:textSize="14sp"
-        android:textColor="#00FF66"
-    app:layout_constraintStart_toEndOf="@id/banner_subtitle"
-        app:layout_constraintTop_toTopOf="@id/banner_subtitle"
-        app:layout_constraintBottom_toBottomOf="@id/banner_subtitle"
-        android:layout_marginStart="180dp"/>
+        android:textColor="#D0F306"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="265dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="50dp"
+    android:background="@color/colorMainBg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_prev_arrow"
+        android:scaleType="center"
+        android:layout_marginTop="26dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/review_list_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서평 모아보기"
+        android:fontFamily="@font/pretendard_bold"
+        android:textSize="18sp"
+        android:textColor="@color/colorLabelNormal"
+        app:layout_constraintTop_toTopOf="@+id/back_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/back_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Book Collection Text -->
+<!--    <TextView-->
+<!--        android:id="@+id/mypage_review_calendar_swap_btn"-->
+<!--        android:layout_width="85dp"-->
+<!--        android:layout_height="29dp"-->
+<!--        android:textSize="13sp"-->
+<!--        android:text="서평 캘린더 보기"-->
+<!--        android:fontFamily="@font/pretendard_medium"-->
+<!--        android:textColor="@color/colorLabelNeutral"-->
+<!--        android:background="@drawable/edit_text_radius_30"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mypage_review_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="3"
+        tools:listitem="@layout/item_mypage_review_review"
+        android:layout_marginTop="39dp"
+        android:paddingHorizontal="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/review_list_tv"/>
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/scrap_rv"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:overScrollMode="never"-->
+    <!--        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+    <!--        app:spanCount="1"-->
+    <!--        tools:listitem="@layout/item_mypage_scrap"-->
+    <!--        android:layout_marginTop="27dp"-->
+    <!--        android:paddingHorizontal="14dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/calendar_review_swap_btn"/>-->
+
+    <!--    &lt;!&ndash; 아이템 그룹을 위한 뷰 &ndash;&gt;-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/item_group_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/scrap_rv"-->
+    <!--        android:paddingHorizontal="14dp">-->
+
+    <!--        &lt;!&ndash; 아이템 3개를 묶는 레이아웃 &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <View-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:background="@layout/item_mypage_scrap"/>-->
+
+    <!--            <View-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:background="@layout/item_mypage_scrap"/>-->
+
+    <!--            <View-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:background="@layout/item_mypage_scrap"/>-->
+
+    <!--        </LinearLayout>-->
+
+    <!--        &lt;!&ndash; 책장 받침 모양 막대 &ndash;&gt;-->
+    <!--        <View-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="4dp"-->
+    <!--            android:background="@color/colorLabelNormal" /> &lt;!&ndash; 책장 받침 색상 &ndash;&gt;-->
+
+    <!--    </LinearLayout>-->
+
+    <ImageView
+        android:id="@+id/mypage_write_review_floating_btn"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_pencil_black"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/write_review_floating_btn"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

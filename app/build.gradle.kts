@@ -28,6 +28,19 @@ android {
             )
         }
     }
+
+    packagingOptions {
+        pickFirst("META-INF/INDEX.LIST")
+        pickFirst("META-INF/io.netty.versions.properties")
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -44,10 +57,16 @@ android {
 }
 
 dependencies {
+
     implementation (libs.glide)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
@@ -57,13 +76,14 @@ dependencies {
     implementation (libs.androidx.recyclerview)
 
     implementation (libs.androidx.core.ktx)
-    
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation (libs.androidx.gridlayout)
     implementation(libs.androidx.ui.test.android)
+    implementation (libs.material.v140)
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -89,9 +109,11 @@ dependencies {
 
     // Glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.firebase.appdistribution.gradle)
     kapt ("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
 

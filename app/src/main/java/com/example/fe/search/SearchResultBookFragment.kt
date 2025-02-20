@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentSearchResultBookBinding
 import com.example.fe.search.api.BookResponse
+import com.example.fe.search.api.BookSearchAPI
 import com.example.fe.search.api.BookSearchResponse
+import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +21,7 @@ import retrofit2.Response
 class SearchResultBookFragment : Fragment() {
     private lateinit var binding: FragmentSearchResultBookBinding
     private lateinit var keyword: String
+    private var callerActivity: String? = null // 호출한 액티비티 정보
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +29,7 @@ class SearchResultBookFragment : Fragment() {
     ): View {
         binding = FragmentSearchResultBookBinding.inflate(inflater, container, false)
         keyword = arguments?.getString("KEYWORD") ?: ""
+        callerActivity = activity?.intent?.getStringExtra("CALLER") // SearchMainActivity에서 받은 값
 
         searchBooks(keyword)
 
@@ -32,11 +37,12 @@ class SearchResultBookFragment : Fragment() {
     }
 
     private fun searchBooks(keyword: String) {
-        RetrofitClient.bookApi.searchBooks(keyword).enqueue(object : Callback<BookSearchResponse> {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookSearchAPI::class.java)
+        api.searchBooks(keyword).enqueue(object : Callback<BookSearchResponse> {
             override fun onResponse(call: Call<BookSearchResponse>, response: Response<BookSearchResponse>) {
                 if (response.isSuccessful) {
                     val bookList = response.body()?.result?.books ?: emptyList()
-                    displaySearchResults(bookList) // 검색 결과 표시
+                    displaySearchResults(bookList)
                 } else {
                     Log.e("API_ERROR", "❌ ${response.errorBody()?.string()}")
                 }
@@ -56,7 +62,7 @@ class SearchResultBookFragment : Fragment() {
             binding.searchResultBookRv.visibility = View.VISIBLE
             binding.emptyResultTv.visibility = View.GONE
 
-            val adapter = SearchResultBookRVAdapter(books)
+            val adapter = SearchResultBookRVAdapter(requireContext(), books, callerActivity)
             binding.searchResultBookRv.layoutManager = LinearLayoutManager(requireContext())
             binding.searchResultBookRv.adapter = adapter
         }

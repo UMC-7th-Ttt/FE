@@ -194,7 +194,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:lineHeight="20sp"
-                android:justificationMode="inter_word"
                 app:layout_constraintTop_toBottomOf="@+id/publisher_review_tv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -356,6 +355,7 @@
         android:layout_height="46dp"
         android:text="가입하기"
         android:textSize="16sp"
+        android:fontFamily="@font/pretendard_bold"
         android:layout_centerHorizontal="true"
         android:background="@drawable/primary_btn_bg"
         android:textColor="@color/button_text_color"

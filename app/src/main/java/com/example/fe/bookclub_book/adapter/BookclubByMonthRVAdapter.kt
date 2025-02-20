@@ -34,7 +34,7 @@ class BookclubByMonthRVAdapter(private val itemClickListener: MyItemClickListene
             binding.titleTv.text = bookclubByMonth.bookTitle
             Glide.with(binding.bookclubMonthIv.context)
                 .load(bookclubByMonth.bookCover)
-                .apply(RequestOptions().override(450, 600)) // 해상도 설정
+//                .apply(RequestOptions().override(142, 198)) // 해상도 설정
                 .into(binding.bookclubMonthIv)
 
             binding.root.setOnClickListener {
