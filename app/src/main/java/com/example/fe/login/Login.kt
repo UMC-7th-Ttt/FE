@@ -11,6 +11,7 @@ import android.text.method.PasswordTransformationMethod
 import android.text.style.UnderlineSpan
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityLoginBinding
 import com.example.fe.login.service.LoginRequest
@@ -33,6 +34,7 @@ import java.io.IOException
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.json.JSONException
 
 
 class Login : AppCompatActivity(), LoginView {
@@ -147,10 +149,24 @@ class Login : AppCompatActivity(), LoginView {
                 val responseBody = response.body?.string()
                 Log.d("GOOGLE_Login", "백엔드 응답: $responseBody") // 응답 로그 추가
                 // 구글 로그인 성공 후 Preference 화면으로 이동
-                runOnUiThread {
-                    // 로그인 성공 후 Preference로 이동
-                    startActivity(Intent(this@Login, Preference::class.java))
-                    finish() // 현재 액티비티 종료
+                // JSON 응답에서 role 값 추출
+                try {
+                    val jsonResponse = JSONObject(responseBody)
+                    val role = jsonResponse.getJSONObject("result").optString("role") // role 값 추출
+
+                    // role에 따라 이동할 페이지 결정
+                    runOnUiThread {
+                        if (role == "GUEST") {
+                            // role이 guest인 경우 Preference 페이지로 이동
+                            startActivity(Intent(this@Login, Preference::class.java))
+                        } else if (role == "USER") {
+                            // role이 USER인 경우 Main 페이지로 이동
+                            startActivity(Intent(this@Login, MainActivity::class.java))
+                        }
+                        finish() // 현재 액티비티 종료
+                    }
+                } catch (e: JSONException) {
+                    Log.e("GOOGLE_Login", "JSON 파싱 오류: ${e.message}")
                 }
             }
         })
@@ -191,7 +207,7 @@ class Login : AppCompatActivity(), LoginView {
         Log.d("LOGIN_TEST", "일반 로그인 토큰 저장 완료: $token")
 
         // 로그인 성공 시 메인 화면으로 이동
-        startActivity(Intent(this, Preference::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

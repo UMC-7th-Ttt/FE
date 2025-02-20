@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fe.login.Login
 import com.example.fe.R
+import com.example.fe.preference.Preference
 
 class SignUpComplete : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class SignUpComplete : AppCompatActivity() {
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             // NextActivity로 이동
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, Preference::class.java)
             startActivity(intent)
         }
         enableEdgeToEdge()
