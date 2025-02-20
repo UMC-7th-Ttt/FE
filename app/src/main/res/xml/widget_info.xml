@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/blindbook_widget"
+    android:minWidth="40dp"
+    android:minHeight="40dp"
+    android:minResizeWidth="40dp"
+    android:minResizeHeight="40dp"
+    android:updatePeriodMillis="180000"
+    android:widgetCategory="home_screen"
+    android:resizeMode="horizontal|vertical"
+    android:initialKeyguardLayout="@layout/blindbook_widget"
+    android:defaultWidth="300dp"
+    android:defaultHeight="70dp">
+</appwidget-provider>
