@@ -73,9 +73,9 @@
             <Button
                 android:id="@+id/add_location_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="70dp"
                 android:backgroundTint="#1B1C1E"
-                app:cornerRadius="0dp"
+                app:cornerRadius="7dp"
                 android:text="+ 도서 / 장소 추가"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
@@ -85,6 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@id/date_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+
                 android:layout_marginTop="8dp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -123,8 +124,9 @@
                 android:id="@+id/title_input"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#1B1C1E"
+                android:background="@drawable/edittext_selector"
                 android:hint="서평의 제목을 입력해주세요."
+
                 android:padding="12dp"
                 android:textColorHint="#AAAAAA"
                 android:textColor="#FFFFFF"
@@ -149,7 +151,7 @@
                 android:id="@+id/review_input"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="#1B1C1E"
+                android:background="@drawable/edittext_selector"
                 android:hint="자유롭게 서평을 기록해보세요"
                 android:padding="12dp"
                 android:textColorHint="#AAAAAA"
@@ -200,7 +202,7 @@
                     android:text="비공개"
                     android:textSize="14sp"
                     android:textColor="#FFFFFF"
-                    app:buttonTint="@color/gray_02"
+                    app:buttonTint="@color/colorPrimaryNormal"
                     android:layout_marginStart="24dp" />
 
             </RadioGroup>
@@ -211,7 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="완료"
-                app:cornerRadius="0dp"
+                app:cornerRadius="7dp"
                 android:textColor="#8C8C8C"
                 android:backgroundTint="#2E2F33"
                 app:layout_constraintTop_toBottomOf="@id/review_visibility_group"

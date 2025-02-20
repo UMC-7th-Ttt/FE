@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="7dp"/> <!-- ✅ 둥근 정도 조절 -->
+    <solid android:color="#1B1C1E"/>
+    <stroke android:width="2dp" android:color="#1B1C1E"/><!-- ✅ 배경 색상 -->
+</shape>
