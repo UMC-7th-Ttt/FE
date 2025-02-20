@@ -23,6 +23,12 @@ class SpaceReviewActivity : AppCompatActivity() {
         val placeTitle = intent.getStringExtra("PLACE_TITLE") ?: "장소 없음"
         val placeImage = intent.getStringExtra("PLACE_IMAGE") ?: ""
 
+        // 🔹 로그 추가 (Intent 값 확인)
+        android.util.Log.d("SpaceReviewActivity", "Received Intent Data:")
+        android.util.Log.d("SpaceReviewActivity", "PLACE_ID: $placeId")
+        android.util.Log.d("SpaceReviewActivity", "PLACE_TITLE: $placeTitle")
+        android.util.Log.d("SpaceReviewActivity", "PLACE_IMAGE: $placeImage")
+
         // 🔹 UI 적용
         binding.titleText.text = placeTitle
         Glide.with(this).load(placeImage).into(binding.bookImage)
@@ -53,13 +59,20 @@ class SpaceReviewActivity : AppCompatActivity() {
 
         // 🔹 완료 버튼 클릭 시 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
+            val rating = binding.ratingBar.rating
+
+            // 🔹 로그 추가 (Intent 보내기 전 데이터 확인)
+            android.util.Log.d("SpaceReviewActivity", "Sending Intent Data:")
+            android.util.Log.d("SpaceReviewActivity", "PLACE_ID: $placeId")
+            android.util.Log.d("SpaceReviewActivity", "PLACE_TITLE: $placeTitle")
+            android.util.Log.d("SpaceReviewActivity", "PLACE_IMAGE: $placeImage")
+            android.util.Log.d("SpaceReviewActivity", "PLACE_RATING: $rating")
+
             val intent = Intent(this, ReviewActivity::class.java).apply {
                 putExtra("PLACE_ID", placeId)
                 putExtra("PLACE_TITLE", placeTitle)
                 putExtra("PLACE_IMAGE", placeImage)
-                putExtra("PLACE_RATING", binding.ratingBar.rating)
-
-                //flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                putExtra("PLACE_RATING", rating)
             }
             startActivity(intent)  // ✅ 기존 ReviewActivity가 있다면 재사용
             finish()  // 현재 액티비티 종료

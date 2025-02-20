@@ -17,6 +17,12 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var reviewBookAdapter: ReviewBookAdapter
     private val bookList = mutableListOf<ReviewItem>() // ✅ 리스트 추가
 
+
+
+    //공간아이템추가어텝터
+    private lateinit var placeReviewAdapter: PlaceReviewAdapter
+    private val placeList = mutableListOf<PlaceReviewItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +34,13 @@ class ReviewActivity : AppCompatActivity() {
         binding.locationRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@ReviewActivity)
             adapter = reviewBookAdapter
+        }
+
+        //공간리사이클러뷰설정
+        placeReviewAdapter = PlaceReviewAdapter(placeList)
+        binding.additionalRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ReviewActivity)
+            adapter = placeReviewAdapter
         }
 
         // ✅ 도서 / 장소 추가 버튼 클릭 → `SearchMainActivity`로 이동
@@ -60,6 +73,7 @@ class ReviewActivity : AppCompatActivity() {
         super.onResume()
         setIntent(intent) // ✅ 새로운 Intent를 저장
         checkForNewBook()
+        checkForNewPlace()
 
     }
 
@@ -94,11 +108,36 @@ class ReviewActivity : AppCompatActivity() {
         }
     }
 
+    //장소추가
+    private fun checkForNewPlace() {
+        val placeId = intent.getLongExtra("PLACE_ID", -1)
+        val placeTitle = intent.getStringExtra("PLACE_TITLE")
+        val placeImage = intent.getStringExtra("PLACE_IMAGE")
+
+        if (placeId != -1L && placeTitle != null && placeImage != null) {
+            val newPlace = PlaceReviewItem(placeTitle, "위치 정보 없음", placeImage)
+            //placeReviewAdapter.addPlace(newPlace)
+            addPlaceToRecyclerView(newPlace)
+
+            // ✅ 한 번만 추가되도록 `Intent` 데이터 제거
+            intent.removeExtra("PLACE_ID")
+            intent.removeExtra("PLACE_TITLE")
+            intent.removeExtra("PLACE_IMAGE")
+        }
+    }
+
     // ✅ RecyclerView에 아이템 추가
     private fun addBookToRecyclerView(book: ReviewItem) {
         bookList.add(book)
         reviewBookAdapter.notifyItemInserted(bookList.size - 1)
     }
+
+    //공간리사이클러뷰 추가
+    private fun addPlaceToRecyclerView(place: PlaceReviewItem) {
+        placeList.add(place)
+        placeReviewAdapter.notifyItemInserted(placeList.size - 1)
+    }
+
 
     // ✅ 제목과 서평이 입력되었는지 확인하여 버튼 활성화
     private val textWatcher = object : TextWatcher {
