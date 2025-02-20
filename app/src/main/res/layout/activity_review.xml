@@ -43,176 +43,181 @@
             android:layout_marginStart="100dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- 날짜 선택 -->
-    <TextView
-        android:id="@+id/date_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| 날짜"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
+    <!-- ScrollView 추가 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
-
-    <!-- 장소 추가 버튼 -->
-    <Button
-        android:id="@+id/add_location_button"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:backgroundTint="#1B1C1E"
-        app:cornerRadius="0dp"
-        android:text="+ 도서 / 장소 추가"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:gravity="center_vertical|start"
-        android:textAlignment="viewStart"
-        android:paddingStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/date_label"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/locationRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_location_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:overScrollMode="never" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <!-- 날짜 선택 -->
+            <TextView
+                android:id="@+id/date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="| 날짜"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
 
+            <!-- 장소 추가 버튼 -->
+            <Button
+                android:id="@+id/add_location_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#1B1C1E"
+                app:cornerRadius="0dp"
+                android:text="+ 도서 / 장소 추가"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:gravity="center_vertical|start"
+                android:textAlignment="viewStart"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/date_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp" />
 
-    <!-- 제목 입력 -->
-    <TextView
-        android:id="@+id/title_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="제목"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/locationRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/locationRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/add_location_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:overScrollMode="never" />
 
-    <EditText
-        android:id="@+id/title_input"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#1B1C1E"
-        android:hint="서평의 제목을 입력해주세요."
-        android:padding="12dp"
-        android:textColorHint="#AAAAAA"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/title_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/additionalRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/locationRecyclerView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:overScrollMode="never" />
 
-    <!-- 서평 입력 -->
-    <TextView
-        android:id="@+id/review_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="서평"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/title_input"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
-    <TextView
-        android:id="@+id/review_char_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/300"
-        android:textSize="14sp"
-        android:textColor="#AAAAAA"
-        app:layout_constraintEnd_toEndOf="@id/title_input"
-        app:layout_constraintTop_toBottomOf="@id/title_input"
-        app:layout_constraintStart_toEndOf="@id/review_label"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="280dp"/>
+            <!-- 제목 입력 -->
+            <TextView
+                android:id="@+id/title_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/additionalRecyclerView"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp" />
 
+            <EditText
+                android:id="@+id/title_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#1B1C1E"
+                android:hint="서평의 제목을 입력해주세요."
+                android:padding="12dp"
+                android:textColorHint="#AAAAAA"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/title_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp" />
 
-    <EditText
-        android:id="@+id/review_input"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="#1B1C1E"
-        android:hint="자유롭게 서평을 기록해보세요"
-        android:padding="12dp"
-        android:textColorHint="#AAAAAA"
-        android:textColor="#FFFFFF"
-        android:gravity="top|start"
-        app:layout_constraintTop_toBottomOf="@id/review_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+            <!-- 서평 입력 -->
+            <TextView
+                android:id="@+id/review_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서평"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/title_input"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp" />
 
+            <EditText
+                android:id="@+id/review_input"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#1B1C1E"
+                android:hint="자유롭게 서평을 기록해보세요"
+                android:padding="12dp"
+                android:textColorHint="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:gravity="top|start"
+                app:layout_constraintTop_toBottomOf="@id/review_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp" />
 
+            <!-- 공개 / 비공개 라디오 버튼 -->
+            <RadioGroup
+                android:id="@+id/review_visibility_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/review_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp">
 
-    <RadioGroup
-        android:id="@+id/review_visibility_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/review_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+                <TextView
+                    android:id="@+id/review_record_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서평기록"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical" />
 
-        <!-- 서평기록 텍스트 (RadioGroup 안에 추가됨) -->
-        <TextView
-            android:id="@+id/review_record_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="서평기록"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_vertical" />
+                <RadioButton
+                    android:id="@+id/public_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="공개"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    app:buttonTint="@color/colorPrimaryNormal"
+                    android:checked="true" />
 
-        <!-- 공개 -->
-        <RadioButton
-            android:id="@+id/public_option"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공개"
-            android:textSize="14sp"
-            android:textColor="#FFFFFF"
-            app:buttonTint="@color/colorPrimaryNormal"
-            android:checked="true" />
+                <RadioButton
+                    android:id="@+id/private_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비공개"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    app:buttonTint="@color/gray_02"
+                    android:layout_marginStart="24dp" />
 
-        <!-- 비공개 -->
-        <RadioButton
-            android:id="@+id/private_option"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="비공개"
-            android:textSize="14sp"
-            android:textColor="#FFFFFF"
-            app:buttonTint="@color/gray_02"
-            android:layout_marginStart="24dp" />
+            </RadioGroup>
 
-    </RadioGroup>
-
-
-    <!-- 완료 버튼 -->
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="완료"
-        app:cornerRadius="0dp"
-        android:textColor="#8C8C8C"
-        android:backgroundTint="#2E2F33"
-        app:layout_constraintTop_toBottomOf="@id/review_visibility_group"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
-
+            <!-- 완료 버튼 -->
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="완료"
+                app:cornerRadius="0dp"
+                android:textColor="#8C8C8C"
+                android:backgroundTint="#2E2F33"
+                app:layout_constraintTop_toBottomOf="@id/review_visibility_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

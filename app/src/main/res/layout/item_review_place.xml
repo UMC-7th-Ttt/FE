@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:background="#0F0F10">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="#1B1C1E">
+
+        <!-- 책 이미지 -->
+        <ImageView
+            android:id="@+id/place_image"
+            android:layout_width="50dp"
+            android:layout_height="75dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="책 이미지"
+            android:src="@drawable/book_sample1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 책 제목 -->
+        <TextView
+            android:id="@+id/place_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="카페꼼마"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/place_image"
+            app:layout_constraintTop_toTopOf="@id/place_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp"/>
+        <ImageView
+            android:id="@+id/ic_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_1"
+            app:layout_constraintStart_toStartOf="@id/place_name"
+            app:layout_constraintTop_toBottomOf="@id/place_name"
+            android:layout_marginTop="20dp"/>
+
+
+        <!-- 저자 -->
+        <TextView
+            android:id="@+id/place_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="한강"
+            android:textSize="14sp"
+            android:textColor="#CCCCCC"
+            app:layout_constraintStart_toEndOf="@id/ic_location"
+            app:layout_constraintTop_toTopOf="@id/ic_location"
+            app:layout_constraintBottom_toBottomOf="@id/ic_location"
+            android:layout_marginStart="10dp"
+            />
+
+        <!-- 평점 숫자 -->
+        <TextView
+            android:id="@+id/place_rating_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="5.0"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/place_rating_bar"
+            app:layout_constraintEnd_toStartOf="@id/place_rating_bar"
+            app:layout_constraintTop_toTopOf="@id/place_rating_bar" />
+
+        <!-- 별점 표시 -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/place_rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progressBackgroundTint="#AEB0B69C"
+            android:progressTint="#CFF305"
+            android:rating="3.5"
+            android:stepSize="0.5"
+            android:theme="@style/Base.Widget.AppCompat.RatingBar"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+

@@ -67,7 +67,8 @@ class SearchResultBookRVAdapter(
                     }.apply {
                         putExtra("BOOK_ID", book.id)           // 책 ID 전달
                         putExtra("BOOK_TITLE", book.title)     // 책 제목 전달
-                        putExtra("BOOK_COVER", book.cover)     // 책 이미지 URL 전달
+                        putExtra("BOOK_COVER", book.cover) // 책 이미지 URL 전달
+                        putExtra("BOOK_AUTHOR", book.author)
                     }
                     context.startActivity(intent)
                     (context as? AppCompatActivity)?.finish()

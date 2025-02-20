@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.fe.databinding.ActivityReviewSpaceBinding
@@ -11,7 +12,7 @@ import com.example.fe.databinding.ActivityReviewSpaceBinding
 class SpaceReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewSpaceBinding
-    private var placeId: Int = -1
+    private var placeId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +20,15 @@ class SpaceReviewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 🔹 인텐트에서 데이터 가져오기
-        placeId = intent.getIntExtra("PLACE_ID", -1)
+        placeId = intent.getLongExtra("PLACE_ID", -1L)
         val placeTitle = intent.getStringExtra("PLACE_TITLE") ?: "장소 없음"
         val placeImage = intent.getStringExtra("PLACE_IMAGE") ?: ""
+
+        // 🔹 로그 추가 (Intent 값 확인)
+        Log.d("SpaceReviewActivity", "Received Intent Data:")
+        Log.d("SpaceReviewActivity", "PLACE_ID: $placeId")
+        Log.d("SpaceReviewActivity", "PLACE_TITLE: $placeTitle")
+        Log.d("SpaceReviewActivity", "PLACE_IMAGE: $placeImage")
 
         // 🔹 UI 적용
         binding.titleText.text = placeTitle
@@ -51,13 +58,21 @@ class SpaceReviewActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
+        // 🔹 완료 버튼 클릭 시 `SharedPreferences`에 저장 후 `ReviewActivity` 이동
         binding.submitButton.setOnClickListener {
-            saveSpaceToPreferences(placeId, placeTitle, placeImage, binding.ratingBar.rating)
+            val rating = binding.ratingBar.rating
 
-            val intent = Intent(this, ReviewActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
+            // 🔹 장소 데이터 `SharedPreferences`에 저장
+            savePlaceToPreferences(placeId, placeTitle, placeImage, rating)
+
+            // 🔹 로그 추가
+            Log.d("SpaceReviewActivity", "Saved to SharedPreferences:")
+            Log.d("SpaceReviewActivity", "PLACE_ID: $placeId")
+            Log.d("SpaceReviewActivity", "PLACE_TITLE: $placeTitle")
+            Log.d("SpaceReviewActivity", "PLACE_IMAGE: $placeImage")
+            Log.d("SpaceReviewActivity", "PLACE_RATING: $rating")
+
+            val intent = Intent(this, ReviewActivity::class.java)
             startActivity(intent)  // ✅ 기존 ReviewActivity가 있다면 재사용
             finish()  // 현재 액티비티 종료
         }
@@ -68,12 +83,12 @@ class SpaceReviewActivity : AppCompatActivity() {
         binding.submitButton.isEnabled = rating >= 0.5
     }
 
-    // ✅ SharedPreferences에 데이터 저장
-    private fun saveSpaceToPreferences(placeId: Int, placeTitle: String, placeImage: String, rating: Float) {
+    // ✅ 장소 데이터 `SharedPreferences`에 저장
+    private fun savePlaceToPreferences(placeId: Long, placeTitle: String, placeImage: String, rating: Float) {
         val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
         val editor = sharedPref.edit()
 
-        editor.putInt("PLACE_ID", placeId)
+        editor.putLong("PLACE_ID", placeId)
         editor.putString("PLACE_TITLE", placeTitle)
         editor.putString("PLACE_IMAGE", placeImage)
         editor.putFloat("PLACE_RATING", rating)
