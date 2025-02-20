@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fe.JohnRetrofitClient
+import com.example.fe.Review.ReviewDetailActivity
 import com.example.fe.databinding.ActivityMypageScrapDetailBinding
 import com.example.fe.mypage.adapter.MyPageScrapDetailRVAdapter
 import com.example.fe.mypage.server.MoveScrapsRequest
@@ -69,9 +70,7 @@ class MyPageScrapDetail : AppCompatActivity() {
         val myPageScrapDetailRVAdapter =
             MyPageScrapDetailRVAdapter(object : MyPageScrapDetailRVAdapter.MyItemClickListener {
                 override fun onItemClick(myPageScrap: Scrap) {
-                    // 아이템 클릭 시 처리 로직
                 }
-
                 override fun onSelectionChanged(selectedCount: Int) {
                     // 선택 상태 변경 시 버튼 활성화 상태 업데이트
                     binding.scrapMoveBtn.isEnabled = selectedCount > 0

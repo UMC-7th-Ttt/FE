@@ -27,6 +27,9 @@
         <activity
             android:name=".mypage.MyPageScrapDetail"
             android:exported="false" />
+        <activity
+            android:name=".Review.ReviewDetailActivity"
+            android:exported="false" />
         
         <activity
             android:name=".mypage.MyPageReviewList"
