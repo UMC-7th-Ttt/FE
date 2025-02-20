@@ -79,7 +79,7 @@ class ReviewActivity : AppCompatActivity() {
     // ✅ `SharedPreferences`에서 장소 데이터 불러오기
     private fun loadPlaceFromPreferences() {
         val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
-        val placeId = sharedPref.getLong("PLACE_ID", -1)
+        val placeId = sharedPref.getLong("PLACE_ID", -1L)
         val placeTitle = sharedPref.getString("PLACE_TITLE", null)
         val placeImage = sharedPref.getString("PLACE_IMAGE", null)
 
@@ -94,7 +94,7 @@ class ReviewActivity : AppCompatActivity() {
 
     private fun loadBookFromPreferences() {
         val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
-        val bookId = sharedPref.getLong("BOOK_ID", -1)
+        val bookId = sharedPref.getLong("BOOK_ID", -1L)
         val bookTitle = sharedPref.getString("BOOK_TITLE", null)
         val bookCover = sharedPref.getString("BOOK_COVER", null)
         val bookRating = sharedPref.getFloat("BOOK_RATING", -1f)
