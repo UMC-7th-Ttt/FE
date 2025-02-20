@@ -31,8 +31,8 @@ class SpaceReviewActivity : AppCompatActivity() {
         Log.d("SpaceReviewActivity", "PLACE_IMAGE: $placeImage")
 
         // 🔹 UI 적용
-        binding.titleText.text = placeTitle
-        Glide.with(this).load(placeImage).into(binding.bookImage)
+        binding.placeTitle.text = placeTitle
+        Glide.with(this).load(placeImage).into(binding.placeImage)
 
         // ✅ 초기 상태: 버튼 비활성화
         binding.submitButton.isEnabled = false

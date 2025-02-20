@@ -7,8 +7,5 @@ import retrofit2.http.POST
 
 interface ReviewApiService {
     @POST("/api/reviews/")
-    fun submitReview(
-
-        @Body reviewRequest: ReviewRequest
-    ): Call<ReviewResponse>
+    fun submitReview(@Body reviewRequest: ReviewRequest): Call<ReviewResponse>
 }

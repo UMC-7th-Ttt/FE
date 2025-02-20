@@ -14,6 +14,8 @@ class ReviewBookAdapter(private val bookList: MutableList<ReviewItem>) :
         fun bind(book: ReviewItem) {
             binding.bookTitle.text = book.bookTitle
             binding.bookAuthor.text = book.author
+            binding.bookRatingBar.rating = book.rating
+            binding.bookRatingText.text = String.format("%.1f", book.rating)
             Glide.with(binding.root.context)
                 .load(book.coverUrl)
                 .into(binding.bookCover)  // 책 표지 이미지 로드
