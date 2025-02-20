@@ -187,14 +187,14 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/btn_next"
         android:clickable="true"
+        android:contentDescription="@string/next_button_description"
         android:src="@drawable/btn_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/next_button_description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
