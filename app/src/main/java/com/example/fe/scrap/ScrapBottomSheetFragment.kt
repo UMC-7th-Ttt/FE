@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapBottomSheetBinding
 import com.example.fe.mypage.server.ScrapFolderResponse
+import com.example.fe.scrap.api.ScrapAPI
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +45,8 @@ ScrapBottomSheetFragment(
     }
 
     private fun initScrapBottomSheetRV() {
-        RetrofitClient.scrapApi.getScrapFolders().enqueue(object : Callback<ScrapFolderResponse> {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(ScrapAPI::class.java)
+        api.getScrapFolders().enqueue(object : Callback<ScrapFolderResponse> {
             override fun onResponse(
                 call: Call<ScrapFolderResponse>,
                 response: Response<ScrapFolderResponse>
@@ -65,6 +68,7 @@ ScrapBottomSheetFragment(
     // API에서 받아온 데이터를 리사이클러뷰에 설정
     private fun setupRecyclerView(scrapFolders: List<ScrapFolderResponse.Result.Folder>) {
         val adapter = ScrapBottomSheetRVAdapter(
+            requireContext(),
             scrapFolders,
             bookId, // 전달된 도서 ID (null이면 공간 스크랩)
             placeId, // 전달된 공간 ID (null이면 도서 스크랩)

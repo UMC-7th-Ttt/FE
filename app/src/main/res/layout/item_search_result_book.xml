@@ -87,8 +87,8 @@
 
     <ImageView
         android:id="@+id/item_bookmark_iv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/ic_bookmark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_search_result_book_cover_iv"
