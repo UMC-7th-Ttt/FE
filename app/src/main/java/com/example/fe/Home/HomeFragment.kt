@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
 
         binding.greetingText.text = "안녕하세요, ${data.nickname}님!\n오늘은 어떤 책을 시작해볼까요?"
 
-        //완독률
+        //완독률api연결
         val activityList = data.bookClubList.map {
             ActivityItem(it.bookTitle, it.completionRate, it.bookCover)
         }

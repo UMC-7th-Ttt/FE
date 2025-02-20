@@ -1,5 +1,7 @@
 package com.example.fe.search
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,17 +9,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.BookDetail.BookDetailActivity
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.databinding.ItemEditorPickBookBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
 import com.example.fe.search.api.BookResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EditorPickBookListRVAdapter(
+    private val context: Context, // Context 전달
     private val bookList: List<BookResponse>,
     private val bookLetterTitle: String // 북레터 제목 추가
 ) : RecyclerView.Adapter<EditorPickBookListRVAdapter.BookViewHolder>() {
@@ -47,7 +53,17 @@ class EditorPickBookListRVAdapter(
                     showScrapBottomSheet(book)
                 }
             }
+
+            // 아이템 클릭 시 BookDetailActivity로 이동 (책 ID만 전달)
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, BookDetailActivity::class.java).apply {
+                    putExtra("BOOK_ID", book.id) // 책 ID만 전달
+                }
+                context.startActivity(intent)
+            }
         }
+
 
         // 북마크 상태 UI 업데이트
         private fun updateBookmarkUI(isScraped: Boolean) {
@@ -58,7 +74,8 @@ class EditorPickBookListRVAdapter(
 
         // 북마크(스크랩) 삭제 API 호출
         private fun deleteScrap(book: BookResponse) {
-            RetrofitClient.scrapApi.deleteBookScrap(book.id)
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
+            api.deleteBookScrap(book.id)
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
@@ -70,7 +87,7 @@ class EditorPickBookListRVAdapter(
                             val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
 
                             // 토스트 메시지 설정
-                            toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+                            toastBinding.scrapCancelTv.text = "스크랩 취소되었습니다!"
 
                             // 커스텀 토스트 생성 및 표시
                             val toast = Toast(binding.root.context).apply {

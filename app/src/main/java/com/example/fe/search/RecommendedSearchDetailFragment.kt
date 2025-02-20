@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.databinding.FragmentRecommendedSearchDetailBinding
 import com.example.fe.search.api.BookSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.scrap.api.ScrapAPI
 import com.example.fe.search.api.BookEditorPickResponse
+import com.example.fe.search.api.BookSearchAPI
 import com.example.fe.search.api.BookUserSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -74,11 +77,12 @@ class RecommendedSearchDetailFragment : Fragment() {
             else -> "koreanLiterature"
         }
 
-        RetrofitClient.bookApi.getBookSuggestions(categoryName).enqueue(object : Callback<BookSuggestionResponse> {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookSearchAPI::class.java)
+        api.getBookSuggestions(categoryName).enqueue(object : Callback<BookSuggestionResponse> {
             override fun onResponse(call: Call<BookSuggestionResponse>, response: Response<BookSuggestionResponse>) {
                 if (response.isSuccessful) {
                     val bookList = response.body()?.result?.books ?: emptyList()
-                    val bookAdapter = PopularBookListRVAdapter(bookList)
+                    val bookAdapter = PopularBookListRVAdapter(requireContext(), bookList)
                     binding.popularBookListRv.adapter = bookAdapter
                     binding.popularBookListRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 } else {
@@ -93,7 +97,8 @@ class RecommendedSearchDetailFragment : Fragment() {
     }
 
     private fun initRecommendedBookListRV() {
-        RetrofitClient.bookApi.getUserBookSuggestions()
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookSearchAPI::class.java)
+        api.getUserBookSuggestions()
             .enqueue(object : Callback<BookUserSuggestionResponse> {
                 override fun onResponse(call: Call<BookUserSuggestionResponse>, response: Response<BookUserSuggestionResponse>) {
                     if (response.isSuccessful) {
@@ -106,7 +111,7 @@ class RecommendedSearchDetailFragment : Fragment() {
 
 
                         val bookList = result?.books ?: emptyList()
-                        val bookAdapter = RecommendedBookListRVAdapter(bookList)
+                        val bookAdapter = RecommendedBookListRVAdapter(requireContext(), bookList)
                         binding.recommendedBookListRv.adapter = bookAdapter
                         binding.recommendedBookListRv.layoutManager =
                             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -123,7 +128,8 @@ class RecommendedSearchDetailFragment : Fragment() {
     }
 
     private fun initEditorPickBookListRV() {
-        RetrofitClient.bookApi.getEditorPickBooks()
+        val api = JohnRetrofitClient.getClient(requireContext()).create(BookSearchAPI::class.java)
+        api.getEditorPickBooks()
             .enqueue(object : Callback<BookEditorPickResponse> {
                 override fun onResponse(call: Call<BookEditorPickResponse>, response: Response<BookEditorPickResponse>) {
                     if (response.isSuccessful) {
@@ -132,7 +138,7 @@ class RecommendedSearchDetailFragment : Fragment() {
                         val bookLetterTitle = result?.bookLetterTitle ?: "북레터 한 줄"
 
                         val bookList = result?.books ?: emptyList()
-                        val bookAdapter = EditorPickBookListRVAdapter(bookList, bookLetterTitle)
+                        val bookAdapter = EditorPickBookListRVAdapter(requireContext(), bookList, bookLetterTitle)
                         binding.editorPickBookListRv.adapter = bookAdapter
                         binding.editorPickBookListRv.layoutManager =
                             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

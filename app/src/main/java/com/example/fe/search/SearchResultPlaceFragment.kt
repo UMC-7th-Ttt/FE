@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.bookclub_place.api.PlaceResponse
@@ -15,6 +16,9 @@ import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentSearchResultPlaceBinding
 import com.example.fe.Review.SpaceReviewActivity
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
+import com.example.fe.search.api.BookSearchAPI
+import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +42,8 @@ class SearchResultPlaceFragment : Fragment() {
     }
 
     private fun searchPlaces(keyword: String) {
-        RetrofitClient.placeApi.searchPlaces(keyword)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.searchPlaces(keyword)
             .enqueue(object : Callback<PlaceSearchResponse> {
                 override fun onResponse(
                     call: Call<PlaceSearchResponse>,
@@ -66,7 +71,7 @@ class SearchResultPlaceFragment : Fragment() {
             binding.searchResultPlaceRv.visibility = View.VISIBLE
             binding.emptyResultTv.visibility = View.GONE
 
-            val adapter = SearchResultPlaceRVAdapter(places) { place ->
+            val adapter = SearchResultPlaceRVAdapter(requireContext(), places) { place ->
                 val fragment = BookclubPlaceDetailFragment().apply {
                     arguments = Bundle().apply {
                         putInt("PLACE_ID", place.placeId) // placeId 전달

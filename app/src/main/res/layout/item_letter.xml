@@ -22,7 +22,7 @@
         android:id="@+id/line1"
         android:layout_width="30dp"
         android:layout_height="2.5dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimaryNormal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -130,7 +130,7 @@
         android:layout_marginTop="8dp"
         android:text="책 정보"
         android:textColor="@color/white"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_goneMarginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,24 +193,24 @@
         android:text="책 구절"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:layout_marginStart="10dp"
         app:layout_goneMarginTop="50dp"
         app:layout_constraintEnd_toEndOf="@id/book_tags"
-        app:layout_constraintEnd_toStartOf="@id/book_tags"
         app:layout_constraintHorizontal_bias="0.00"
-        app:layout_constraintStart_toStartOf="@+id/book_tags"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/book_tags" />
 
     <TextView
         android:id="@+id/book_excerpt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_margin="10dp"
         android:layout_marginTop="8dp"
         android:text="인생은 탐구하면서 살아가는 것이 아니라, 살아가면서 탐구하는 것이다. 실수는 되풀이된다. 그것이 인생이다..."
 
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/book_excerpt_title"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/book_excerpt_title" />
 
     <TextView

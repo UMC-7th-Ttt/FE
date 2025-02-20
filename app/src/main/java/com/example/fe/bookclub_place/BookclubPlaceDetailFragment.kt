@@ -13,15 +13,22 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.example.fe.Home.HomeApiService
+import com.example.fe.Home.HomeResponse
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.bookclub_place.api.PlaceDetail
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
+import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,13 +76,29 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     private fun initHomeBtnClickListener() {
         binding.bookclubPlaceDetailHomeIv.setOnClickListener {
-            val mypageFragment = HomeFragment()
-            parentFragmentManager.commit {
-                replace(R.id.bookclub_place_frm, mypageFragment)
-//                addToBackStack(null)
-            }
+            if (requireActivity() is SearchMainActivity) {
+                // SearchMainActivity에서 왔다면 MainActivity를 새로 실행
+                val mainActivityIntent = Intent(requireActivity(), MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    putExtra("GO_HOME", true)
+                }
+                startActivity(mainActivityIntent)
 
-            (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_home
+                // 현재 SearchMainActivity 종료
+                requireActivity().finish()
+            } else {
+                // MainActivity에서 왔다면 Fragment 교체
+                val homeFragment = HomeFragment()
+                requireActivity().supportFragmentManager.commit {
+                    replace(R.id.main_frm_in_bottom_nav, homeFragment)
+                }
+
+                // 바텀 네비게이션 업데이트
+                (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_home
+
+                // DialogFragment 닫기
+                dismiss()
+            }
         }
     }
 
@@ -92,7 +115,10 @@ class BookclubPlaceDetailFragment : DialogFragment() {
     }
 
     private fun getPlaceDetails(placeId: Int) {
-        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse> {
+//        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse> {
             override fun onResponse(
                 call: Call<PlaceDetailResponse>,
                 response: Response<PlaceDetailResponse>
@@ -107,8 +133,13 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
                         binding.bookclubPlaceDetailNameTv.text = it.title
                         binding.bookclubPlaceDetailTagTv.text = if (it.category == "CAFE") "북카페" else "서점"
-                        binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "야외에서도 책을 읽을 수 있는 북카페"
-                        binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "날씨가 좋은 날 여유롭게 책을 읽으며 맛있는 커피를 즐길 수 있는 뉴트로 감성의 힙한 종로 카페를 찾으시나요?"
+                        if(it.category == "CAFE") {
+                            binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "햇빛과 함께 사색을 즐겨보아요."
+                            binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "봄과 가까워지고 있는 지금, 점점 나들이 가도 좋은 날씨가 되고 있어요. 오전에 잠시 카페에 들러 커피와 함께 독서 시작해 볼까요?"
+                        } else {
+                            binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "취향의 공간에서 즐기는 소확행 시간"
+                            binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "온전히 책과 함께할 수 있는 공간에서 나만의 취향을 찾아봐요. 온전히 나와 함께하는 힐링 시간을 보낼 수 있을 거예요."
+                        }
                         binding.bookclubPlaceDetailEntireRatingNumTv.text = String.format("%.1f", it.totalRating)
                         binding.bookclubPlaceDetailLocationTv.text = it.address
                         binding.weekdaysBusinessTv.text = "운영시간 ${it.weekdaysBusiness ?: ""}"
@@ -183,7 +214,10 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     // 스크랩 삭제 API 호출
     private fun deleteScrap() {
-        RetrofitClient.scrapApi.deletePlaceScrap(placeId).enqueue(object : Callback<Void> {
+//        RetrofitClient.scrapApi.deletePlaceScrap(placeId).enqueue(object : Callback<Void>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(ScrapAPI::class.java)
+        api.deletePlaceScrap(placeId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     isBookmarked = false
@@ -194,7 +228,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                     val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
 
                     // 토스트 메시지 설정
-                    toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+                    toastBinding.scrapCancelTv.text = "스크랩 취소되었습니다!"
 
                     // 커스텀 토스트 생성 및 표시
                     val toast = Toast(binding.root.context).apply {

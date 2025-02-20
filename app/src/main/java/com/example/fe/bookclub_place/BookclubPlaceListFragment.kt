@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.*
 import com.example.fe.bookclub_place.api.PlaceResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
 import com.example.fe.databinding.FragmentBookclubPlaceListBinding
 import com.example.fe.search.RecentSearchManager
 import retrofit2.Call
@@ -49,7 +51,7 @@ class BookclubPlaceListFragment : Fragment() {
 
     // 상세 페이지 이동
     private fun initBookclubPlaceListRV() {
-        adapter = BookclubPlaceRVAdapter(places) { place ->
+        adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
             val fragment = BookclubPlaceDetailFragment().apply {
                 arguments = Bundle().apply {
                     putInt("PLACE_ID", place.placeId) // placeId 전달
@@ -65,7 +67,10 @@ class BookclubPlaceListFragment : Fragment() {
     }
 
     private fun searchPlaces(keyword: String) {
-        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
+//        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(
                 call: Call<PlaceSearchResponse>,
                 response: Response<PlaceSearchResponse>
@@ -89,7 +94,10 @@ class BookclubPlaceListFragment : Fragment() {
     }
 
     private fun sortPlaces(lat: Double, lon: Double) {
-        RetrofitClient.placeApi.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse> {
+//        RetrofitClient.placeApi.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(
                 call: Call<PlaceSearchResponse>,
                 response: Response<PlaceSearchResponse>
@@ -132,7 +140,10 @@ class BookclubPlaceListFragment : Fragment() {
 
     // 추천순 API 호출 (lat, lon 없이)
     private fun fetchPlacesByRecommendation() {
-        RetrofitClient.placeApi.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse> {
+//        RetrofitClient.placeApi.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
                 if (response.isSuccessful) {
                     val newPlaces = response.body()?.result?.places ?: emptyList()
@@ -157,7 +168,7 @@ class BookclubPlaceListFragment : Fragment() {
 
                     // ✅ 새로운 Adapter 설정 (RecyclerView 강제 갱신)
                     requireActivity().runOnUiThread {
-                        binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(places) { place ->
+                        binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
                                     putInt("PLACE_ID", place.placeId)
@@ -179,7 +190,11 @@ class BookclubPlaceListFragment : Fragment() {
 
     // 거리순 API 호출 (lat, lon 사용)
     private fun fetchPlacesByDistance(lat: Double, lon: Double) {
-        RetrofitClient.placeApi.sortPlaces(sort = "all", lat = lat, lon = lon)
+//        RetrofitClient.placeApi.sortPlaces(sort = "all", lat = lat, lon = lon)
+//            .enqueue(object : Callback<PlaceSearchResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.sortPlaces(sort = "all", lat = lat, lon = lon)
             .enqueue(object : Callback<PlaceSearchResponse> {
                 override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
                     if (response.isSuccessful) {
@@ -191,7 +206,7 @@ class BookclubPlaceListFragment : Fragment() {
 
                         // ✅ 새로운 Adapter를 설정하여 RecyclerView를 갱신
                         requireActivity().runOnUiThread {
-                            binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(places) { place ->
+                            binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                                 val fragment = BookclubPlaceDetailFragment().apply {
                                     arguments = Bundle().apply {
                                         putInt("PLACE_ID", place.placeId) // placeId 전달
@@ -210,73 +225,4 @@ class BookclubPlaceListFragment : Fragment() {
                 }
             })
     }
-
-
-    // 추천순 API 호출 (lat, lon 없이)
-//    private fun fetchPlacesByRecommendation() {
-//        RetrofitClient.placeApi.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse> {
-//            override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-//                if (response.isSuccessful) {
-//                    val newPlaces = response.body()?.result?.places ?: emptyList()
-//                    Log.d("BookclubPlaceListFragment", "✅ 추천순 검색 결과: $newPlaces")
-//
-//                    places.clear()
-//                    places.addAll(newPlaces)
-//                    adapter.notifyDataSetChanged()
-//                } else {
-//                    Log.e("BookclubPlaceListFragment", "❌ 추천순 응답 실패: ${response.errorBody()?.string()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-//                Log.e("BookclubPlaceListFragment", "❌ 추천순 네트워크 오류: ${t.message}")
-//            }
-//        })
-//    }
-
-//    private fun fetchPlacesByRecommendation() {
-//        RetrofitClient.placeApi.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse> {
-//            override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-//                if (response.isSuccessful) {
-//                    val newPlaces = response.body()?.result?.places ?: emptyList()
-//                    Log.d("BookclubPlaceListFragment", "✅ 추천순 검색 결과 수신: ${newPlaces.size}개")
-//
-//                    places.clear()
-//                    places.addAll(newPlaces)
-//                    adapter.notifyDataSetChanged()
-//                    Log.d("BookclubPlaceListFragment", "✅ 추천순 리스트 업데이트 완료")
-//                } else {
-//                    Log.e("BookclubPlaceListFragment", "❌ 추천순 응답 실패: ${response.errorBody()?.string()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-//                Log.e("BookclubPlaceListFragment", "❌ 추천순 네트워크 오류: ${t.message}")
-//            }
-//        })
-//    }
-
-
-//    // 거리순 API 호출 (lat, lon 사용)
-//    private fun fetchPlacesByDistance(lat: Double, lon: Double) {
-//        RetrofitClient.placeApi.sortPlaces(sort = "all", lat = lat, lon = lon)
-//            .enqueue(object : Callback<PlaceSearchResponse> {
-//                override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-//                    if (response.isSuccessful) {
-//                        val newPlaces = response.body()?.result?.places ?: emptyList()
-//                        Log.d("BookclubPlaceListFragment", "✅ 거리순 검색 결과: $newPlaces")
-//
-//                        places.clear()
-//                        places.addAll(newPlaces)
-//                        adapter.notifyDataSetChanged()
-//                    } else {
-//                        Log.e("BookclubPlaceListFragment", "❌ 거리순 응답 실패: ${response.errorBody()?.string()}")
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-//                    Log.e("BookclubPlaceListFragment", "❌ 거리순 네트워크 오류: ${t.message}")
-//                }
-//            })
-//    }
 }

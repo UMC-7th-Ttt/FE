@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.fe.BookDetail.Review.UserReview
 import com.example.fe.BookDetail.Review.UserReviewAdapter
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.Review.ReviewActivity
@@ -75,9 +76,11 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     private fun fetchBookDetail(bookId: Long) {
-        val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg" // 📌 실제 토큰 값 넣기
+        //val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg" // 📌 실제 토큰 값 넣기
+        val token = "Bearer " + JohnRetrofitClient.getClient(this) // ✅ 동적으로 토큰 가져오기
+        val api = JohnRetrofitClient.getClient(this).create(BookDetailService::class.java)
 
-        val bookService = RetrofitObj.getRetrofit().create(BookDetailService::class.java)
+        val bookService = JohnRetrofitClient.getClient(this).create(BookDetailService::class.java)
         bookService.getBookDetail(token, bookId).enqueue(object : Callback<BookDetailResponse> {
             override fun onResponse(call: Call<BookDetailResponse>, response: Response<BookDetailResponse>) {
                 if (response.isSuccessful) {
@@ -117,6 +120,15 @@ class BookDetailActivity : AppCompatActivity() {
             Glide.with(this@BookDetailActivity)
                 .load(bookDetail.cover)
                 .into(bookIv)
+
+            // ✅ 배경 이미지를 bookIv와 동일하게 설정 + 확대 + 어둡게
+            Glide.with(this@BookDetailActivity)
+                .load(bookDetail.cover)
+                .transform(com.bumptech.glide.load.resource.bitmap.CenterCrop()) // 확대 적용
+                .into(bookBgIv)
+
+            // ✅ 배경을 어둡게 만들기 (반투명 View 추가)
+            bookBgIv.alpha = 0.5f // 50% 투명도 적용
 
 
             val bookInfoCardBinding = BookInfoCardBinding.inflate(layoutInflater)

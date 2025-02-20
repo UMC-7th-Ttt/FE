@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.bookclub_place.BookclubPlaceDetailFragment
 import com.example.fe.bookclub_place.api.PlaceEditorPickResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentRecommendedSearchPlaceDetailBinding
+import com.example.fe.search.api.BookSearchAPI
+import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,7 +62,8 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
     }
 
     private fun initRecommendedPlaceListRV() {
-        RetrofitClient.placeApi.getPlaceSuggestions()
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.getPlaceSuggestions()
             .enqueue(object : Callback<PlaceSuggestionResponse> {
                 override fun onResponse(
                     call: Call<PlaceSuggestionResponse>,
@@ -68,7 +73,7 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
                         val placeList = response.body()?.result?.places ?: emptyList()
 
                         // 공간 detail fragment로 이동
-                        val placeAdapter = RecommendedPlaceListRVAdapter(placeList) { place ->
+                        val placeAdapter = RecommendedPlaceListRVAdapter(requireContext(), placeList) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
                                     putInt("PLACE_ID", place.placeId)
@@ -95,7 +100,8 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
     }
 
     private fun initEditorPickPlaceListRV() {
-        RetrofitClient.placeApi.getEditorPickPlaces()
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.getEditorPickPlaces()
             .enqueue(object : Callback<PlaceEditorPickResponse> {
                 override fun onResponse(
                     call: Call<PlaceEditorPickResponse>,
@@ -106,7 +112,7 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
 //                        val placeAdapter = EditorPickPlaceListRVAdapter(placeList)
 
                         // 클릭 시 상세 페이지 이동하도록 수정
-                        val placeAdapter = EditorPickPlaceListRVAdapter(placeList) { place ->
+                        val placeAdapter = EditorPickPlaceListRVAdapter(requireContext(), placeList) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
                                     putInt("PLACE_ID", place.placeId) // 장소 ID 전달
