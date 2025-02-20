@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.fe.R
 import com.example.fe.databinding.ActivityReviewBookBinding
 
 class BookReviewActivity : AppCompatActivity() {
@@ -95,5 +96,18 @@ class BookReviewActivity : AppCompatActivity() {
     // ✅ 별점이 0.5 이상이면 버튼 활성화
     private fun validateForm(rating: Float) {
         binding.submitButton.isEnabled = rating >= 0.5
+
+        // 활성화 상태일 때 색상 변경
+        binding.submitButton.setBackgroundColor(
+            if (rating >= 0.5) getColor(R.color.primary_50) else getColor(R.color.white_10)
+        )
+
+
+
+
+        // 활성화 상태일 때 색상 변경
+       /* binding.submitButton.setBackgroundColor(
+            if (rating >= 0.5) getColor(R.color.primary_50) else getColor(R.color.white_10)
+        )*/
     }
 }

@@ -28,6 +28,7 @@ import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.FragmentHomeBinding
 import com.example.fe.network.RetrofitObj
 import com.example.fe.search.SearchMainActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -125,6 +126,21 @@ class HomeFragment : Fragment() {
         }
 
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
+        // ViewPager2와 TabLayout 연결
+        // ✅ 진행바 추가 (이 부분이 핵심!)
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val totalPages = binding.viewPager.adapter?.itemCount ?: 1
+                if (totalPages > 1) {
+                    val segmentSize = 100 / totalPages  // 전체 프로그레스바를 페이지 개수만큼 균등 분할
+                    binding.progressBar.progress = (position + 1) * segmentSize
+                }
+            }
+        })
+
+
 
         reminderAdapter.setReminders(data.remindReviewList)
 

@@ -43,6 +43,10 @@ class BookDetailActivity : AppCompatActivity() {
             finish()  // 현재 액티비티 종료 (이전 화면으로 이동)
         }
 
+        // ✅ Intent에서 넘버링 데이터 가져오기
+        val itemNumber = intent.getIntExtra("ITEM_NUMBER", 1) // 기본값 1
+        binding.numberingDetail.text = itemNumber.toString() // ✅ 적용
+
         // 🔹 홈 버튼
         binding.homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)  // 홈 화면 액티비티로 이동

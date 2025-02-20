@@ -39,6 +39,7 @@ class SearchResultPlaceRVAdapter(
             // 평점 소수점 한자리까지
             binding.itemSearchResultPlaceRatingTv.text = String.format("%.1f", place.totalRating)
 
+            Log.d("BIND_DATA", "📌 PLACE_IMAGE: ${place.image}") // ✅ 여기서 null인지 확인
             // 이미지 로딩 (Glide 사용)
             Glide.with(binding.root.context)
                 .load(place.image)
@@ -66,8 +67,13 @@ class SearchResultPlaceRVAdapter(
                 val context = binding.root.context
                 val intentCaller = (context as? AppCompatActivity)?.intent?.getStringExtra("CALLER") // 🔥 CALLER 값 가져오기
 
+
+
                 if (intentCaller == "ReviewActivity") {
                     // ReviewActivity에서 왔을 때 SpaceReviewActivity로 이동
+
+                    Log.d("SearchResultPlaceRVAdapter", "PLACE_IMAGE: ${place.image}") // ✅ 이미지 URL 로그 추가
+
                     val intent = Intent(context, SpaceReviewActivity::class.java).apply {
                         putExtra("PLACE_ID", place.placeId.toLong()) // 장소 ID 전달
                         putExtra("PLACE_TITLE", place.title)    // 장소 이름 전달

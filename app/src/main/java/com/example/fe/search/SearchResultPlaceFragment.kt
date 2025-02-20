@@ -48,9 +48,21 @@ class SearchResultPlaceFragment : Fragment() {
                 override fun onResponse(
                     call: Call<PlaceSearchResponse>,
                     response: Response<PlaceSearchResponse>
+
+
                 ) {
                     if (response.isSuccessful) {
                         val placeList = response.body()?.result?.places ?: emptyList()
+
+                        // 🔥 전체 API 응답 로그 추가
+                        Log.d("API_RESPONSE", "📡 전체 응답: ${response.body()}")
+
+                        // 🔥 개별 place 데이터 확인
+                        placeList.forEach { place ->
+                            Log.d("API_RESPONSE", "📌 PLACE_ID: ${place.placeId}")
+                            Log.d("API_RESPONSE", "📌 PLACE_TITLE: ${place.title}")
+                            Log.d("API_RESPONSE", "📌 PLACE_IMAGE: ${place.image}") // 🚨 여기 확인!
+                        }
                         displaySearchResults(placeList) // 검색 결과 표시
                     } else {
                         Log.e("API_ERROR", "❌ ${response.errorBody()?.string()}")

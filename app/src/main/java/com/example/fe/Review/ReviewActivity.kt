@@ -188,7 +188,7 @@ class ReviewActivity : AppCompatActivity() {
 
 
         if (placeId != -1L && placeTitle != null && placeImage != null) {
-            val newPlace = PlaceReviewItem(placeTitle, "위치 정보 없음", placeImage, placeRating)
+            val newPlace = PlaceReviewItem(placeTitle, "위치", placeImage, placeRating)
 
             placeList.clear() // 기존 데이터 초기화
             placeList.add(newPlace)

@@ -24,6 +24,11 @@ class BookAdapter(private val bookList: List<BookDetail>) :
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = bookList[position]
         with(holder.binding) {
+
+
+            numbering.text = (position + 1).toString() // ✅ 넘버링 적용 (1부터 시작)
+
+
             bookTitleTv.text = book.title // 책 제목
             bookAuthorTv.text = book.author // 작가 이름
             publisherTv.text = book.publisher // 출판사 이름
@@ -68,6 +73,8 @@ class BookAdapter(private val bookList: List<BookDetail>) :
                 val context = root.context
                 val intent = Intent(context, BookDetailActivity::class.java)
                 intent.putExtra("BOOK_ID", book.bookId) // 책 ID 전달
+
+                intent.putExtra("ITEM_NUMBER", position + 1) // ✅ 넘버링 데이터 전달
                 context.startActivity(intent)
             }
         }

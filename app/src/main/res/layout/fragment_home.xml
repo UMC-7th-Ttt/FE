@@ -86,12 +86,25 @@
             android:layout_height="304dp"
             android:layout_marginTop="8dp" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_bar_style"
+        app:layout_constraintTop_toBottomOf="@id/viewPager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <!-- 텍스트 섹션 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorMainBg">
+            android:background="@drawable/gradient_bg">
 
             <TextView
                 android:id="@+id/greeting_text"
@@ -153,7 +166,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorMainBg"
+            android:background="@drawable/gradient_bg_2"
             android:padding="20dp">
 
             <!-- 제목 -->
@@ -170,6 +183,7 @@
 
             <!-- 부제목 -->
             <TextView
+
                 android:id="@+id/reminder_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,6 +195,7 @@
                 app:layout_constraintTop_toBottomOf="@id/reminder_title" />
 
             <androidx.recyclerview.widget.RecyclerView
+
                 android:id="@+id/reminder_review_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

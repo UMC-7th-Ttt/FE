@@ -17,12 +17,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+    <TextView
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No."
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/pretendard_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="23dp"/>
+    <TextView
+        android:id="@+id/numbering"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/pretendard_bold"
+        app:layout_constraintStart_toEndOf="@id/no"
+        app:layout_constraintTop_toTopOf="@id/no"
+        app:layout_constraintBottom_toBottomOf="@id/no"/>
+
+
+
 
     <ImageView
         android:id="@+id/line1"
         android:layout_width="30dp"
         android:layout_height="2.5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="33dp"
         android:background="@color/colorPrimaryNormal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -140,7 +166,7 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/book_tags"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"

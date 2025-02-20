@@ -20,8 +20,8 @@
         <!-- 책 이미지 -->
         <ImageView
             android:id="@+id/place_image"
-            android:layout_width="50dp"
-            android:layout_height="75dp"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:contentDescription="책 이미지"
             android:src="@drawable/book_sample1"
