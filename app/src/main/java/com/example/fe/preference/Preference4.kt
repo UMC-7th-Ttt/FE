@@ -3,6 +3,7 @@ package com.example.fe.preference
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityPreference4Binding
@@ -39,25 +41,54 @@ class Preference4 : AppCompatActivity() {
         binding = ActivityPreference4Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ViewPager 및 설명 텍스트뷰 초기화
         viewPager = findViewById(R.id.viewPager)
         descriptionText = findViewById(R.id.descriptionText)
 
-        // API 호출하여 책 데이터 가져오기
         fetchBooks()
 
-        // 뒤로가기 버튼 처리
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener { finish() }
 
-        // 다음 버튼 클릭 시 MainActivity 이동
+        // ViewPager 설정
+        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // XML에서 정의
+        val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset) // XML에서 정의
+
+        viewPager.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+
+            val screenWidth = resources.displayMetrics.widthPixels
+            val pageWidth = (screenWidth * 0.5).toInt() // 각 페이지의 크기를 화면의 70%로 설정
+            val offsetPx = (screenWidth - pageWidth) / 2 // 좌우 여백 계산
+
+            setPadding(offsetPx, 0, offsetPx, 0)
+
+            // RecyclerView에 clip 속성 적용 (post 사용)
+            post {
+                val recyclerView = getChildAt(0) as? RecyclerView
+                recyclerView?.apply {
+                    clipToPadding = false
+                    clipChildren = false
+                    overScrollMode = View.OVER_SCROLL_NEVER
+                }
+            }
+
+            // 페이지 전환 애니메이션 추가
+            setPageTransformer { page, position ->
+                val scaleFactor = 0.85f + (1 - Math.abs(position)) * 0.15f
+                page.scaleX = scaleFactor
+                page.scaleY = scaleFactor
+                page.alpha = 0.7f + (1 - Math.abs(position)) * 0.3f
+            }
+        }
+
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             val intent = Intent(this, Preference_complete::class.java)
             startActivity(intent)
         }
 
-        // 시스템 바 여백 조정
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

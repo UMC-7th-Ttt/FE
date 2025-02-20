@@ -59,48 +59,48 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/btn_option_background"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
                 android:text="짧지만 강력한 독서"
                 android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_margin="4dp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/btn_option_background"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
                 android:text="나만의 책 찾기"
                 android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_margin="4dp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/option3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/btn_option_background"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
                 android:text="감성 가득한 독서"
                 android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_margin="4dp"/>
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -117,11 +117,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="15dp"
                 android:background="@drawable/btn_option_background"
                 android:text="책과 연결되는 다양한 문화생활"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
 
             <TextView
@@ -129,11 +129,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="15dp"
                 android:background="@drawable/btn_option_background"
                 android:text="매일 아침, 시작하는 독서"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
 
         </LinearLayout>
@@ -154,7 +154,7 @@
                 android:background="@drawable/btn_option_background"
                 android:text="취침 전, 책과 함께"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
 
             <TextView
@@ -166,7 +166,7 @@
                 android:background="@drawable/btn_option_background"
                 android:text="어디서든 시작하는 독서"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
         </LinearLayout>
         <LinearLayout
@@ -185,7 +185,7 @@
                 android:background="@drawable/btn_option_background"
                 android:text="서사 가득한 책과 함께"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
 
             <TextView
@@ -197,7 +197,7 @@
                 android:background="@drawable/btn_option_background"
                 android:text="여유로운 날, 기분 전환"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_margin="4dp"/>
         </LinearLayout>
 

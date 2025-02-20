@@ -47,7 +47,9 @@ class Preference3 : AppCompatActivity() {
             findViewById(R.id.option5),
             findViewById(R.id.option6),
             findViewById(R.id.option7),
-            findViewById(R.id.option8)
+            findViewById(R.id.option8),
+            findViewById(R.id.option9)
+
         )
 
         // 각 TextView에 클릭 리스너 설정
