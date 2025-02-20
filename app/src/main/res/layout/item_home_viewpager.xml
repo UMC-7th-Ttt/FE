@@ -28,7 +28,7 @@
 
         app:layout_constraintTop_toTopOf="@id/banner_image"
         app:layout_constraintStart_toStartOf="@id/banner_image"
-    android:layout_marginTop="220dp"
+    android:layout_marginTop="230dp"
     android:layout_marginStart="16dp"/>
 
     <!-- 부제목 -->
@@ -54,9 +54,8 @@
         android:textSize="14sp"
         android:textColor="#D0F306"
         android:textStyle="bold"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="255dp"/>
+        android:layout_marginTop="265dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
