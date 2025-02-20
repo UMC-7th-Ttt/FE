@@ -25,11 +25,10 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="#D0F306"
-
         app:layout_constraintTop_toTopOf="@id/banner_image"
         app:layout_constraintStart_toStartOf="@id/banner_image"
-    android:layout_marginTop="220dp"
-    android:layout_marginStart="16dp"/>
+        android:layout_marginTop="230dp"
+        android:layout_marginStart="16dp"/>
 
     <!-- 부제목 -->
     <TextView
@@ -39,10 +38,9 @@
         android:text="청춘이 말하는 삶의 의미"
         android:textSize="16sp"
         android:textColor="#D0F306"
-   app:layout_constraintTop_toBottomOf="@id/banner_title"
+        android:fontFamily="@font/pretendard_medium"
+        app:layout_constraintTop_toBottomOf="@id/banner_title"
         app:layout_constraintStart_toStartOf="@id/banner_title"
-
-
     />
 
     <!-- 작가 -->
@@ -53,8 +51,7 @@
         android:text="작가"
         android:textSize="14sp"
         android:textColor="#D0F306"
-        android:textStyle="bold"
-
+        android:fontFamily="@font/pretendard_medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"

@@ -51,7 +51,13 @@ class MyPageScrapDetailRVAdapter(private val itemClickListener: MyItemClickListe
             }
 
             // 체크 표시 설정
-            binding.checkOver.visibility = if (selectedItems.contains(scrap)) {
+            binding.checkBg.visibility = if (selectedItems.contains(scrap)) {
+                View.VISIBLE // 선택된 경우 체크 표시 보이기
+            } else {
+                View.GONE // 선택되지 않은 경우 체크 표시 숨기기
+            }
+
+            binding.check.visibility = if (selectedItems.contains(scrap)) {
                 View.VISIBLE // 선택된 경우 체크 표시 보이기
             } else {
                 View.GONE // 선택되지 않은 경우 체크 표시 숨기기

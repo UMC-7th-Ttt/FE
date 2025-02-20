@@ -74,15 +74,14 @@
             android:layout_weight="1"
             android:text="취소하기"
             android:background="@drawable/cancel_btn_bg"
-            android:textColor="@color/button_text_color"
+            android:textColor="#9A9CA2"
             android:textSize="16sp"
             android:fontFamily="@font/pretendard_semibold"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:enabled="false"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/move_btn"

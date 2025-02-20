@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:paddingVertical="12dp"
     android:background="#0F0F10"
-
     android:clickable="true"
     android:focusable="true">
 
@@ -15,11 +14,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="카테고리 제목"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -31,6 +30,7 @@
         android:overScrollMode="never"
         android:clipToPadding="false"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_title"

@@ -19,6 +19,7 @@ import com.example.fe.Home.Category.HomeCategoryAdapter
 import com.example.fe.Home.HomeApiService
 import com.example.fe.Home.HomeResponse
 import com.example.fe.Home.HomeResult
+import com.example.fe.Home.ReminderSectionRVAdapter
 import com.example.fe.Home.ViewPagerAdapter
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.Notification.NotificationActivity
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val homeService = RetrofitObj.getRetrofit().create(HomeApiService::class.java)
+    private val reminderAdapter = ReminderSectionRVAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +60,10 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), SearchMainActivity::class.java)
             startActivity(intent)
         }
+
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.reminderReviewRv.layoutManager = layoutManager
+        binding.reminderReviewRv.adapter = reminderAdapter
     }
 
     private fun setupHomeData() {
@@ -120,38 +126,70 @@ class HomeFragment : Fragment() {
 
         binding.viewPager.adapter = ViewPagerAdapter(data.mainBannerList)
 
-        // ✅ remindReviewList 데이터 적용
-        if (data.remindReviewList.isNotEmpty()) {
-            val review1 = data.remindReviewList.getOrNull(0) // 첫 번째 리뷰 데이터
-            val review2 = data.remindReviewList.getOrNull(1) // 두 번째 리뷰 데이터 (없을 수도 있음)
+        reminderAdapter.setReminders(data.remindReviewList)
 
-            if (review1 != null) {
-                binding.finalCard.card1Title.text = review1.bookTitle
-                binding.finalCard.card1Description.text = review1.content
-                binding.finalCard.card1Date.text = review1.writeDate
-
-                // Safe call을 사용하여 Glide 호출
-                context?.let {
-                    Glide.with(it)
-                        .load(review1.bookCover)
-                        .into(binding.finalCard.card1Image)
-                }
-            }
-
-            if (review2 != null) {
-                binding.finalCard.card2Title.text = review2.bookTitle
-                binding.finalCard.card2Description.text = review2.content
-                binding.finalCard.card2Date.text = review2.writeDate
-
-                // Safe call을 사용하여 Glide 호출
-                context?.let {
-                    Glide.with(it)
-                        .load(review2.bookCover)
-                        .into(binding.finalCard.card2Image)
-                }
-            }
-        }
-
+//        // ✅ remindReviewList 데이터 적용
+//        if (data.remindReviewList.isNotEmpty()) {
+//            val review1 = data.remindReviewList.getOrNull(0) // 첫 번째 리뷰 데이터
+//            val review2 = data.remindReviewList.getOrNull(1) // 두 번째 리뷰 데이터 (없을 수도 있음)
+//
+//            if (review1 != null) {
+//                binding.finalCard.card1Title.text = review1.bookTitle
+//                binding.finalCard.card1Description.text = review1.content
+//                binding.finalCard.card2Date.text = review1.writeDate.split("-")[2]
+//                binding.finalCard.card2Month.text = when (review1.writeDate.split("-")[1].toInt()) {
+//                    1 -> "JAN"
+//                    2 -> "FEB"
+//                    3 -> "MAR"
+//                    4 -> "APR"
+//                    5 -> "MAY"
+//                    6 -> "JUN"
+//                    7 -> "JUL"
+//                    8 -> "AUG"
+//                    9 -> "SEP"
+//                    10 -> "OCT"
+//                    11 -> "NOV"
+//                    12 -> "DEC"
+//                    else -> "Invalid Month"
+//                }
+//
+//                // Safe call을 사용하여 Glide 호출
+//                context?.let {
+//                    Glide.with(it)
+//                        .load(review1.bookCover)
+//                        .into(binding.finalCard.card1Image)
+//                }
+//            }
+//
+//            if (review2 != null) {
+//                binding.finalCard.card2Title.text = review2.bookTitle
+//                binding.finalCard.card2Description.text = review2.content
+//                binding.finalCard.card2Date.text = review2.writeDate.split("-")[2]
+//                binding.finalCard.card2Month.text = when (review2.writeDate.split("-")[1].toInt()) {
+//                    1 -> "JAN"
+//                    2 -> "FEB"
+//                    3 -> "MAR"
+//                    4 -> "APR"
+//                    5 -> "MAY"
+//                    6 -> "JUN"
+//                    7 -> "JUL"
+//                    8 -> "AUG"
+//                    9 -> "SEP"
+//                    10 -> "OCT"
+//                    11 -> "NOV"
+//                    12 -> "DEC"
+//                    else -> "Invalid Month"
+//                }
+//
+//                // Safe call을 사용하여 Glide 호출
+//                context?.let {
+//                    Glide.with(it)
+//                        .load(review2.bookCover)
+//                        .into(binding.finalCard.card2Image)
+//                }
+//            }
+//        }
+//
         binding.verticalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.verticalRecyclerView.adapter = HomeCategoryAdapter(categoryList)
 

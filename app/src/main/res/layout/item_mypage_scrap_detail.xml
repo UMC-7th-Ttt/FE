@@ -8,38 +8,69 @@
     android:paddingBottom="44dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/book_cardview"
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/book_iv"-->
+<!--        android:layout_width="55dp"-->
+<!--        android:layout_height="82dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:elevation="4dp"-->
+<!--        android:background="@color/transparent"-->
+<!--        android:src="@drawable/img_book_participant_book_1"-->
+<!--        android:layout_marginStart="21dp"-->
+<!--        android:layout_marginTop="18dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:shapeAppearanceOverlay="@style/TopRoundedCorners"-->
+<!--        />-->
+
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/book_cardview"-->
+<!--        android:layout_width="98dp"-->
+<!--        android:layout_height="152dp"-->
+<!--        app:cardCornerRadius="5dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--       -->
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/book_iv"
         android:layout_width="98dp"
         android:layout_height="152dp"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/img_review_book3"
+        android:scaleType="centerCrop"
+        android:background="@color/myPageScrapBg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/TopRoundedCorners"/>
 
-        <ImageView
-            android:id="@+id/book_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_review_book3"
-            android:scaleType="centerCrop"
-            android:background="@color/myPageScrapBg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/check_over"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/check_bg"
         android:layout_width="98dp"
         android:layout_height="152dp"
-        android:src="@drawable/ic_check"
-        android:background="@drawable/white_rec_border_radius_5"
+        android:background="#66000000"
         android:elevation="2dp"
         android:scaleType="fitCenter"
         android:visibility="visible"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="@+id/book_cardview"
-        app:layout_constraintStart_toStartOf="@+id/book_cardview"/>
+        app:layout_constraintTop_toTopOf="@+id/book_iv"
+        app:layout_constraintStart_toStartOf="@+id/book_iv"
+        app:shapeAppearanceOverlay="@style/TopRoundedCorners"/>
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="98dp"
+        android:layout_height="152dp"
+        android:src="@drawable/ic_check"
+        android:elevation="10dp"
+        android:padding="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="@+id/check_bg"
+        app:layout_constraintStart_toStartOf="@+id/check_bg"
+        app:layout_constraintEnd_toEndOf="@+id/check_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/check_bg"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
