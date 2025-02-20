@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.Review.ReviewActivity
+import com.example.fe.Review.ReviewDetailActivity
 import com.example.fe.databinding.ActivityMypageReviewListBinding
 import com.example.fe.mypage.adapter.MyPageReviewReviewRVAdapter
 import com.example.fe.mypage.server.MyPageRetrofitInterface
@@ -47,8 +48,10 @@ class MyPageReviewList : AppCompatActivity() {
 
         myPageReviewReviewRVAdapter = MyPageReviewReviewRVAdapter(object : MyPageReviewReviewRVAdapter.MyItemClickListener {
             override fun onItemClick(review: ReviewListResponse.Result.Review) {
-                // 아이템 클릭 시 처리 로직
-                Toast.makeText(this@MyPageReviewList, "Clicked: ${review.id}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MyPageReviewList, ReviewDetailActivity::class.java)
+                intent.putExtra("reviewId", review.id.toLong())
+                Log.d("MyPageReviewList","put reviewId : ${review.id}")
+                startActivity(intent)
             }
         })
 
