@@ -13,7 +13,7 @@ import com.example.fe.MainActivity
 import com.example.fe.mypage.MyPageFragment
 import com.example.fe.R
 import com.example.fe.bookclub_book.adapter.BookclubBookVPAdapter
-import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
+import com.example.fe.bookclub_book.server.BookClubUserResponse
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.FragmentBookclubBookBinding

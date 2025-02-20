@@ -3,9 +3,12 @@ package com.example.fe.bookclub_book.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.res.colorResource
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fe.bookclub_book.dataclass.BookClubDetailResponse
+import com.example.fe.R
+import com.example.fe.bookclub_book.server.BookClubDetailResponse
 import com.example.fe.databinding.ItemBookclubBookDetailMemberBinding
 
 class BookclubBookDetailMemberRVAdapter : RecyclerView.Adapter<BookclubBookDetailMemberRVAdapter.ViewHolder>() {
@@ -31,6 +34,11 @@ class BookclubBookDetailMemberRVAdapter : RecyclerView.Adapter<BookclubBookDetai
             Glide.with(binding.itemBookclubBookDetailMembersImgIv.context)
                 .load(bookclubDetailMember.profileUrl)
                 .into(binding.itemBookclubBookDetailMembersImgIv)
+
+            // hasReviewed가 true일 때 배경 색상 변경
+            if (bookclubDetailMember.hasReviewed) {
+                binding.itemBookclubBookDetailMembersBackIv.setImageResource(R.drawable.bookclub_member_no_certify)
+            }
         }
     }
 

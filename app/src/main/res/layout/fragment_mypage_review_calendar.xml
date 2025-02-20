@@ -18,7 +18,7 @@
             android:layout_width="85dp"
             android:layout_height="29dp"
             android:background="@drawable/edit_text_radius_30"
-            android:backgroundTint="#2E2F33"
+            android:backgroundTint="#29989BA2"
             android:text="서평 모아보기"
             android:textColor="@color/colorLabelNeutral"
             android:textSize="13sp"
@@ -130,20 +130,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/mypage_write_review_floating_btn"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:src="@drawable/ic_pencil"-->
+<!--        android:scaleType="center"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:backgroundTint="@color/colorPrimaryNormal"-->
+<!--        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.ExtendedFloatingActionButton" />-->
+
+    <ImageView
         android:id="@+id/mypage_write_review_floating_btn"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
-        android:gravity="center"
-        app:icon="@drawable/ic_pencil"
-        app:iconTint="#171717"
-        app:iconSize="24dp"
+        android:src="@drawable/ic_pencil_black"
+        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:backgroundTint="@color/colorPrimaryNormal"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.ExtendedFloatingActionButton" />
+        android:background="@drawable/write_review_floating_btn"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

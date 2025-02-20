@@ -8,8 +8,11 @@ import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.databinding.ActivityScrapNewFolderBinding
+import com.example.fe.mypage.server.CreateFolderResponse
+import com.example.fe.mypage.server.MyPageRetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,7 +70,7 @@ class ScrapNewFolder : AppCompatActivity() {
     }
 
     private fun createNewFolder(folderName: String) {
-        // 폴더 생성 로직을 여기에 작성
+        val api = JohnRetrofitClient.getClient(this).create(MyPageRetrofitInterface::class.java)
         api.createFolder(folderName).enqueue(object : Callback<CreateFolderResponse> {
             override fun onResponse(call: Call<CreateFolderResponse>, response: Response<CreateFolderResponse>) {
                 if (response.isSuccessful) {

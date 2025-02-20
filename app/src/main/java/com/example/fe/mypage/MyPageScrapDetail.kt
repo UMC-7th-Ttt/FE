@@ -6,9 +6,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.fe.bookclub_book.server.api2
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.ActivityMypageScrapDetailBinding
 import com.example.fe.mypage.adapter.MyPageScrapDetailRVAdapter
+import com.example.fe.mypage.server.MoveScrapsRequest
+import com.example.fe.mypage.server.MoveScrapsResponse
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.MypageScrapsResponse
+import com.example.fe.mypage.server.Scrap
 import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -107,7 +112,8 @@ class MyPageScrapDetail : AppCompatActivity() {
     }
 
     private fun fetchScraps(folderId: Int) {
-        api2.getScraps(folderId, bookCursor, placeCursor, limit).enqueue(object : Callback<MypageScrapsResponse> {
+        val api = JohnRetrofitClient.getClient(this).create(MyPageRetrofitInterface::class.java)
+        api.getScraps(folderId, bookCursor, placeCursor, limit).enqueue(object : Callback<MypageScrapsResponse> {
             override fun onResponse(
                 call: Call<MypageScrapsResponse>,
                 response: Response<MypageScrapsResponse>
@@ -173,7 +179,9 @@ class MyPageScrapDetail : AppCompatActivity() {
 
         val request = MoveScrapsRequest(newFolderId, selectedScraps)
 
-        api2.moveScraps(folderId.toLong(), request).enqueue(object : Callback<MoveScrapsResponse> {
+        val api = JohnRetrofitClient.getClient(this).create(MyPageRetrofitInterface::class.java)
+
+        api.moveScraps(folderId.toLong(), request).enqueue(object : Callback<MoveScrapsResponse> {
             override fun onResponse(call: Call<MoveScrapsResponse>, response: Response<MoveScrapsResponse>) {
                 if (response.isSuccessful) {
                     val apiResponse = response.body()

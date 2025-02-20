@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.databinding.ItemMypageReviewReviewBinding
-import com.example.fe.mypage.ReviewListResponse
+import com.example.fe.mypage.server.ReviewListResponse
 
 class MyPageReviewReviewRVAdapter(private val itemClickListener: MyItemClickListener) :
     RecyclerView.Adapter<MyPageReviewReviewRVAdapter.ViewHolder>() {

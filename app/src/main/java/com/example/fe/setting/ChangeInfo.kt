@@ -8,11 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fe.R
 import com.example.fe.databinding.ActivityChangeInfoBinding
-import com.example.fe.login.Login
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import com.example.fe.setting.api
 
 class ChangeInfo:AppCompatActivity() {
     private lateinit var binding: ActivityChangeInfoBinding

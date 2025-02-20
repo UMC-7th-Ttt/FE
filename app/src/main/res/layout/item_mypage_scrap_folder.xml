@@ -21,37 +21,40 @@
             android:layout_height="wrap_content"
             app:columnCount="2"
             app:rowCount="2"
+            android:background="@color/colorMainBg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/scrap_folder_iv1"
-                android:layout_width="73dp"
-                android:layout_height="73dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="center"
                 android:adjustViewBounds="true"
-                android:background="#252527"/>
+                android:background="#252527"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"/>
 
             <ImageView
                 android:id="@+id/scrap_folder_iv2"
-                android:layout_width="73dp"
-                android:layout_height="73dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="center"
                 android:adjustViewBounds="true"
                 android:background="#252527"/>
 
             <ImageView
                 android:id="@+id/scrap_folder_iv3"
-                android:layout_width="73dp"
-                android:layout_height="73dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="center"
                 android:adjustViewBounds="true"
                 android:background="#252527"/>
 
             <ImageView
                 android:id="@+id/scrap_folder_iv4"
-                android:layout_width="73dp"
-                android:layout_height="73dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="center"
                 android:adjustViewBounds="true"
                 android:background="#252527"/>
@@ -77,8 +80,8 @@
 
     <ImageView
         android:id="@+id/check_over"
-        android:layout_width="146dp"
-        android:layout_height="146dp"
+        android:layout_width="161dp"
+        android:layout_height="161dp"
         android:src="@drawable/ic_check"
         android:background="@drawable/white_rec_border_radius_8"
         android:elevation="2dp"
