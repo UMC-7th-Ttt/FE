@@ -138,16 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"/>
-
-
-
-
-        <!-- 가로 리사이클러뷰 (1) -->
-
-
-
-
+            android:layout_marginHorizontal="20dp"/>
 
         <!-- 가로 리사이클러뷰 (1) -->
         <androidx.recyclerview.widget.RecyclerView
@@ -158,17 +149,6 @@
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"/>
 
-
-
-
-<!--        &lt;!&ndash; 마지막 카드뷰 &ndash;&gt;-->
-<!--        <include-->
-<!--            layout="@layout/reminder_section"-->
-<!--            android:id="@+id/final_card"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginHorizontal="16dp"/>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

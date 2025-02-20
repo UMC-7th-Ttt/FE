@@ -46,9 +46,9 @@
     <style name="TopRoundedCorners" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeTopRight">6dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
-        <item name="cornerSizeBottomRight">5dp</item>
+        <item name="cornerSizeBottomRight">6dp</item>
     </style>
 
 </resources>

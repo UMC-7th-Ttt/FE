@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
 
         //완독률api연결
         val activityList = data.bookClubList.map {
-            ActivityItem(it.bookTitle, it.completionRate, it.bookCover)
+            ActivityItem(it.bookClubId,it.bookId,it.bookTitle, it.completionRate, it.bookCover)
         }
 
         binding.activityViewPager.adapter = ActivityPagerAdapter(activityList)
