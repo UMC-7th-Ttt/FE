@@ -27,8 +27,7 @@ interface BookClubRetrofitInterface {
     //북클럽 상세 조회
     @GET("api/book-clubs/{bookClubId}/details")
     fun getBookClubDetail(
-        @Path("bookClubId") bookClubId: Int,
-        @Header("Authorization") token: String
+        @Path("bookClubId") bookClubId: Int
     ): Call<BookClubDetailResponse>
 
     //멤버 리뷰 목록 조회
