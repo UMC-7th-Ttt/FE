@@ -133,8 +133,13 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
                         binding.bookclubPlaceDetailNameTv.text = it.title
                         binding.bookclubPlaceDetailTagTv.text = if (it.category == "CAFE") "북카페" else "서점"
-                        binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "야외에서도 책을 읽을 수 있는 북카페"
-                        binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "날씨가 좋은 날 여유롭게 책을 읽으며 맛있는 커피를 즐길 수 있는 뉴트로 감성의 힙한 종로 카페를 찾으시나요?"
+                        if(it.category == "CAFE") {
+                            binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "햇빛과 함께 사색을 즐겨보아요."
+                            binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "봄과 가까워지고 있는 지금, 점점 나들이 가도 좋은 날씨가 되고 있어요. 오전에 잠시 카페에 들러 커피와 함께 독서 시작해 볼까요?"
+                        } else {
+                            binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "취향의 공간에서 즐기는 소확행 시간"
+                            binding.bookclubPlaceDetailIntroTv.text = it.curationContent ?: "온전히 책과 함께할 수 있는 공간에서 나만의 취향을 찾아봐요. 온전히 나와 함께하는 힐링 시간을 보낼 수 있을 거예요."
+                        }
                         binding.bookclubPlaceDetailEntireRatingNumTv.text = String.format("%.1f", it.totalRating)
                         binding.bookclubPlaceDetailLocationTv.text = it.address
                         binding.weekdaysBusinessTv.text = "운영시간 ${it.weekdaysBusiness ?: ""}"

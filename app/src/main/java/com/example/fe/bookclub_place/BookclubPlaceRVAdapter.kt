@@ -207,51 +207,6 @@ class BookclubPlaceRVAdapter(
         }
     }
 
-//    // 필터 적용
-//    // ✅ BookclubPlaceRVAdapter 수정 (BookclubPlaceFragment 찾는 방법 변경)
-//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (holder is FilterViewHolder) {
-//            holder.binding.apply {
-//                // 현재 선택된 필터 상태 저장
-//                var currentFilter = "거리순"
-//
-//                placeFilterSelectedIv.setOnClickListener {
-//                    val filterBottomSheet = BookclubPlaceFilterBottomSheetFragment(currentFilter) { selectedFilter ->
-//                        currentFilter = selectedFilter // ✅ 선택한 필터값 저장
-//
-//                        Log.d("BookclubPlaceRVAdapter", "📌 필터 선택됨: $selectedFilter") // ✅ 필터 선택 로그 추가
-//
-//                        placeFilterSelectedIv.setBackgroundResource(
-//                            if (selectedFilter == "추천순") R.drawable.btn_filter_recommendation
-//                            else R.drawable.btn_filter_distance
-//                        )
-//
-//                        // ✅ `parentFragmentManager`를 사용하여 `BookclubPlaceFragment` 찾기
-//                        (holder.itemView.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
-//                            val placeFragment = fragmentManager.fragments.firstOrNull { it is BookclubPlaceFragment }
-//                            if (placeFragment is BookclubPlaceFragment) {
-//                                Log.d("BookclubPlaceRVAdapter", "✅ BookclubPlaceFragment에 필터 전달 성공") // ✅ 필터 전달 확인
-//                                placeFragment.updateListByFilter(selectedFilter) // ✅ 여기서 호출해야 함!
-//                            } else {
-//                                Log.e("BookclubPlaceRVAdapter", "❌ BookclubPlaceFragment를 찾을 수 없음")
-//                            }
-//                        }
-//                    }
-//                    filterBottomSheet.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "FilterBottomSheet")
-//                }
-//
-//                // 필터 키워드 선택
-//                placeFilterBookstoreIv.setOnClickListener { handleFilterClick(it.id, this, "BOOKSTORE") }
-//                placeFilterBookcafeIv.setOnClickListener { handleFilterClick(it.id, this, "CAFE") }
-//                updateFilterState(this)
-//            }
-//        } else if (holder is PlaceViewHolder) {
-//            holder.bind(filteredPlaces[position - 1])
-//        }
-//    }
-
-
-
     override fun getItemCount(): Int = filteredPlaces.size + 1
 
     private fun handleFilterClick(filterId: Int, binding: ItemBookclubPlaceFilterBinding, category: String) {

@@ -2,6 +2,7 @@
 package com.example.fe.search
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.BookDetail.BookDetailActivity
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.RetrofitClient
@@ -46,6 +48,15 @@ class PopularBookListRVAdapter(
                 } else {
                     showScrapBottomSheet(book)
                 }
+            }
+
+            // 아이템 클릭 시 BookDetailActivity로 이동 (책 ID만 전달)
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, BookDetailActivity::class.java).apply {
+                    putExtra("BOOK_ID", book.id) // 책 ID만 전달
+                }
+                context.startActivity(intent)
             }
         }
 
