@@ -3,13 +3,15 @@ package com.example.fe.bookclub_book
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.fe.BookDetail.BookDetailActivity
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.BookclubBookDetailMemberRVAdapter
-import com.example.fe.bookclub_book.dataclass.BookClubDetailResponse
-import com.example.fe.bookclub_book.server.api
+import com.example.fe.bookclub_book.server.BookClubDetailResponse
+import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
 import com.example.fe.databinding.ActivityBookclubBookDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,15 +42,15 @@ class BookclubBookDetail: AppCompatActivity() {
 
         binding.certifyBtn.setOnClickListener {
             val intent = Intent(this, BookClubCertification::class.java)
-            intent.putExtra("bookClubId", bookClubId) // bookClubId를 넘겨줌
+            intent.putExtra("BOOK_ID", bookClubId)
             startActivity(intent)
         }
 
-        val bookId = intent.getIntExtra("bookId",-1)
+        val bookId = intent.getIntExtra("BOOK_ID",-1)
 
         binding.detailBookOverNextBtn.setOnClickListener {
             val intent = Intent(this, BookDetailActivity::class.java)
-            intent.putExtra("bookId", bookId) // bookId를 넘겨줌
+            intent.putExtra("BOOK_ID", bookId) // bookId를 넘겨줌
             startActivity(intent)
         }
 
@@ -62,7 +64,8 @@ class BookclubBookDetail: AppCompatActivity() {
     }
 
     // 북클럽 상세 화면 조회 함수
-    fun fetchBookClubDetail(bookClubId: Int) {
+    private fun fetchBookClubDetail(bookClubId: Int) {
+        val api = JohnRetrofitClient.getClient(this).create(BookClubRetrofitInterface::class.java)
         api.getBookClubDetail(bookClubId).enqueue(object : Callback<BookClubDetailResponse> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<BookClubDetailResponse>, response: Response<BookClubDetailResponse>) {

@@ -1,6 +1,5 @@
 package com.example.fe.setting
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,8 +11,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.databinding.ActivityChangePasswordBinding
+import com.example.fe.setting.server.ChangePasswordResponse
+import com.example.fe.setting.server.SettingRetrofitInterface
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -137,6 +139,7 @@ class ChangePassword: AppCompatActivity() {
 
     private fun changePassword(newPassword: String) {
         val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), "\"$newPassword\"")
+        val api = JohnRetrofitClient.getClient(this).create(SettingRetrofitInterface::class.java)
         api.changePassword(requestBody).enqueue(object : Callback<ChangePasswordResponse> {
             override fun onResponse(call: Call<ChangePasswordResponse>, response: Response<ChangePasswordResponse>) {
                 if (response.isSuccessful) {

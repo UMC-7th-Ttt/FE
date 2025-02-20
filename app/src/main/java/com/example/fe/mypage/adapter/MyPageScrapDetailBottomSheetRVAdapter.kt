@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.R
 import com.example.fe.databinding.ItemScrapBottomSheetBinding
-import com.example.fe.mypage.ScrapFolderResponse
+import com.example.fe.mypage.server.ScrapFolderResponse
 
 class MyPageScrapDetailBottomSheetRVAdapter(
     private var folders: List<ScrapFolderResponse.Result.Folder>,

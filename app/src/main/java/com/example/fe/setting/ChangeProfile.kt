@@ -1,5 +1,6 @@
 package com.example.fe.setting
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -13,10 +14,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.databinding.ActivityChangeProfileBinding
-import com.example.fe.mypage.GetUserResponse
-import com.example.fe.mypage.UserResponse
+import com.example.fe.mypage.server.UserResponse
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.setting.server.ChangeProfileResponse
+import com.example.fe.setting.server.SettingRetrofitInterface
 import com.example.fe.signup.service.NicknameService
 import com.example.fe.signup.service.NicknameView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -35,6 +39,7 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
     private lateinit var authService: NicknameService  // 서비스 선언
     private var profilePictureFile: File? = null
 
+    @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeProfileBinding.inflate(layoutInflater)
@@ -96,7 +101,7 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
         }
     }
 
-    private fun getFileFromUri(uri: Uri): File? {
+    private fun getFileFromUri(uri: Uri): File {
         val inputStream: InputStream? = contentResolver.openInputStream(uri)
         val file = File(cacheDir, "profile_picture.jpg")
         val outputStream = FileOutputStream(file)
@@ -115,6 +120,7 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
             MultipartBody.Part.createFormData("profilePicture", it.name, requestFile)
         }
 
+        val api = JohnRetrofitClient.getClient(this).create(SettingRetrofitInterface::class.java)
         api.changeProfile(requestDTO, profilePicturePart).enqueue(object : Callback<ChangeProfileResponse> {
             override fun onResponse(call: Call<ChangeProfileResponse>, response: Response<ChangeProfileResponse>) {
                 if (response.isSuccessful) {
@@ -137,7 +143,8 @@ class ChangeProfile : AppCompatActivity(), NicknameView {
     }
 
     private fun getUser() {
-        com.example.fe.mypage.api.getUser().enqueue(object : Callback<UserResponse> {
+        val api = JohnRetrofitClient.getClient(this).create(MyPageRetrofitInterface::class.java)
+        api.getUser().enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
                     val getUserResponse = response.body()

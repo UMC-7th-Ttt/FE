@@ -6,13 +6,15 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.Review.ReviewActivity
 import com.example.fe.databinding.ActivityMypageReviewListBinding
 import com.example.fe.mypage.adapter.MyPageReviewReviewRVAdapter
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.ReviewListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.fe.mypage.api
 
 class MyPageReviewList : AppCompatActivity() {
     private lateinit var binding: ActivityMypageReviewListBinding
@@ -54,7 +56,7 @@ class MyPageReviewList : AppCompatActivity() {
     }
 
     private fun loadReviews(cursor: Int, limit: Int) {
-        Log.d("MyPageReviewList", "Loading reviews with cursor: $cursor and limit: $limit")
+        val api = JohnRetrofitClient.getClient(this).create(MyPageRetrofitInterface::class.java)
         api.getReviews(cursor, limit).enqueue(object : Callback<ReviewListResponse> {
             override fun onResponse(call: Call<ReviewListResponse>, response: Response<ReviewListResponse>) {
                 if (response.isSuccessful) {

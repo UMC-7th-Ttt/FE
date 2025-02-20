@@ -10,7 +10,7 @@ import com.example.fe.R
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemScrapBinding
-import com.example.fe.mypage.ScrapFolderResponse
+import com.example.fe.mypage.server.ScrapFolderResponse
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback

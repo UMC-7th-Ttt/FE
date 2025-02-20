@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.R
-import com.example.fe.bookclub_book.dataclass.CommentsResponse
+import com.example.fe.bookclub_book.server.CommentsResponse
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime

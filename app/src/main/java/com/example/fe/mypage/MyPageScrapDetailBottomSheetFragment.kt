@@ -1,6 +1,5 @@
 package com.example.fe.mypage
 
-import com.example.fe.scrap.ScrapBottomSheetRVAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fe.R
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.FragmentMypageScrapDetailBottomSheetBinding
-import com.example.fe.databinding.FragmentScrapBottomSheetBinding
 import com.example.fe.mypage.adapter.MyPageScrapDetailBottomSheetRVAdapter
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.ScrapFolderResponse
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,6 +66,7 @@ class MyPageScrapDetailBottomSheetFragment(
 
 
     private fun fetchFolders() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
         api.getFolders().enqueue(object : Callback<ScrapFolderResponse> {
             override fun onResponse(call: Call<ScrapFolderResponse>, response: Response<ScrapFolderResponse>) {
                 if (response.isSuccessful) {

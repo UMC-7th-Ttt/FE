@@ -6,15 +6,11 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.bumptech.glide.Glide
-import com.example.fe.R
-import com.example.fe.bookclub_book.dataclass.CalendarResponse
+import com.example.fe.bookclub_book.server.CalendarResponse
 import com.example.fe.databinding.ItemCalendarDateBinding
 import java.time.LocalDate
 

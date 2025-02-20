@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.databinding.ItemMypageScrapDetailBinding
-import com.example.fe.mypage.Scrap
+import com.example.fe.mypage.server.Scrap
 
 class MyPageScrapDetailRVAdapter(private val itemClickListener: MyItemClickListener) :
     RecyclerView.Adapter<MyPageScrapDetailRVAdapter.ViewHolder>() {

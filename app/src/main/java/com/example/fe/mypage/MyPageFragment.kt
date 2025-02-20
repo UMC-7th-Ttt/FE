@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.FragmentMypageBinding
 import com.example.fe.mypage.adapter.MyPageVPAdapter
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.UserResponse
 import com.example.fe.search.SearchMainActivity
 import com.example.fe.setting.Setting
 import com.google.android.material.tabs.TabLayout
@@ -66,6 +69,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun fetchUser() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
         api.getUser().enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {

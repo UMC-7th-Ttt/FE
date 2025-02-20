@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
+import com.example.fe.bookclub_book.server.BookClubByMonthResponse
 import com.example.fe.databinding.ItemBookclubBookMonthsBinding
 
 class BookclubByMonthRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<BookclubByMonthRVAdapter.ViewHolder>() {
@@ -34,7 +34,7 @@ class BookclubByMonthRVAdapter(private val itemClickListener: MyItemClickListene
             binding.titleTv.text = bookclubByMonth.bookTitle
             Glide.with(binding.bookclubMonthIv.context)
                 .load(bookclubByMonth.bookCover)
-                .apply(RequestOptions().override(450, 600)) // 해상도 설정
+//                .apply(RequestOptions().override(142, 198)) // 해상도 설정
                 .into(binding.bookclubMonthIv)
 
             binding.root.setOnClickListener {
