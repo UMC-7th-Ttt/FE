@@ -24,7 +24,6 @@
         android:id="@+id/id_label"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="200dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/pretendard_medium"
@@ -32,28 +31,26 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/id_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/id_input"
-        android:layout_width="0dp"
+        android:layout_width="340dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background_login_input"
         android:backgroundTint="@color/white_10"
-        android:paddingStart="12dp"
         android:hint="Ttt@naver.com"
         android:inputType="textEmailAddress"
+        android:paddingStart="12dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white_20"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/pw_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.591"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_label" />
 
@@ -61,25 +58,21 @@
         android:id="@+id/pw_label"
         android:layout_width="49dp"
         android:layout_height="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/pretendard_medium"
         android:text="비밀번호"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/pw_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_input" />
 
     <EditText
         android:id="@+id/pw_input"
-        android:layout_width="0dp"
+        android:layout_width="340dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/background_login_input"
         android:backgroundTint="@color/white_10"
         android:hint="비밀번호(영문+숫자6+16자)"
@@ -89,9 +82,10 @@
         android:textColorHint="@color/white_20"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pw_label" />
+
     <ImageView
         android:id="@+id/pw_show"
         android:layout_width="wrap_content"
@@ -103,18 +97,32 @@
         app:layout_constraintTop_toTopOf="@+id/pw_input"
         app:srcCompat="@drawable/ic_signup_pw_eye" />
 
-    <CheckBox
+
+    <FrameLayout
         android:id="@+id/login_checkbox"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/btn_checkbox_background"
-        android:button="@null"
-        app:layout_constraintEnd_toStartOf="@+id/autologin"
-        app:layout_constraintHorizontal_bias="0.044"
+        android:layout_marginTop="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pw_input" />
+        app:layout_constraintTop_toBottomOf="@+id/pw_input"
+        app:layout_constraintVertical_bias="0.0">
+
+        <CheckBox
+            android:id="@+id/login_checkbox_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/btn_checkbox_background"
+            android:button="@null"
+            android:clickable="true"
+            android:focusable="false" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/autologin"

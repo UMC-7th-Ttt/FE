@@ -242,12 +242,14 @@
         android:layout_height="100dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/btn_next"
         android:clickable="true"
+        android:contentDescription="@string/next_button_description"
+        android:src="@drawable/btn_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        android:contentDescription="@string/next_button_description" />
+        app:layout_constraintVertical_bias="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
