@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookclubPlaceSearchBinding
@@ -87,7 +89,8 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
     }
 
     private fun initBookclubRecommendedPlaceRV() {
-        RetrofitClient.placeApi.getPlaceSuggestions().enqueue(object :
+        val api = JohnRetrofitClient.getClient(this).create(PlaceSearchAPI::class.java)
+        api.getPlaceSuggestions().enqueue(object :
             Callback<PlaceSuggestionResponse> {
             override fun onResponse(
                 call: Call<PlaceSuggestionResponse>,
