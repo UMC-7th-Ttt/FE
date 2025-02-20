@@ -24,6 +24,7 @@ class BookReviewActivity : AppCompatActivity() {
         val bookTitle = intent.getStringExtra("BOOK_TITLE") ?: "제목 없음"
         val bookCover = intent.getStringExtra("BOOK_COVER") ?: ""
 
+
         // 📌 로그 추가
         Log.d("BookReviewActivity", "Intent received in BookReviewActivity")
         Log.d("BookReviewActivity", "BOOK_ID: $bookId")

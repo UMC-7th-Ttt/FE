@@ -11,7 +11,7 @@ import com.example.fe.databinding.ActivityReviewSpaceBinding
 class SpaceReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewSpaceBinding
-    private var placeId: Int = -1
+    private var placeId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class SpaceReviewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 🔹 인텐트에서 데이터 가져오기
-        placeId = intent.getIntExtra("PLACE_ID", -1)
+        placeId = intent.getLongExtra("PLACE_ID", -1L)
         val placeTitle = intent.getStringExtra("PLACE_TITLE") ?: "장소 없음"
         val placeImage = intent.getStringExtra("PLACE_IMAGE") ?: ""
 
@@ -51,12 +51,15 @@ class SpaceReviewActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
+        // 🔹 완료 버튼 클릭 시 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
-            saveSpaceToPreferences(placeId, placeTitle, placeImage, binding.ratingBar.rating)
-
             val intent = Intent(this, ReviewActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                putExtra("PLACE_ID", placeId)
+                putExtra("PLACE_TITLE", placeTitle)
+                putExtra("PLACE_IMAGE", placeImage)
+                putExtra("PLACE_RATING", binding.ratingBar.rating)
+
+                //flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)  // ✅ 기존 ReviewActivity가 있다면 재사용
             finish()  // 현재 액티비티 종료
@@ -66,17 +69,5 @@ class SpaceReviewActivity : AppCompatActivity() {
     // ✅ 별점이 0.5 이상이면 버튼 활성화
     private fun validateForm(rating: Float) {
         binding.submitButton.isEnabled = rating >= 0.5
-    }
-
-    // ✅ SharedPreferences에 데이터 저장
-    private fun saveSpaceToPreferences(placeId: Int, placeTitle: String, placeImage: String, rating: Float) {
-        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
-        val editor = sharedPref.edit()
-
-        editor.putInt("PLACE_ID", placeId)
-        editor.putString("PLACE_TITLE", placeTitle)
-        editor.putString("PLACE_IMAGE", placeImage)
-        editor.putFloat("PLACE_RATING", rating)
-        editor.apply()
     }
 }

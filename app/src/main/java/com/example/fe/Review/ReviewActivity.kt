@@ -81,7 +81,7 @@ class ReviewActivity : AppCompatActivity() {
         android.util.Log.d("ReviewActivity", "BOOK_RATING: $bookRating")
 
         if (bookId != -1L && bookTitle != null && bookCover != null) {
-            val newBook = ReviewItem(bookTitle, "작가 미상", bookCover)
+            val newBook = ReviewItem.BookItem(bookTitle, "작가 미상", bookCover)
 
             //bookList.add(newBook)
             addBookToRecyclerView(newBook)
