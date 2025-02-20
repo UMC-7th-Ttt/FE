@@ -74,8 +74,7 @@ class ScrapBottomSheetRVAdapter(
             notifyItemChanged(position)
         }
 
-        binding.scrapItemBottomSheetIv.setOnClickListener { onItemClicked() }
-        binding.scrapItemBottomSheetTitleTv.setOnClickListener { onItemClicked() }
+        binding.root.setOnClickListener { onItemClicked() }
     }
 
     override fun getItemCount(): Int = scrapFolders.size
