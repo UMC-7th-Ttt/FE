@@ -35,7 +35,7 @@ class ReviewActivity : AppCompatActivity() {
             val intent = Intent(this, SearchMainActivity::class.java)
             intent.putExtra("CALLER", "ReviewActivity")
             startActivity(intent)
-            finish()
+            //finish()
         }
 
         // ✅ 완료 버튼 클릭 시
@@ -58,18 +58,32 @@ class ReviewActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setIntent(intent) // ✅ 새로운 Intent를 저장
+        checkForNewBook()
 
     }
 
     // ✅ `Intent`에서 데이터 가져와서 RecyclerView에 추가
     private fun checkForNewBook() {
-        val bookId = intent.getIntExtra("BOOK_ID", -1)
+
+        bookList.clear()//기존데이터 초기화
+        reviewBookAdapter.notifyDataSetChanged() // RecyclerView 갱신
+
+        val bookId = intent.getLongExtra("BOOK_ID", -1)
         val bookTitle = intent.getStringExtra("BOOK_TITLE")
         val bookCover = intent.getStringExtra("BOOK_COVER")
         val bookRating = intent.getFloatExtra("BOOK_RATING", 0f)
 
-        if (bookId != -1 && bookTitle != null && bookCover != null) {
+        android.util.Log.d("ReviewActivity", "checkForNewBook() called")
+        android.util.Log.d("ReviewActivity", "BOOK_ID: $bookId")
+        android.util.Log.d("ReviewActivity", "BOOK_TITLE: $bookTitle")
+        android.util.Log.d("ReviewActivity", "BOOK_COVER: $bookCover")
+        android.util.Log.d("ReviewActivity", "BOOK_RATING: $bookRating")
+
+        if (bookId != -1L && bookTitle != null && bookCover != null) {
             val newBook = ReviewItem(bookTitle, "작가 미상", bookCover)
+
+            //bookList.add(newBook)
             addBookToRecyclerView(newBook)
 
             // ✅ 한 번만 추가되도록 `Intent` 데이터 제거
