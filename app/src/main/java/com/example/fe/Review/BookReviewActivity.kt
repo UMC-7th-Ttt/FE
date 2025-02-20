@@ -23,6 +23,7 @@ class BookReviewActivity : AppCompatActivity() {
         bookId = intent.getLongExtra("BOOK_ID", -1)
         val bookTitle = intent.getStringExtra("BOOK_TITLE") ?: "제목 없음"
         val bookCover = intent.getStringExtra("BOOK_COVER") ?: ""
+        val bookAuthor = intent.getStringExtra("BOOK_AUTHOR") ?: "저자 없음"
 
         // 📌 로그 추가
         Log.d("BookReviewActivity", "Intent received in BookReviewActivity")
@@ -43,6 +44,10 @@ class BookReviewActivity : AppCompatActivity() {
             validateForm(rating)
         }
 
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+
         // ⭐ EditText에서 숫자를 입력하면 별점도 변경되도록 설정
         binding.ratingText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -61,7 +66,7 @@ class BookReviewActivity : AppCompatActivity() {
         // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
             val rating = binding.ratingBar.rating
-            saveBookToPreferences(bookId, bookTitle, bookCover, rating) // ✅ SharedPreferences 저장
+            saveBookToPreferences(bookId, bookTitle, bookAuthor, bookCover, rating) // ✅ SharedPreferences 저장
 
             val intent = Intent(this, ReviewActivity::class.java)
             startActivity(intent)  // ✅ ReviewActivity로 이동
@@ -75,12 +80,13 @@ class BookReviewActivity : AppCompatActivity() {
     }
 
     // ✅ SharedPreferences에 데이터 저장
-    private fun saveBookToPreferences(bookId: Long, bookTitle: String, bookCover: String, rating: Float) {
+    private fun saveBookToPreferences(bookId: Long, bookTitle: String, bookAuthor: String, bookCover: String, rating: Float) {
         val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
         val editor = sharedPref.edit()
 
         editor.putLong("BOOK_ID", bookId)
         editor.putString("BOOK_TITLE", bookTitle)
+        editor.putString("BOOK_AUTHOR", bookAuthor)
         editor.putString("BOOK_COVER", bookCover)
         editor.putFloat("BOOK_RATING", rating)
         editor.apply() // 변경 사항 저장
