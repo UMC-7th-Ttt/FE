@@ -19,6 +19,7 @@ data class BookDetail(
     @SerializedName("itemPage") val itemPage: Int,
     @SerializedName("description") val description: String,
     @SerializedName("hasEbook") val hasEbook: Boolean,
+    @SerializedName("isScraped") val isScraped: Boolean,
     @SerializedName("userRating") val userRating: Double,
     @SerializedName("totalRating") val totalRating: Double,
     @SerializedName("reviews") val reviews: List<BookReview>
