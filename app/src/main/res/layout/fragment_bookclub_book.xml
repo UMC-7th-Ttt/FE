@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="책마다 북클럽"
         android:textSize="22sp"
-        android:fontFamily="@font/pretendard_bold"
+        android:fontFamily="@font/pretendard_semibold"
         android:textColor="@color/colorLabelNormal"
         android:layout_marginTop="26dp"
         android:layout_marginStart="20dp"

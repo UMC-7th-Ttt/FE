@@ -85,8 +85,9 @@
         android:src="@drawable/ic_check"
         android:background="@drawable/white_rec_border_radius_8"
         android:elevation="2dp"
-        android:scaleType="center"
-        android:visibility="gone"
+        android:scaleType="fitCenter"
+        android:padding="40dp"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="@+id/item_review_folder_cardview"
         app:layout_constraintStart_toStartOf="@+id/item_review_folder_cardview"/>
 

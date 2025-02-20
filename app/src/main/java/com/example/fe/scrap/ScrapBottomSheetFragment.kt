@@ -15,7 +15,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ScrapBottomSheetFragment(
+class
+
+ScrapBottomSheetFragment(
     private val bookId: Long?,
     private val placeId: Int?,
     private val onBookmarkStateChanged: (Boolean) -> Unit // 선택/해제 상태 콜백 추가

@@ -29,6 +29,7 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily=""
             android:textColor="@color/colorLabelNormal"
             android:layout_margin="11dp"
             style="@style/calendar_date_tv"

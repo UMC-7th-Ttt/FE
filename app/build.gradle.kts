@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation (libs.androidx.gridlayout)
     implementation(libs.androidx.ui.test.android)
+    implementation (libs.material.v140)
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
