@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fe.Home.Category.CategoryItemDecoration
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.ActivityLetterBinding
 import com.example.fe.network.RetrofitObj
 import retrofit2.Call
@@ -39,16 +40,10 @@ class LetterActivity : AppCompatActivity() {
     }
 
     private fun fetchBookLetterDetail(bookLetterId: Long) {
-        val rawToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTc0MDMxMTY3MywiZW1haWwiOiJhZG1pbjJAbmF2ZXIuY29tIn0.JwzCFHzkGRW-CESnhvcFUG6gc55MH1q10uEHvp12qubguOuKZXsQZyVrAY2mADTmwWDecC9tC5reXLh6tUR-kg" // 원래 토큰 값 (HomeFragment에서 사용한 것과 동일)
-        val token = "Bearer $rawToken" // ✅ "Bearer "를 동적으로 붙여서 생성
+        val token = JohnRetrofitClient.getClient(this) ?: ""
+        val api = JohnRetrofitClient.getClient(this).create(BookLetterService::class.java)
 
-        // ✅ 로그 추가 (Retrofit이 실제로 어떤 요청을 보내는지 확인)
-        Log.d("LetterActivity", "📡 API 요청: GET /api/book-letters/$bookLetterId")
-        Log.d("LetterActivity", "🔑 Authorization 헤더: $token")
-
-        val call = bookLetterService.getBookLetterDetail(token, bookLetterId)
-
-        call.enqueue(object : Callback<BookLetterResponse> {
+        api.getBookLetterDetail("Bearer $token", bookLetterId).enqueue(object : Callback<BookLetterResponse> {
             override fun onResponse(call: Call<BookLetterResponse>, response: Response<BookLetterResponse>) {
                 Log.d("LetterActivity", "📡 응답 코드: ${response.code()}")
                 Log.d("LetterActivity", "📡 응답 바디: ${response.body()}")
