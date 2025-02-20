@@ -1,16 +1,22 @@
 package com.example.fe.bookclub_place
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
+import com.example.fe.bookclub_place.api.RetrofitClient.scrapApi
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemBookclubPlaceBinding
@@ -21,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BookclubPlaceRVAdapter(
+    private val context: Context, // Context 전달
     private val places: List<PlaceResponse>,
     private val onItemClick: (PlaceResponse) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -94,7 +101,10 @@ class BookclubPlaceRVAdapter(
         // 스크랩 삭제 API 호출
         private fun deleteScrap(place: PlaceResponse) {
 
-            RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
+//            RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void>
+
+            val api = JohnRetrofitClient.getClient(context).create(scrapApi::class.java)
+            api.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         place.isScraped = false

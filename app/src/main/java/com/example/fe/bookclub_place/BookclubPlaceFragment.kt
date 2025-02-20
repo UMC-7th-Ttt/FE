@@ -20,10 +20,14 @@ import androidx.core.location.LocationManagerCompat.requestLocationUpdates
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceDetailResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
 import com.example.fe.databinding.FragmentBookclubPlaceBinding
 import com.example.fe.mypage.MyPageFragment
 import com.example.fe.search.SearchMainActivity
@@ -159,7 +163,11 @@ class BookclubPlaceFragment : Fragment() {
 
     // API 호출 후 currentPlace를 받아서 bookclubPlaceTitleTv 업데이트
     private fun fetchPlacesByLocation() {
-        RetrofitClient.placeApi.sortPlaces(lat = currentLat, lon = currentLon).enqueue(object : Callback<PlaceSearchResponse> {
+
+//        RetrofitClient.placeApi.sortPlaces(lat = currentLat, lon = currentLon).enqueue(object : Callback<PlaceSearchResponse> {
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
+        api.sortPlaces(lat = currentLat, lon = currentLon).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
                 if (response.isSuccessful) {
                     val currentPlace = response.body()?.result?.currentPlace ?: "알 수 없음"

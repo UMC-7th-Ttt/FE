@@ -13,12 +13,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.example.fe.Home.HomeApiService
+import com.example.fe.Home.HomeResponse
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.bookclub_place.api.PlaceDetail
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
+import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
@@ -109,7 +113,10 @@ class BookclubPlaceDetailFragment : DialogFragment() {
     }
 
     private fun getPlaceDetails(placeId: Int) {
-        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse> {
+//        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        api.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse> {
             override fun onResponse(
                 call: Call<PlaceDetailResponse>,
                 response: Response<PlaceDetailResponse>

@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@android:color/white"/> <!-- 이미지 배경 색 (투명하게 해도 됨) -->
+<!--    <solid android:color="@android:color/white"/> &lt;!&ndash; 이미지 배경 색 (투명하게 해도 됨) &ndash;&gt;-->
 
     <corners
         android:topRightRadius="8dp"
