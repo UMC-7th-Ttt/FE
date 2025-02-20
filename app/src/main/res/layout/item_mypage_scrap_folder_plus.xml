@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_review_folder_cardview"
-        android:layout_width="146dp"
-        android:layout_height="146dp"
+        android:layout_width="161dp"
+        android:layout_height="161dp"
         app:cardCornerRadius="8dp"
         android:backgroundTint="#252527"
         app:layout_constraintTop_toTopOf="parent"

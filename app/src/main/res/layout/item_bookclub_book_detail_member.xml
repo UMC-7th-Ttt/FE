@@ -19,7 +19,7 @@
         android:id="@+id/item_bookclub_book_detail_members_img_iv"
         android:layout_width="66dp"
         android:layout_height="66dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:background="@drawable/bookclub_detail_member_bg"
         android:src="@drawable/img_bookclub_detail_member1"
         android:clipToOutline="true"

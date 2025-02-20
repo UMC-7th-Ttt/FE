@@ -1,18 +1,5 @@
 package com.example.fe.bookclub_book.server
 
-import com.example.fe.bookclub_book.dataclass.BookClubBookJoin
-import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
-import com.example.fe.bookclub_book.dataclass.BookClubCertificationRequest
-import com.example.fe.bookclub_book.dataclass.BookClubCertificationResponse
-import com.example.fe.bookclub_book.dataclass.BookClubDetailResponse
-import com.example.fe.bookclub_book.dataclass.BookClubJoinInfoResponse
-import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
-import com.example.fe.bookclub_book.dataclass.BookClubParticipationResponse
-import com.example.fe.bookclub_book.dataclass.BookClubReviewDetailResponse
-import com.example.fe.bookclub_book.dataclass.BookClubUserResponse
-import com.example.fe.bookclub_book.dataclass.CommentRequest
-import com.example.fe.bookclub_book.dataclass.CommentsResponse
-import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

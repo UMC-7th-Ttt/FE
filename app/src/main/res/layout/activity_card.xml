@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
@@ -24,8 +24,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="280dp" />
+
+            android:layout_marginStart="5dp"/>
 
         <!-- 책 제목 -->
         <TextView
@@ -37,7 +37,6 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/book_image"
             app:layout_constraintTop_toTopOf="@id/book_image"
             app:layout_goneMarginStart="15dp"/>
@@ -50,7 +49,8 @@
            android:src="@drawable/ic_next"
            app:layout_constraintBottom_toBottomOf="@id/book_title"
            app:layout_constraintStart_toEndOf="@id/book_title"
-           app:layout_constraintEnd_toEndOf="parent"/>
+           android:layout_marginStart="10dp"
+          />
 
 
         <!-- 완독률 텍스트 -->

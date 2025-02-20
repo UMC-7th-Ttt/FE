@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.fe.databinding.ItemMypageScrapFolderBinding
 import com.example.fe.databinding.ItemMypageScrapFolderPlusBinding
 import com.example.fe.mypage.MyPageScrapDetail
-import com.example.fe.mypage.ScrapFolderResponse
+import com.example.fe.mypage.server.ScrapFolderResponse
 import com.example.fe.mypage.ScrapNewFolder
 
 class MyPageScrapRVAdapter(private val itemClickListener: MyItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

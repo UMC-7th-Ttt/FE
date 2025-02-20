@@ -52,7 +52,6 @@ class SearchResultBookRVAdapter(
                     }
                 }
 
-                // 아이템 클릭 시 이동하는 액티비티 결정
                 root.setOnClickListener {
                     val context = root.context
                     val intent = if (callerActivity == "ReviewActivity") {
@@ -65,6 +64,7 @@ class SearchResultBookRVAdapter(
                         putExtra("BOOK_COVER", book.cover)     // 책 이미지 URL 전달
                     }
                     context.startActivity(intent)
+                    (context as? AppCompatActivity)?.finish()
                 }
             }
         }
@@ -89,7 +89,7 @@ class SearchResultBookRVAdapter(
                             val toastBinding = FragmentScrapCancelCustomToastBinding.inflate(inflater)
 
                             // 스크랩 취소 토스트 메시지 설정
-                            toastBinding.scrapCancelTv.text = "스크랩이 취소됨"
+                            toastBinding.scrapCancelTv.text = "스크랩이 취소되었습니다!"
 
                             val toast = Toast(binding.root.context).apply {
                                 duration = Toast.LENGTH_SHORT

@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.Review.ReviewActivity
-import com.example.fe.bookclub_book.dataclass.CalendarResponse
+import com.example.fe.bookclub_book.server.CalendarResponse
 import com.example.fe.databinding.FragmentMypageReviewCalendarBinding
 import com.example.fe.mypage.adapter.CalendarRVAdapter
+import com.example.fe.mypage.server.MyPageRetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -129,6 +131,7 @@ class MyPageReviewCalendarFragment : Fragment() {
     }
 
     private fun fetchReviews(year: Int, month: Int) {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
         api.getCalendarReviews(year, month).enqueue(object : Callback<CalendarResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<CalendarResponse>, response: Response<CalendarResponse>) {

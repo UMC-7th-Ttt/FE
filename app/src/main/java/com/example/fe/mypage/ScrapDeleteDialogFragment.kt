@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.view.ViewGroup.LayoutParams
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.FragmentDeleteScrapDialogBinding
-import com.example.fe.databinding.FragmentScrapCustomToastBinding
-import com.example.fe.bookclub_book.server.api2
 import com.example.fe.databinding.FragmentScrapDeleteCustomToastBinding
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.MypageScrapsResponse
+import com.example.fe.mypage.server.Scrap
+import com.example.fe.mypage.server.ScrapDeleteItem
+import com.example.fe.mypage.server.ScrapDeleteRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +66,8 @@ class ScrapDeleteDialogFragment(
             }
         )
 
-        api2.deleteScraps(folderId, requestBody).enqueue(object : Callback<MypageScrapsResponse> {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
+        api.deleteScraps(folderId, requestBody).enqueue(object : Callback<MypageScrapsResponse> {
             override fun onResponse(call: Call<MypageScrapsResponse>, response: Response<MypageScrapsResponse>) {
                 if (response.isSuccessful) {
                     showCustomToast()

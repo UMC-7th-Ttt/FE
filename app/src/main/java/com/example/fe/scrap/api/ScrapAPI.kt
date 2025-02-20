@@ -1,6 +1,6 @@
 package com.example.fe.scrap.api
 
-import com.example.fe.mypage.ScrapFolderResponse
+import com.example.fe.mypage.server.ScrapFolderResponse
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET

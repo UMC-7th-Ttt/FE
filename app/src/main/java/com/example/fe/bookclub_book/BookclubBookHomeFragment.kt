@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.BookclubByMonthRVAdapter
 import com.example.fe.bookclub_book.adapter.BookclubMemberRVAdapter
-import com.example.fe.bookclub_book.dataclass.BookClubByMonthResponse
-import com.example.fe.bookclub_book.dataclass.BookClubJoinResponse
-import com.example.fe.bookclub_book.dataclass.ReadingRecordsListResponse
+import com.example.fe.bookclub_book.server.BookClubByMonthResponse
+import com.example.fe.bookclub_book.server.ReadingRecordsListResponse
 import com.example.fe.bookclub_book.server.BookClubRetrofitInterface
-import com.example.fe.bookclub_book.server.api
 import com.example.fe.databinding.FragmentBookclubBookHomeBinding
 import retrofit2.Call
 import retrofit2.Callback

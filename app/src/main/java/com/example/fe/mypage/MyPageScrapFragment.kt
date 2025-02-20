@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.fe.bookclub_book.server.api2
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.databinding.FragmentMypageScrapBinding
 import com.example.fe.mypage.adapter.MyPageScrapRVAdapter
+import com.example.fe.mypage.server.DeleteFolderResponse
+import com.example.fe.mypage.server.MyPageRetrofitInterface
+import com.example.fe.mypage.server.ScrapFolderResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -94,6 +96,7 @@ class MyPageScrapFragment : Fragment() {
     }
 
     private fun fetchFolders() {
+        val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
         api.getFolders().enqueue(object : Callback<ScrapFolderResponse> {
             override fun onResponse(call: Call<ScrapFolderResponse>, response: Response<ScrapFolderResponse>) {
                 if (response.isSuccessful) {
@@ -116,7 +119,8 @@ class MyPageScrapFragment : Fragment() {
     private fun deleteSelectedFolders() {
         val selectedFolders = myPageScrapRVAdapter.getSelectedItems()
         selectedFolders.forEach { folder ->
-            api2.deleteFolder(folder.folderId).enqueue(object : Callback<DeleteFolderResponse> {
+            val api = JohnRetrofitClient.getClient(requireContext()).create(MyPageRetrofitInterface::class.java)
+            api.deleteFolder(folder.folderId).enqueue(object : Callback<DeleteFolderResponse> {
                 override fun onResponse(call: Call<DeleteFolderResponse>, response: Response<DeleteFolderResponse>) {
                     if (response.isSuccessful) {
                         val apiResponse = response.body()

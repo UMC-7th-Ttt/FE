@@ -1,5 +1,7 @@
 package com.example.fe.bookclub_place
 
+import HomeFragment
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.fe.MainActivity
 import com.example.fe.R
+import com.example.fe.Review.SpaceReviewActivity
+import com.example.fe.bookclub_place.api.PlaceDetail
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
@@ -26,6 +31,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
     private lateinit var binding: FragmentBookclubPlaceDetailBinding
     private var isBookmarked = false // 북마크 상태 추적
     private var placeId: Int = -1 // 장소 ID 저장
+    private var placeDetail: PlaceDetail? = null  // 장소 상세 데이터 저장용 변수
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +55,39 @@ class BookclubPlaceDetailFragment : DialogFragment() {
         }
 
         initBackBtnClickListener()
+        initHomeBtnClickListener()
         initBookmarkClickListener()
+        initReviewWriteClickListener()
         return binding.root
     }
 
     private fun initBackBtnClickListener() {
         binding.bookclubPlaceBackIv.setOnClickListener {
             parentFragmentManager.popBackStack() // 기본 뒤로 가기
+        }
+    }
+
+    private fun initHomeBtnClickListener() {
+        binding.bookclubPlaceDetailHomeIv.setOnClickListener {
+            val mypageFragment = HomeFragment()
+            parentFragmentManager.commit {
+                replace(R.id.bookclub_place_frm, mypageFragment)
+//                addToBackStack(null)
+            }
+
+            (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_home
+        }
+    }
+
+    private fun initReviewWriteClickListener() {
+        binding.bookclubPlaceDetailWriteIv.setOnClickListener {
+            val context = binding.root.context
+            val intent = Intent(context, SpaceReviewActivity::class.java).apply {
+                putExtra("PLACE_ID", placeDetail?.placeId ?: -1)  // 장소 ID 전달
+                putExtra("PLACE_TITLE", placeDetail?.title ?: "알 수 없음") // 장소 제목 전달
+                putExtra("PLACE_IMAGE", placeDetail?.image ?: "") // 장소 이미지 URL 전달
+            }
+            context.startActivity(intent)
         }
     }
 
@@ -66,8 +98,13 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                 response: Response<PlaceDetailResponse>
             ) {
                 if (response.isSuccessful) {
-                    val detail = response.body()?.result
-                    detail?.let {
+                    placeDetail = response.body()?.result
+                    placeDetail?.let {
+                        Glide.with(this@BookclubPlaceDetailFragment)
+                            .load(it.image)
+                            .placeholder(R.drawable.img_place1)
+                            .into(binding.bookclubPlaceDetailImgIv)
+
                         binding.bookclubPlaceDetailNameTv.text = it.title
                         binding.bookclubPlaceDetailTagTv.text = if (it.category == "CAFE") "북카페" else "서점"
                         binding.bookclubPlaceDetailDescriptionTitleTv.text = it.curationTitle ?: "야외에서도 책을 읽을 수 있는 북카페"
@@ -88,13 +125,8 @@ class BookclubPlaceDetailFragment : DialogFragment() {
                         )
 
                         isBookmarked = it.isScraped // 북마크 상태 저장
+
                         updateBookmarkUI()
-
-                        Glide.with(this@BookclubPlaceDetailFragment)
-                            .load(it.image)
-                            .placeholder(R.drawable.img_place1)
-                            .into(binding.bookclubPlaceDetailImgIv)
-
                         updateStarRating(it.totalRating)
                     }
                 } else {

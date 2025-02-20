@@ -63,7 +63,10 @@
 
                 <!-- 프로필 아이콘 (오른쪽 끝) -->
                 <ImageView
+                    android:background="@drawable/circle_background"
                     android:id="@+id/profile_icon"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/profile_1"
@@ -125,13 +128,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- "나의 활동" 카드뷰 -->
-        <include
-            android:id="@+id/activity_card"
-            layout="@layout/activity_card"
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/activityViewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"/>
 
 
 
@@ -158,7 +161,7 @@
         <include
             layout="@layout/reminder_section"
             android:id="@+id/final_card"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"/>

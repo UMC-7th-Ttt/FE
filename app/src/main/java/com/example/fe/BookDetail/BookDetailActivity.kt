@@ -11,9 +11,11 @@ import com.example.fe.BookDetail.Review.UserReview
 import com.example.fe.BookDetail.Review.UserReviewAdapter
 import com.example.fe.MainActivity
 import com.example.fe.R
+import com.example.fe.Review.ReviewActivity
 import com.example.fe.databinding.ActivityBookDetailBinding
 import com.example.fe.databinding.BookInfoCardBinding
 import com.example.fe.network.RetrofitObj
+import com.example.fe.scrap.NewScrapDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +48,22 @@ class BookDetailActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
         }
+
+        binding.icPencle.setOnClickListener {
+            val intent = Intent(this, ReviewActivity::class.java)
+            // 책 ID를 전달할 곳
+            //intent.putExtra("BOOK_ID", bookId)
+            startActivity(intent)
+        }
+
+        //스크랩 페이지로 이동
+        binding.icMark.setOnClickListener{
+            val intent = Intent(this, NewScrapDialogFragment::class.java)
+
+            startActivity(intent)
+        }
+
+
 
         // ✅ 책 ID 가져오기
         val bookId = intent.getLongExtra("BOOK_ID", -1L)

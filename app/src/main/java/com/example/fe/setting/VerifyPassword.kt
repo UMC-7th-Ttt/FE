@@ -10,8 +10,11 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.databinding.ActivityVerifyPasswordBinding
+import com.example.fe.setting.server.SettingRetrofitInterface
+import com.example.fe.setting.server.VerifyPasswordResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -64,6 +67,7 @@ class VerifyPassword: AppCompatActivity() {
     }
 
     private fun verifyPassword(password: String) {
+        val api = JohnRetrofitClient.getClient(this).create(SettingRetrofitInterface::class.java)
         val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), """{"password": "$password"}""")
         api.verifyPassword(requestBody).enqueue(object : Callback<VerifyPasswordResponse> {
             override fun onResponse(call: Call<VerifyPasswordResponse>, response: Response<VerifyPasswordResponse>) {
