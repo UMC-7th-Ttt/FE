@@ -15,8 +15,7 @@ interface BookClubRetrofitInterface {
     //북클럽 가입하기
     @GET("api/book-clubs/{bookClubId}/join")
     fun getBookClubInfo(
-        @Path("bookClubId") bookClubId: Int,
-//        @Header("Authorization") token: String
+        @Path("bookClubId") bookClubId: Int
     ): Call<BookClubJoinInfoResponse>
 
     @POST("api/book-clubs/{bookClubId}/join")

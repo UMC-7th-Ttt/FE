@@ -337,6 +337,31 @@
                 app:layout_constraintStart_toEndOf="@+id/recommend_person_icon"
                 app:layout_constraintTop_toTopOf="@+id/recommend_person_icon"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도서 DB 제공 : 알라딘"
+                android:textSize="11sp"
+                android:textColor="#F7F7F8"
+                android:fontFamily="@font/pretendard_regular"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="22dp"
+                app:layout_constraintTop_toBottomOf="@+id/recommend_person_icon"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/detail_more_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자세히 보기"
+                android:textSize="11sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/pretendard_regular"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="22dp"
+                app:layout_constraintTop_toBottomOf="@+id/recommend_person_icon"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

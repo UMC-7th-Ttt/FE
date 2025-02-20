@@ -1,6 +1,8 @@
 package com.example.fe
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -13,6 +15,10 @@ object JohnRetrofitClient {
 
     fun getClient(context: Context): Retrofit {
         val authToken = Utils.getAuthToken(context)
+
+        val gson: Gson = GsonBuilder()
+            .setLenient() // Lenient 모드를 설정하여 잘못된 JSON 형식도 파싱 시도
+            .create()
 
         val client = OkHttpClient.Builder()
             .addInterceptor { chain: Interceptor.Chain ->
@@ -27,7 +33,7 @@ object JohnRetrofitClient {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 }

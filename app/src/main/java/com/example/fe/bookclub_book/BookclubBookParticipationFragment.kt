@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_book.adapter.BookclubParticipationRVAdapter
 import com.example.fe.bookclub_book.server.BookClubParticipationResponse
@@ -79,36 +78,18 @@ class BookclubBookParticipationFragment: Fragment() {
             }
         })
 
-        binding.bookclubParticipationRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val firstVisibleItemPosition = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                val lastVisibleItemPosition = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-
-                // 첫 번째 아이템이 보일 때 prev 버튼 숨기기
-                binding.itemParticipationPrevBtn.visibility = if (firstVisibleItemPosition == 0) View.INVISIBLE else View.VISIBLE
-
-                // 마지막 아이템이 보일 때 next 버튼 숨기기
-                binding.itemParticipationNextBtn.visibility = if (lastVisibleItemPosition == bookclubParticipationRVAdapter.itemCount - 1) View.INVISIBLE else View.VISIBLE
-            }
-        })
-
         // 참여 현황 이전 북클럽 버튼
         binding.itemParticipationPrevBtn.setOnClickListener {
             val currentPos = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            val prevPosition = currentPos - 1
-            if (prevPosition >= 0) {
-                binding.bookclubParticipationRv.smoothScrollToPosition(prevPosition)
-            }
+            val prevPosition = if (currentPos > 0) currentPos - 1 else bookclubParticipationRVAdapter.itemCount - 1
+            binding.bookclubParticipationRv.smoothScrollToPosition(prevPosition)
         }
 
         // 참여 현황 다음 북클럽 버튼
         binding.itemParticipationNextBtn.setOnClickListener {
             val currentPos = (binding.bookclubParticipationRv.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            val nextPosition = currentPos + 1
-            if (nextPosition < bookclubParticipationRVAdapter.itemCount) {
-                binding.bookclubParticipationRv.smoothScrollToPosition(nextPosition)
-            }
+            val nextPosition = if (currentPos < bookclubParticipationRVAdapter.itemCount - 1) currentPos + 1 else 0
+            binding.bookclubParticipationRv.smoothScrollToPosition(nextPosition)
         }
     }
 }

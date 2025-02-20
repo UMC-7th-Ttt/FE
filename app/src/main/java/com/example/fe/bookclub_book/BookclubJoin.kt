@@ -1,6 +1,7 @@
 package com.example.fe.bookclub_book
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -27,6 +28,7 @@ class BookclubJoin : AppCompatActivity() {
     private lateinit var binding: ActivityBookclubJoinBinding
     private lateinit var bookInfoTagRVAdapter: BookInfoTagRVAdapter
     private lateinit var bookInfoTagList: List<String>
+    private var itemLink: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,14 @@ class BookclubJoin : AppCompatActivity() {
         fetchBookClubInfo(bookClubId)
 
         initTagRV()
+
+        // "자세히 보기" 텍스트뷰 클릭 리스너 설정
+        binding.detailMoreInfoTv.setOnClickListener {
+            itemLink?.let { link ->
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                startActivity(browserIntent)
+            }
+        }
     }
 
     private fun fetchBookClubInfo(bookClubId: Int) {
@@ -84,6 +94,8 @@ class BookclubJoin : AppCompatActivity() {
                         binding.joinBtn.setOnClickListener {
                             joinBookClub(bookClubId.toLong())
                         }
+
+                        itemLink = it.result.bookInfo.itemLink
                     }
                 } else {
                     // 오류 처리

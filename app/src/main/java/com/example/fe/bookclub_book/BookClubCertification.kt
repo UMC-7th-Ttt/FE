@@ -29,7 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BookClubCertification : AppCompatActivity() {
+class BookClubCertification : AppCompatActivity(), CertifyPhotoRVAdapter.OnPhotoClickListener {
     private lateinit var binding: ActivityBookclubCertificationBinding
     private lateinit var imageAdapter: CertifyPhotoRVAdapter
     private val selectedImages = mutableListOf<Uri>()
@@ -40,7 +40,6 @@ class BookClubCertification : AppCompatActivity() {
     private var bookId: Int = -1
     private var maxPageCount: Int = 0
 
-    @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,7 +51,7 @@ class BookClubCertification : AppCompatActivity() {
         }
 
         // RecyclerView 초기화
-        imageAdapter = CertifyPhotoRVAdapter(selectedImages)
+        imageAdapter = CertifyPhotoRVAdapter(selectedImages, this)
         binding.photoRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.photoRv.adapter = imageAdapter
 
@@ -316,5 +315,10 @@ class BookClubCertification : AppCompatActivity() {
                 imageAdapter.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun onPhotoDeleteClick(position: Int) {
+        selectedImages.removeAt(position)
+        imageAdapter.notifyItemRemoved(position)
     }
 }

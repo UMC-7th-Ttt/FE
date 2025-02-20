@@ -24,7 +24,10 @@ data class BookClubJoinInfoResponse(
             val itemPage: Int,
             val description: String,
             val hasEbook: Boolean,
-            val isScraped: Boolean
+            val isScraped: Boolean,
+            val itemLink: String,
+            val userRating: Int,
+            val totalRating: Int
         )
     }
 }

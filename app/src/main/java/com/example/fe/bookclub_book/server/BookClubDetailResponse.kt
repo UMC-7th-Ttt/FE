@@ -21,7 +21,8 @@ data class BookClubDetailResponse(
             val author: String,
             val category: String,
             val publisher: String,
-            val isScraped: Boolean
+            val isScraped: Boolean,
+            val itemLink: String
         )
 
         data class Member(

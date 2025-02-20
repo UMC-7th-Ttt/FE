@@ -10,28 +10,35 @@ import com.bumptech.glide.Glide
 import com.example.fe.R
 import com.example.fe.databinding.ItemCertifyPhotoBinding
 
-class CertifyPhotoRVAdapter(private val images: List<Uri>) : RecyclerView.Adapter<CertifyPhotoRVAdapter.ImageViewHolder>() {
+class CertifyPhotoRVAdapter(
+    private val images: MutableList<Uri>,
+    private val listener: OnPhotoClickListener
+) : RecyclerView.Adapter<CertifyPhotoRVAdapter.ViewHolder>() {
 
-    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.photo_item_iv)
+    interface OnPhotoClickListener {
+        fun onPhotoDeleteClick(position: Int)
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_certify_photo, parent, false)
-        return ImageViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.imageView.setImageURI(images[position])
-    }
-
-    override fun getItemCount(): Int = images.size
 
     inner class ViewHolder(private val binding: ItemCertifyPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(uri: Uri) {
             Glide.with(binding.root.context)
                 .load(uri)
                 .into(binding.photoItemIv)
+
+            binding.deletePhotoBtn.setOnClickListener {
+                listener.onPhotoDeleteClick(adapterPosition)
+            }
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemCertifyPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(images[position])
+    }
+
+    override fun getItemCount(): Int = images.size
 }

@@ -2,12 +2,15 @@ package com.example.fe.mypage
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -57,7 +60,26 @@ class MyPageReviewCalendarFragment : Fragment() {
 
         fetchReviews(criteriaDate.year, criteriaDate.monthValue) // 리뷰 데이터를 가져옵니다
 
+        val previousMonthButton: ImageView = binding.calendarPreviousMonthIv
+        val nextMonthButton: ImageView = binding.calendarNextMonthIv
+
+        expandTouchArea(previousMonthButton, 60)
+        expandTouchArea(nextMonthButton, 60)
+
         return binding.root
+    }
+
+    private fun expandTouchArea(view: View, extraPadding: Int) {
+        val parent = view.parent as View
+        parent.post {
+            val rect = Rect()
+            view.getHitRect(rect)
+            rect.top -= extraPadding
+            rect.bottom += extraPadding
+            rect.left -= extraPadding
+            rect.right += extraPadding
+            parent.touchDelegate = TouchDelegate(rect, view)
+        }
     }
 
     private fun initClickListeners() {

@@ -32,21 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Book Collection Text -->
-<!--    <TextView-->
-<!--        android:id="@+id/mypage_review_calendar_swap_btn"-->
-<!--        android:layout_width="85dp"-->
-<!--        android:layout_height="29dp"-->
-<!--        android:textSize="13sp"-->
-<!--        android:text="서평 캘린더 보기"-->
-<!--        android:fontFamily="@font/pretendard_medium"-->
-<!--        android:textColor="@color/colorLabelNeutral"-->
-<!--        android:background="@drawable/edit_text_radius_30"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mypage_review_rv"
         android:layout_width="wrap_content"
