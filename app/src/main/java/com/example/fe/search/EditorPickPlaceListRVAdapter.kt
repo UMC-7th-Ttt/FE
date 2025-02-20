@@ -55,7 +55,7 @@ class EditorPickPlaceListRVAdapter(
             binding.itemCurationTitleTv.text = "$curationPrefix \"${place.curationTitle}\""
 
             // 장소 클릭 시 상세 페이지 이동 추가
-            binding.itemEditorPickPlaceIv.setOnClickListener {
+            binding.root.setOnClickListener {
                 onItemClick(place)
             }
 
