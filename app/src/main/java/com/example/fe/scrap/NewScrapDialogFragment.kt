@@ -16,10 +16,14 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
+import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentNewScrapDialogBinding
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
+import com.example.fe.scrap.api.ScrapAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -118,7 +122,10 @@ class NewScrapDialogFragment(
     private fun sendScrapRequest(folderName: String) {
         if (bookId != null) {
             // 도서 스크랩
-            RetrofitClient.scrapApi.scrapBook(bookId, folderName).enqueue(object : Callback<Void> {
+//            RetrofitClient.scrapApi.scrapBook(bookId, folderName).enqueue(object : Callback<Void>
+
+            val api = JohnRetrofitClient.getClient(requireContext()).create(ScrapAPI::class.java)
+            api.scrapBook(bookId, folderName).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         showCustomToast(folderName)
@@ -135,7 +142,10 @@ class NewScrapDialogFragment(
             })
         } else if (placeId != null) {
             // 공간 스크랩
-            RetrofitClient.scrapApi.scrapPlace(placeId, folderName).enqueue(object : Callback<Void> {
+//            RetrofitClient.scrapApi.scrapPlace(placeId, folderName).enqueue(object : Callback<Void>
+
+            val api = JohnRetrofitClient.getClient(requireContext()).create(ScrapAPI::class.java)
+            api.scrapPlace(placeId, folderName).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         showCustomToast(folderName)

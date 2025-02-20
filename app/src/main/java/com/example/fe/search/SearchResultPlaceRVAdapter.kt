@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.databinding.ItemSearchResultPlaceBinding
@@ -15,11 +17,15 @@ import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
+import com.example.fe.search.api.BookSearchAPI
+import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchResultPlaceRVAdapter(
+    private val context: Context, // Context 전달
     private val places: List<PlaceResponse>,
     private val onItemClick: (PlaceResponse) -> Unit
 ) : RecyclerView.Adapter<SearchResultPlaceRVAdapter.ViewHolder>() {
@@ -82,7 +88,8 @@ class SearchResultPlaceRVAdapter(
         }
 
         private fun deleteScrap(place: PlaceResponse) {
-            RetrofitClient.scrapApi.deletePlaceScrap(place.placeId)
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
+            api.deletePlaceScrap(place.placeId)
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {

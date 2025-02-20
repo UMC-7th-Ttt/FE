@@ -21,11 +21,13 @@ import com.example.fe.R
 import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.bookclub_place.api.PlaceDetail
 import com.example.fe.bookclub_place.api.PlaceDetailResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
 import com.example.fe.databinding.FragmentBookclubPlaceDetailBinding
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
 import com.example.fe.search.SearchMainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -115,7 +117,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
     private fun getPlaceDetails(placeId: Int) {
 //        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse>
 
-        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse> {
             override fun onResponse(
                 call: Call<PlaceDetailResponse>,
@@ -207,7 +209,10 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     // 스크랩 삭제 API 호출
     private fun deleteScrap() {
-        RetrofitClient.scrapApi.deletePlaceScrap(placeId).enqueue(object : Callback<Void> {
+//        RetrofitClient.scrapApi.deletePlaceScrap(placeId).enqueue(object : Callback<Void>
+
+        val api = JohnRetrofitClient.getClient(requireContext()).create(ScrapAPI::class.java)
+        api.deletePlaceScrap(placeId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     isBookmarked = false

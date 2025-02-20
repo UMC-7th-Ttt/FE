@@ -1,22 +1,27 @@
 package com.example.fe.scrap
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemScrapBinding
 import com.example.fe.mypage.server.ScrapFolderResponse
+import com.example.fe.scrap.api.ScrapAPI
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ScrapBottomSheetRVAdapter(
+    private val context: Context, // Context 전달
     private val scrapFolders: List<ScrapFolderResponse.Result.Folder>,
     private val bookId: Long?, // 도서 스크랩 ID (도서일 경우)
     private val placeId: Int?, // 장소 스크랩 ID (공간일 경우)
@@ -79,7 +84,8 @@ class ScrapBottomSheetRVAdapter(
     private fun scrapItem(view: View, folderName: String, imageUrl: String?) {
         if (bookId != null) {
             // 도서 스크랩 API 호출
-            RetrofitClient.scrapApi.scrapBook(bookId, folderName).enqueue(object : Callback<Void> {
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
+            api.scrapBook(bookId, folderName).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         showCustomToast(view, folderName, imageUrl)
@@ -94,7 +100,8 @@ class ScrapBottomSheetRVAdapter(
             })
         } else if (placeId != null) {
             // 공간 스크랩 API 호출
-            RetrofitClient.scrapApi.scrapPlace(placeId, folderName).enqueue(object : Callback<Void> {
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
+            api.scrapPlace(placeId, folderName).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         showCustomToast(view, folderName, imageUrl)

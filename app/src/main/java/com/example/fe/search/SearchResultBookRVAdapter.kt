@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,18 +10,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.BookDetail.BookDetailActivity
+import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
 import com.example.fe.Review.BookReviewActivity
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.databinding.ItemSearchResultBookBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
 import com.example.fe.search.api.BookResponse
+import com.example.fe.search.api.BookSearchAPI
+import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchResultBookRVAdapter(
+    private val context: Context, // Context 전달
     private val bookList: List<BookResponse>,
     private val callerActivity: String? // 호출한 액티비티 정보 추가
 ) : RecyclerView.Adapter<SearchResultBookRVAdapter.BookViewHolder>() {
@@ -78,7 +84,8 @@ class SearchResultBookRVAdapter(
 
         // 북마크(스크랩) 삭제 API 호출
         private fun deleteScrap(book: BookResponse) {
-            RetrofitClient.scrapApi.deleteBookScrap(book.id)
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
+            api.deleteBookScrap(book.id)
                 .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {

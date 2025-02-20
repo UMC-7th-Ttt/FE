@@ -22,6 +22,7 @@ import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
+import com.example.fe.scrap.api.ScrapAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -103,7 +104,7 @@ class BookclubPlaceRVAdapter(
 
 //            RetrofitClient.scrapApi.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void>
 
-            val api = JohnRetrofitClient.getClient(context).create(scrapApi::class.java)
+            val api = JohnRetrofitClient.getClient(context).create(ScrapAPI::class.java)
             api.deletePlaceScrap(place.placeId).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {

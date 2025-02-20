@@ -1,5 +1,6 @@
 package com.example.fe.search
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,7 +18,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RecommendedBookListRVAdapter(private val bookList: List<BookResponse>) :
+class RecommendedBookListRVAdapter(
+    private val context: Context, // Context 전달
+    private val bookList: List<BookResponse>
+) :
     RecyclerView.Adapter<RecommendedBookListRVAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(private val binding: ItemRecommendedBookBinding) :

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fe.*
 import com.example.fe.bookclub_place.api.PlaceResponse
+import com.example.fe.bookclub_place.api.PlaceSearchAPI
 import com.example.fe.bookclub_place.api.PlaceSearchResponse
 import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
@@ -68,7 +69,7 @@ class BookclubPlaceListFragment : Fragment() {
     private fun searchPlaces(keyword: String) {
 //        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse>
 
-        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(
                 call: Call<PlaceSearchResponse>,
@@ -95,7 +96,7 @@ class BookclubPlaceListFragment : Fragment() {
     private fun sortPlaces(lat: Double, lon: Double) {
 //        RetrofitClient.placeApi.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse>
 
-        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.sortPlaces(lat, lon).enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(
                 call: Call<PlaceSearchResponse>,
@@ -141,7 +142,7 @@ class BookclubPlaceListFragment : Fragment() {
     private fun fetchPlacesByRecommendation() {
 //        RetrofitClient.placeApi.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse>
 
-        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.sortPlaces(sort = "all").enqueue(object : Callback<PlaceSearchResponse> {
             override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
                 if (response.isSuccessful) {
@@ -192,7 +193,7 @@ class BookclubPlaceListFragment : Fragment() {
 //        RetrofitClient.placeApi.sortPlaces(sort = "all", lat = lat, lon = lon)
 //            .enqueue(object : Callback<PlaceSearchResponse>
 
-        val api = JohnRetrofitClient.getClient(requireContext()).create(placeApi::class.java)
+        val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.sortPlaces(sort = "all", lat = lat, lon = lon)
             .enqueue(object : Callback<PlaceSearchResponse> {
                 override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
