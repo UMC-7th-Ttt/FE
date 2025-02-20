@@ -1,9 +1,9 @@
-    plugins {
-        alias(libs.plugins.android.application)
-        alias(libs.plugins.kotlin.android)
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 
-        id("kotlin-kapt")
-    }
+    id("kotlin-kapt")
+}
 
 android {
     namespace = "com.example.fe"
@@ -67,6 +67,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.3")
 
     implementation (libs.flexbox)
     implementation (libs.androidx.core.splashscreen.v100alpha01)
