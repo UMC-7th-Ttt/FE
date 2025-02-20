@@ -15,13 +15,10 @@ class ReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBinding
     private lateinit var reviewBookAdapter: ReviewBookAdapter
-    private val bookList = mutableListOf<ReviewItem>() // ✅ 리스트 추가
+    private val bookList = mutableListOf<ReviewItem>() // ✅ 도서 리스트
 
-
-
-    //공간아이템추가어텝터
     private lateinit var placeReviewAdapter: PlaceReviewAdapter
-    private val placeList = mutableListOf<PlaceReviewItem>()
+    private val placeList = mutableListOf<PlaceReviewItem>() // ✅ 장소 리스트
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,26 +26,25 @@ class ReviewActivity : AppCompatActivity() {
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ✅ RecyclerView 설정
+        // ✅ 도서 RecyclerView 설정
         reviewBookAdapter = ReviewBookAdapter(bookList)
         binding.locationRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@ReviewActivity)
             adapter = reviewBookAdapter
         }
 
-        //공간리사이클러뷰설정
+        // ✅ 장소 RecyclerView 설정
         placeReviewAdapter = PlaceReviewAdapter(placeList)
         binding.additionalRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@ReviewActivity)
             adapter = placeReviewAdapter
         }
 
-        // ✅ 도서 / 장소 추가 버튼 클릭 → `SearchMainActivity`로 이동
+        // ✅ 도서 / 장소 추가 버튼 클릭
         binding.addLocationButton.setOnClickListener {
             val intent = Intent(this, SearchMainActivity::class.java)
             intent.putExtra("CALLER", "ReviewActivity")
             startActivity(intent)
-            //finish()
         }
 
         // ✅ 완료 버튼 클릭 시
@@ -57,96 +53,40 @@ class ReviewActivity : AppCompatActivity() {
             finish()
         }
 
-        // ✅ 뒤로 가기 버튼 클릭 (초기화 후 `MyPageFragment`로 이동)
         binding.backButton.setOnClickListener {
-
-
-            finish() // ✅ `ReviewActivity` 종료
+            finish()
         }
 
-        // ✅ 제목 및 서평 입력 감지하여 버튼 활성화
         binding.reviewInput.addTextChangedListener(textWatcher)
         binding.titleInput.addTextChangedListener(textWatcher)
     }
 
     override fun onResume() {
         super.onResume()
-        setIntent(intent) // ✅ 새로운 Intent를 저장
-        checkForNewBook()
-        checkForNewPlace()
-
+        loadPlaceFromPreferences() // ✅ 장소 데이터 불러오기
     }
 
-    // ✅ `Intent`에서 데이터 가져와서 RecyclerView에 추가
-    private fun checkForNewBook() {
-
-        bookList.clear()//기존데이터 초기화
-        reviewBookAdapter.notifyDataSetChanged() // RecyclerView 갱신
-
-        val bookId = intent.getLongExtra("BOOK_ID", -1)
-        val bookTitle = intent.getStringExtra("BOOK_TITLE")
-        val bookCover = intent.getStringExtra("BOOK_COVER")
-        val bookRating = intent.getFloatExtra("BOOK_RATING", 0f)
-
-        android.util.Log.d("ReviewActivity", "checkForNewBook() called")
-        android.util.Log.d("ReviewActivity", "BOOK_ID: $bookId")
-        android.util.Log.d("ReviewActivity", "BOOK_TITLE: $bookTitle")
-        android.util.Log.d("ReviewActivity", "BOOK_COVER: $bookCover")
-        android.util.Log.d("ReviewActivity", "BOOK_RATING: $bookRating")
-
-        if (bookId != -1L && bookTitle != null && bookCover != null) {
-            val newBook = ReviewItem(bookTitle, "작가 미상", bookCover)
-
-            //bookList.add(newBook)
-            addBookToRecyclerView(newBook)
-
-            // ✅ 한 번만 추가되도록 `Intent` 데이터 제거
-            intent.removeExtra("BOOK_ID")
-            intent.removeExtra("BOOK_TITLE")
-            intent.removeExtra("BOOK_COVER")
-            intent.removeExtra("BOOK_RATING")
-        }
-    }
-
-    //장소추가
-    private fun checkForNewPlace() {
-        val placeId = intent.getLongExtra("PLACE_ID", -1)
-        val placeTitle = intent.getStringExtra("PLACE_TITLE")
-        val placeImage = intent.getStringExtra("PLACE_IMAGE")
+    // ✅ `SharedPreferences`에서 장소 데이터 불러오기
+    private fun loadPlaceFromPreferences() {
+        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
+        val placeId = sharedPref.getLong("PLACE_ID", -1)
+        val placeTitle = sharedPref.getString("PLACE_TITLE", null)
+        val placeImage = sharedPref.getString("PLACE_IMAGE", null)
 
         if (placeId != -1L && placeTitle != null && placeImage != null) {
             val newPlace = PlaceReviewItem(placeTitle, "위치 정보 없음", placeImage)
-            //placeReviewAdapter.addPlace(newPlace)
-            addPlaceToRecyclerView(newPlace)
 
-            // ✅ 한 번만 추가되도록 `Intent` 데이터 제거
-            intent.removeExtra("PLACE_ID")
-            intent.removeExtra("PLACE_TITLE")
-            intent.removeExtra("PLACE_IMAGE")
+            placeList.clear() // 기존 데이터 초기화
+            placeList.add(newPlace)
+            placeReviewAdapter.notifyDataSetChanged()
         }
     }
 
-    // ✅ RecyclerView에 아이템 추가
-    private fun addBookToRecyclerView(book: ReviewItem) {
-        bookList.add(book)
-        reviewBookAdapter.notifyItemInserted(bookList.size - 1)
-    }
-
-    //공간리사이클러뷰 추가
-    private fun addPlaceToRecyclerView(place: PlaceReviewItem) {
-        placeList.add(place)
-        placeReviewAdapter.notifyItemInserted(placeList.size - 1)
-    }
-
-
-    // ✅ 제목과 서평이 입력되었는지 확인하여 버튼 활성화
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             validateForm()
         }
-
         override fun afterTextChanged(s: Editable?) {}
     }
 

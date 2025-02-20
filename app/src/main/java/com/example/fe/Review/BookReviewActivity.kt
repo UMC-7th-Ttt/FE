@@ -24,7 +24,6 @@ class BookReviewActivity : AppCompatActivity() {
         val bookTitle = intent.getStringExtra("BOOK_TITLE") ?: "제목 없음"
         val bookCover = intent.getStringExtra("BOOK_COVER") ?: ""
 
-
         // 📌 로그 추가
         Log.d("BookReviewActivity", "Intent received in BookReviewActivity")
         Log.d("BookReviewActivity", "BOOK_ID: $bookId")
@@ -59,29 +58,32 @@ class BookReviewActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // 🔹 완료 버튼 클릭 시 데이터 전달 후 ReviewActivity로 이동
+        // 🔹 완료 버튼 클릭 시 데이터 저장 후 ReviewActivity로 이동
         binding.submitButton.setOnClickListener {
-            val intent = Intent(this, ReviewActivity::class.java).apply {
-                putExtra("BOOK_ID", bookId)
-                putExtra("BOOK_TITLE", bookTitle)
-                putExtra("BOOK_COVER", bookCover)
-                putExtra("BOOK_RATING", binding.ratingBar.rating)
+            val rating = binding.ratingBar.rating
+            saveBookToPreferences(bookId, bookTitle, bookCover, rating) // ✅ SharedPreferences 저장
 
-                //flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
-
+            val intent = Intent(this, ReviewActivity::class.java)
+            startActivity(intent)  // ✅ ReviewActivity로 이동
 
             // 📌 완료 버튼 눌렀을 때 로그 추가
-            Log.d("BookReviewActivity", "Sending Intent to ReviewActivity")
-            Log.d("BookReviewActivity", "BOOK_ID: $bookId")
-            Log.d("BookReviewActivity", "BOOK_TITLE: $bookTitle")
-            Log.d("BookReviewActivity", "BOOK_COVER: $bookCover")
-            Log.d("BookReviewActivity", "BOOK_RATING: ${binding.ratingBar.rating}")
-
-            startActivity(intent)  // ✅ ReviewActivity로 이동
+            Log.d("BookReviewActivity", "Book data saved to SharedPreferences")
+            Log.d("BookReviewActivity", "Navigating to ReviewActivity")
 
             finish()  // 현재 액티비티 종료
         }
+    }
+
+    // ✅ SharedPreferences에 데이터 저장
+    private fun saveBookToPreferences(bookId: Long, bookTitle: String, bookCover: String, rating: Float) {
+        val sharedPref = getSharedPreferences("ReviewData", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        editor.putLong("BOOK_ID", bookId)
+        editor.putString("BOOK_TITLE", bookTitle)
+        editor.putString("BOOK_COVER", bookCover)
+        editor.putFloat("BOOK_RATING", rating)
+        editor.apply() // 변경 사항 저장
     }
 
     // ✅ 별점이 0.5 이상이면 버튼 활성화

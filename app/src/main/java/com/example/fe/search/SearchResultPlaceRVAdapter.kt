@@ -69,7 +69,7 @@ class SearchResultPlaceRVAdapter(
                 if (intentCaller == "ReviewActivity") {
                     // ReviewActivity에서 왔을 때 SpaceReviewActivity로 이동
                     val intent = Intent(context, SpaceReviewActivity::class.java).apply {
-                        putExtra("PLACE_ID", place.placeId) // 장소 ID 전달
+                        putExtra("PLACE_ID", place.placeId.toLong()) // 장소 ID 전달
                         putExtra("PLACE_TITLE", place.title)    // 장소 이름 전달
                         putExtra("PLACE_IMAGE", place.image)    // 장소 이미지 URL 전달
                     }
