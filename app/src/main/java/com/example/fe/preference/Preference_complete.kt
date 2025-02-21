@@ -22,7 +22,7 @@ class Preference_complete : AppCompatActivity() {
         val nextButton: ImageButton = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             // NextActivity로 이동
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         enableEdgeToEdge()

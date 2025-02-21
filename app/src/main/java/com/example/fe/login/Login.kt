@@ -161,7 +161,7 @@ class Login : AppCompatActivity(), LoginView {
                             startActivity(Intent(this@Login, Preference::class.java))
                         } else if (role == "USER") {
                             // role이 USER인 경우 Main 페이지로 이동
-                            startActivity(Intent(this@Login, MainActivity::class.java))
+                            startActivity(Intent(this@Login, Preference::class.java))
                         }
                         finish() // 현재 액티비티 종료
                     }
@@ -207,7 +207,7 @@ class Login : AppCompatActivity(), LoginView {
         Log.d("LOGIN_TEST", "일반 로그인 토큰 저장 완료: $token")
 
         // 로그인 성공 시 메인 화면으로 이동
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Preference::class.java))
         finish()
     }
 
