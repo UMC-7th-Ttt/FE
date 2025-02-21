@@ -86,7 +86,7 @@ class SearchResultPlaceFragment : Fragment() {
             val adapter = SearchResultPlaceRVAdapter(requireContext(), places) { place ->
                 val fragment = BookclubPlaceDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putInt("PLACE_ID", place.placeId) // placeId 전달
+                        putLong("PLACE_ID", place.placeId) // placeId 전달
                     }
                 }
 

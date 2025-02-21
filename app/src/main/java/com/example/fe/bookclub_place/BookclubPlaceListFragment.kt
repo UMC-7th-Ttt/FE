@@ -54,7 +54,7 @@ class BookclubPlaceListFragment : Fragment() {
         adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
             val fragment = BookclubPlaceDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt("PLACE_ID", place.placeId) // placeId 전달
+                    putLong("PLACE_ID", place.placeId) // placeId 전달
                 }
             }
             (requireActivity() as MainActivity).addFragment(
@@ -171,7 +171,7 @@ class BookclubPlaceListFragment : Fragment() {
                         binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
-                                    putInt("PLACE_ID", place.placeId)
+                                    putLong("PLACE_ID", place.placeId)
                                 }
                             }
                             (requireActivity() as MainActivity).addFragment(fragment, showBottomNav = false)
@@ -209,7 +209,7 @@ class BookclubPlaceListFragment : Fragment() {
                             binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                                 val fragment = BookclubPlaceDetailFragment().apply {
                                     arguments = Bundle().apply {
-                                        putInt("PLACE_ID", place.placeId) // placeId 전달
+                                        putLong("PLACE_ID", place.placeId) // placeId 전달
                                     }
                                 }
                                 (requireActivity() as MainActivity).addFragment(fragment, showBottomNav = false)

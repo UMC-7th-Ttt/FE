@@ -23,7 +23,7 @@ interface ScrapAPI {
     // 공간 스크랩
     @POST("api/places/{placeId}/scraps")
     fun scrapPlace(
-        @Path("placeId") placeId: Int,
+        @Path("placeId") placeId: Long,
         @Query("folder") folder: String
     ): Call<Void>
 
@@ -33,6 +33,6 @@ interface ScrapAPI {
 
     // 공간 스크랩 취소
     @DELETE("api/places/{placeId}/scraps")
-    fun deletePlaceScrap(@Path("placeId") placeId: Int): Call<Void>
+    fun deletePlaceScrap(@Path("placeId") placeId: Long): Call<Void>
 
 }

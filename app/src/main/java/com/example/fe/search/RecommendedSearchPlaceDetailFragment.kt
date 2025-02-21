@@ -76,7 +76,7 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
                         val placeAdapter = RecommendedPlaceListRVAdapter(requireContext(), placeList) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
-                                    putInt("PLACE_ID", place.placeId)
+                                    putLong("PLACE_ID", place.placeId)
                                 }
                             }
                             parentFragmentManager.beginTransaction()
@@ -115,7 +115,7 @@ class RecommendedSearchPlaceDetailFragment : Fragment() {
                         val placeAdapter = EditorPickPlaceListRVAdapter(requireContext(), placeList) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
-                                    putInt("PLACE_ID", place.placeId) // 장소 ID 전달
+                                    putLong("PLACE_ID", place.placeId) // 장소 ID 전달
                                 }
                             }
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fe.JohnRetrofitClient
-import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapBottomSheetBinding
 import com.example.fe.mypage.server.ScrapFolderResponse
 import com.example.fe.scrap.api.ScrapAPI
@@ -21,7 +20,7 @@ class
 
 ScrapBottomSheetFragment(
     private val bookId: Long?,
-    private val placeId: Int?,
+    private val placeId: Long?,
     private val onBookmarkStateChanged: (Boolean) -> Unit // 선택/해제 상태 콜백 추가
 ) : BottomSheetDialogFragment() {
 

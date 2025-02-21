@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
-import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemScrapBinding
 import com.example.fe.mypage.server.ScrapFolderResponse
@@ -24,7 +22,7 @@ class ScrapBottomSheetRVAdapter(
     private val context: Context, // Context 전달
     private val scrapFolders: List<ScrapFolderResponse.Result.Folder>,
     private val bookId: Long?, // 도서 스크랩 ID (도서일 경우)
-    private val placeId: Int?, // 장소 스크랩 ID (공간일 경우)
+    private val placeId: Long?, // 장소 스크랩 ID (공간일 경우)
     private val onItemSelected: (Boolean) -> Unit,
     private val parentFragment: BottomSheetDialogFragment
 ) : RecyclerView.Adapter<ScrapBottomSheetRVAdapter.ScrapViewHolder>() {
