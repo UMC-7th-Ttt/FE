@@ -62,18 +62,6 @@ class BookclubPlaceFragment : Fragment() {
         locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
-//                currentLat = location.latitude
-//                currentLon = location.longitude
-//                Log.d("BookclubPlaceFragment", "📍 현재 위치 업데이트: 위도=$currentLat, 경도=$currentLon")
-//
-//                // 위치 정보가 업데이트되면 리스트 프래그먼트 갱신
-//                updateBookclubPlaceListFragment()
-//
-//                // 처음 실행 시 한 번만 currentPlace를 받아서 bookclubPlaceTitleTv에 설정
-//                if (isFirstLoad) {
-//                    fetchPlacesByLocation()
-//                    isFirstLoad = false
-//                }
 
                 val newLat = location.latitude
                 val newLon = location.longitude
@@ -178,64 +166,33 @@ class BookclubPlaceFragment : Fragment() {
     private fun fetchPlacesByLocation() {
         val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.sortPlaces(lat = currentLat, lon = currentLon).enqueue(object : Callback<PlaceSearchResponse> {
-//            override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-//                if (response.isSuccessful) {
-//                    val currentPlace = response.body()?.result?.currentPlace ?: "알 수 없음"
-//                    val profileImgUrl = response.body()?.result?.profileImg ?: "" // 프로필 이미지 URL 가져오기
-//
-//                    Log.d("BookclubPlaceFragment", "📍 현재 위치 (currentPlace): $currentPlace")
-//
-//                    // bookclubPlaceTitleTv 업데이트 (한 번만 실행됨)
-////                    updateKeywordToTitle(currentPlace)
-//
-//                    requireActivity().runOnUiThread {
-//                        if (!this@BookclubPlaceFragment::binding.isInitialized) {
-//                            Log.e("BookclubPlaceFragment", "❌ binding이 초기화되지 않음")
-//                            return@runOnUiThread
-//                        }
-//                        updateKeywordToTitle(currentPlace)
-//                    }
-//
-//                    // 프로필 이미지 URL을 가져와서 Glide로 로딩하여 설정
-//                    if (profileImgUrl.isNotEmpty()) {
-//                        Glide.with(requireContext())
-//                            .load(profileImgUrl) // 프로필 이미지 URL
-//                            .circleCrop()  // 이미지를 원형으로 표시
-//                            .into(binding.bookclubPlacePersonIc) // ImageView에 설정
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
-//                Log.e("BookclubPlaceFragment", "❌ 장소 리스트 요청 실패: ${t.message}")
-//            }
-//        })
-    override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
-        if (response.isSuccessful) {
-            val result = response.body()?.result
-            val currentPlace = result?.currentPlace ?: binding.bookclubPlaceTitleTv.text.toString()
-            val profileImgUrl = result?.profileImg ?: ""
 
-            Log.d("BookclubPlaceFragment", "📍 API 응답 - 현재 위치 (currentPlace): $currentPlace")
+            override fun onResponse(call: Call<PlaceSearchResponse>, response: Response<PlaceSearchResponse>) {
+                if (response.isSuccessful) {
+                    val result = response.body()?.result
+                    val currentPlace = result?.currentPlace ?: binding.bookclubPlaceTitleTv.text.toString()
+                    val profileImgUrl = result?.profileImg ?: ""
 
-            requireActivity().runOnUiThread {
-                if (currentPlace != "알 수 없음") {
-                    binding.bookclubPlaceTitleTv.text = currentPlace
+                    Log.d("BookclubPlaceFragment", "📍 API 응답 - 현재 위치 (currentPlace): $currentPlace")
+
+                    requireActivity().runOnUiThread {
+                        if (currentPlace != "알 수 없음") {
+                            binding.bookclubPlaceTitleTv.text = currentPlace
+                        }
+
+                        if (profileImgUrl.isNotEmpty()) {
+                            Glide.with(requireContext())
+                                .load(profileImgUrl)
+                                .circleCrop()
+                                .into(binding.bookclubPlacePersonIc)
+                        }
+
+                        updateBookclubPlaceListFragment(currentPlace) // 🔹 UI 변경은 runOnUiThread 내부에서 실행
+                    }
+                } else {
+                    Log.e("BookclubPlaceFragment", "❌ 장소 리스트 요청 실패: ${response.errorBody()?.string()}")
                 }
-
-                if (profileImgUrl.isNotEmpty()) {
-                    Glide.with(requireContext())
-                        .load(profileImgUrl)
-                        .circleCrop()
-                        .into(binding.bookclubPlacePersonIc)
-                }
-
-                updateBookclubPlaceListFragment(currentPlace) // 🔹 UI 변경은 runOnUiThread 내부에서 실행
             }
-        } else {
-            Log.e("BookclubPlaceFragment", "❌ 장소 리스트 요청 실패: ${response.errorBody()?.string()}")
-        }
-}
 
             override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
                 Log.e("BookclubPlaceFragment", "❌ 네트워크 오류: ${t.message}")
@@ -274,12 +231,6 @@ class BookclubPlaceFragment : Fragment() {
             (activity as? MainActivity)?.binding?.bottomNavigation?.selectedItemId = R.id.bottom_nav_mypage
         }
     }
-
-//    private fun updateKeywordToTitle(keyword: String) {
-//        Log.d("BookclubPlaceFragment", "✅ bookclubPlaceTitleTv 업데이트됨: $keyword")
-//        binding.bookclubPlaceTitleTv.text = keyword
-//        updateBookclubPlaceListFragment(keyword)
-//    }
 
     private fun updateKeywordToTitle(keyword: String) {
         Log.d("BookclubPlaceFragment", "✅ 키워드 업데이트: $keyword")

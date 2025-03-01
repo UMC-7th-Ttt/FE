@@ -10,7 +10,7 @@ data class PlaceDetailResponse(
 )
 
 data class PlaceDetail(
-    @SerializedName("placeId") val placeId: Int,
+    @SerializedName("placeId") val placeId: Long,
     @SerializedName("title") val title: String,
     @SerializedName("category") val category: String,
     @SerializedName("address") val address: String,

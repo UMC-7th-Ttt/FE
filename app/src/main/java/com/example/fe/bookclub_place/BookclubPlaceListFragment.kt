@@ -54,7 +54,7 @@ class BookclubPlaceListFragment : Fragment() {
         adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
             val fragment = BookclubPlaceDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt("PLACE_ID", place.placeId) // placeId 전달
+                    putLong("PLACE_ID", place.placeId) // placeId 전달
                 }
             }
             (requireActivity() as MainActivity).addFragment(
@@ -67,7 +67,6 @@ class BookclubPlaceListFragment : Fragment() {
     }
 
     private fun searchPlaces(keyword: String) {
-//        RetrofitClient.placeApi.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse>
 
         val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.searchPlaces(keyword).enqueue(object : Callback<PlaceSearchResponse> {
@@ -129,7 +128,6 @@ class BookclubPlaceListFragment : Fragment() {
 
         // 기존 데이터 초기화
         places.clear()
-//        adapter.notifyDataSetChanged() // 데이터가 비워졌음을 RecyclerView에 알림
 
         if (filter == "추천순") {
             fetchPlacesByRecommendation()
@@ -152,26 +150,11 @@ class BookclubPlaceListFragment : Fragment() {
                     places.clear()
                     places.addAll(newPlaces)
 
-                    // ✅ 새로운 Adapter 설정 (강제 RecyclerView 갱신)
-//                    requireActivity().runOnUiThread {
-//                        adapter = BookclubPlaceRVAdapter(places) { place ->
-//                            val fragment = BookclubPlaceDetailFragment().apply {
-//                                arguments = Bundle().apply {
-//                                    putInt("PLACE_ID", place.placeId)
-//                                }
-//                            }
-//                            (requireActivity() as MainActivity).addFragment(fragment, showBottomNav = false)
-//                        }
-//                        binding.bookclubPlaceRv.adapter = adapter
-//                        adapter.notifyDataSetChanged()
-//                    }
-
-                    // ✅ 새로운 Adapter 설정 (RecyclerView 강제 갱신)
                     requireActivity().runOnUiThread {
                         binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                             val fragment = BookclubPlaceDetailFragment().apply {
                                 arguments = Bundle().apply {
-                                    putInt("PLACE_ID", place.placeId)
+                                    putLong("PLACE_ID", place.placeId)
                                 }
                             }
                             (requireActivity() as MainActivity).addFragment(fragment, showBottomNav = false)
@@ -190,9 +173,6 @@ class BookclubPlaceListFragment : Fragment() {
 
     // 거리순 API 호출 (lat, lon 사용)
     private fun fetchPlacesByDistance(lat: Double, lon: Double) {
-//        RetrofitClient.placeApi.sortPlaces(sort = "all", lat = lat, lon = lon)
-//            .enqueue(object : Callback<PlaceSearchResponse>
-
         val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)
         api.sortPlaces(sort = "all", lat = lat, lon = lon)
             .enqueue(object : Callback<PlaceSearchResponse> {
@@ -209,7 +189,7 @@ class BookclubPlaceListFragment : Fragment() {
                             binding.bookclubPlaceRv.adapter = BookclubPlaceRVAdapter(requireContext(), places) { place ->
                                 val fragment = BookclubPlaceDetailFragment().apply {
                                     arguments = Bundle().apply {
-                                        putInt("PLACE_ID", place.placeId) // placeId 전달
+                                        putLong("PLACE_ID", place.placeId) // placeId 전달
                                     }
                                 }
                                 (requireActivity() as MainActivity).addFragment(fragment, showBottomNav = false)

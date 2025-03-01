@@ -14,12 +14,9 @@ import com.example.fe.R
 import com.example.fe.Review.SpaceReviewActivity
 import com.example.fe.databinding.ItemSearchResultPlaceBinding
 import com.example.fe.bookclub_place.api.PlaceResponse
-import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
 import com.example.fe.scrap.api.ScrapAPI
-import com.example.fe.search.api.BookSearchAPI
-import com.example.fe.search.api.BookSuggestionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

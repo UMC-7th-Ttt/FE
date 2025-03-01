@@ -27,7 +27,7 @@ interface PlaceSearchAPI {
     // 공간 상세 조회 (placeId 기반)
     @GET("api/places/{placeId}")
     fun getPlaceDetails(
-        @Path("placeId") placeId: Int
+        @Path("placeId") placeId: Long = -1,
     ): Call<PlaceDetailResponse>
 
     // 공간 추천

@@ -50,8 +50,11 @@ class ReviewDetailActivity: AppCompatActivity() {
                 if (response.isSuccessful) {
                     val reviewDetailResponse = response.body()
                     reviewDetailResponse?.let {
-                        val bookId = it.result.book.id
-                        val placeId = it.result.place.id
+//                        val bookId = it.result.book.id
+//                        val placeId = it.result.place.id
+
+                        val bookId = it.result.book?.id ?: -1
+                        val placeId = it.result.place?.id ?: -1
 
                         binding.dateTv.text = formatDate(it.result.writeDate)
 
@@ -62,7 +65,7 @@ class ReviewDetailActivity: AppCompatActivity() {
                             .load(it.result.book.cover)
                             .into(binding.reviewBookIv)
 
-                        binding.reviewPlaceNameTv.text = it.result.place.title
+                        binding.reviewPlaceNameTv.text = it.result.place.title ?: "알수없음"
                         binding.reviewPlaceLocationTv.text = it.result.place.address
                         binding.reviewPlaceStarTv.text = it.result.placeRanking.toString()
                         Glide.with(this@ReviewDetailActivity)

@@ -33,7 +33,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBookclubPlaceDetailBinding
     private var isBookmarked = false // 북마크 상태 추적
-    private var placeId: Int = -1 // 장소 ID 저장
+    private var placeId: Long = -1 // 장소 ID 저장
     private var placeDetail: PlaceDetail? = null  // 장소 상세 데이터 저장용 변수
 
     override fun onCreateView(
@@ -52,8 +52,8 @@ class BookclubPlaceDetailFragment : DialogFragment() {
         }
 
         // placeId 받아와 해당 상세 내용 출력
-        placeId = arguments?.getInt("PLACE_ID", -1) ?: -1
-        if (placeId != -1) {
+        placeId = (arguments?.getLong("PLACE_ID", -1) ?: -1).toLong()
+        if (placeId.toInt() != -1) {
             getPlaceDetails(placeId)
         }
 
@@ -110,7 +110,7 @@ class BookclubPlaceDetailFragment : DialogFragment() {
         }
     }
 
-    private fun getPlaceDetails(placeId: Int) {
+    private fun getPlaceDetails(placeId: Long) {
 //        RetrofitClient.placeApi.getPlaceDetails(placeId).enqueue(object : Callback<PlaceDetailResponse>
 
         val api = JohnRetrofitClient.getClient(requireContext()).create(PlaceSearchAPI::class.java)

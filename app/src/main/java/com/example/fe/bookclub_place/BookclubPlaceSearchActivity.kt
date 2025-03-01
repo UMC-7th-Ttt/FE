@@ -109,7 +109,7 @@ class BookclubPlaceSearchActivity : AppCompatActivity() {
                     val adapter = BookclubRecommendedPlaceRVAdapter(recommendedPlaces) { place ->
                         val fragment = BookclubPlaceDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("PLACE_ID", place.placeId) // 장소 ID 전달
+                                putLong("PLACE_ID", place.placeId) // 장소 ID 전달
                             }
                         }
 

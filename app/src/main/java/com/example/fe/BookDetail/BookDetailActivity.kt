@@ -15,14 +15,9 @@ import com.example.fe.JohnRetrofitClient
 import com.example.fe.MainActivity
 import com.example.fe.R
 import com.example.fe.Review.ReviewActivity
-import com.example.fe.bookclub_place.api.PlaceSearchAPI
-import com.example.fe.bookclub_place.api.PlaceSuggestionResponse
-import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.ActivityBookDetailBinding
 import com.example.fe.databinding.BookInfoCardBinding
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
-import com.example.fe.network.RetrofitObj
-import com.example.fe.scrap.NewScrapDialogFragment
 import com.example.fe.scrap.ScrapBottomSheetFragment
 import com.example.fe.scrap.api.ScrapAPI
 import retrofit2.Call

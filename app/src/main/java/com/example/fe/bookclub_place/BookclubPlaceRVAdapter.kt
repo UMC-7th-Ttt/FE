@@ -3,22 +3,15 @@ package com.example.fe.bookclub_place
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.bookclub_place.api.PlaceResponse
 import com.example.fe.R
-import com.example.fe.bookclub_place.api.PlaceSearchResponse
-import com.example.fe.bookclub_place.api.RetrofitClient
-import com.example.fe.bookclub_place.api.RetrofitClient.placeApi
-import com.example.fe.bookclub_place.api.RetrofitClient.scrapApi
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
-import com.example.fe.databinding.FragmentScrapCustomToastBinding
 import com.example.fe.databinding.ItemBookclubPlaceBinding
 import com.example.fe.databinding.ItemBookclubPlaceFilterBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
@@ -170,21 +163,6 @@ class BookclubPlaceRVAdapter(
                             if (selectedFilter == "추천순") R.drawable.btn_filter_recommendation
                             else R.drawable.btn_filter_distance
                         )
-
-//                        // ✅ 현재 `BookclubPlaceFragment`에서 lat, lon 가져와서 전달
-//                        (holder.itemView.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
-//                            val placeFragment = fragmentManager.findFragmentById(R.id.bookclub_place_frm)
-//                            if (placeFragment is BookclubPlaceFragment) {
-//                                val lat = placeFragment.currentLat
-//                                val lon = placeFragment.currentLon
-//
-//                                // ✅ `updateListByFilter(selectedFilter, lat, lon)` 호출하도록 수정!
-//                                val listFragment = fragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
-//                                if (listFragment is BookclubPlaceListFragment) {
-//                                    listFragment.updateListByFilter(selectedFilter, lat, lon)
-//                                }
-//                            }
-//                        }
                         // ✅ 부모 Fragment에서 직접 `updateListByFilter` 호출
                         val fragment = holder.itemView.context as? AppCompatActivity
                         fragment?.supportFragmentManager?.fragments?.forEach { frag ->

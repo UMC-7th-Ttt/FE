@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.example.fe.BookDetail.BookDetailActivity
 import com.example.fe.JohnRetrofitClient
 import com.example.fe.R
-import com.example.fe.bookclub_place.api.RetrofitClient
 import com.example.fe.databinding.FragmentScrapCancelCustomToastBinding
 import com.example.fe.databinding.ItemEditorPickBookBinding
 import com.example.fe.scrap.ScrapBottomSheetFragment
