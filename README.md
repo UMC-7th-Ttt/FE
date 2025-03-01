@@ -34,65 +34,6 @@
 
 <br/>
 
-## 🛠️ 기술 스택 및 개발 환경
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" style="border-radius: 8px;">
-  <img src="https://img.shields.io/badge/jpa-D22128?style=for-the-badge&logo=jpa&logoColor=white">
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-</div>
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white">
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-  <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
-</div>
-
-<div>
-  <img src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white">
-  <img src="https://img.shields.io/badge/SMTP-6B8E23?style=for-the-badge&logo=gmail&logoColor=white">
-  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">
-  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
-</div>
-
-<br/>
-
-<table style="width: 100%; text-align: left; border-collapse: collapse;">
-  <tr>
-    <th style="text-align: left;">통합 개발 환경</th>
-    <td>IntelliJ</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">Spring 버전</th>
-    <td>3.4.1</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">데이터베이스</th>
-    <td>AWS RDS(MySQL), Redis</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">배포</th>
-    <td>Docker, Github Actions, EC2</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">Project 빌드 관리 도구</th>
-    <td>Gradle</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">Java version</th>
-    <td>java 17</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">API 테스트</th>
-    <td>Swagger, Postman</td>
-  </tr>
-  <tr>
-    <th style="text-align: left;">보안</th>
-    <td>OAuth 2.0, JWT, Spring Security</td>
-  </tr>
-</table>
-
-<br/>
 
 ## 📊 ERD
 <img src="https://github.com/user-attachments/assets/86a9587d-0ab5-4744-a781-080827162e74"/>
@@ -109,16 +50,6 @@
   → 현재 위도와 경도를 기반으로 주소 변환
 - [구글 로그인 & 이메일 인증](https://developers.google.com/?hl=ko) 
   → 사용자 인증 및 이메일 확인
-
-<br/>
-
-## 🔧 기술 고도화
-### 개발 중 진행한 기술 고도화 작업
-- CI/CD 파이프라인 최적화   
-- N+1 문제 해결   
-- SQL 쿼리 최적화   
-
-자세한 내용은 [Notion 링크](https://www.notion.so/196a5f8ffcb080d9a62de1cb66f6997f)에서 확인하실 수 있습니다. 
 
 <br/>
 
