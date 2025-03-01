@@ -163,21 +163,6 @@ class BookclubPlaceRVAdapter(
                             if (selectedFilter == "추천순") R.drawable.btn_filter_recommendation
                             else R.drawable.btn_filter_distance
                         )
-
-//                        // ✅ 현재 `BookclubPlaceFragment`에서 lat, lon 가져와서 전달
-//                        (holder.itemView.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
-//                            val placeFragment = fragmentManager.findFragmentById(R.id.bookclub_place_frm)
-//                            if (placeFragment is BookclubPlaceFragment) {
-//                                val lat = placeFragment.currentLat
-//                                val lon = placeFragment.currentLon
-//
-//                                // ✅ `updateListByFilter(selectedFilter, lat, lon)` 호출하도록 수정!
-//                                val listFragment = fragmentManager.findFragmentById(R.id.bookclub_place_list_frm)
-//                                if (listFragment is BookclubPlaceListFragment) {
-//                                    listFragment.updateListByFilter(selectedFilter, lat, lon)
-//                                }
-//                            }
-//                        }
                         // ✅ 부모 Fragment에서 직접 `updateListByFilter` 호출
                         val fragment = holder.itemView.context as? AppCompatActivity
                         fragment?.supportFragmentManager?.fragments?.forEach { frag ->
