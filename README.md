@@ -30,10 +30,7 @@
 <br/>
 
 ## 🚀 팀원 소개
-|김은진|이승연|전다인|조은향|
-|:-:|:-:|:-:|:-:|
-|<img width="100px" alt="은진" src="https://avatars.githubusercontent.com/u/80269953?v=4">|<img width="100px" alt="승연" src="https://avatars.githubusercontent.com/u/88431909?v=4">|<img width="100px" alt="다인" src="https://avatars.githubusercontent.com/u/120189161?v=4">|<img width="100px" alt="은향" src="https://avatars.githubusercontent.com/u/146572390?v=4">
-|[@kejjin0](https://github.com/kejjin0)|[@yslle](https://github.com/yslle)|[@jeondain](https://github.com/jeondain)|[@JoEunHyang](https://github.com/JoEunHyang)|
+|정성훈|백상준|오혜인|조하은|
 
 <br/>
 
